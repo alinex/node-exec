@@ -1,10 +1,14 @@
 {
   "name": "alinex-exec",
   "version": "0.0.0",
-  "description": "",
+  "description": "Extended version of the process.spawn method.",
   "copyright": "Alexander Schilling 2015",
   "private": false,
-  "keywords": [],
+  "keywords": [
+    "span",
+    "exec",
+    "process"
+  ],
   "homepage": "http://alinex.github.io/node-exec/",
   "repository": {
     "type": "git",
