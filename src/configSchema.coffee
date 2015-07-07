@@ -3,81 +3,74 @@
 
 module.exports =
   title: "Exec configuration"
-  description: "the configuration for the spawn load balancing"
+  description: "the configuration for the external command calls"
   type: 'object'
   allowedKeys: true
-  entries:
-    load:
-      title: "Load management"
-      description: "the load limit, which may be changed per each machine"
+  mandatoryKeys: true
+  keys:
+    retry:
+      title: "Retry if Failed"
+      description: "how often, and when to retry after failures"
       type: 'object'
       allowedKeys: true
-      entries:
-        limit:
-          title: "Load limit"
-          description: "the load limit (not directly equal system load)"
-          type: 'float'
-          min: 0
-          default: 1
-        wait:
-          title: "Wait interval"
-          description: "the time to wait if load is to high (between x sec. and x min.)"
-          type: 'interval'
-          unit: 'ms'
-          min: 1
-          default: 3000
-    start:
-      title: "Start limit"
-      description: "the limit of new processes to start per period"
-      type: 'object'
-      allowedKeys: true
-      entries:
-        interval:
-          title: "Start period"
-          description: "the time for each period in which to check the limit"
-          type: 'interval'
-          unit: 'ms'
-          min: 0
-          default: 1000
-        limit:
-          title: "Weight limit"
-          description: "the maximum weight to start per each period"
-          type: 'float'
-          min: 0
-          default: os.cpus().length
-    weight:
-      title: "Process weights"
-      description: "the weights per process used in the start limit calculation"
-      type: 'object'
-      entries:
-        type: 'float'
-        min: 0
-        default:
-          DEFAULT: 0.2
-          ffmpeg: 10
-          lame: 10
-    defaults:
-      title: "Process defaults"
-      description: "the default values for each process"
-      type: 'object'
-      allowedKeys: true
-      entries:
-        balance:
-          title: "Load Balance"
-          description: "a flag indicating if load balancing be done by default"
-          type: 'boolean'
-          default: 'false'
-        priority:
-          title: "Default priority"
-          description: "the priority for each process, higher means to run earlier"
-          type: 'float'
-          min: 0
-          max: 1
-          default: 0.3
-        retry:
-          title: "Number of retries"
-          description: "the number of retries to do if a command failed"
+      mandatoryKeys: true
+      keys:
+        num:
+          title: "Number of Attempts"
+          description: "the number of maximal attempts to run successfully"
           type: 'integer'
           min: 0
-          default: 5
+        sleep:
+          title: "Time to Wait"
+          description: "the time to wait before retrying a failed attempt"
+          type: 'interval'
+          unit: 'ms'
+        calc:
+          title: "Calculation Method"
+          description: "the method used to calculate each round's wait time"
+          type: 'string'
+          list: [ 'equal', 'linear', 'exponential' ]
+    priority:
+      title: "Priorities"
+      description: "the setup of priorities"
+      type: 'object'
+      allowedKeys: true
+      mandatoryKeys: true
+      keys:
+        default:
+          title: "Default Priority"
+          description: "the default priority as reference to one of the defined list entries"
+          type: 'string'
+          list: '<<< level >>>'
+        level:
+          title: "Priority Levels"
+          description: "the definition of all possible priorities"
+          type: 'object'
+          entries: [
+            title: "Priority Level"
+            description: "the definition of one priority level"
+            type: 'object'
+            allowedKeys: true
+            mandatoryKeys: true
+            keys:
+              maxCpu:
+                title: "Max CPU"
+                description: "the maximum cpu usage, till that execution may be started"
+                type: 'percent'
+              maxLoad:
+                title: "Max Load"
+                description: "the maximum system load, till that execution may be started"
+                type: 'percent'
+          ]
+    queue:
+      title: "Work Queue"
+      description: "the handling of the queue if load is too high"
+      type: 'object'
+      allowedKeys: true
+      mandatoryKeys: true
+      keys:
+        recheck:
+          title: "Recheck Time"
+          description: "the time after that cpu and load will be rechecked"
+          type: 'interval'
 

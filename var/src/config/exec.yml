@@ -1,0 +1,42 @@
+# Setup for process management
+# =================================================
+# Default settings to fully use a machine.
+
+# Retry if failed
+# -------------------------------------------------
+retry:
+  # number of attempts
+  num: 3
+  # time to sleep till next try
+  sleep: 3s
+  # use equal, linear, exponential
+  calc: equal
+
+# Priority Levels
+# -------------------------------------------------
+# This defines the possible priority levels to be used.
+priority:
+  # specify the default priority
+  default: medium
+  # specify the possible priorities with their checks
+  level:
+    anytime:
+      maxCpu: 20%
+      maxLoad: 20%
+    low:
+      maxCpu: 40%
+      maxLoad: 60%
+    medium:
+      maxCpu: 60%
+      maxLoad: 100%
+    heigh:
+      maxCpu: 90%
+      maxLoad: 150%
+    immediately: null
+
+# Work Queue
+# -------------------------------------------------
+# If too much load a queue will be created. Here you specify how to work on it.
+queue:
+  recheck: 3s
+
