@@ -12,3 +12,13 @@ describe "Base", ->
       schema = require '../../src/configSchema'
       validator.selfcheck schema, cb
 
+    it "should initialize config", (cb) ->
+      Exec.init (err) ->
+        expect(err, 'init error').to.not.exist
+        config = require 'alinex-config'
+        config.init (err) ->
+          expect(err, 'load error').to.not.exist
+          conf = config.get '/exec'
+          expect(config, 'config').to.exist
+          expect(conf.retry.num, 'retry num').to.be.above -1
+          cb()

@@ -52,6 +52,7 @@ module.exports =
             type: 'object'
             allowedKeys: true
             mandatoryKeys: true
+            optional: true
             keys:
               maxCpu:
                 title: "Max CPU"
