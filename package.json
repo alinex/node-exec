@@ -40,7 +40,8 @@
   },
   "devDependencies": {
     "alinex-builder": "1.x",
-    "chai": "2.x"
+    "alinex-validator": "^1.0.1",
+    "chai": "^3.0.0"
   },
   "optionalDependencies": {},
   "engines": {

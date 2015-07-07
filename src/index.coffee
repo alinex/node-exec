@@ -9,6 +9,7 @@
 # include base modules
 debug = require('debug')('exec')
 chalk = require 'chalk'
+fspath = require 'path'
 # include alinex modules
 config = require 'alinex-config'
 # internal helpers
@@ -19,8 +20,11 @@ schema = require './configSchema'
 # -------------------------------------------------
 class Exec
 
-  @init: ->
-    config.setSchema '/exec', schema, (err) -> throw err if err
+  @init: (cb) ->
+    # set module search path
+    config.register false, fspath.dirname __dirname
+    # add schema for module's configuration
+    config.setSchema '/exec', schema, cb
 
 
 
