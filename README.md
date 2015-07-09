@@ -41,10 +41,6 @@ npm update alinex-exec --save
 Always have a look at the latest [changes](Changelog.md).
 
 
-
-
-
-
 Usage
 -------------------------------------------------
 You may connect to the process using a callback method on the `run()` call or
@@ -57,38 +53,61 @@ Exec = require 'alinex-exec'
 Exec.init() # this will setup the config class
 ```
 
-You may also load a specific configuration like:
 
-``` coffee
-Spawn.init 'spawn'
-```
+
+### Run an external command
 
 Now you may setup an external process like:
 
 ``` coffee
-proc = new Spawn
+proc = new Exec
   cmd: 'date'
 ```
 
 You may also change the configuration afterwards like:
 
 ``` coffee
-proc.config.cmd = 'date'
+proc.setup.cmd = 'date'
 ```
-
-Now you have multiple ways to work and control your process.
-
-### Run with Callback
 
 To run this simple process call the run-method:
 
 ``` coffee
-proc.run (err, stdout, stderr, code) ->
+proc.run (err) ->
   # work with the results
 ```
 
-After the process has completed its task the callback will be called with the
-most used data. But you may access all details through the `proc` object.
+After the process has completed it's task the callback will get only an error
+obect and the process instance which you don't need. You may access all details
+through the `proc.result` and `proc.process` objects.
+
+### Simplified run
+
+You may call all of this directly using:
+
+``` coffee
+Exec.proc
+  cmd: 'date'
+, (err, proc) ->
+  # work with the results within the process instance
+```
+
+
+
+
+
+### Check the results
+
+To check the response some predefined methods can be used by configuring:
+
+``` coffee
+
+```
+
+
+
+
+
 
 ### Run using Events
 

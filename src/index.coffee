@@ -26,8 +26,13 @@ class Exec
     # add schema for module's configuration
     config.setSchema '/exec', schema, cb
 
+  @run: (setup, cb) ->
+    proc = new Exec setup
+    proc.run cb
 
+  constructor: (@setup) ->
 
-
+  run: (cb) ->
+    cb()
 
 module.exports = Exec
