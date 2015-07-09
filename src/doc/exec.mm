@@ -1,6 +1,6 @@
 <map version="freeplane 1.3.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="Exec" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1436029674270"><hook NAME="MapStyle">
+<node TEXT="Exec" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1436029674270"><hook NAME="MapStyle">
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node">
@@ -185,6 +185,12 @@
 </node>
 <node TEXT="attributes" POSITION="left" ID="ID_1066006853" CREATED="1436029608253" MODIFIED="1436029634427">
 <edge COLOR="#7c0000"/>
+<node TEXT="id" ID="ID_1772870427" CREATED="1436458703539" MODIFIED="1436458919160">
+<icon BUILTIN="button_ok"/>
+</node>
+<node TEXT="name" ID="ID_1957745899" CREATED="1436459077273" MODIFIED="1436459084067">
+<icon BUILTIN="button_ok"/>
+</node>
 <node TEXT="setup" ID="ID_686373530" CREATED="1436029786090" MODIFIED="1436029789541">
 <node TEXT="name" ID="ID_1540336381" CREATED="1436030383932" MODIFIED="1436030386297"/>
 <node TEXT="remote $" ID="ID_171151533" CREATED="1436169600844" MODIFIED="1436340343108"/>

@@ -52,9 +52,6 @@ First you have to load the class package.
 Exec = require 'alinex-exec'
 Exec.init() # this will setup the config class
 ```
-
-
-
 ### Run an external command
 
 Now you may setup an external process like:

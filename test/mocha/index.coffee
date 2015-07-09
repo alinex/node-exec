@@ -13,6 +13,7 @@ describe "Base", ->
       validator.selfcheck schema, cb
 
     it "should initialize config", (cb) ->
+      @timeout 4000
       Exec.init (err) ->
         expect(err, 'init error').to.not.exist
         config = require 'alinex-config'
@@ -22,3 +23,4 @@ describe "Base", ->
           expect(config, 'config').to.exist
           expect(conf.retry.num, 'retry num').to.be.above -1
           cb()
+
