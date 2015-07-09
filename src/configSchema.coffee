@@ -27,6 +27,7 @@ module.exports =
               description: "the time to wait before retrying a failed attempt"
               type: 'interval'
               unit: 'ms'
+              min: 0
         error:
           title: "Retry if Failed"
           description: "the retry after failed retry checks"
@@ -44,6 +45,7 @@ module.exports =
               description: "the time to wait before retrying a failed attempt"
               type: 'interval'
               unit: 'ms'
+              min: 0
     priority:
       title: "Priorities"
       description: "the setup of priorities"
@@ -72,10 +74,19 @@ module.exports =
                 title: "Max CPU"
                 description: "the maximum cpu usage, till that execution may be started"
                 type: 'percent'
+                min: 0
+                max: 1
               maxLoad:
                 title: "Max Load"
                 description: "the maximum system load, till that execution may be started"
                 type: 'percent'
+                min: 0
+              nice:
+                title: "Nice"
+                description: "the niceness of the process"
+                type: 'integer'
+                min: -20
+                max: 19
           ]
     queue:
       title: "Work Queue"
@@ -88,4 +99,4 @@ module.exports =
           title: "Recheck Time"
           description: "the time after that cpu and load will be rechecked"
           type: 'interval'
-
+          min: 0

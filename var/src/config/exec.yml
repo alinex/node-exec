@@ -27,16 +27,20 @@ priority:
     anytime:
       maxCpu: 20%
       maxLoad: 20%
+      nice: 19
     low:
       maxCpu: 40%
       maxLoad: 60%
+      nice: 10
     medium:
       maxCpu: 60%
       maxLoad: 100%
     heigh:
       maxCpu: 90%
       maxLoad: 150%
+      nice: -10
     immediately: null
+      nice: -20
 
 # Work Queue
 # -------------------------------------------------
