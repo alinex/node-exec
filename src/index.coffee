@@ -14,7 +14,7 @@ fspath = require 'path'
 config = require 'alinex-config'
 # internal helpers
 schema = require './configSchema'
-
+spawn = require './spawn'
 
 # Class definition
 # -------------------------------------------------
@@ -32,7 +32,13 @@ class Exec
 
   constructor: (@setup) ->
 
-  run: (cb) ->
-    cb()
+  run: (cb) -> config.init (err) ->
+    return cb err if err
+    # check for local or remote
+    if @setup.remote
+      throw new Error "Remote execution using ssh not implemented, yet."
+    # run locally
+    debug "run locally"
+    spawn.run this, cb
 
 module.exports = Exec
