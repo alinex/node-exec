@@ -5,12 +5,16 @@
 # Retry if failed
 # -------------------------------------------------
 retry:
-  # number of attempts
-  num: 3
-  # time to sleep till next try
-  sleep: 3s
-  # use equal, linear, exponential
-  calc: equal
+  # too much processes opened on system
+  ulimit:
+    # time to sleep till next try
+    interval: 1s
+  # process failed retry check
+  error:
+    # number of attempts
+    times: 3
+    # time to sleep till next try
+    interval: 3s
 
 # Priority Levels
 # -------------------------------------------------

@@ -15,6 +15,7 @@ chalk = require 'chalk'
 {spawn} = require 'child_process'
 carrier = require 'carrier'
 # include alinex modules
+config = require 'alinex-config'
 
 module.exports =
   run: (cb) ->
@@ -62,8 +63,9 @@ module.exports =
     @proc.on 'error', (err) =>
       if err.message is 'spawn EMFILE'
         debug chalk.grey "#{@name} too much processes are opened, waiting 1s..."
-        @emit 'wait', 1000
-        return setTimeout (=> @run cb), 1000
+        interval = config.get 'exec/retry/ulimit/interval'
+        @emit 'wait', interval
+        return setTimeout (=> @run cb), interval
       @process.error = err
 #      @retry cb
     # process finished

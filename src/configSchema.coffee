@@ -9,27 +9,41 @@ module.exports =
   mandatoryKeys: true
   keys:
     retry:
-      title: "Retry if Failed"
-      description: "how often, and when to retry after failures"
+      title: "Retry"
+      description: "the retry of the process"
       type: 'object'
       allowedKeys: true
       mandatoryKeys: true
       keys:
-        num:
-          title: "Number of Attempts"
-          description: "the number of maximal attempts to run successfully"
-          type: 'integer'
-          min: 0
-        sleep:
-          title: "Time to Wait"
-          description: "the time to wait before retrying a failed attempt"
-          type: 'interval'
-          unit: 'ms'
-        calc:
-          title: "Calculation Method"
-          description: "the method used to calculate each round's wait time"
-          type: 'string'
-          list: [ 'equal', 'linear', 'exponential' ]
+        ulimit:
+          title: "Retry if ULimit"
+          description: "the retry if the process limit is reached"
+          type: 'object'
+          allowedKeys: true
+          mandatoryKeys: true
+          keys:
+            interval:
+              title: "Time to Wait"
+              description: "the time to wait before retrying a failed attempt"
+              type: 'interval'
+              unit: 'ms'
+        error:
+          title: "Retry if Failed"
+          description: "the retry after failed retry checks"
+          type: 'object'
+          allowedKeys: true
+          mandatoryKeys: true
+          keys:
+            times:
+              title: "Number of Attempts"
+              description: "the number of maximal attempts to run successfully"
+              type: 'integer'
+              min: 0
+            interval:
+              title: "Time to Wait"
+              description: "the time to wait before retrying a failed attempt"
+              type: 'interval'
+              unit: 'ms'
     priority:
       title: "Priorities"
       description: "the setup of priorities"

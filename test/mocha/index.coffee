@@ -21,6 +21,6 @@ describe "Base", ->
           expect(err, 'load error').to.not.exist
           conf = config.get '/exec'
           expect(config, 'config').to.exist
-          expect(conf.retry.num, 'retry num').to.be.above -1
+          expect(conf.retry.error.times, 'retry num').to.be.above -1
           cb()
 
