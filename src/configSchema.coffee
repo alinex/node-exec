@@ -67,7 +67,6 @@ module.exports =
             description: "the definition of one priority level"
             type: 'object'
             allowedKeys: true
-            mandatoryKeys: true
             optional: true
             keys:
               maxCpu:

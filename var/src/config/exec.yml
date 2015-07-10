@@ -39,7 +39,7 @@ priority:
       maxCpu: 90%
       maxLoad: 150%
       nice: -10
-    immediately: null
+    immediately:
       nice: -20
 
 # Work Queue
