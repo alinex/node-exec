@@ -17,18 +17,27 @@ carrier = require 'carrier'
 # include alinex modules
 
 run = (cb) ->
+  # set command
+  cmd = @setup.cmd
+  args = @setup.args[0..] ? []
+  # support priority based nice values
+  prio = @conf.priority.level[@setup.priority]
+  if prio.nice and process.platform is 'linux'
+    if prio.nice > 0 or (@setup.uid is 0 or (not @setup.uid? and not process.getuid()))
+      # add support for nice call
+      args.unshift '-n', prio.nice, cmd # nice setting, command
+      cmd = 'nice'
   # store process information
   @process =
     host: 'localhost'
     start: new Date()
   # start process
-  setup = @setup
   try
-    @proc = spawn setup.cmd, setup.args ? [],
-      env: setup.env
-      cwd: setup.cwd
-      uid: setup.uid
-      gid: setup.gid
+    @proc = spawn cmd, args,
+      env: @setup.env
+      cwd: @setup.cwd
+      uid: @setup.uid
+      gid: @setup.gid
   catch err
     if err.message is 'spawn EMFILE'
       interval = @conf.retry.ulimit.interval
@@ -41,11 +50,11 @@ run = (cb) ->
   debug "#{@name} start using spawn under pid #{@proc.pid}"
   @process.pid = @proc.pid
   cmdline = ''
-  for n, e of setup.env
+  for n, e of @setup.env
     cmdline += " #{n}=#{e}"
-  cmdline += " #{setup.cmd}"
-  if setup.args?
-    for a in setup.args
+  cmdline += " #{@setup.cmd}"
+  if @setup.args?
+    for a in @setup.args
       if typeof a is 'string'
         cmdline += " #{a.replace /[ ]/, '\ '}"
       else

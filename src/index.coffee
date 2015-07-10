@@ -41,7 +41,13 @@ class Exec extends EventEmitter
     @id = ++objectId
     host = 'localhost'
     @name = chalk.grey "#{host}##{@id}:"
-    debug "#{@name} created new instance"
+    # set priority
+    prio = config.get 'exec/priority'
+    @setup.priority ?= prio.default
+    unless prio.level[@setup.priority]
+      debug chalk.red "Undefined priority #{@setup.priority} - using default"
+      @setup.priority = prio.default
+    debug "#{@name} created new instance with #{@setup.priority} priority"
 
   run: (cb) -> Exec.init (err) =>
     return cb err if err
@@ -58,7 +64,6 @@ class Exec extends EventEmitter
       # success
       debug "#{@name} succeeded"
       cb null, this
-
 
   stdout: ->
     @result.filter (e) -> e[0] is 1
