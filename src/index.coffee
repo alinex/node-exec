@@ -29,7 +29,9 @@ class Exec extends EventEmitter
     # set module search path
     config.register false, fspath.dirname __dirname
     # add schema for module's configuration
-    config.setSchema '/exec', schema, cb
+    config.setSchema '/exec', schema, (err) ->
+      return cb err if err
+      config.init cb
 
   @run: (setup, cb) ->
     proc = new Exec setup
@@ -41,8 +43,9 @@ class Exec extends EventEmitter
     @name = chalk.grey "#{host}##{@id}:"
     debug "#{@name} created new instance"
 
-  run: (cb) -> config.init (err) =>
+  run: (cb) -> Exec.init (err) =>
     return cb err if err
+    @conf = config.get '/exec'
     # check for local or remote
     if @setup.remote
       throw new Error "Remote execution using ssh not implemented, yet."

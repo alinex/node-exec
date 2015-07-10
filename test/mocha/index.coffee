@@ -12,7 +12,7 @@ describe "Base", ->
       schema = require '../../src/configSchema'
       validator.selfcheck schema, cb
 
-    it.only "should initialize config", (cb) ->
+    it "should initialize config", (cb) ->
       @timeout 4000
       Exec.init (err) ->
         expect(err, 'init error').to.not.exist
