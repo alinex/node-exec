@@ -94,8 +94,6 @@ describe "Local", ->
           priority: prio
         , cb
       , (err, results) ->
-        for exec in results
-          console.log exec.process.end
         expect(results[0].process.end).to.be.above results[1].process.end
         expect(results[1].process.end).to.be.above results[2].process.end
         cb()

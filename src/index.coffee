@@ -17,6 +17,7 @@ async = require 'alinex-async'
 # internal helpers
 schema = require './configSchema'
 spawn = require './spawn'
+check = require './check'
 
 objectId = 0
 
@@ -63,7 +64,18 @@ class Exec extends EventEmitter
         return cb err
       # success
       debug "#{@name} succeeded"
-      cb null, this
+      @check cb
+
+  check: (cb) ->
+    # find check to use
+    # use given one
+    # or per command
+    # or default
+
+    # run check
+    err = check[name].apply this
+    # do something
+    cb null, this
 
   stdout: ->
     @result.filter (e) -> e[0] is 1
