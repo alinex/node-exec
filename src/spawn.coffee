@@ -15,6 +15,7 @@ chalk = require 'chalk'
 {spawn} = require 'child_process'
 carrier = require 'carrier'
 # include alinex modules
+{object} = require 'alinex-util'
 
 run = (cb) ->
   # set command
@@ -27,6 +28,10 @@ run = (cb) ->
       # add support for nice call
       args.unshift '-n', prio.nice, cmd # nice setting, command
       cmd = 'nice'
+  # set environment to english language
+  env = @setup.env ? object.extend process.env,
+    LANG: 'C'
+    LC_ALL: 'C'
   # store process information
   @process =
     host: 'localhost'
@@ -34,7 +39,7 @@ run = (cb) ->
   # start process
   try
     @proc = spawn cmd, args,
-      env: @setup.env
+      env: env
       cwd: @setup.cwd
       uid: @setup.uid
       gid: @setup.gid

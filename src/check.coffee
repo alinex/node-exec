@@ -16,22 +16,23 @@ result = (name, message, check) ->
 
 module.exports =
 
-  noExitCode: ->
-    result @name, "Process #{@setup.cmd} returned exit code #{@code} but should be 0."
-    , @code is ß
+  result:
+    noExitCode: ->
+      result @name, "Process #{@setup.cmd} returned exit code #{@code} but should be 0."
+      , @code is ß
 
-  onlyAllowedExitCodes: (args) ->
-    result @name, "Process #{@setup.cmd} returned not allowed exit code #{@code}."
-    , @code is 0 or @code in args
+    onlyAllowedExitCodes: (args) ->
+      result @name, "Process #{@setup.cmd} returned not allowed exit code #{@code}."
+      , @code is 0 or @code in args
 
-  noError: ->
-    result @name, "Process #{@setup.cmd} made some error output."
-    , not @stderr()
+    noError: ->
+      result @name, "Process #{@setup.cmd} made some error output."
+      , not @stderr()
 
-  notMatchError: (fail) ->
-    result @name, "Process #{@setup.cmd} matched the #{fail} condition."
-    , not @stderr().match fail
+    notMatchError: (fail) ->
+      result @name, "Process #{@setup.cmd} matched the #{fail} condition."
+      , not @stderr().match fail
 
-  matchOutput: (ok) ->
-    result @name, "Process #{@setup.cmd} didn't match the #{ok} condition."
-    , @stderr().match ok
+    matchOutput: (ok) ->
+      result @name, "Process #{@setup.cmd} didn't match the #{ok} condition."
+      , @stderr().match ok
