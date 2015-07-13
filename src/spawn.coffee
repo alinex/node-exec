@@ -20,7 +20,7 @@ carrier = require 'carrier'
 run = (cb) ->
   # set command
   cmd = @setup.cmd
-  args = @setup.args[0..] ? []
+  args = if @setup.args then @setup.args[0..] else []
   # support priority based nice values
   prio = @conf.priority.level[@setup.priority]
   if prio.nice and process.platform is 'linux'
@@ -66,14 +66,15 @@ run = (cb) ->
         cmdline += " #{a}"
   debugCmd chalk.yellow "#{@name} #{cmdline.trim()}"
   # collect output
-  @result = []
+  @result = {}
+  @result.lines = []
   carrier.carry @proc.stdout, (line) =>
-    @result.push [1, line]
+    @result.lines.push [1, line]
     @emit 'stdout', line # send through
     debugOut "#{@name} #{line}"
   , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
   carrier.carry @proc.stderr, (line) =>
-    @result.push [2, line]
+    @result.lines.push [2, line]
     @emit 'stderr', line # send through
     debugErr "#{@name} #{line}"
   , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
@@ -83,14 +84,15 @@ run = (cb) ->
 
 #      @retry cb
   # process finished
-  @proc.on 'close', (@code, signal) =>
+  @proc.on 'close', (code, signal) =>
+    @result.code = code
     @process.end = new Date()
-    if @code
+    if @result.code
       debugCmd "#{@name} exit: code #{@code} after #{@process.end-@process.start} ms"
     else unless @code?
       debugCmd "#{@name} exit: signal #{signal} after #{@process.end-@process.start} ms"
       @code = -1
-    @emit 'done', @code
+    @emit 'done', @result.code
 #      @error = @config.check @
 #      return @retry cb if @error
     cb @process.error, this if cb

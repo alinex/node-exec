@@ -52,8 +52,7 @@ class Exec extends EventEmitter
       @setup.priority = prio.default
     debug "#{@name} created new instance with #{@setup.priority} priority"
 
-  run: (cb) -> Exec.init (err) =>
-    return cb err if err
+  run: (cb) ->
     @conf = config.get '/exec'
     # check for local or remote
     if @setup.remote

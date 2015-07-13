@@ -8,22 +8,20 @@
 debug = require('debug')('exec:check')
 
 result = (name, message, check) ->
-  unless check
-    debug "#{name} check failed: #{message}"
-    return new Error message
-  debug "#{name} check succeeded"
-  return false
+  return false if check
+  debug "#{name} check failed: #{message}"
+  return new Error message
 
 module.exports =
 
   result:
     noExitCode: ->
-      result @name, "Process #{@setup.cmd} returned exit code #{@code} but should be 0."
-      , @code is ß
+      result @name, "Process #{@setup.cmd} returned exit code #{@result.code} but should be 0."
+      , @result.code is 0
 
     onlyAllowedExitCodes: (args) ->
-      result @name, "Process #{@setup.cmd} returned not allowed exit code #{@code}."
-      , @code is 0 or @code in args
+      result @name, "Process #{@setup.cmd} returned not allowed exit code #{@result.code}."
+      , @result.code is 0 or @result.code in args
 
     noError: ->
       result @name, "Process #{@setup.cmd} made some error output."

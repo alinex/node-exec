@@ -17,8 +17,8 @@ describe "Local", ->
         cmd: 'date'
       exec.run (err) ->
         expect(err, 'error').to.not.exist
-        expect(exec.code, "code").equal 0
         expect(exec.result, "result").to.exist
+        expect(exec.result.code, "code").equal 0
         cb()
 
     it "should run date (direct)", (cb) ->
@@ -26,8 +26,8 @@ describe "Local", ->
         cmd: 'date'
       , (err, exec) ->
         expect(err, 'error').to.not.exist
-        expect(exec.code, "code").equal 0
         expect(exec.result, "result").to.exist
+        expect(exec.result.code, "code").equal 0
         cb()
 
     it "should allow arguments", (cb) ->
@@ -39,8 +39,8 @@ describe "Local", ->
         ]
       , (err, exec) ->
         expect(err, 'error').to.not.exist
-        expect(exec.code, "code").equal 0
-        expect(exec.result[0][1], "result stdout").to.equal now[0..9]
+        expect(exec.result.lines[0][1], "result stdout").to.equal now[0..9]
+        expect(exec.result.code, "code").equal 0
         cb()
 
     it "should allow changed working directory", (cb) ->
@@ -49,8 +49,8 @@ describe "Local", ->
         cwd: '/etc'
       , (err, exec) ->
         expect(err, 'error').to.not.exist
-        expect(exec.code, "code").equal 0
-        expect(exec.result[0][1], "result stdout").to.equal '/etc'
+        expect(exec.result.lines[0][1], "result stdout").to.equal '/etc'
+        expect(exec.result.code, "code").equal 0
         cb()
 
     it "should change environment", (cb) ->
@@ -61,8 +61,8 @@ describe "Local", ->
           MY_ENV: 'alex'
       , (err, exec) ->
         expect(err, 'error').to.not.exist
-        expect(exec.code, "code").equal 0
-        expect(exec.result[0][1], "result stdout").to.equal 'alex'
+        expect(exec.result.lines[0][1], "result stdout").to.equal 'alex'
+        expect(exec.result.code, "code").equal 0
         cb()
 
     it "should not fail on ulimit", (cb) ->
@@ -75,8 +75,8 @@ describe "Local", ->
             args: [ 1 ]
           , (err, exec) ->
             expect(err, 'error').to.not.exist
-            expect(exec.code, "code").equal 0
             cb()
+            expect(exec.result.code, "code").equal 0
         , (err) ->
           cb()
 
