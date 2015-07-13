@@ -68,24 +68,26 @@ class Exec extends EventEmitter
 
   check: (cb) ->
     # find check to use
-    # use given one
-    # or per command
-    # or default
+    list ? @setup.check ? { noExitCode: true }
+    # run checks
+    for n, v of list
+      err = check[n].apply this, v.args ? null
+      continue unless err
+      # got an error
 
-    # run check
-    err = check[name].apply this
-    # do something
+    # everything ok, go on
     cb null, this
 
   stdout: ->
-    @result.filter (e) -> e[0] is 1
+    @result.stdout ?= @result.lines
+    .filter (e) -> e[0] is 1
     .map (e) -> e[1]
     .join '\n'
 
   stderr: ->
-    @result.filter (e) -> e[0] is 2
+    @result.stderr ?= @result.lines
+    .filter (e) -> e[0] is 2
     .map (e) -> e[1]
     .join '\n'
-
 
 module.exports = Exec
