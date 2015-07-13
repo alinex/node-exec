@@ -35,8 +35,10 @@ class Exec extends EventEmitter
       config.init cb
 
   @run: (setup, cb) ->
-    proc = new Exec setup
-    proc.run cb
+    Exec.init (err) ->
+      return cb err if err
+      proc = new Exec setup
+      proc.run cb
 
   constructor: (@setup) ->
     @id = ++objectId
@@ -61,21 +63,25 @@ class Exec extends EventEmitter
     spawn.run.call this, (err) =>
       if err
         debug "#{@name} failed with #{err}"
+        ################################################## run again?
         return cb err
       # success
-      debug "#{@name} succeeded"
       @check cb
 
   check: (cb) ->
     # find check to use
-    list ? @setup.check ? { noExitCode: true }
+    list = @setup.check ? {noExitCode: true}
     # run checks
     for n, v of list
-      err = check[n].apply this, v.args ? null
+      err = check.result[n].apply this, v.args ? null
       continue unless err
       # got an error
-
+      @result.error = err
+      debug "#{@name} failed with #{err.message}"
+      ############################################# run again?
+      return cb null, this
     # everything ok, go on
+    debug "#{@name} succeeded"
     cb null, this
 
   stdout: ->
