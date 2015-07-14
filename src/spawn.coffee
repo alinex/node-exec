@@ -87,11 +87,11 @@ run = (cb) ->
   @proc.on 'close', (code, signal) =>
     @result.code = code
     @process.end = new Date()
-    if @result.code
-      debugCmd "#{@name} exit: code #{@code} after #{@process.end-@process.start} ms"
-    else unless @code?
+    if signal?
       debugCmd "#{@name} exit: signal #{signal} after #{@process.end-@process.start} ms"
-      @code = -1
+      @code ?= -1
+    else
+      debugCmd "#{@name} exit: code #{@result.code} after #{@process.end-@process.start} ms"
     @emit 'done', @result.code
 #      @error = @config.check @
 #      return @retry cb if @error

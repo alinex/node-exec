@@ -72,11 +72,12 @@ class Exec extends EventEmitter
     list = @setup.check ? {noExitCode: true}
     # run checks
     for n, v of list
+      retiurn cb new Error "Unknown check function #{n} in Exec" unless check.result[n]?
       err = check.result[n].apply this, v.args ? null
       continue unless err
+      debug chalk.magenta "#{@name} #{n}: #{err.message}"
       # got an error
       @result.error = err
-      debug "#{@name} failed with #{err.message}"
       ############################################# run again?
       return cb null, this
     # everything ok, go on
