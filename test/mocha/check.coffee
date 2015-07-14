@@ -230,3 +230,20 @@ describe "Check", ->
         expect(exec.result.code, "code").to.equal 127
         expect(exec.result.error, "result error").to.exist
         cb()
+
+  describe.only "retry", ->
+
+    it "should fail with 3 tries", (cb) ->
+      @timeout 10000
+      Exec.run
+        cmd: 'cartoon-date'
+        retry:
+          times: 3
+          interval: 1000
+      , (err, exec) ->
+        expect(err, 'error').to.not.exist
+        expect(exec.result, "result").to.exist
+        expect(exec.result.code, "code").to.equal 127
+        expect(exec.result.error, "result error").to.exist
+        cb()
+

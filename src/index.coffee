@@ -62,36 +62,55 @@ class Exec extends EventEmitter
     spawn.run.call this, (err) =>
       if err
         debug "#{@name} failed with #{err}"
-        ################################################## run again?
         return cb err
       # success
       @check cb
 
   check: (cb) ->
     # find check to use
-    list = @setup.check ? {noExitCode: true}
+    list = @setup.check ? {
+      noExitCode:
+        retry: @setup.retry?.times
+    }
     # run checks
     for n, v of list
-      retiurn cb new Error "Unknown check function #{n} in Exec" unless check.result[n]?
+      return cb new Error "Unknown check function #{n} in Exec" unless check.result[n]?
       err = check.result[n].apply this, v.args ? null
       continue unless err
       debug chalk.magenta "#{@name} #{n}: #{err.message}"
       # got an error
       @result.error = err
-      ############################################# run again?
+      if v.retry
+        times = @setup.retry.times ? @conf.retry.error.times
+        if @tries?.length >= times
+          debug chalk.red "#{@name} reached #{times} retries - giving up"
+          return cb err
+        console.log 'RETRY', times
+        return setTimeout =>
+          # store last try
+          @tries ?= []
+          @tries.push
+            process: @process
+            result: @result
+            control: @control
+          # run again
+          this.run cb
+        , @setup.retry.interval ? @conf.retry.error.interval
       return cb null, this
     # everything ok, go on
     debug "#{@name} succeeded"
     cb null, this
 
-  stdout: ->
-    @result.stdout ?= @result.lines
+  stdout: (data) ->
+    data ?= @result
+    data.stdout ?= data.lines
     .filter (e) -> e[0] is 1
     .map (e) -> e[1]
     .join '\n'
 
-  stderr: ->
-    @result.stderr ?= @result.lines
+  stderr: (data) ->
+    data ?= @result
+    data.stderr ?= data.lines
     .filter (e) -> e[0] is 2
     .map (e) -> e[1]
     .join '\n'
