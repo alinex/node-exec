@@ -5,10 +5,10 @@
 # Retry if failed
 # -------------------------------------------------
 retry:
-  # check the node.js event queue
-  lag:
-   # max round time
-    interval: 70ms
+  # check for host vital signs
+  vital:
+   # time to recheck host vital signs
+    interval: 5s
   # too much processes opened on system
   ulimit:
     # time to sleep till next try
