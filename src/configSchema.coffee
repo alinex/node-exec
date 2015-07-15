@@ -91,6 +91,18 @@ module.exports =
               maxLoad:
                 title: "Max Load"
                 description: "the maximum system load, till that execution may be started"
+                type: 'array'
+                delimiter: /\s/
+                minLength: 1
+                maxLength: 3
+                entries:
+                  title: "Max Load"
+                  description: "the maximum system load for period"
+                  type: 'percent'
+                  min: 0
+              minFreemem:
+                title: "Min free Mem"
+                description: "the minimum free memory needed to execute"
                 type: 'percent'
                 min: 0
               nice:

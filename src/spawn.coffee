@@ -82,8 +82,6 @@ run = (cb) ->
   # error management
   @proc.on 'error', (err) =>
     @process.error = err
-
-#      @retry cb
   # process finished
   @proc.on 'close', (code, signal) =>
     @result.code = code
@@ -94,14 +92,13 @@ run = (cb) ->
     else
       debugCmd "#{@name} exit: code #{@result.code} after #{@process.end-@process.start} ms"
     @emit 'done', @result.code
-#      @error = @config.check @
-#      return @retry cb if @error
     cb @process.error, this if cb
 
 vital = (vital, date, cb) ->
   return cb() if vital.date is date
   console.log 'GET VITAL'
   vital.date = date
+  vital.error = false
   # freemem
   vital.freemem = os.freemem() / os.totalmem()
   cpus = os.cpus()
