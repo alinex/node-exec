@@ -9,6 +9,8 @@
 module.exports =
 
   result:
+    nothing: -> return false
+
     noExitCode: ->
       return false if @result.code is 0
       new Error "Process #{@setup.cmd} returned exit code #{@result.code} but should be 0."

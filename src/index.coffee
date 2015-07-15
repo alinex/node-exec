@@ -84,8 +84,7 @@ class Exec extends EventEmitter
         times = @setup.retry.times ? @conf.retry.error.times
         if @tries?.length >= times
           debug chalk.red "#{@name} reached #{times} retries - giving up"
-          return cb err
-        console.log 'RETRY', times
+          return cb err, this
         return setTimeout =>
           # store last try
           @tries ?= []
@@ -96,7 +95,7 @@ class Exec extends EventEmitter
           # run again
           this.run cb
         , @setup.retry.interval ? @conf.retry.error.interval
-      return cb null, this
+      return cb err, this
     # everything ok, go on
     debug "#{@name} succeeded"
     cb null, this

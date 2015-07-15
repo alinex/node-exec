@@ -21,7 +21,7 @@ describe "Check", ->
       Exec.run
         cmd: 'cartoon-date'
       , (err, exec) ->
-        expect(err, 'error').to.not.exist
+        expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
         expect(exec.result.code, "code").to.equal 127
         expect(exec.result.error, "result error").to.exist
@@ -49,7 +49,7 @@ describe "Check", ->
           exitCode:
             args: [127]
       , (err, exec) ->
-        expect(err, 'error').to.not.exist
+        expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
         expect(exec.result.code, "code").to.equal 0
         expect(exec.result.error, "result error").to.exist
@@ -75,7 +75,7 @@ describe "Check", ->
         check:
           noStderr: true
       , (err, exec) ->
-        expect(err, 'error').to.not.exist
+        expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
         expect(exec.result.code, "code").to.equal 127
         expect(exec.result.error, "result error").to.exist
@@ -101,7 +101,7 @@ describe "Check", ->
         check:
           noStdout: true
       , (err, exec) ->
-        expect(err, 'error').to.not.exist
+        expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
         expect(exec.result.code, "code").to.equal 0
         expect(exec.result.error, "result error").to.exist
@@ -130,7 +130,7 @@ describe "Check", ->
           matchStdout:
             args: [/\D0% packet loss/, /\d+% packet loss/]
       , (err, exec) ->
-        expect(err, 'error').to.not.exist
+        expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
         expect(exec.result.error, "result error").to.exist
         cb()
@@ -157,7 +157,7 @@ describe "Check", ->
           matchStderr:
             args: [/No such file or directory/]
       , (err, exec) ->
-        expect(err, 'error').to.not.exist
+        expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
         expect(exec.result.code, "code").to.equal 0
         expect(exec.result.error, "result error").to.exist
@@ -184,7 +184,7 @@ describe "Check", ->
           notMatchStderr:
             args: [/No such file or directory/]
       , (err, exec) ->
-        expect(err, 'error').to.not.exist
+        expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
         expect(exec.result.error, "result error").to.exist
         cb()
@@ -211,7 +211,7 @@ describe "Check", ->
           noExitCode: true
           noStderr: true
       , (err, exec) ->
-        expect(err, 'error').to.not.exist
+        expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
         expect(exec.result.code, "code").to.equal 127
         expect(exec.result.error, "result error").to.exist
@@ -225,13 +225,13 @@ describe "Check", ->
             args: [0, 127]
           noStderr: true
       , (err, exec) ->
-        expect(err, 'error').to.not.exist
+        expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
         expect(exec.result.code, "code").to.equal 127
         expect(exec.result.error, "result error").to.exist
         cb()
 
-  describe.only "retry", ->
+  describe "retry", ->
 
     it "should fail with 3 tries", (cb) ->
       @timeout 10000
@@ -241,7 +241,7 @@ describe "Check", ->
           times: 3
           interval: 1000
       , (err, exec) ->
-        expect(err, 'error').to.not.exist
+        expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
         expect(exec.result.code, "code").to.equal 127
         expect(exec.result.error, "result error").to.exist

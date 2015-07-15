@@ -25,7 +25,7 @@ describe "Result", ->
         cmd: 'cat'
         args: ['test/data/not-existing']
       exec.run (err) ->
-        expect(err, 'error').to.not.exist
+        expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
         expect(exec.result.code, "code").to.not.equal 0
         expect(exec.stderr(), 'stderr output').to.contain 'test/data/not-existing'
@@ -36,7 +36,7 @@ describe "Result", ->
         cmd: 'wc'
         args: ['test/data/poem', 'test/data/not-existing']
       exec.run (err) ->
-        expect(err, 'error').to.not.exist
+        expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
         expect(exec.result.code, "code").to.not.equal 0
         expect(exec.stderr(), 'stderr output').to.contain 'test/data/not-existing'
