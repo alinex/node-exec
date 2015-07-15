@@ -11,7 +11,7 @@ debug = require('debug')('exec')
 chalk = require 'chalk'
 fspath = require 'path'
 EventEmitter = require('events').EventEmitter
-toobusy = require('toobusy')
+toobusy = require('toobusy-js')
 # include alinex modules
 config = require 'alinex-config'
 async = require 'alinex-async'
