@@ -15,20 +15,6 @@ module.exports =
       allowedKeys: true
       mandatoryKeys: true
       keys:
-        lag:
-          title: "Node.js LAG"
-          description: "the node.js event queue lag"
-          type: 'object'
-          allowedKeys: true
-          mandatoryKeys: true
-          keys:
-            interval:
-              title: "Max LAG Time"
-              description: "the maximum time node.js is allowed to use as round time in event queue"
-              type: 'interval'
-              unit: 'ms'
-              min: 5
-              default: 70
         vital:
           title: "Vital Sign Check"
           description: "the check for host vital data"
