@@ -9,6 +9,10 @@ retry:
   ulimit:
     # time to sleep till next try
     interval: 1s
+  # check for host vital signs
+  vital:
+   # time to recheck host vital signs
+    interval: 5s
   # process failed retry check
   error:
     # number of attempts

@@ -28,6 +28,19 @@ module.exports =
               type: 'interval'
               unit: 'ms'
               min: 0
+        vital:
+          title: "Vital Sign Check"
+          description: "the check for host vital data"
+          type: 'object'
+          allowedKeys: true
+          mandatoryKeys: true
+          keys:
+            interval:
+              title: "Time before Recheck"
+              description: "the time to wait before rechecking the host vital signs"
+              type: 'interval'
+              unit: 'ms'
+              min: 0
         error:
           title: "Retry if Failed"
           description: "the retry after failed retry checks"

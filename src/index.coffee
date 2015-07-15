@@ -42,6 +42,7 @@ class Exec extends EventEmitter
 
   constructor: (@setup) ->
     @id = ++objectId
+    Exec.vital ?= {}
     host = 'localhost'
     @name = chalk.grey "#{host}##{@id}:"
     # set priority
@@ -54,17 +55,25 @@ class Exec extends EventEmitter
 
   run: (cb) ->
     @conf = config.get '/exec'
-    # check for local or remote
-    if @setup.remote
-      throw new Error "Remote execution using ssh not implemented, yet."
-    # run locally
-    debug "#{@name} run locally"
-    spawn.run.call this, (err) =>
-      if err
-        debug "#{@name} failed with #{err}"
-        return cb err
-      # success
-      @check cb
+    # check existing vital data
+    vital = Exec.vital[@setup.remote ? 'localhost'] ?= {}
+    # get vital data
+    date = Math.floor new Date().getTime()/@conf.retry.vital.interval
+    spawn.vital vital, date, (err) =>
+      return cb err if err
+      # check vital data
+
+      # check for local or remote
+      if @setup.remote
+        throw new Error "Remote execution using ssh not implemented, yet."
+      # run locally
+      debug "#{@name} run locally"
+      spawn.run.call this, (err) =>
+        if err
+          debug "#{@name} failed with #{err}"
+          return cb err
+        # success
+        @check cb
 
   check: (cb) ->
     # find check to use

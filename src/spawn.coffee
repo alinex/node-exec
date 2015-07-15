@@ -13,6 +13,7 @@ debugOut = require('debug')('exec:out')
 debugErr = require('debug')('exec:err')
 chalk = require 'chalk'
 {spawn} = require 'child_process'
+os = require 'os'
 carrier = require 'carrier'
 # include alinex modules
 {object} = require 'alinex-util'
@@ -97,5 +98,25 @@ run = (cb) ->
 #      return @retry cb if @error
     cb @process.error, this if cb
 
+vital = (vital, date, cb) ->
+  return cb() if vital.date is date
+  console.log 'GET VITAL'
+  vital.date = date
+  # freemem
+  vital.freemem = os.freemem() / os.totalmem()
+  cpus = os.cpus()
+  vital.load = os.loadavg().map (v) -> v / cpus.length
+  cpu =
+    user: 0
+    nice: 0
+    sys: 0
+    idle: 0
+  for core in cpus
+    cpu[k] += core.times[k] for k of cpu
+  vital.cpu = 1 - cpu.idle / (cpu.user + cpu.nice + cpu.sys + cpu.idle)
+  console.log vital
+  cb()
+
 module.exports =
   run: run
+  vital: vital
