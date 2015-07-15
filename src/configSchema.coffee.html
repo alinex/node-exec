@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>configSchema.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "home/alex/a3/node-exec/src/configSchemacoffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <script src="../fileSearch.js"></script>
+  <script src="../goToLine.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+  <link rel="stylesheet" href="../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#check%20definitions">Check definitions</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-exec" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="check%20definitions">
+  <h1>
+    <a href="#check%20definitions" name="check%20definitions" class="pilcrow">&#182;</a>
+    Check definitions
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nv">module.exports =</span>
+  <span class="nv">title: </span><span class="s">&quot;Exec configuration&quot;</span>
+  <span class="nv">description: </span><span class="s">&quot;the configuration for the external command calls&quot;</span>
+  <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+  <span class="nv">allowedKeys: </span><span class="kc">true</span>
+  <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
+  <span class="nv">keys:</span>
+    <span class="nv">retry:</span>
+      <span class="nv">title: </span><span class="s">&quot;Retry&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the retry of the process&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+      <span class="nv">allowedKeys: </span><span class="kc">true</span>
+      <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
+      <span class="nv">keys:</span>
+        <span class="nv">ulimit:</span>
+          <span class="nv">title: </span><span class="s">&quot;Retry if ULimit&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the retry if the process limit is reached&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+          <span class="nv">allowedKeys: </span><span class="kc">true</span>
+          <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
+          <span class="nv">keys:</span>
+            <span class="nv">interval:</span>
+              <span class="nv">title: </span><span class="s">&quot;Time to Wait&quot;</span>
+              <span class="nv">description: </span><span class="s">&quot;the time to wait before retrying a failed attempt&quot;</span>
+              <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+              <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+              <span class="nv">min: </span><span class="mi">0</span>
+        <span class="nv">error:</span>
+          <span class="nv">title: </span><span class="s">&quot;Retry if Failed&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the retry after failed retry checks&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+          <span class="nv">allowedKeys: </span><span class="kc">true</span>
+          <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
+          <span class="nv">keys:</span>
+            <span class="nv">times:</span>
+              <span class="nv">title: </span><span class="s">&quot;Number of Attempts&quot;</span>
+              <span class="nv">description: </span><span class="s">&quot;the number of maximal attempts to run successfully&quot;</span>
+              <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+              <span class="nv">min: </span><span class="mi">0</span>
+            <span class="nv">interval:</span>
+              <span class="nv">title: </span><span class="s">&quot;Time to Wait&quot;</span>
+              <span class="nv">description: </span><span class="s">&quot;the time to wait before retrying a failed attempt&quot;</span>
+              <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+              <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+              <span class="nv">min: </span><span class="mi">0</span>
+    <span class="nv">priority:</span>
+      <span class="nv">title: </span><span class="s">&quot;Priorities&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the setup of priorities&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+      <span class="nv">allowedKeys: </span><span class="kc">true</span>
+      <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
+      <span class="nv">keys:</span>
+        <span class="nv">default:</span>
+          <span class="nv">title: </span><span class="s">&quot;Default Priority&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the default priority as reference to one of the defined list entries&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+          <span class="nv">list: </span><span class="s">&#39;&lt;&lt;&lt; level &gt;&gt;&gt;&#39;</span>
+        <span class="nv">level:</span>
+          <span class="nv">title: </span><span class="s">&quot;Priority Levels&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the definition of all possible priorities&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+          <span class="nv">entries: </span><span class="p">[</span>
+            <span class="nv">title: </span><span class="s">&quot;Priority Level&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;the definition of one priority level&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+            <span class="nv">allowedKeys: </span><span class="kc">true</span>
+            <span class="nv">optional: </span><span class="kc">true</span>
+            <span class="nv">keys:</span>
+              <span class="nv">maxCpu:</span>
+                <span class="nv">title: </span><span class="s">&quot;Max CPU&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the maximum cpu usage, till that execution may be started&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+                <span class="nv">min: </span><span class="mi">0</span>
+                <span class="nv">max: </span><span class="mi">1</span>
+              <span class="nv">maxLoad:</span>
+                <span class="nv">title: </span><span class="s">&quot;Max Load&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the maximum system load, till that execution may be started&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+                <span class="nv">min: </span><span class="mi">0</span>
+              <span class="nv">nice:</span>
+                <span class="nv">title: </span><span class="s">&quot;Nice&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the niceness of the process&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;integer&#39;</span>
+                <span class="nv">min: </span><span class="o">-</span><span class="mi">20</span>
+                <span class="nv">max: </span><span class="mi">19</span>
+          <span class="p">]</span>
+    <span class="nv">queue:</span>
+      <span class="nv">title: </span><span class="s">&quot;Work Queue&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the handling of the queue if load is too high&quot;</span>
+      <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+      <span class="nv">allowedKeys: </span><span class="kc">true</span>
+      <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
+      <span class="nv">keys:</span>
+        <span class="nv">recheck:</span>
+          <span class="nv">title: </span><span class="s">&quot;Recheck Time&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the time after that cpu and load will be rechecked&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+          <span class="nv">min: </span><span class="mi">0</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

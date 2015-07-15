@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "", thisFile = "home/alex/a3/node-exec/READMEmd", defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+  <script src="fileSearch.js"></script>
+  <script src="goToLine.js"></script>
+  <link rel="stylesheet" href="fileSearch.css" />
+  <link rel="stylesheet" href="goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#package%3A%20alinex-exec">Package: alinex-exec</a>
+      </div>
+      <div class="heading h2">
+        <a href="#install">Install</a>
+      </div>
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+      <div class="heading h3">
+        <a href="#run%20an%20external%20command">Run an external command</a>
+      </div>
+      <div class="heading h3">
+        <a href="#simplified%20run">Simplified run</a>
+      </div>
+      <div class="heading h3">
+        <a href="#check%20the%20results">Check the results</a>
+      </div>
+      <div class="heading h3">
+        <a href="#run%20using%20events">Run using Events</a>
+      </div>
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-exec" title="Fork me on GitHub"></a><div class="docs markdown">
+<div class="pilwrap" id="package%3A%20alinex-exec">
+  <h1>
+    <a href="#package%3A%20alinex-exec" name="package%3A%20alinex-exec" class="pilcrow">&#182;</a>
+    Package: alinex-exec
+  </h1>
+</div>
+
+
+<p><a href="https://travis-ci.org/alinex/node-exec"><img src="https://travis-ci.org/alinex/node-exec.svg?branch=master" alt="Build Status" title="" /></a>
+<a href="https://coveralls.io/r/alinex/node-exec?branch=master"><img src="https://coveralls.io/repos/alinex/node-exec/badge.png?branch=master" alt="Coverage Status" title="" /></a>
+<a href="https://gemnasium.com/alinex/node-exec"><img src="https://gemnasium.com/alinex/node-exec.png" alt="Dependency Status" title="" /></a></p>
+
+<p>This is module should be used to call external commands. It is an extended
+wrapper arround the core <code>process.spawn</code> command. It's benefits are:</p>
+
+<ul>
+<li>automatic error control</li>
+<li>automatic retry in case of error</li>
+<li>automatic delaying in case of high server load</li>
+<li>completely adjustable</li>
+<li>supports remote execution (comes later)</li>
+</ul>
+
+<blockquote>
+  <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
+  following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
+</blockquote>
+
+
+<div class="pilwrap" id="install">
+  <h2>
+    <a href="#install" name="install" class="pilcrow">&#182;</a>
+    Install
+  </h2>
+</div>
+
+
+<p><a href="https://www.npmjs.com/package/alinex-exec"><img src="https://nodei.co/npm/alinex-exec.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM" title="" />
+ <img src="https://nodei.co/npm-dl/alinex-exec.png?months=9&amp;height=3" alt="Downloads" title="" />
+</a></p>
+
+<p>The easiest way is to let npm add the module directly to your modules
+(from within you node modules directory):</p>
+
+
+<div class="highlight"><pre><code>npm install alinex-exec --save
+</code></pre></div>
+
+
+
+<p>And update it to the latest version later:</p>
+
+
+<div class="highlight"><pre><code>npm update alinex-exec --save
+</code></pre></div>
+
+
+
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
+
+
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
+    Usage
+  </h2>
+</div>
+
+
+<p>You may connect to the process using a callback method on the <code>run()</code> call or
+use the events.</p>
+
+<p>First you have to load the class package.</p>
+
+
+<div class="highlight"><pre><code><span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
+<span class="nx">Exec</span><span class="p">.</span><span class="nx">init</span><span class="p">()</span> <span class="c1"># this will setup the config class</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="run%20an%20external%20command">
+  <h3>
+    <a href="#run%20an%20external%20command" name="run%20an%20external%20command" class="pilcrow">&#182;</a>
+    Run an external command
+  </h3>
+</div>
+
+
+<p>Now you may setup an external process like:</p>
+
+
+<div class="highlight"><pre><code><span class="nv">proc = </span><span class="k">new</span> <span class="nx">Exec</span>
+  <span class="nv">cmd: </span><span class="s">&#39;date&#39;</span>
+</code></pre></div>
+
+
+
+<p>You may also change the configuration afterwards like:</p>
+
+
+<div class="highlight"><pre><code><span class="nv">proc.setup.cmd = </span><span class="s">&#39;date&#39;</span>
+</code></pre></div>
+
+
+
+<p>To run this simple process call the run-method:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err) -&gt;</span>
+  <span class="c1"># work with the results</span>
+</code></pre></div>
+
+
+
+<p>After the process has completed it's task the callback will get only an error
+obect and the process instance which you don't need. You may access all details
+through the <code>proc.result</code> and <code>proc.process</code> objects.</p>
+
+
+<div class="pilwrap" id="simplified%20run">
+  <h3>
+    <a href="#simplified%20run" name="simplified%20run" class="pilcrow">&#182;</a>
+    Simplified run
+  </h3>
+</div>
+
+
+<p>You may call all of this directly using:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">Exec</span><span class="p">.</span><span class="nx">proc</span>
+  <span class="nv">cmd: </span><span class="s">&#39;date&#39;</span>
+<span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
+  <span class="c1"># work with the results within the process instance</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="check%20the%20results">
+  <h3>
+    <a href="#check%20the%20results" name="check%20the%20results" class="pilcrow">&#182;</a>
+    Check the results
+  </h3>
+</div>
+
+
+<p>To check the response some predefined methods can be used by configuring:</p>
+
+
+<div class="highlight"><pre><code>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="run%20using%20events">
+  <h3>
+    <a href="#run%20using%20events" name="run%20using%20events" class="pilcrow">&#182;</a>
+    Run using Events
+  </h3>
+</div>
+
+
+<p>With events you can monitor what's going on while the process works.</p>
+
+
+<div class="highlight"><pre><code><span class="nx">proc</span><span class="p">.</span><span class="nx">run</span><span class="p">()</span>
+
+<span class="nv">stdout = </span><span class="s">&#39;&#39;</span>
+<span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;stdout&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
+  <span class="nx">stdout</span> <span class="o">+=</span> <span class="nx">data</span>
+<span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;done&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+  <span class="c1"># analyse the results</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow">&#182;</a>
+    License
+  </h2>
+</div>
+
+
+<p>Copyright 2015 Alexander Schilling</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+
+<blockquote>
+  <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+</blockquote>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p></div>
+  </div>
+</body>
+</html>
