@@ -41,6 +41,18 @@ module.exports =
               type: 'interval'
               unit: 'ms'
               min: 0
+        queue:
+          title: "Work Queue"
+          description: "the handling of the queue if load is too high"
+          type: 'object'
+          allowedKeys: true
+          mandatoryKeys: true
+          keys:
+            interval:
+              title: "Recheck Time"
+              description: "the time after that the worker will retry to start queued executions"
+              type: 'interval'
+              min: 0
         error:
           title: "Retry if Failed"
           description: "the retry after failed retry checks"
@@ -112,15 +124,3 @@ module.exports =
                 min: -20
                 max: 19
           ]
-    queue:
-      title: "Work Queue"
-      description: "the handling of the queue if load is too high"
-      type: 'object'
-      allowedKeys: true
-      mandatoryKeys: true
-      keys:
-        recheck:
-          title: "Recheck Time"
-          description: "the time after that cpu and load will be rechecked"
-          type: 'interval'
-          min: 0

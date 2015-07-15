@@ -25,6 +25,13 @@ objectId = 0
 # -------------------------------------------------
 class Exec extends EventEmitter
 
+  @queue = {}
+
+  @queueCounter =
+    total: 0
+    host: {}
+    priority: {}
+
   @init: async.once this, (cb) ->
     debug "initialize"
     # set module search path
@@ -33,6 +40,18 @@ class Exec extends EventEmitter
     config.setSchema '/exec', schema, (err) ->
       return cb err if err
       config.init cb
+
+  @worker: ->
+    console.log 'WORKER'
+    async.each Object.keys(@queue), (host, cb) ->
+      console.log 'HOST', host
+      prios = Object.keys @queue[host]
+      prios.reverse()
+      for prio in prios
+        console.log 'PRIO', prio
+        list = @queue[host][prio]
+
+    , ->
 
   @run: (setup, cb) ->
     Exec.init (err) ->
@@ -54,18 +73,19 @@ class Exec extends EventEmitter
     debug "#{@name} created new instance with #{@setup.priority} priority"
 
   run: (cb) ->
-    @conf = config.get '/exec'
+    host = @setup.remote ? 'localhost'
+    # if queue for host exists add this
+    return @addQueue cb if Exec.queueCounter.host[host]
     # check existing vital data
-    vital = Exec.vital[@setup.remote ? 'localhost'] ?= {}
+    @conf ?= config.get '/exec'
+    vital = Exec.vital[host] ?= {}
     # get vital data
     date = Math.floor new Date().getTime()/@conf.retry.vital.interval
     spawn.vital vital, date, (err) =>
       return cb err if err
       # check vital data
       @checkVital vital, (err) =>
-        if err
-          debug chalk.grey "#{@name} overload, try again later because of: #{err.message}"
-          console.log 'SHOULD ADD TO QUEUE'
+        return @addQueue cb if err
         # check for local or remote
         if @setup.remote
           throw new Error "Remote execution using ssh not implemented, yet."
@@ -77,6 +97,18 @@ class Exec extends EventEmitter
             return cb err
           # success
           @checkResult cb
+
+  addQueue: (cb) ->
+    if err = Exec.vital[host].error
+      debug chalk.grey "#{@name} add to queue because of: #{err.message}"
+    else
+      debug chalk.grey "#{@name} add to queue because other processes are waiting"
+    unless Exec.queueCounter.total
+      setTimeout Exec.worker, config.get 'exec/retry/queue/interval'
+    Exec.queue[host][@setup.priority] = [this, cb]
+    Exec.queueCounter.total++
+    Exec.queueCounter.host[host]++
+    Exec.queueCounter.priority[@setup.priority]++
 
   checkVital: (vital, cb) ->
     return cb vital.error if vital.error?

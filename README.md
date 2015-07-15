@@ -10,9 +10,10 @@ wrapper arround the core `process.spawn` command. It's benefits are:
 
 - automatic error control
 - automatic retry in case of error
-- automatic delaying in case of high server load
 - completely adjustable
+- pipes between processes (comes later)
 - supports remote execution (comes later)
+- detachable execution (comes later)
 
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
@@ -83,11 +84,116 @@ through the `proc.result` and `proc.process` objects.
 You may call all of this directly using:
 
 ``` coffee
-Exec.proc
+Exec.run
   cmd: 'date'
 , (err, proc) ->
   # work with the results within the process instance
 ```
+
+
+Configuration
+-------------------------------------------------
+
+To configure this to your needs, please make a new configuration file for `/exec`
+context. To do so you may copy the base settings from `src/config/exec.yml` into
+`var/local/config/exec.yml` and change it's values or put it into your applications
+configuration directory.
+
+Like supported by [Config](http://alinex.github.io/node-config) you only have to
+write the settings which differ from the defaults.
+
+The configuration contains the following two parts:
+
+### Retry if failed
+
+In this part you define the number of retries and timeouts used for rechecking in
+all parts which prevent the execution to start or run successfully.
+
+``` yaml
+retry:
+  # check for host vital signs
+  vital:
+   # time to recheck host vital signs
+    interval: 5s
+  # too much processes opened on system
+  ulimit:
+    # time to sleep till next try
+    interval: 1s
+  # a queue will be created if host is overloaded
+  queue:
+    # specify the time after that a retry for queued executions should run
+    interval: 3s
+  # process failed retry check
+  error:
+    # number of attempts
+    times: 3
+    # time to sleep till next try
+    interval: 3s
+```
+
+All `interval` settings can be set as a time range in milliseconds or with the
+unit appended. Use something like '1.5s' (possible units: ms, s, m, h, d).
+
+### Priority Levels
+
+This defines the possible priority levels to be used. The following configuration
+shows the default.
+
+``` yaml
+priority:
+  # specify the default priority
+  default: medium
+  # specify the possible priorities with their checks
+  level:
+    anytime:
+      maxCpu: 20%
+      maxLoad: 20%
+      nice: 19
+    low:
+      maxCpu: 40%
+      maxLoad: 60%
+      nice: 10
+    medium:
+      maxCpu: 60%
+      maxLoad: 100%
+      nice: 5
+    heigh:
+      maxCpu: 90%
+      maxLoad: 150%
+    immediately:
+      nice: -20
+```
+
+You may add other values or remove some of them to get your very own set of priorities:
+
+``` yaml
+priority:
+  # specify the possible priorities with their checks
+  level:
+    low: null
+    medium: null
+    height: null
+    1:
+      maxCpu: 40%
+      maxLoad: 100%
+      nice: 15
+    2:
+      maxCpu: 50%
+      maxLoad: 120%
+      nice: 5
+    3:
+      maxCpu: 60%
+      maxLoad: 140%
+      nice: 0
+```
+
+
+Setup Execution
+-------------------------------------------------
+
+
+Access Results
+-------------------------------------------------
 
 
 

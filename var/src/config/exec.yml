@@ -13,6 +13,10 @@ retry:
   ulimit:
     # time to sleep till next try
     interval: 1s
+  # a queue will be created if host is overloaded
+  queue:
+    # specify the time after that a retry for queued executions should run
+    interval: 3s
   # process failed retry check
   error:
     # number of attempts
@@ -45,10 +49,3 @@ priority:
       maxLoad: 150%
     immediately:
       nice: -20
-
-# Work Queue
-# -------------------------------------------------
-# If too much load a queue will be created. Here you specify how to work on it.
-queue:
-  recheck: 3s
-
