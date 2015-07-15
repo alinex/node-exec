@@ -39,7 +39,8 @@
     "carrier": "^0.1.14",
     "chalk": "^1.1.0",
     "debug": "^2.2.0",
-    "ssh2": "^0.4.9"
+    "ssh2": "^0.4.9",
+    "toobusy": "^0.2.4"
   },
   "devDependencies": {
     "alinex-builder": "1.x",

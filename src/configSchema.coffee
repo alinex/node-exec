@@ -15,19 +15,20 @@ module.exports =
       allowedKeys: true
       mandatoryKeys: true
       keys:
-        ulimit:
-          title: "Retry if ULimit"
-          description: "the retry if the process limit is reached"
+        lag:
+          title: "Node.js LAG"
+          description: "the node.js event queue lag"
           type: 'object'
           allowedKeys: true
           mandatoryKeys: true
           keys:
             interval:
-              title: "Time to Wait"
-              description: "the time to wait before retrying a failed attempt"
+              title: "Max LAG Time"
+              description: "the maximum time node.js is allowed to use as round time in event queue"
               type: 'interval'
               unit: 'ms'
-              min: 0
+              min: 5
+              default: 70
         vital:
           title: "Vital Sign Check"
           description: "the check for host vital data"
@@ -38,6 +39,19 @@ module.exports =
             interval:
               title: "Time before Recheck"
               description: "the time to wait before rechecking the host vital signs"
+              type: 'interval'
+              unit: 'ms'
+              min: 0
+        ulimit:
+          title: "Retry if ULimit"
+          description: "the retry if the process limit is reached"
+          type: 'object'
+          allowedKeys: true
+          mandatoryKeys: true
+          keys:
+            interval:
+              title: "Time to Wait"
+              description: "the time to wait before retrying a failed attempt"
               type: 'interval'
               unit: 'ms'
               min: 0

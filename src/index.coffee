@@ -11,6 +11,7 @@ debug = require('debug')('exec')
 chalk = require 'chalk'
 fspath = require 'path'
 EventEmitter = require('events').EventEmitter
+toobusy = require('toobusy')
 # include alinex modules
 config = require 'alinex-config'
 async = require 'alinex-async'
@@ -64,6 +65,7 @@ class Exec extends EventEmitter
       # check vital data
       @checkVital vital, (err) =>
         if err
+          debug chalk.grey "#{@name} overload, try again later because of: #{err.message}"
           console.log 'SHOULD ADD TO QUEUE'
         # check for local or remote
         if @setup.remote
@@ -78,6 +80,10 @@ class Exec extends EventEmitter
           @checkResult cb
 
   checkVital: (vital, cb) ->
+    toobusy.maxLag @conf.retry.lag.interval
+    if toobusy()
+      return new Error "The node.js event loop is too busy with lag over
+      #{@conf.retry.lag.interval}"
     return cb vital.error if vital.error?
     prio = @conf.priority.level[@setup.priority]
     vital.error = if prio.maxCpu? and vital.cpu > prio.maxCpu
