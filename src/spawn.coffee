@@ -13,10 +13,14 @@ debugOut = require('debug')('exec:out')
 debugErr = require('debug')('exec:err')
 chalk = require 'chalk'
 {spawn} = require 'child_process'
+util = require 'util'
 os = require 'os'
 carrier = require 'carrier'
 # include alinex modules
 {object} = require 'alinex-util'
+async = require 'alinex-async'
+
+MEASURE_TIME = 1000
 
 run = (cb) ->
   # set command
@@ -94,25 +98,30 @@ run = (cb) ->
     @emit 'done', @result.code
     cb @process.error, this if cb
 
-vital = (vital, date, cb) ->
+vital = async.onceTime (vital, date, cb) ->
   return cb() if vital.date is date
-  console.log 'GET VITAL'
+  start = cpuMeasure()
+  setTimeout ->
+    end = cpuMeasure()
+    vital.cpu = 1 - (end[1] - start[1]) / (end[0] - start[0])
+    debug chalk.grey "got vital data: #{util.inspect(vital).replace /\s+/g, ' '}"
+    cb()
+  , MEASURE_TIME
   vital.date = date
-  vital.error = false
+  vital.error = {}
   # freemem
   vital.freemem = os.freemem() / os.totalmem()
+  vital.load = os.loadavg().map (v) -> v / os.cpus().length
+
+cpuMeasure = ->
   cpus = os.cpus()
-  vital.load = os.loadavg().map (v) -> v / cpus.length
-  cpu =
-    user: 0
-    nice: 0
-    sys: 0
-    idle: 0
+  total = 0
+  idle = 0
   for core in cpus
-    cpu[k] += core.times[k] for k of cpu
-  vital.cpu = 1 - cpu.idle / (cpu.user + cpu.nice + cpu.sys + cpu.idle)
-  console.log vital
-  cb()
+    total += v for k, v of core.times
+    idle += core.times.idle
+  [total, idle]
+
 
 module.exports =
   run: run

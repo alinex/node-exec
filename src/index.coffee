@@ -25,9 +25,9 @@ objectId = 0
 # -------------------------------------------------
 class Exec extends EventEmitter
 
-  @queue = {}
+  @queue: {}
 
-  @queueCounter =
+  @queueCounter:
     total: 0
     host: {}
     priority: {}
@@ -41,17 +41,73 @@ class Exec extends EventEmitter
       return cb err if err
       config.init cb
 
+
   @worker: ->
     console.log 'WORKER'
     async.each Object.keys(@queue), (host, cb) ->
       console.log 'HOST', host
       prios = Object.keys @queue[host]
       prios.reverse()
-      for prio in prios
+      asyn.eachSeries prios, (prio, cb) ->
         console.log 'PRIO', prio
         list = @queue[host][prio]
-
+        async.whilst ->
+          list.length
+        , (cb) ->
+          # check
+          @vitalCheck host, prio, (err) ->
+            # stop if check failed
+            return cb err if err
+            console.log 'working...'
+            # get first entry
+            [exec, ocb] = list.shift()
+            # reduce counter
+            @queueCounter.total--
+            @queueCounter.host[host]--
+            @queueCounter.priority[prio]--
+            # exec run
+            exec.run ocb
+            cb()
+        , (err) ->
+          delete @queue[host][prio] unless list.length
+          cb()
+      , (err) ->
+        delete @queue[host] unless @queue[host].length
+        cb()
     , ->
+      # stop worker if completely done
+      return unless Exec.queueCounter.total
+      # if not rerun it later
+      setTimeout @worker, config.get 'exec/retry/queue/interval'
+
+  @vitalCheck: (host, priority, cb) ->
+    conf = config.get '/exec'
+    vital = @vital[host] ?= {}
+    # get vital data
+    date = Math.floor new Date().getTime() / conf.retry.vital.interval
+    spawn.vital vital, date, (err) ->
+      return cb err if err
+      # error already detected
+      return cb vital.error[priority] if vital.error[priority]?
+      # check for new error
+      prio = conf.priority.level[priority]
+      vital.error[priority] = if prio.maxCpu? and vital.cpu > prio.maxCpu
+        new Error "The CPU utilization of #{Math.round vital.cpu * 100}% is above
+        #{Math.round prio.maxCpu * 100}% for #{priority} priority at #{host}"
+      else if prio.minFreemem? and vital.freemem < prio.minFreemem
+        new Error "The free memory of #{Math.round vital.freemem * 100}% is below
+        #{Math.round prio.minFreemem * 100}% for #{priority} priority at #{host}"
+      else if prio.maxLoad?[0]? and vital.load[0] > prio.maxLoad[0]
+        new Error "The average short load of #{Math.round vital.load[0], 2} is above
+        #{Math.round prio.maxLoad[0] * 100}% for #{priority} priority at #{host}"
+      else if prio.maxLoad?[1]? and vital.load[1] > prio.maxLoad[1]
+        new Error "The average medium load of #{Math.round vital.load[1], 2} is above
+        #{Math.round prio.maxLoad[1] * 100}% for #{priority} priority at #{host}"
+      else if prio.maxLoad?[2]? and vital.load[2] > prio.maxLoad[2]
+        new Error "The average long load of #{Math.round vital.load[2], 2} is above
+        #{Math.round prio.maxLoad[2] * 100}% for #{priority} priority at #{host}"
+      else false
+      cb vital.error[priority]
 
   @run: (setup, cb) ->
     Exec.init (err) ->
@@ -78,58 +134,33 @@ class Exec extends EventEmitter
     return @addQueue cb if Exec.queueCounter.host[host]
     # check existing vital data
     @conf ?= config.get '/exec'
-    vital = Exec.vital[host] ?= {}
-    # get vital data
-    date = Math.floor new Date().getTime()/@conf.retry.vital.interval
-    spawn.vital vital, date, (err) =>
-      return cb err if err
-      # check vital data
-      @checkVital vital, (err) =>
-        return @addQueue cb if err
-        # check for local or remote
-        if @setup.remote
-          throw new Error "Remote execution using ssh not implemented, yet."
-        # run locally
-        debug "#{@name} run locally"
-        spawn.run.call this, (err) =>
-          if err
-            debug "#{@name} failed with #{err}"
-            return cb err
-          # success
-          @checkResult cb
+    Exec.vitalCheck host, @setup.priority, (err) =>
+      return @addQueue cb if err
+      # check for local or remote
+      if @setup.remote
+        throw new Error "Remote execution using ssh not implemented, yet."
+      # run locally
+      debug "#{@name} run locally"
+      spawn.run.call this, (err) =>
+        if err
+          debug "#{@name} failed with #{err}"
+          return cb err
+        # success
+        @checkResult cb
 
   addQueue: (cb) ->
+    host = @setup.remote ? 'localhost'
     if err = Exec.vital[host].error
       debug chalk.grey "#{@name} add to queue because of: #{err.message}"
     else
       debug chalk.grey "#{@name} add to queue because other processes are waiting"
     unless Exec.queueCounter.total
       setTimeout Exec.worker, config.get 'exec/retry/queue/interval'
+    Exec.queue[host] ?= {}
     Exec.queue[host][@setup.priority] = [this, cb]
     Exec.queueCounter.total++
     Exec.queueCounter.host[host]++
     Exec.queueCounter.priority[@setup.priority]++
-
-  checkVital: (vital, cb) ->
-    return cb vital.error if vital.error?
-    prio = @conf.priority.level[@setup.priority]
-    vital.error = if prio.maxCpu? and vital.cpu > prio.maxCpu
-      new Error "The CPU utilization of #{Math.round vital.cpu * 100}% is above
-      #{Math.round prio.maxCpu * 100}% at #{@setup.remote ? 'localhost'}"
-    else if prio.minFreemem? and vital.freemem < prio.minFreemem
-      new Error "The free memory of #{Math.round vital.freemem * 100}% is below
-      #{Math.round prio.minFreemem * 100}% at #{@setup.remote ? 'localhost'}"
-    else if prio.maxLoad?[0]? and vital.load[0] > prio.maxLoad[0]
-      new Error "The average short load of #{Math.round vital.load[0], 2} is above
-      #{Math.round prio.maxLoad[0] * 100}% at #{@setup.remote ? 'localhost'}"
-    else if prio.maxLoad?[1]? and vital.load[1] > prio.maxLoad[1]
-      new Error "The average medium load of #{Math.round vital.load[1], 2} is above
-      #{Math.round prio.maxLoad[1] * 100}% at #{@setup.remote ? 'localhost'}"
-    else if prio.maxLoad?[2]? and vital.load[2] > prio.maxLoad[2]
-      new Error "The average long load of #{Math.round vital.load[2], 2} is above
-      #{Math.round prio.maxLoad[2] * 100}% at #{@setup.remote ? 'localhost'}"
-    else false
-    cb vital.error
 
   checkResult: (cb) ->
     # find check to use
