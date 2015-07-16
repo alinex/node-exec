@@ -6,6 +6,12 @@
 
 # include base modules
 
+
+abstract = (text) ->
+  lines = text.split(/\n/)
+  lines = lines[0..5].concat 'and more...' if lines.length > 6
+  lines.join '\n'
+
 module.exports =
 
   nothing: -> return false
@@ -23,20 +29,16 @@ module.exports =
 
   noStderr: ->
     return false unless res = @stderr()
-    res = res.split /\n/
-    res = res[0..5].concat 'and more...' if res.length > 6
     new Error """
     STDERR of #{@setup.cmd} should be empty but got:
-    #{res.join '\n'}
+    #{abstract res}
     """
 
   noStdout: ->
     return false unless res = @stdout()
-    res = res.split /\n/
-    res = res[0..5].concat 'and more...' if res.length > 6
     new Error """
     STDOUT of #{@setup.cmd} should be empty but got:
-    #{res.join '\n'}
+    #{abstract res}
     """
 
   matchStdout: (ok, report) ->
@@ -45,9 +47,11 @@ module.exports =
       res = @stdout().match report
       if res?.input
         res = if res.length > 1 then res[1..-1] else [res[0]]
-    msg = "STDOUT of #{@setup.cmd} should match #{ok} but failed"
-    msg += if res? then " with: \"#{res.join '", "'}\"" else '.'
-    new Error msg
+    reason = if res?
+      "with: \"#{res.join '", "'}\""
+    else
+      "got:\n#{abstract @stdout()}"
+    new Error "STDOUT of #{@setup.cmd} should match #{ok} but failed #{reason}."
 
   matchStderr: (ok, report) ->
     return false if @stderr().match ok
@@ -55,9 +59,11 @@ module.exports =
       res = @stderr().match report
       if res?.input
         res = if res.length > 1 then res[1..-1] else [res[0]]
-    msg = "STDERR of #{@setup.cmd} should match #{ok} but failed"
-    msg += if res? then " with: \"#{res.join '", "'}\"" else '.'
-    new Error msg
+    reason = if res?
+      "with: \"#{res.join '", "'}\""
+    else
+      "got:\n#{abstract @stderr()}"
+    new Error "STDERR of #{@setup.cmd} should match #{ok} but failed #{reason}."
 
   notMatchStderr: (fail) ->
     return false unless res = @stderr().match fail
