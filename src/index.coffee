@@ -19,6 +19,7 @@ schema = require './configSchema'
 spawn = require './spawn'
 check = require './check'
 
+
 objectId = 0
 
 # Class definition
@@ -42,23 +43,26 @@ class Exec extends EventEmitter
       config.init cb
 
 
-  @worker: ->
-    console.log 'WORKER'
-    async.each Object.keys(@queue), (host, cb) ->
-      console.log 'HOST', host
+  @worker: =>
+    return unless (hosts = Object.keys @queue).length
+
+    util = require 'util'
+    console.log 'WORKER', util.inspect @queue, {depth: null}
+
+    async.each hosts, (host, cb) =>
       prios = Object.keys @queue[host]
       prios.reverse()
-      asyn.eachSeries prios, (prio, cb) ->
-        console.log 'PRIO', prio
+      console.log 'HOST', host, prios
+      async.eachSeries prios, (prio, cb) =>
+        debug "worker running jobs for #{host} with #{prio} priority"
         list = @queue[host][prio]
         async.whilst ->
           list.length
-        , (cb) ->
+        , (cb) =>
           # check
-          @vitalCheck host, prio, (err) ->
+          @vitalCheck host, prio, (err) =>
             # stop if check failed
             return cb err if err
-            console.log 'working...'
             # get first entry
             [exec, ocb] = list.shift()
             # reduce counter
@@ -68,13 +72,13 @@ class Exec extends EventEmitter
             # exec run
             exec.run ocb
             cb()
-        , (err) ->
+        , (err) =>
           delete @queue[host][prio] unless list.length
           cb()
-      , (err) ->
+      , (err) =>
         delete @queue[host] unless @queue[host].length
         cb()
-    , ->
+    , =>
       # stop worker if completely done
       return unless Exec.queueCounter.total
       # if not rerun it later
@@ -140,7 +144,7 @@ class Exec extends EventEmitter
       if @setup.remote
         throw new Error "Remote execution using ssh not implemented, yet."
       # run locally
-      debug "#{@name} run locally"
+      debug "#{@name} start locally"
       spawn.run.call this, (err) =>
         if err
           debug "#{@name} failed with #{err}"
@@ -151,13 +155,14 @@ class Exec extends EventEmitter
   addQueue: (cb) ->
     host = @setup.remote ? 'localhost'
     if err = Exec.vital[host].error[@setup.priority]
-      debug chalk.grey "#{@name} add to queue because of: #{err.message}"
+      debug chalk.grey "#{@name} add to queue because: #{err.message}"
     else
       debug chalk.grey "#{@name} add to queue because other processes are waiting"
     unless Exec.queueCounter.total
       setTimeout Exec.worker, config.get 'exec/retry/queue/interval'
     Exec.queue[host] ?= {}
-    Exec.queue[host][@setup.priority] = [this, cb]
+    Exec.queue[host][@setup.priority] ?= []
+    Exec.queue[host][@setup.priority].push [this, cb]
     Exec.queueCounter.total++
     Exec.queueCounter.host[host]++
     Exec.queueCounter.priority[@setup.priority]++

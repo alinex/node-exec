@@ -104,7 +104,7 @@ vital = async.onceTime (vital, date, cb) ->
   setTimeout ->
     end = cpuMeasure()
     vital.cpu = 1 - (end[1] - start[1]) / (end[0] - start[0])
-    debug chalk.grey "got vital data: #{util.inspect(vital).replace /\s+/g, ' '}"
+    debug chalk.grey "vital signs: #{util.inspect(vital).replace /\s+/g, ' '}"
     cb()
   , MEASURE_TIME
   vital.date = date
