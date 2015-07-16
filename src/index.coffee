@@ -93,19 +93,19 @@ class Exec extends EventEmitter
       prio = conf.priority.level[priority]
       vital.error[priority] = if prio.maxCpu? and vital.cpu > prio.maxCpu
         new Error "The CPU utilization of #{Math.round vital.cpu * 100}% is above
-        #{Math.round prio.maxCpu * 100}% for #{priority} priority at #{host}"
+        #{Math.round prio.maxCpu * 100}% allowed for #{priority} priority at #{host}"
       else if prio.minFreemem? and vital.freemem < prio.minFreemem
         new Error "The free memory of #{Math.round vital.freemem * 100}% is below
-        #{Math.round prio.minFreemem * 100}% for #{priority} priority at #{host}"
+        #{Math.round prio.minFreemem * 100}% allowed for #{priority} priority at #{host}"
       else if prio.maxLoad?[0]? and vital.load[0] > prio.maxLoad[0]
         new Error "The average short load of #{Math.round vital.load[0], 2} is above
-        #{Math.round prio.maxLoad[0] * 100}% for #{priority} priority at #{host}"
+        #{Math.round prio.maxLoad[0] * 100}% allowed for #{priority} priority at #{host}"
       else if prio.maxLoad?[1]? and vital.load[1] > prio.maxLoad[1]
         new Error "The average medium load of #{Math.round vital.load[1], 2} is above
-        #{Math.round prio.maxLoad[1] * 100}% for #{priority} priority at #{host}"
+        #{Math.round prio.maxLoad[1] * 100}% allowed for #{priority} priority at #{host}"
       else if prio.maxLoad?[2]? and vital.load[2] > prio.maxLoad[2]
         new Error "The average long load of #{Math.round vital.load[2], 2} is above
-        #{Math.round prio.maxLoad[2] * 100}% for #{priority} priority at #{host}"
+        #{Math.round prio.maxLoad[2] * 100}% allowed for #{priority} priority at #{host}"
       else false
       cb vital.error[priority]
 
@@ -150,7 +150,7 @@ class Exec extends EventEmitter
 
   addQueue: (cb) ->
     host = @setup.remote ? 'localhost'
-    if err = Exec.vital[host].error
+    if err = Exec.vital[host].error[@setup.priority]
       debug chalk.grey "#{@name} add to queue because of: #{err.message}"
     else
       debug chalk.grey "#{@name} add to queue because other processes are waiting"
