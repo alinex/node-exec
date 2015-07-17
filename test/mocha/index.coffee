@@ -28,7 +28,7 @@ describe "Base", ->
           expect(conf.retry.error.times, 'retry num').to.be.above -1
           cb()
 
-  describe.only "command", ->
+  describe "command", ->
 
     it "should run with extra arguments", (cb) ->
       now = (new Date()).toISOString()
