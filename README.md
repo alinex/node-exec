@@ -159,7 +159,7 @@ priority:
       maxCpu: 60%
       maxLoad: 100%
       nice: 5
-    heigh:
+    high:
       maxCpu: 90%
       maxLoad: 150%
     immediately:
@@ -174,7 +174,7 @@ priority:
   level:
     low: null
     medium: null
-    height: null
+    high: null
     1:
       maxCpu: 40%
       maxLoad: 100%
@@ -210,87 +210,105 @@ to use proper quoting.
 
 ### Environment
 
-- cwd $ -
-- env % -
-- uid $ -
-- gid $ -
 
-### Host
+- cwd - the current working directory
+- uid - the userid under which to run
+- gid - the group id under which to run
+- env - environment object for special settings
 
-- remote $ -
-- priority $ -
+If you want to use different user and/or group id you have to be root first.
+
+### Host and Priority
+
+- remote - reference to the remote machine
+- priority - name of configured priority to use
+
+By default the following priorities are possible: anytime, low, medium, high,
+immediately.
 
 ### Retry
 
-- check % -
--     <name> -
--         args... -
--         retry -
-- retry % -
--     times -
--     interval -
+- check - name of the check with
+  - args - (array) list of arguments for the check if possible
+  - retry - (boolean) should retry on this failure
+- retry - specify if not use the default
+  - times - (integer) maximum number of retries
+  - interval - (milliseconds)
+
+The following checks may be used:
+
+- noExitCode() - check that the exit code is 0
+- exitCode(<code>...) - check that the exit code is in allowed list
+- noStderr() - check that STDERR is empty
+- noStdout() - check that STDOUT is empty
+- matchStdout(<ok>, <report>) - check that the given <ok> RegExp succeeds,
+  if not output the result of the <report> RegExp
+- matchStderr(<ok>, <report>) - check that the given <ok> RegExp succeeds,
+  if not output the result of the <report> RegExp
+- notMatchStderr(<fail>) - check that the <fail> RegExp don't match
+
+This are only the general checks. There may be more command specific matches
+which you may use.
 
 ### Streams
 
-- input -
--     exec -
--     file -
--     string -
--     function -
-- output -
-- error -
-- fd3 -
+To concat execution with other exec instances  or other objects you may concat
+the following streams;
 
+- input
+- output
+- error
+- fd3
 
-
-### Possible Checks
-
-- noExitCode - check that
-- exitCode - check that
-- noStderr - check that
-- noStdout - check that
-- matchStdout - check that
-- matchStderr - check that
-- notMatchStderr - check that
+> But this is not implemented, yet.
 
 
 Access Results
 -------------------------------------------------
 
+### Process
 
+With this attribute you may get the following information:
 
+- exec.process.host - remote host identifier
+- exec.process.pid - process id
+- exec.process.start - start time
+- exec.process.end - end time
+- exec.process.error - system error
 
+### Tries
 
-### Check the results
+If multiple tries are done you may access the information of each try:
 
-To check the response some predefined methods can be used by configuring:
+- exec.tries[n].process - first calls
+- exec.tries[n].result . first calls
+- exec.process - last run
+- exec.result - last run
 
-``` coffee
+### Results
 
-```
+The result code and maybe error of the defined checks may be red directly:
 
+- exec.result.code
+- exec.result.error
 
+But to get one of the outputs better use the functions:
 
+- exec.stdout()
+- exec.stderr()
 
+They will give you a complete text out of the line data which lists all channels
+in the proper order. If order of messages matters better directly access them:
 
+- exec.result.lines
+  - 0 - stdin
+  - 1 - stdout
+  - 2 - stderr
 
-### Run using Events
+You may also use the above methods on previous tries:
 
-With events you can monitor what's going on while the process works.
-
-``` coffee
-proc.run()
-
-stdout = ''
-proc.on 'stdout', (data) ->
-  stdout += data
-proc.on 'done', ->
-  # analyse the results
-```
-
-
-
-
+- exec.stdout(exec.tries[0].result)
+- exec.stderr(exec.tries[0].result)
 
 
 

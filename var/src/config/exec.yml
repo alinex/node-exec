@@ -46,7 +46,7 @@ priority:
       maxCpu: 60%
       maxLoad: 100%
       nice: 5
-    heigh:
+    high:
       maxCpu: 90%
       maxLoad: 150%
     immediately:

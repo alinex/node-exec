@@ -284,7 +284,6 @@ class Exec extends EventEmitter
           @tries.push
             process: @process
             result: @result
-            control: @control
           # run again
           this.run cb
         , @setup.retry.interval ? @conf.retry.error.interval
