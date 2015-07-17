@@ -1,5 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
+async = require 'alinex-async'
 
 describe "Retry", ->
 
@@ -30,7 +31,7 @@ describe "Retry", ->
         expect(exec.tries.length, "tries").to.equal 3
         cb()
 
-  describe.only "vital", ->
+  describe "vital", ->
 
     it "should use queue and run it through worker", (cb) ->
       @timeout 10000
@@ -76,25 +77,18 @@ describe "Retry", ->
 
   describe "startload", ->
 
-    it.skip "should increase start load", (cb) ->
-      @timeout 10000
-      config.value.exec.priority.level.test =
-        maxCpu: 0.001
-        maxLoad: 0.001
-        nice: 19
-      setTimeout ->
-        config.value.exec.priority.level.test =
-          maxCpu: 0.9
-          maxLoad: 0.9
-      , 2000
-      Exec.run
-        cmd: 'date'
-        priority: 'test'
-      , (err, exec) ->
-        expect(err, 'error').to.not.exist
-        expect(exec.result, "result").to.exist
-        expect(exec.result.code, "code").to.equal 0
-        expect(exec.result.error, "result error").to.not.exist
-        cb()
+    it "should queue on start overload", (cb) ->
+      @timeout 30000
+      Exec.load['cartoon-date'] = -> 15
+      async.each [1..3], (n, cb) ->
+        Exec.run
+          cmd: 'cartoon-date'
+        , (err, exec) ->
+          expect(err, 'error').to.exist
+          expect(exec.result, "result").to.exist
+          expect(exec.result.code, "code").to.equal 127
+          expect(exec.result.error, "result error").to.exist
+          cb()
+      , cb
 
 

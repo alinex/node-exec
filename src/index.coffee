@@ -51,46 +51,64 @@ class Exec extends EventEmitter
       return cb err if err
       config.init cb
 
-
+  @workerRunning: false
   @worker: =>
-    return unless (hosts = Object.keys @queue).length
+    unless (hosts = Object.keys @queue).length
+      @workerRunning = false
+      return
     #####################################################################
-    util = require 'util'
-    console.log 'WORKER', util.inspect @queue, {depth: null}
+#    util = require 'util'
+#    console.log 'WORKER', util.inspect @queue, {depth: null}
     #####################################################################
     async.each hosts, (host, cb) =>
       prios = Object.keys @queue[host]
       prios.reverse()
-      console.log 'HOST', host, prios
+#      console.log 'HOST', host, prios
       async.eachSeries prios, (prio, cb) =>
-        debug "worker running jobs for #{host} with #{prio} priority"
         list = @queue[host][prio]
-        async.whilst ->
-          list.length
-        , (cb) =>
+        return cb() unless list.length
+        debug chalk.grey "worker running jobs for #{host} with #{prio} priority"
+#        async.each list, ([exec, ocb], cb) =>
+        mark = []
+        async.forever (cb) =>
+#          console.log '?? loop', list.length
+          return cb true unless list.length
+          # check if tnext process is already done in this round
+          return cb true if list[0][0].id in mark
           # check
           @vitalCheck host, prio, DEFAULT_LOAD, (err) =>
-            # stop if check failed
+          # stop if check failed
+            return cb true unless list.length
             return cb err if err
             # get first entry
             [exec, ocb] = list.shift()
+#            console.log '++ loop', list.length
             # reduce counter
             @queueCounter.total--
             @queueCounter.host[host]--
             @queueCounter.priority[prio]--
             # exec run
+            mark.push exec.id
+#            console.log '-- exec call', exec.id
             exec.run ocb
-            cb()
+            setTimeout cb, 100
         , (err) =>
+#          console.log '-- prio done'
+          debug chalk.grey "worker finished round"
           delete @queue[host][prio] unless list.length
           cb()
       , (err) =>
+#        console.log '-- host done'
         delete @queue[host] unless Object.keys(@queue[host]).length
         cb()
     , =>
+#      console.log '-- all done'
       # stop worker if completely done
-      return unless Exec.queueCounter.total
+      unless Exec.queueCounter.total
+        @workerRunning = false
+        return
       # if not rerun it later
+#      console.log '>>>>>> recall worker'
       setTimeout @worker, config.get 'exec/retry/queue/interval'
 
   @vitalCheck: (host, priority, load, cb) ->
@@ -101,14 +119,15 @@ class Exec extends EventEmitter
     date = Math.floor new Date().getTime() / conf.retry.vital.interval
     spawn.vital vital, date, (err) ->
       return cb err if err
+      # check startload
+      if vital.startload and vital.startload + load > vital.startmax
+        return cb new Error "The maximum load to start per interval would be exceeded
+        with this process at #{host}"
       # error already detected
       return cb vital.error[priority] if vital.error[priority]?
       # check for new error
       prio = conf.priority.level[priority]
-      vital.error[priority] = if vital.startload and vital.startload + load > vital.startmax
-        new Error "The maximum load to start per interval would be exceeded with this process
-        at #{host}"
-      else if prio.maxCpu? and vital.cpu > prio.maxCpu
+      vital.error[priority] = if prio.maxCpu? and vital.cpu > prio.maxCpu
         new Error "The CPU utilization of #{Math.round vital.cpu * 100}% is above
         #{Math.round prio.maxCpu * 100}% allowed for #{priority} priority at #{host}"
       else if prio.minFreemem? and vital.freemem < prio.minFreemem
@@ -152,9 +171,10 @@ class Exec extends EventEmitter
     @conf ?= config.get '/exec'
     load = Exec.load[@setup.cmd]?(@setup.args) ? DEFAULT_LOAD
     Exec.vitalCheck host, @setup.priority, load, (err) =>
-      return @addQueue cb if err
+      return @addQueue err, cb if err
       # add load to calculate startlimit
       Exec.vital[host].startload += load
+#      console.log Exec.vital ############################################################
       debug "#{@name} with #{@setup.priority} priority at #{host}"
       # check for local or remote
       if @setup.remote
@@ -167,13 +187,14 @@ class Exec extends EventEmitter
         # success
         @checkResult cb
 
-  addQueue: (cb) ->
+  addQueue: (err, cb) ->
     host = @setup.remote ? 'localhost'
-    if err = Exec.vital[host].error[@setup.priority]
+    if err
       debug chalk.grey "#{@name} add to queue because: #{err.message}"
     else
       debug chalk.grey "#{@name} add to queue because other processes are waiting"
-    unless Exec.queueCounter.total
+    unless Exec.workerRunning
+      Exec.workerRunning = true
       setTimeout Exec.worker, config.get 'exec/retry/queue/interval'
     Exec.queue[host] ?= {}
     Exec.queue[host][@setup.priority] ?= []
