@@ -28,6 +28,23 @@ module.exports =
               type: 'interval'
               unit: 'ms'
               min: 0
+            startload:
+              title: "Start Limit"
+              description: "the maximum load% per CPU core per second in usage to start"
+              type: 'percent'
+              min: 0.01
+        queue:
+          title: "Work Queue"
+          description: "the handling of the queue if load is too high"
+          type: 'object'
+          allowedKeys: true
+          mandatoryKeys: true
+          keys:
+            interval:
+              title: "Recheck Time"
+              description: "the time after that the worker will retry to start queued executions"
+              type: 'interval'
+              min: 0
         ulimit:
           title: "Retry if ULimit"
           description: "the retry if the process limit is reached"
@@ -40,18 +57,6 @@ module.exports =
               description: "the time to wait before retrying a failed attempt"
               type: 'interval'
               unit: 'ms'
-              min: 0
-        queue:
-          title: "Work Queue"
-          description: "the handling of the queue if load is too high"
-          type: 'object'
-          allowedKeys: true
-          mandatoryKeys: true
-          keys:
-            interval:
-              title: "Recheck Time"
-              description: "the time after that the worker will retry to start queued executions"
-              type: 'interval'
               min: 0
         error:
           title: "Retry if Failed"

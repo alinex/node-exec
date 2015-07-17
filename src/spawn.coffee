@@ -109,6 +109,7 @@ vital = async.onceTime (vital, date, cb) ->
   , MEASURE_TIME
   vital.date = date
   vital.error = {}
+  vital.startload = 0
   # freemem
   vital.freemem = os.freemem() / os.totalmem()
   vital.load = os.loadavg().map (v) -> v / os.cpus().length

@@ -10,6 +10,7 @@
 debug = require('debug')('exec')
 chalk = require 'chalk'
 fspath = require 'path'
+os = require 'os'
 EventEmitter = require('events').EventEmitter
 # include alinex modules
 config = require 'alinex-config'
@@ -19,12 +20,20 @@ schema = require './configSchema'
 spawn = require './spawn'
 check = require './check'
 
+# The load sshould be near the sys and usr time the process needs.
+DEFAULT_LOAD = 0.001
 
+# counter for unique object IDs
 objectId = 0
 
 # Class definition
 # -------------------------------------------------
 class Exec extends EventEmitter
+
+  @vital: {}
+
+  @load:
+    exiftool: -> 0.008
 
   @queue: {}
 
@@ -45,10 +54,10 @@ class Exec extends EventEmitter
 
   @worker: =>
     return unless (hosts = Object.keys @queue).length
-
+    #####################################################################
     util = require 'util'
     console.log 'WORKER', util.inspect @queue, {depth: null}
-
+    #####################################################################
     async.each hosts, (host, cb) =>
       prios = Object.keys @queue[host]
       prios.reverse()
@@ -60,7 +69,7 @@ class Exec extends EventEmitter
           list.length
         , (cb) =>
           # check
-          @vitalCheck host, prio, (err) =>
+          @vitalCheck host, prio, DEFAULT_LOAD, (err) =>
             # stop if check failed
             return cb err if err
             # get first entry
@@ -76,7 +85,7 @@ class Exec extends EventEmitter
           delete @queue[host][prio] unless list.length
           cb()
       , (err) =>
-        delete @queue[host] unless @queue[host].length
+        delete @queue[host] unless Object.keys(@queue[host]).length
         cb()
     , =>
       # stop worker if completely done
@@ -84,9 +93,10 @@ class Exec extends EventEmitter
       # if not rerun it later
       setTimeout @worker, config.get 'exec/retry/queue/interval'
 
-  @vitalCheck: (host, priority, cb) ->
+  @vitalCheck: (host, priority, load, cb) ->
     conf = config.get '/exec'
-    vital = @vital[host] ?= {}
+    vital = @vital[host] ?=
+      startmax: conf.retry.vital.startload * conf.retry.vital.interval / 1000 * os.cpus().length
     # get vital data
     date = Math.floor new Date().getTime() / conf.retry.vital.interval
     spawn.vital vital, date, (err) ->
@@ -95,7 +105,10 @@ class Exec extends EventEmitter
       return cb vital.error[priority] if vital.error[priority]?
       # check for new error
       prio = conf.priority.level[priority]
-      vital.error[priority] = if prio.maxCpu? and vital.cpu > prio.maxCpu
+      vital.error[priority] = if vital.startload and vital.startload + load > vital.startmax
+        new Error "The maximum load to start per interval would be exceeded with this process
+        at #{host}"
+      else if prio.maxCpu? and vital.cpu > prio.maxCpu
         new Error "The CPU utilization of #{Math.round vital.cpu * 100}% is above
         #{Math.round prio.maxCpu * 100}% allowed for #{priority} priority at #{host}"
       else if prio.minFreemem? and vital.freemem < prio.minFreemem
@@ -121,7 +134,6 @@ class Exec extends EventEmitter
 
   constructor: (@setup) ->
     @id = ++objectId
-    Exec.vital ?= {}
     host = 'localhost'
     @name = chalk.grey "#{host}##{@id}:"
     # set priority
@@ -138,13 +150,16 @@ class Exec extends EventEmitter
     return @addQueue cb if Exec.queueCounter.host[host]
     # check existing vital data
     @conf ?= config.get '/exec'
-    Exec.vitalCheck host, @setup.priority, (err) =>
+    load = Exec.load[@setup.cmd]?(@setup.args) ? DEFAULT_LOAD
+    Exec.vitalCheck host, @setup.priority, load, (err) =>
       return @addQueue cb if err
+      # add load to calculate startlimit
+      Exec.vital[host].startload += load
+      debug "#{@name} with #{@setup.priority} priority at #{host}"
       # check for local or remote
       if @setup.remote
         throw new Error "Remote execution using ssh not implemented, yet."
       # run locally
-      debug "#{@name} start locally"
       spawn.run.call this, (err) =>
         if err
           debug "#{@name} failed with #{err}"

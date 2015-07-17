@@ -9,14 +9,16 @@ retry:
   vital:
    # time to recheck host vital signs
     interval: 5s
-  # too much processes opened on system
-  ulimit:
-    # time to sleep till next try
-    interval: 1s
+    # maximum load% per CPU core per second in usage to start
+    startload: 80%
   # a queue will be created if host is overloaded
   queue:
     # specify the time after that a retry for queued executions should run
     interval: 3s
+  # too much processes opened on system
+  ulimit:
+    # time to sleep till next try
+    interval: 1s
   # process failed retry check
   error:
     # number of attempts

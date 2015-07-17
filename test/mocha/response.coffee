@@ -1,7 +1,7 @@
 chai = require 'chai'
 expect = chai.expect
 
-describe "Check", ->
+describe "Response check", ->
 
   config = require 'alinex-config'
   Exec = require '../../src/index'
@@ -237,41 +237,3 @@ describe "Check", ->
         expect(exec.result.error, "result error").to.exist
         cb()
 
-  describe "retry", ->
-
-    it "should fail with 3 tries", (cb) ->
-      @timeout 10000
-      Exec.run
-        cmd: 'cartoon-date'
-        retry:
-          times: 3
-          interval: 1000
-      , (err, exec) ->
-        expect(err, 'error').to.exist
-        expect(exec.result, "result").to.exist
-        expect(exec.result.code, "code").to.equal 127
-        expect(exec.result.error, "result error").to.exist
-        cb()
-
-  describe "queue", ->
-
-    it.only "should use queue and run it later", (cb) ->
-      @timeout 30000
-      config.value.exec.priority.level.test =
-        maxCpu: 0.01
-        maxLoad: 0.01
-        nice: 19
-      setTimeout ->
-        config.value.exec.priority.level.test =
-          maxCpu: 0.9
-          maxLoad: 0.9
-      , 2000
-      Exec.run
-        cmd: 'date'
-        priority: 'test'
-      , (err, exec) ->
-        expect(err, 'error').to.not.exist
-        expect(exec.result, "result").to.exist
-        expect(exec.result.code, "code").to.equal 0
-        expect(exec.result.error, "result error").to.not.exist
-        cb()
