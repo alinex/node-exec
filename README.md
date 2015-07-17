@@ -113,8 +113,10 @@ all parts which prevent the execution to start or run successfully.
 retry:
   # check for host vital signs
   vital:
-   # time to recheck host vital signs
+    # time to recheck host vital signs
     interval: 5s
+    # maximum load% per CPU core per second in usage to start
+    startload: 80%
   # too much processes opened on system
   ulimit:
     # time to sleep till next try
@@ -190,6 +192,66 @@ priority:
 
 Setup Execution
 -------------------------------------------------
+
+To specify your executable you give an object with the following settings.
+
+### Execution
+
+The basic settings needed are which command to start and with which parameter.
+Keep in mind that here no shell execution is possible so don't use bash basics
+without specifying 'sh' or 'bash' as the command.
+
+- cmd - (string) giving the command to call with path if needed
+- args - (array) list of arguments to use in the given order
+
+You can give both separately but you may also give attributes in the command
+string. If you do so the arguments will be extracted automatically so you need
+to use proper quoting.
+
+### Environment
+
+- cwd $ -
+- env % -
+- uid $ -
+- gid $ -
+
+### Host
+
+- remote $ -
+- priority $ -
+
+### Retry
+
+- check % -
+-     <name> -
+-         args... -
+-         retry -
+- retry % -
+-     times -
+-     interval -
+
+### Streams
+
+- input -
+-     exec -
+-     file -
+-     string -
+-     function -
+- output -
+- error -
+- fd3 -
+
+
+
+### Possible Checks
+
+- noExitCode - check that
+- exitCode - check that
+- noStderr - check that
+- noStdout - check that
+- matchStdout - check that
+- matchStderr - check that
+- notMatchStderr - check that
 
 
 Access Results

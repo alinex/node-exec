@@ -5,6 +5,10 @@ describe "Base", ->
 
   Exec = require '../../src/index'
 
+  before (cb) ->
+    @timeout 5000
+    Exec.init cb
+
   describe "config", ->
 
     it "should run the selfcheck on the schema", (cb) ->
@@ -24,3 +28,29 @@ describe "Base", ->
           expect(conf.retry.error.times, 'retry num').to.be.above -1
           cb()
 
+  describe.only "command", ->
+
+    it "should run with extra arguments", (cb) ->
+      now = (new Date()).toISOString()
+      Exec.run
+        cmd: 'date'
+        args: ['--iso-8601']
+      , (err, exec) ->
+        expect(exec.setup.cmd, 'cmd').to.equal 'date'
+        expect(exec.setup.args, 'args').to.deep.equal ['--iso-8601']
+        expect(err, 'error').to.not.exist
+        expect(exec.result.lines[0][1], "result stdout").to.equal now[0..9]
+        expect(exec.result.code, "code").equal 0
+        cb()
+
+    it "should split arguments", (cb) ->
+      now = (new Date()).toISOString()
+      Exec.run
+        cmd: 'date --iso-8601'
+      , (err, exec) ->
+        expect(exec.setup.cmd, 'cmd').to.equal 'date'
+        expect(exec.setup.args, 'args').to.deep.equal ['--iso-8601']
+        expect(err, 'error').to.not.exist
+        expect(exec.result.lines[0][1], "result stdout").to.equal now[0..9]
+        expect(exec.result.code, "code").equal 0
+        cb()

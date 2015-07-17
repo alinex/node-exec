@@ -20,7 +20,10 @@ schema = require './configSchema'
 spawn = require './spawn'
 check = require './check'
 
-# The load sshould be near the sys and usr time the process needs.
+# General setup
+# -------------------------------------------------
+
+# The load should be near the sys and usr time the process needs.
 DEFAULT_LOAD = 0.001
 
 # counter for unique object IDs
@@ -30,18 +33,33 @@ objectId = 0
 # -------------------------------------------------
 class Exec extends EventEmitter
 
+  # ### Vital Data
+
+  # collection of vital data per host for each interval
   @vital: {}
 
+  # methods for special commands to calculate start load depending on given args
+  # array as a hint you may use the sys and usr time which you get then running
+  # the process but only within a second it may be more than 1.0 if running on
+  # multi core
   @load:
     exiftool: -> 0.008
 
+  # ### Queue
+
+  # the queue itself jobs are listed under 'host'->'priority' lists and also
+  # contains the corresponding callbacks
   @queue: {}
 
+  # for statistical information this short summaries will help
   @queueCounter:
     total: 0
     host: {}
     priority: {}
 
+  # ### Initialization
+
+  # set the modules config paths, validation schema and initialize the configuration
   @init: async.once this, (cb) ->
     debug "initialize"
     # set module search path
@@ -51,15 +69,28 @@ class Exec extends EventEmitter
       return cb err if err
       config.init cb
 
+  # ### Worker
+
+  # The worker is a process which is started if a queue exists and work while the
+  # queue is not done. It will run all the tasks by priority on all hosts.
+
+  # flag if a worker process is already started or running
   @workerRunning: false
+
+  # the worker itself
   @worker: =>
     unless (hosts = Object.keys @queue).length
       @workerRunning = false
       return
-    #####################################################################
+    debug chalk.grey """
+    worker started: #{@queueCounter.total} total tasks waiting
+    hosts: #{@queueCounter.host}
+    priority: #{@queueCounter.priority}
+    """
+#    #####################################################################
 #    util = require 'util'
 #    console.log 'WORKER', util.inspect @queue, {depth: null}
-    #####################################################################
+#    #####################################################################
     async.each hosts, (host, cb) =>
       prios = Object.keys @queue[host]
       prios.reverse()
@@ -111,6 +142,8 @@ class Exec extends EventEmitter
 #      console.log '>>>>>> recall worker'
       setTimeout @worker, config.get 'exec/retry/queue/interval'
 
+  # get and check vital data - this will return an error if anything prevents
+  # from running the process
   @vitalCheck: (host, priority, load, cb) ->
     conf = config.get '/exec'
     vital = @vital[host] ?=
@@ -145,12 +178,16 @@ class Exec extends EventEmitter
       else false
       cb vital.error[priority]
 
+  # ### Start execution
+
+  # easy call to directly run execution in one statement
   @run: (setup, cb) ->
     Exec.init (err) ->
       return cb err if err
       proc = new Exec setup
       proc.run cb
 
+  # create a new execution object to specify and call later
   constructor: (@setup) ->
     @id = ++objectId
     host = 'localhost'
@@ -163,8 +200,23 @@ class Exec extends EventEmitter
       @setup.priority = prio.default
     debug "#{@name} created new instance with #{@setup.priority} priority"
 
+  # start execution
   run: (cb) ->
     host = @setup.remote ? 'localhost'
+    # optimize cmd - extract arguments
+    if ~@setup.cmd.indexOf ' '
+      parts = @setup.cmd.match ///
+      (?:         # non-capturing group
+        [^\s"]+   # anything that's not a space or a double-quote
+        |         # or
+        "[^"]*"   # zero or more characters in double-quotes
+        |         # or
+        '[^']*'   # zero or more characters in single-quotes
+      )+          # each match is one or more of the things described in the group
+      ///g
+      if parts.length > 1
+        @setup.cmd = parts.shift()
+        @setup.args = parts.concat args ? []
     # if queue for host exists add this
     return @addQueue cb if Exec.queueCounter.host[host]
     # check existing vital data
@@ -187,6 +239,7 @@ class Exec extends EventEmitter
         # success
         @checkResult cb
 
+  # if direct execution is not possible add this task to the queue
   addQueue: (err, cb) ->
     host = @setup.remote ? 'localhost'
     if err
@@ -203,6 +256,9 @@ class Exec extends EventEmitter
     Exec.queueCounter.host[host]++
     Exec.queueCounter.priority[@setup.priority]++
 
+  # ### Result
+
+  # run defined checks on result
   checkResult: (cb) ->
     # find check to use
     list = @setup.check ? {
