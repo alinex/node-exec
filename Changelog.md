@@ -4,6 +4,26 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.0 (2015-07-18)
+-------------------------------------------------
+- Enable all tests.
+- Document current API.
+- Added simplified call of arguments within command string.
+- Fixed worker handling and added startload test.
+- Added startload handling and fixed queue cleanup.
+- Made queue worker running.
+- Fixed messages for overload display.
+- Calculate cpu load over 1sec.
+- Make check errors more descriptive.
+- Updated Mindmap..
+- Added to queue on overload.
+- Added correct coveralls call.
+- Removed lag because this doesn't bring better check results.
+- Use the js-only version of toobusy.
+- Added node.js lag checking.
+- Check vital data after new ones collected.
+- Collect vital data.
+
 Version 0.1.0 (2015-07-15)
 -------------------------------------------------
 - Fixed returning errors on any problem.
