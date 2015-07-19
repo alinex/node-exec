@@ -51,3 +51,31 @@ priority:
       maxLoad: 150%
     immediately:
       nice: -20
+
+# Remote Server
+# -------------------------------------------------
+# Define remote hosts or host pools to be used through ssh.
+remote:
+  server1:
+    host: server1
+    port:  23
+    username: alex
+    password: dontknow
+    privateKey: /home/alex/.ssh/id.rsa
+    minSpare: 1
+    maxSpare: 3
+    maxSessions: 5
+  server2:
+    host: server2
+    port:  23
+    username: alex
+    password: dontknow
+    privateKey: /home/alex/.ssh/id.rsa
+    minSpare: 1
+    maxSpare: 3
+    maxSessions: 5
+  testpool:
+    - host: server1
+      weight: 0.4
+    - host: server2
+      weight: 0.6
