@@ -129,3 +129,86 @@ module.exports =
                 min: -20
                 max: 19
           ]
+    remote:
+      title: "Remote Servers"
+      description: "the setup of remote execution servers"
+      type: 'object'
+      keys:
+        server:
+          type: 'object'
+          entries: [
+            title: "Remote Server"
+            description: "a remote server ssh connection setup"
+            type: 'object'
+            allowedKeys: true
+            mandatoryKeys: ['host', 'port', 'username']
+            keys:
+              host:
+                title: "Hostname or IP Address"
+                description: "the hostname or IP address to connect to"
+                type: 'or'
+                or: [
+                  type: 'hostname'
+                ,
+                  type: 'ipaddr'
+                ]
+              port:
+                title: "Port NUmber"
+                description: "the port on which to connect using ssh protocol"
+                type: 'port'
+                default: 22
+              username:
+                title: "Username"
+                description: "the username to use for the connection"
+                type: 'string'
+              password:
+                title: "Password"
+                description: "the password to use for connecting"
+                type: 'string'
+                optional: true
+              privateKey:
+                title: "Private Key"
+                description: "the private key file to use for authentication"
+                type: 'file'
+                exists: true
+              minSpare:
+                title: "min Spare Connections"
+                description: "the number of spare connections to keep up if possible"
+                type: 'integer'
+                default: 0
+                min: 0
+              maxSpare:
+                title: "max Spare Connections"
+                description: "the maximum number of connections which being kept open"
+                type: 'integer'
+                default: 0
+                min: '<<<minSpare>>>'
+              maxConnections:
+                title: "max Connections"
+                description: "the maximum number of simultaneously connections to this host"
+                type: 'integer'
+                default: 8
+                min: 1
+          ]
+        pool:
+          type: 'object'
+          entries: [
+            title: "Remote Server Pool"
+            description: "a pool of remote servers which one of them may be used"
+            type: 'array'
+            entries:
+              title: ""
+              description: ""
+              type: 'object'
+              keys:
+                host:
+                  title: "Reference to host entry"
+                  description: "an host entry becomming member of this pool"
+                  type: 'string'
+                  values: '<<<remote/server>>>'
+                weight:
+                  title: "Weight"
+                  description: "the weight for this host in balancing"
+                  type: 'percent'
+                  default: 0.5
+          ]
