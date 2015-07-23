@@ -32,9 +32,8 @@ vital = async.onceTime (host, vital, date, cb) ->
   unless host in Object.keys conf.server
     return cb new Error "The remote server '#{host}' is not configured."
   debug chalk.grey "detect vital signs"
-  pool[host] ?= {}
 
-  open host, (err, conn) ->
+  connect host, (err, conn) ->
     console.log 'TEST DONE'
 #    console.log util.inspect conn, {depth: null}
 
@@ -47,13 +46,29 @@ module.exports =
   run: run
   vital: vital
 
-open = (host, cb) ->
+connect = (host, cb) ->
   conf = config.get 'exec/remote/server/' + host
-  # make connection
+  pool[host] ?=
+    spare: []
+    numActive: 0
+  # retry if too much sessions
+  if pool[host].numActive >= conf.maxSessions
+    debug chalk.grey "no free session on #{host}, retrying"
+    setTimeout ->
+      connect host, cb
+    , config.get 'exec/ulimit/interval'
+    return
+  # check for spare session
+  if conn = pool[host].spare.shift()
+    # check if connection is valid
+    ############################################################################
+    return cb null, conn
+  # make new connection
   conn = new ssh.Client()
   conn.name = chalk.grey "ssh://#{conf.username}@#{conf.host}:#{conf.port}"
   debug "#{conn.name} create new connection"
   conn.on 'ready', ->
+    pool[host].numActive++
     debug "#{conn.name} connection established"
     cb null, conn
   .on 'banner', (msg, lang) ->
@@ -62,4 +77,7 @@ open = (host, cb) ->
     debug chalk.magenta "#{conn.name} got error: #{err.message}"
   .on 'end', ->
     debug chalk.grey "#{conn.name} was closed"
-  .connect conf
+  .connect object.extend {}, conf,
+    debug: unless conf.debug then null else (msg) ->
+      debug chalk.grey "#{conn.name} #{msg}"
+

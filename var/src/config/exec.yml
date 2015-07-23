@@ -65,6 +65,7 @@ remote:
       minSpare: 1
       maxSpare: 3
       maxConnections: 5
+      debug: true
     server2:
       host: localhost
       port:  ssh

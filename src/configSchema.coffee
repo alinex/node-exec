@@ -206,6 +206,10 @@ module.exports =
                 type: 'integer'
                 default: 8
                 min: 1
+              debug:
+                title: "Extended Debug"
+                description: "the DEBUG=exec.ssh messages are extended with server communication"
+                type: 'boolean'
           ]
         group:
           type: 'object'

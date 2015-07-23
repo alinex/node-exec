@@ -7,7 +7,7 @@ describe "Remote", ->
   Exec = require '../../src/index'
 
   before (cb) ->
-    @timeout 5000
+    @timeout 8000
     Exec.init cb
 
   describe "command", ->
