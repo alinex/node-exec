@@ -62,9 +62,4 @@ open = (host, cb) ->
     debug chalk.magenta "#{conn.name} got error: #{err.message}"
   .on 'end', ->
     debug chalk.grey "#{conn.name} was closed"
-  .connect
-    host: conf.host
-    port: conf.port
-    username: conf.username
-#    password: conf.password
-    privateKey: require('fs').readFileSync conf.privateKey
+  .connect conf

@@ -168,9 +168,26 @@ module.exports =
                 optional: true
               privateKey:
                 title: "Private Key"
-                description: "the private key file to use for authentication"
-                type: 'file'
-                exists: true
+                description: "the private key file to use for OpenSSH authentication"
+                type: 'string'
+              passphrase:
+                title: "Passphrase"
+                description: "the passphrase used to decrypt an encrypted private key"
+                type: 'string'
+              localHostname:
+                title: "Local Hostname"
+                description: "the host used for hostbased user authentication"
+                type: 'string'
+              localUsername:
+                title: "Local User"
+                description: "the username used for hostbased user authentication"
+                type: 'string'
+              keepaliveinterval:
+                title: "Keepalive"
+                description: "the interval for the keepalive packets to be send"
+                type: 'interval'
+                unit: 'ms'
+                default: 1000
               minSpare:
                 title: "min Spare Connections"
                 description: "the number of spare connections to keep up if possible"
