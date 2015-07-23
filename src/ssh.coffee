@@ -35,6 +35,7 @@ vital = async.onceTime (host, vital, date, cb) ->
 
   connect host, (err, conn) ->
     console.log 'TEST DONE'
+    close host, conn
 #    console.log util.inspect conn, {depth: null}
 
 
@@ -81,3 +82,9 @@ connect = (host, cb) ->
     debug: unless conf.debug then null else (msg) ->
       debug chalk.grey "#{conn.name} #{msg}"
 
+close = (host, conn, cb = {}) ->
+  conf = config.get 'exec/remote/server/' + host
+  conn.end()
+  pool[host].numActive--
+  debug "#{conn.name} connection closed"
+  cb()
