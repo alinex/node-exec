@@ -58,24 +58,22 @@ priority:
 remote:
   server:
     server1:
-      host: server1
+      host: localhost
       port:  ssh
       username: alex
-      password: dontknow
       privateKey: /home/alex/.ssh/id_rsa
       minSpare: 1
       maxSpare: 3
       maxConnections: 5
     server2:
-      host: server2
+      host: localhost
       port:  ssh
       username: alex
       password: dontknow
-      privateKey: /home/alex/.ssh/id_rsa
       minSpare: 1
       maxSpare: 3
       maxConnections: 5
-  pools:
+  group:
     testpool:
       - host: server1
         weight: 0.4

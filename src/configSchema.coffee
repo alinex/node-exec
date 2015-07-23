@@ -190,7 +190,7 @@ module.exports =
                 default: 8
                 min: 1
           ]
-        pool:
+        group:
           type: 'object'
           entries: [
             title: "Remote Server Pool"

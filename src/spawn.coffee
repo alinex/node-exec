@@ -98,7 +98,7 @@ run = (cb) ->
     @emit 'done', @result.code
     cb @process.error, this if cb
 
-vital = async.onceTime (vital, date, cb) ->
+vital = async.onceTime (host, vital, date, cb) ->
   return cb() if vital.date is date
   start = cpuMeasure()
   setTimeout ->

@@ -17,7 +17,6 @@ config = require 'alinex-config'
 async = require 'alinex-async'
 # internal helpers
 schema = require './configSchema'
-spawn = require './spawn'
 check = require './check'
 
 # General setup
@@ -150,7 +149,8 @@ class Exec extends EventEmitter
       startmax: conf.retry.vital.startload * conf.retry.vital.interval / 1000 * os.cpus().length
     # get vital data
     date = Math.floor new Date().getTime() / conf.retry.vital.interval
-    spawn.vital vital, date, (err) ->
+    lib = require if host is 'localhost' then './spawn' else './ssh'
+    lib.vital host, vital, date, (err) ->
       return cb err if err
       # check startload
       if vital.startload and vital.startload + load > vital.startmax
@@ -228,11 +228,9 @@ class Exec extends EventEmitter
       Exec.vital[host].startload += load
 #      console.log Exec.vital ############################################################
       debug "#{@name} with #{@setup.priority} priority at #{host}"
-      # check for local or remote
-      if @setup.remote
-        throw new Error "Remote execution using ssh not implemented, yet."
-      # run locally
-      spawn.run.call this, (err) =>
+      # run locally or remote
+      lib = require if host is 'localhost' then './spawn' else './ssh'
+      lib.run.call this, (err) =>
         if err
           debug "#{@name} failed with #{err}"
           return cb err
@@ -295,7 +293,7 @@ class Exec extends EventEmitter
   stdout: (data) ->
     data ?= @result
     return data.stdout if data.stdout
-    stdout ?= data.lines
+    stdout = data.lines
     .filter (e) -> e[0] is 1
     .map (e) -> e[1]
     .join '\n'
@@ -305,7 +303,7 @@ class Exec extends EventEmitter
   stderr: (data) ->
     data ?= @result
     return data.stderr if data.stderr
-    stderr ?= data.lines
+    stderr = data.lines
     .filter (e) -> e[0] is 2
     .map (e) -> e[1]
     .join '\n'
