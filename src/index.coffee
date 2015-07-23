@@ -294,16 +294,22 @@ class Exec extends EventEmitter
 
   stdout: (data) ->
     data ?= @result
-    data.stdout ?= data.lines
+    return data.stdout if data.stdout
+    stdout ?= data.lines
     .filter (e) -> e[0] is 1
     .map (e) -> e[1]
     .join '\n'
+    data.stdout = stdout if data.code?
+    stdout
 
   stderr: (data) ->
     data ?= @result
-    data.stderr ?= data.lines
+    return data.stderr if data.stderr
+    stderr ?= data.lines
     .filter (e) -> e[0] is 2
     .map (e) -> e[1]
     .join '\n'
+    data.stderr = stderr if data.code?
+    stderr
 
 module.exports = Exec
