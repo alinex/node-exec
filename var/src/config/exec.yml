@@ -62,10 +62,10 @@ remote:
       port:  ssh
       username: alex
       privateKey: <<<file:///home/alex/.ssh/id_rsa>>>
-      minSpare: 1
+      minSpare: 2
       maxSpare: 3
       maxConnections: 5
-      debug: true
+      debug: false
     server2:
       host: localhost
       port:  ssh

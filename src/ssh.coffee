@@ -41,7 +41,7 @@ vital = async.onceTime (host, vital, date, cb) ->
 
   connect host, (err, conn) ->
     console.log 'TEST DONE'
-    close host, conn
+    disconnect host, conn
 #    console.log util.inspect conn, {depth: null}
 
 
@@ -80,12 +80,28 @@ connect = (host, cb) ->
     # check if connection is valid
     ############################################################################
     return cb null, conn
+  open host, (err, conn) ->
+    pool[host].numActive++
+    cb err, conn
+    # check if more spares should be opened
+    if pool[host].spare.length < conf.minSpare
+      num = conf.minSpare - pool[host].spare.length
+      async.each [1..num], (n, cb) ->
+        open host, (err, conn) ->
+          pool[host].spare.push conn
+          debug chalk.grey "#{conn.name} add connection as spare
+          (#{pool[host].numActive}/#{conf.maxConnections} sessions,
+          #{pool[host].spare.length}/#{conf.minSpare}-#{conf.maxSpare} spare)"
+          cb()
+      , ->
+
+open = (host, cb) ->
+  conf = config.get 'exec/remote/server/' + host
   # make new connection
   conn = new ssh.Client()
-  conn.name = name
+  conn.name = chalk.grey "ssh://#{conf.username}@#{conf.host}:#{conf.port}"
   debug "#{conn.name} create new connection"
   conn.on 'ready', ->
-    pool[host].numActive++
     debug chalk.grey "#{conn.name} connection established
     (#{pool[host].numActive}/#{conf.maxConnections} sessions,
     #{pool[host].spare.length}/#{conf.minSpare}-#{conf.maxSpare} spare)"
@@ -101,18 +117,22 @@ connect = (host, cb) ->
       debug chalk.grey "#{conn.name} #{msg}"
 
 # ### Close connection
-close = (host, conn, cb = {}) ->
+disconnect = (host, conn, cb = -> ) ->
   conf = config.get 'exec/remote/server/' + host
   # check if more spare sessions are allowed
-  if pool[host].spare.length < conf.maxSpare
-    pool[host].spare.push conn
-    pool[host].numActive--
-    debug chalk.grey "#{conn.name} connection gone back to pool
-    (#{pool[host].numActive}/#{conf.maxConnections} sessions,
-    #{pool[host].spare.length}/#{conf.minSpare}-#{conf.maxSpare} spare)"
-    return cb()
-  conn.end()
+  if pool[host].spare.length >= conf.maxSpare
+    return close host, conn, cb
+  # push connection back to pool
+  pool[host].spare.push conn
   pool[host].numActive--
+  debug chalk.grey "#{conn.name} connection gone back to pool
+  (#{pool[host].numActive}/#{conf.maxConnections} sessions,
+  #{pool[host].spare.length}/#{conf.minSpare}-#{conf.maxSpare} spare)"
+  return cb()
+
+close = (host, conn, cb) ->
+  conf = config.get 'exec/remote/server/' + host
+  conn.end()
   debug chalk.grey "#{conn.name} connection closed
   (#{pool[host].numActive}/#{conf.maxConnections} sessions,
   #{pool[host].spare.length}/#{conf.minSpare}-#{conf.maxSpare} spare)"
