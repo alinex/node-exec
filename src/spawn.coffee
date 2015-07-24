@@ -106,6 +106,10 @@ run = (cb) ->
 # -------------------------------------------------
 vital = async.onceTime (host, vital, date, cb) ->
   return cb() if vital.date is date
+  # init startmax
+  conf = config.get 'exec/retry/vital'
+  vital.startmax ?= conf.startload * conf.interval / 1000 * os.cpus().length
+  # calculate cpu usage
   start = cpuMeasure()
   setTimeout ->
     end = cpuMeasure()
@@ -113,6 +117,7 @@ vital = async.onceTime (host, vital, date, cb) ->
     debug chalk.grey "vital signs: #{util.inspect(vital).replace /\s+/g, ' '}"
     cb()
   , MEASURE_TIME
+  # set the other values
   vital.date = date
   vital.error = {}
   vital.startload = 0

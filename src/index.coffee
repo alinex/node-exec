@@ -145,11 +145,9 @@ class Exec extends EventEmitter
   # from running the process
   @vitalCheck: (host, priority, load, cb) ->
     conf = config.get '/exec'
-    unless @vital[host]?
-      startLoad = conf.remote.server[host].startLoad ? conf.retry.vital.startload
-      @vital[host] =
-        startmax = startLoad * conf.retry.vital.interval / 1000 * os.cpus().length
-    vital = @vital[host]
+    vital = @vital[host] ?=
+      startmax: conf.remote.server[host].startloadTotal ?
+      conf.retry.vital.startload * conf.retry.vital.interval / 1000 * os.cpus().length
     # get vital data
     date = Math.floor new Date().getTime() / conf.retry.vital.interval
     lib = require if host is 'localhost' then './spawn' else './ssh'
