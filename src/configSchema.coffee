@@ -206,6 +206,11 @@ module.exports =
                 type: 'integer'
                 default: 8
                 min: 1
+              startload:
+                title: "Start Limit"
+                description: "the maximum load% per CPU core per second in usage to start"
+                type: 'percent'
+                min: 0.01
               debug:
                 title: "Extended Debug"
                 description: "the DEBUG=exec.ssh messages are extended with server communication"

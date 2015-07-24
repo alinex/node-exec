@@ -30,6 +30,7 @@ run = (cb) ->
 # Check vital signs
 # -------------------------------------------------
 vital = async.onceTime (host, vital, date, cb) ->
+  return cb() if vital.date is date
   conf = config.get 'exec/remote'
   #  support groups
   if host in Object.keys conf.group
@@ -40,7 +41,22 @@ vital = async.onceTime (host, vital, date, cb) ->
   debug chalk.grey "detect vital signs"
 
   connect host, (err, conn) ->
-    console.log 'TEST DONE'
+#    start = cpuMeasure()
+#    setTimeout ->
+#      end = cpuMeasure()
+#      vital.cpu = 1 - (end[1] - start[1]) / (end[0] - start[0])
+#      debug chalk.grey "vital signs: #{util.inspect(vital).replace /\s+/g, ' '}"
+#      cb()
+#    , MEASURE_TIME
+    vital.date = date
+#    vital.error = {}
+#    vital.startload = 0
+#    # freemem
+#    vital.freemem = os.freemem() / os.totalmem()
+#    vital.load = os.loadavg().map (v) -> v / os.cpus().length
+
+    console.log vital
+
     disconnect host, conn
 #    console.log util.inspect conn, {depth: null}
 
