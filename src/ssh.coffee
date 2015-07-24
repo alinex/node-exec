@@ -61,12 +61,14 @@ module.exports =
 # ### Connect to remote server
 connect = (host, cb) ->
   conf = config.get 'exec/remote/server/' + host
+  name = chalk.grey "ssh://#{conf.username}@#{conf.host}:#{conf.port}"
   pool[host] ?=
     spare: []
     numActive: 0
   # retry if too much sessions
-  debug chalk.grey "#{host}: #{pool[host].numActive}/#{conf.maxConnections} sessions,
-  #{pool[host].spare.length}/#{conf.minSpare}-#{conf.maxSpare} spare"
+  debug chalk.grey "#{name} get connection
+  (#{pool[host].numActive}/#{conf.maxConnections} sessions,
+  #{pool[host].spare.length}/#{conf.minSpare}-#{conf.maxSpare} spare)"
   if pool[host].numActive >= conf.maxConnections
     debug chalk.grey "no free session on #{host}, retrying"
     setTimeout ->
@@ -80,11 +82,13 @@ connect = (host, cb) ->
     return cb null, conn
   # make new connection
   conn = new ssh.Client()
-  conn.name = chalk.grey "ssh://#{conf.username}@#{conf.host}:#{conf.port}"
+  conn.name = name
   debug "#{conn.name} create new connection"
   conn.on 'ready', ->
     pool[host].numActive++
-    debug "#{conn.name} connection established"
+    debug chalk.grey "#{conn.name} connection established
+    (#{pool[host].numActive}/#{conf.maxConnections} sessions,
+    #{pool[host].spare.length}/#{conf.minSpare}-#{conf.maxSpare} spare)"
     cb null, conn
   .on 'banner', (msg, lang) ->
     debug chalk.grey "#{conn.name} #{msg.replace '\n', '\n'+conn.name}"
@@ -99,7 +103,17 @@ connect = (host, cb) ->
 # ### Close connection
 close = (host, conn, cb = {}) ->
   conf = config.get 'exec/remote/server/' + host
+  # check if more spare sessions are allowed
+  if pool[host].spare.length < conf.maxSpare
+    pool[host].spare.push conn
+    pool[host].numActive--
+    debug chalk.grey "#{conn.name} connection gone back to pool
+    (#{pool[host].numActive}/#{conf.maxConnections} sessions,
+    #{pool[host].spare.length}/#{conf.minSpare}-#{conf.maxSpare} spare)"
+    return cb()
   conn.end()
   pool[host].numActive--
-  debug "#{conn.name} connection closed"
+  debug chalk.grey "#{conn.name} connection closed
+  (#{pool[host].numActive}/#{conf.maxConnections} sessions,
+  #{pool[host].spare.length}/#{conf.minSpare}-#{conf.maxSpare} spare)"
   cb()
