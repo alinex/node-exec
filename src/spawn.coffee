@@ -20,8 +20,12 @@ carrier = require 'carrier'
 {object} = require 'alinex-util'
 async = require 'alinex-async'
 
+# Configuration
+# -------------------------------------------------
 MEASURE_TIME = 1000
 
+# Run local command
+# -------------------------------------------------
 run = (cb) ->
   # set command
   cmd = @setup.cmd
@@ -98,6 +102,8 @@ run = (cb) ->
     @emit 'done', @result.code
     cb @process.error, this if cb
 
+# Check vital signs
+# -------------------------------------------------
 vital = async.onceTime (host, vital, date, cb) ->
   return cb() if vital.date is date
   start = cpuMeasure()
@@ -123,7 +129,8 @@ cpuMeasure = ->
     idle += core.times.idle
   [total, idle]
 
-
+# Export public methods
+# -------------------------------------------------
 module.exports =
   run: run
   vital: vital

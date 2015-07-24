@@ -18,11 +18,17 @@ ssh = require 'ssh2'
 async = require 'alinex-async'
 config = require 'alinex-config'
 
+# General setup
+# -------------------------------------------------
 pool = {}
 
+# Run local command
+# -------------------------------------------------
 run = (cb) ->
   return cb()
 
+# Check vital signs
+# -------------------------------------------------
 vital = async.onceTime (host, vital, date, cb) ->
   conf = config.get 'exec/remote'
   #  support groups
@@ -42,18 +48,26 @@ vital = async.onceTime (host, vital, date, cb) ->
 #  console.log util.inspect pool, {depth: null}
 #  return cb()
 
-
+# Export public methods
+# -------------------------------------------------
 module.exports =
   run: run
   vital: vital
 
+
+# Helper Methods
+# -------------------------------------------------
+
+# ### Connect to remote server
 connect = (host, cb) ->
   conf = config.get 'exec/remote/server/' + host
   pool[host] ?=
     spare: []
     numActive: 0
   # retry if too much sessions
-  if pool[host].numActive >= conf.maxSessions
+  debug chalk.grey "#{host}: #{pool[host].numActive}/#{conf.maxConnections} sessions,
+  #{pool[host].spare.length}/#{conf.minSpare}-#{conf.maxSpare} spare"
+  if pool[host].numActive >= conf.maxConnections
     debug chalk.grey "no free session on #{host}, retrying"
     setTimeout ->
       connect host, cb
@@ -82,6 +96,7 @@ connect = (host, cb) ->
     debug: unless conf.debug then null else (msg) ->
       debug chalk.grey "#{conn.name} #{msg}"
 
+# ### Close connection
 close = (host, conn, cb = {}) ->
   conf = config.get 'exec/remote/server/' + host
   conn.end()
