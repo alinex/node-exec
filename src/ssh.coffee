@@ -31,64 +31,56 @@ run = (cb) ->
 # -------------------------------------------------
 vital = async.onceTime (host, vital, date, cb) ->
   return cb() if vital.date is date
-  conf = config.get 'exec/remote'
-#####  vital.startmax ?= conf.startload * conf.interval / 1000 * os.cpus().length
-  debug chalk.grey "detect vital signs"
-
+  # reinit
+  vital.date = date
+  vital.error = {}
+  vital.startload = 0
+  # connect to host and get data
   connect host, (err, conn) ->
-#    alex@samsung-R505 ~/a3/node-exec $ LANG=C top -bn1 | head
-#top - 21:29:35 up 14 days, 41 min,  4 users,  load average: 1.25, 1.88, 1.17
-#Tasks: 166 total,   1 running, 165 sleeping,   0 stopped,   0 zombie
-#%Cpu(s): 28.0 us,  9.7 sy,  0.7 ni, 59.4 id,  1.9 wa,  0.0 hi,  0.2 si,  0.0 st
-#KiB Mem:   1803540 total,  1539048 used,   264492 free,    42960 buffers
-#KiB Swap:  1831932 total,   376484 used,  1455448 free.   507328 cached Mem
-    conn.exec 'top -bn3 | head -n5',
-      env:
-        LANG: 'C'
-    , (err, stream) ->
+    debug chalk.grey "#{conn.name} detect vital signs"
+
+    async.parallel [
+      (cb) -> startmax conn, vital, host, cb
+      (cb) -> top conn, vital, cb
+    ], (err) ->
       return cb err if err
-      stream.on 'close', (code, signal) ->
-        console.log('Stream :: close :: code: ' + code + ', signal: ' + signal)
-      .on 'data', (data) ->
-        console.log('STDOUT: ' + data)
-      .stderr.on 'data', (data) ->
-        console.log('STDERR: ' + data)
-    conn.exec 'uptime',
-      env:
-        LANG: 'C'
-    , (err, stream) ->
-      return cb err if err
-      stream.on 'close', (code, signal) ->
-        console.log('Stream :: close :: code: ' + code + ', signal: ' + signal)
-      .on 'data', (data) ->
-        console.log('STDOUT: ' + data)
-      .stderr.on 'data', (data) ->
-        console.log('STDERR: ' + data)
+      debug chalk.grey "#{conn.name} vital signs: #{util.inspect(vital).replace /\s+/g, ' '}"
+      cb null, vital
 
+startmax = (conn, vital, host, cb) ->
+  return cb() if vital.startmax?
+  conf = config.get 'exec'
+  exec conn, "cat /proc/cpuinfo | awk '/^processor/{print $3}' | tail -1", (err, cpus) ->
+    return cb err if err
+    vital.startmax = (conf.remote.server[host].startload ? conf.retry.vital.startload) *
+    conf.retry.vital.interval / 1000 * cpus
+    cb()
 
-  #    start = cpuMeasure()
-  #    setTimeout ->
-  #      end = cpuMeasure()
-  #      vital.cpu = 1 - (end[1] - start[1]) / (end[0] - start[0])
-  #      debug chalk.grey "vital signs: #{util.inspect(vital).replace /\s+/g, ' '}"
-  #      cb()
-  #    , MEASURE_TIME
-      vital.date = date
-      vital.error = {}
-      vital.startload = 0
-  #    # freemem
-  #    free -b
-  #    vital.freemem = os.freemem() / os.totalmem()
-  #    uptime
-  #    vital.load = os.loadavg().map (v) -> v / os.cpus().length
+top = (conn, vital, cb) ->
+  exec conn, 'LANG=C top -bn3 | head -n5', (err, stdout) ->
+#  exec conn, 'env', (err, stdout) ->
+    return cb err if err
+    lines = stdout.split /\n/
+    vital.load = lines[0].match(/load average: ([0-9.]+), ([0-9.]+), ([0-9.]+)/)[1..3]
+    .map parseFloat
+    vital.cpu = 1 - parseFloat(lines[2].match(/([0-9.]+) id/)[1]) / 100
+    mem = lines[3].match /(\d+)\D*\d+\D*(\d+)/
+    vital.freemem = parseInt(mem[2]) / parseInt(mem[1])
+    cb()
 
-      console.log vital
+exec = (conn, cmdline, cb) ->
+  stdout = ''
+  console.log "--> #{cmdline}"
+  conn.exec cmdline, (err, stream) ->
+    return cb err if err
+    stream.on 'close', (code, signal) ->
+      if code or signal
+        return cb new Error "Got return code #{code} (signal #{signal}) from: #{cmdline}"
+      return cb null, stdout.trim()
+    .on 'data', (data) -> stdout += data
+    .stderr.on 'data', (data) -> debug "#{conn.name} Command #{cmdline} got error:
+      #{data}"
 
-#    console.log util.inspect conn, {depth: null}
-
-
-#  console.log util.inspect pool, {depth: null}
-#  return cb()
 
 # Export public methods
 # -------------------------------------------------

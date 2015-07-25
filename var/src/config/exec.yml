@@ -62,8 +62,6 @@ remote:
       port:  ssh
       username: alex
       privateKey: <<<file:///home/alex/.ssh/id_rsa>>>
-      minSpare: 2
-      maxSpare: 3
       maxConnections: 5
       debug: false
     server2:
@@ -71,8 +69,6 @@ remote:
       port:  ssh
       username: alex
       password: dontknow
-      minSpare: 1
-      maxSpare: 3
       maxConnections: 5
   group:
     testpool:

@@ -11,6 +11,7 @@ describe "Remote", ->
     Exec.init cb
 
   describe "command", ->
+    @timeout 5000
 
     it.only "should run date", (cb) ->
       exec = new Exec
