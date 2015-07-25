@@ -18,19 +18,44 @@ ssh = require 'ssh2'
 async = require 'alinex-async'
 config = require 'alinex-config'
 
-# General setup
+# Connection pool
 # -------------------------------------------------
 pool = {}
 
 # Run local command
 # -------------------------------------------------
 run = (cb) ->
+  host = @setup.remote
+  conf = config.get 'exec/remote/server/' + host
+  # set command
+  cmdline = [@setup.cmd]
+  if @setup.args
+    cmdline = cmdline.concat @setup.args.map (e) -> "'#{e.toString().replace '\'', '\\\''}'"
+  # support priority based nice values
+  prio = @conf.priority.level[@setup.priority]
+  if prio.nice
+    if prio.nice > 0 or conf.username is 'root'
+      # add support for nice call
+      cmdline.unshift 'nice', '-n', prio.nice
+  # set working directory
+  if @setup.dir
+    cmdline.unshift 'cd', "'#{@setup.dir.replace '\'', '\\\''}'", '&&'
+  # set environment to english language
+  env = @setup.env ? {LANG: 'C', LC_ALL: 'C'}
+  cmdline.unshift "#{k}=#{v}" for k, v of env
+
+
+  console.log cmdline
+
+
+
   return cb()
 
 # Check vital signs
 # -------------------------------------------------
 vital = async.onceTime (host, vital, date, cb) ->
   return cb() if vital.date is date
+  ######################################### support groups
   # reinit
   vital.date = date
   vital.error = {}
@@ -47,6 +72,8 @@ vital = async.onceTime (host, vital, date, cb) ->
       debug chalk.grey "#{conn.name} vital signs: #{util.inspect(vital).replace /\s+/g, ' '}"
       cb null, vital
 
+# ### get the starmax value
+# THis is based on the number of cpus and the configuration value
 startmax = (conn, vital, host, cb) ->
   return cb() if vital.startmax?
   conf = config.get 'exec'
@@ -56,9 +83,10 @@ startmax = (conn, vital, host, cb) ->
     conf.retry.vital.interval / 1000 * cpus
     cb()
 
+# ### get load, cpu usage and free mem
+# This is taken from the top output.
 top = (conn, vital, cb) ->
   exec conn, 'LANG=C top -bn3 | head -n5', (err, stdout) ->
-#  exec conn, 'env', (err, stdout) ->
     return cb err if err
     lines = stdout.split /\n/
     vital.load = lines[0].match(/load average: ([0-9.]+), ([0-9.]+), ([0-9.]+)/)[1..3]
@@ -68,9 +96,9 @@ top = (conn, vital, cb) ->
     vital.freemem = parseInt(mem[2]) / parseInt(mem[1])
     cb()
 
+# ### Short execution of helper calls
 exec = (conn, cmdline, cb) ->
   stdout = ''
-  console.log "--> #{cmdline}"
   conn.exec cmdline, (err, stream) ->
     return cb err if err
     stream.on 'close', (code, signal) ->
@@ -95,10 +123,6 @@ module.exports =
 # ### Connect to remote server
 connect = (host, cb) ->
   conf = config.get 'exec/remote'
-  #  support groups
-  if host in Object.keys conf.group
-    return cb new Error "Groups not implemented, yet."
-    ################################################################################
   return cb null, pool[host] if pool[host]
   unless host in Object.keys conf.server
     return cb new Error "The remote server '#{host}' is not configured."
@@ -107,6 +131,7 @@ connect = (host, cb) ->
     pool[host] = conn
     cb null, conn
 
+# ### Open a new connection
 open = (host, cb) ->
   conf = config.get 'exec/remote/server/' + host
   # make new connection
@@ -124,6 +149,7 @@ open = (host, cb) ->
     debug: unless conf.debug then null else (msg) ->
       debug chalk.grey "#{conn.name} #{msg}"
 
+# ### Close the connection
 close = (host, conn) ->
   delete pool[host]
   conn.end()

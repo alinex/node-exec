@@ -125,6 +125,7 @@ vital = async.onceTime (host, vital, date, cb) ->
   vital.freemem = os.freemem() / os.totalmem()
   vital.load = os.loadavg().map (v) -> v / os.cpus().length
 
+# ### Measure CPU usage
 cpuMeasure = ->
   cpus = os.cpus()
   total = 0
