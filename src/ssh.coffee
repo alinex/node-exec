@@ -32,16 +32,48 @@ run = (cb) ->
   connect host, (err, conn) =>
     cmdline = helper.cmdline @setup
     debugCmd chalk.yellow "#{@name} #{cmdline}"
-    conn.exec cmdline, (err, stream) ->
-      return cb err if err
-      stream.on 'close', (code, signal) ->
-        if code or signal
-          return cb new Error "Got return code #{code} (signal #{signal}) from: #{cmdline}"
-        return cb()
-      .on 'data', (data) -> stdout += data
-      .stderr.on 'data', (data) -> debug "#{conn.name} Command #{cmdline} got error:
-        #{data}"
-
+    # store process information
+    @process =
+      host: host
+      start: new Date()
+    # collect output
+    @result = {}
+    @result.lines = []
+    # start processing
+    conn.exec cmdline, (err, stream) =>
+      # error management
+      if err
+        @process.error = err
+        return cb err
+#      stream.on 'close', (code, signal) =>
+#        if code or signal
+#          return cb new Error "Got return code #{code} (signal #{signal}) from: #{cmdline}"
+#        return cb()
+#      .on 'data', (data) -> stdout += data
+#      .stderr.on 'data', (data) -> debug "#{conn.name} Command #{cmdline} got error:
+#        #{data}"
+      carrier.carry stream, (line) =>
+        @result.lines.push [1, line]
+        @emit 'stdout', line # send through
+        debugOut "#{@name} #{line}"
+      , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
+      carrier.carry stream.stderr, (line) =>
+        @result.lines.push [2, line]
+        @emit 'stderr', line # send through
+        debugErr "#{@name} #{line}"
+      , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
+      # process finished
+      stream.on 'close', (code, signal) =>
+        @result.code = code
+        process.nextTick (signal) =>
+          @process.end = new Date()
+          if signal?
+            debugCmd "#{@name} exit: signal #{signal} after #{@process.end-@process.start} ms"
+            @code ?= -1
+          else
+            debugCmd "#{@name} exit: code #{@result.code} after #{@process.end-@process.start} ms"
+          @emit 'done', @result.code
+          cb @process.error, this if cb
 
 # Check vital signs
 # -------------------------------------------------
@@ -129,7 +161,7 @@ open = (host, cb) ->
   # make new connection
   conn = new ssh.Client()
   conn.name = chalk.grey "ssh://#{conf.username}@#{conf.host}:#{conf.port}"
-  debug "#{conn.name} open ssh connection"
+  debug "#{conn.name} open ssh connection for #{host}"
   conn.on 'ready', ->
     debug chalk.grey "#{conn.name} connection established"
     cb null, conn
