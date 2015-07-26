@@ -19,6 +19,8 @@ carrier = require 'carrier'
 # include alinex modules
 {object} = require 'alinex-util'
 async = require 'alinex-async'
+# include helper classes
+helper = require './helper'
 
 # Configuration
 # -------------------------------------------------
@@ -63,17 +65,7 @@ run = (cb) ->
   # output debug lines
   debug "#{@name} start using spawn under pid #{@proc.pid}"
   @process.pid = @proc.pid
-  cmdline = ''
-  for n, e of @setup.env
-    cmdline += " #{n}=#{e}"
-  cmdline += " #{@setup.cmd}"
-  if @setup.args?
-    for a in @setup.args
-      if typeof a is 'string'
-        cmdline += " #{a.replace /[ ]/, '\ '}"
-      else
-        cmdline += " #{a}"
-  debugCmd chalk.yellow "#{@name} #{cmdline.trim()}"
+  debugCmd chalk.yellow "#{@name} #{helper.cmdline @setup}"
   # collect output
   @result = {}
   @result.lines = []

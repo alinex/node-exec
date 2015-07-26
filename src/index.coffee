@@ -189,7 +189,7 @@ class Exec extends EventEmitter
   # create a new execution object to specify and call later
   constructor: (@setup) ->
     @id = ++objectId
-    host = 'localhost'
+    host = @setup.remote ? 'localhost'
     @name = chalk.grey "#{host}##{@id}:"
     # set priority
     prio = config.get 'exec/priority'
@@ -202,6 +202,7 @@ class Exec extends EventEmitter
   # start execution
   run: (cb) ->
     host = @setup.remote ? 'localhost'
+    @name = chalk.grey "#{host}##{@id}:"
     # optimize cmd - extract arguments
     if ~@setup.cmd.indexOf ' '
       parts = @setup.cmd.match ///

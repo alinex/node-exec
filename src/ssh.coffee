@@ -17,6 +17,8 @@ ssh = require 'ssh2'
 {object} = require 'alinex-util'
 async = require 'alinex-async'
 config = require 'alinex-config'
+# include helper classes
+helper = require './helper'
 
 # Connection pool
 # -------------------------------------------------
@@ -26,30 +28,20 @@ pool = {}
 # -------------------------------------------------
 run = (cb) ->
   host = @setup.remote
-  conf = config.get 'exec/remote/server/' + host
   # set command
-  cmdline = [@setup.cmd]
-  if @setup.args
-    cmdline = cmdline.concat @setup.args.map (e) -> "'#{e.toString().replace '\'', '\\\''}'"
-  # support priority based nice values
-  prio = @conf.priority.level[@setup.priority]
-  if prio.nice
-    if prio.nice > 0 or conf.username is 'root'
-      # add support for nice call
-      cmdline.unshift 'nice', '-n', prio.nice
-  # set working directory
-  if @setup.dir
-    cmdline.unshift 'cd', "'#{@setup.dir.replace '\'', '\\\''}'", '&&'
-  # set environment to english language
-  env = @setup.env ? {LANG: 'C', LC_ALL: 'C'}
-  cmdline.unshift "#{k}=#{v}" for k, v of env
+  connect host, (err, conn) =>
+    cmdline = helper.cmdline @setup
+    debugCmd chalk.yellow "#{@name} #{cmdline}"
+    conn.exec cmdline, (err, stream) ->
+      return cb err if err
+      stream.on 'close', (code, signal) ->
+        if code or signal
+          return cb new Error "Got return code #{code} (signal #{signal}) from: #{cmdline}"
+        return cb()
+      .on 'data', (data) -> stdout += data
+      .stderr.on 'data', (data) -> debug "#{conn.name} Command #{cmdline} got error:
+        #{data}"
 
-
-  console.log cmdline
-
-
-
-  return cb()
 
 # Check vital signs
 # -------------------------------------------------
