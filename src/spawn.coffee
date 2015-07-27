@@ -19,6 +19,7 @@ carrier = require 'carrier'
 # include alinex modules
 {object} = require 'alinex-util'
 async = require 'alinex-async'
+config = require 'alinex-config'
 # include helper classes
 helper = require './helper'
 

@@ -13,7 +13,7 @@ describe "Remote", ->
   describe "command", ->
     @timeout 5000
 
-    it.only "should run date", (cb) ->
+    it "should run date", (cb) ->
       exec = new Exec
         remote: 'server1'
         cmd: 'date'
