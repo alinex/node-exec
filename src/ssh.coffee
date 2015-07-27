@@ -44,14 +44,13 @@ run = (cb) ->
       # error management
       if err
         @process.error = err
+        if err.message.match /open failed/
+          interval = @conf.retry.ulimit.interval
+          debug chalk.grey "#{@name} ssh open failed, waiting
+          #{interval} ms..."
+          @emit 'wait', interval
+          return setTimeout (=> run.call this, cb), interval
         return cb err
-#      stream.on 'close', (code, signal) =>
-#        if code or signal
-#          return cb new Error "Got return code #{code} (signal #{signal}) from: #{cmdline}"
-#        return cb()
-#      .on 'data', (data) -> stdout += data
-#      .stderr.on 'data', (data) -> debug "#{conn.name} Command #{cmdline} got error:
-#        #{data}"
       carrier.carry stream, (line) =>
         @result.lines.push [1, line]
         @emit 'stdout', line # send through

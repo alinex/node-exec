@@ -20,9 +20,6 @@ module.exports.cmdline = (setup, host) ->
     cmdline.unshift '-u', "\\##{setup.uid}" if setup.uid?
     cmdline.unshift '-g', "\\##{setup.gid}" if setup.gid?
     cmdline.unshift 'sudo'
-  # set working directory
-  if setup.dir
-    cmdline.unshift 'cd', escape(setup.dir), '&&'
   # support priority based nice values
   prio = conf.priority.level[setup.priority]
   if prio.nice
@@ -30,6 +27,9 @@ module.exports.cmdline = (setup, host) ->
     setup.uid is 0 or (not setup.uid? and not process.getuid())
       # add support for nice call
       cmdline.unshift 'nice', '-n', prio.nice
+  # set working directory
+  if setup.cwd
+    cmdline.unshift 'cd', escape(setup.cwd), '&&'
   # set environment to english language
   env = setup.env ? {LANG: 'C', LC_ALL: 'C'}
   cmdline.unshift "#{k}=#{v}" for k, v of env

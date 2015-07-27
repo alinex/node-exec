@@ -11,8 +11,8 @@ wrapper arround the core `process.spawn` command. It's benefits are:
 - automatic error control
 - automatic retry in case of error
 - completely adjustable
+- supports remote execution
 - pipes between processes (comes later)
-- supports remote execution (comes later)
 - detachable execution (comes later)
 
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
