@@ -206,7 +206,7 @@ module.exports =
                 type: 'integer'
                 default: 8
                 min: 1
-              startloadTotal:
+              startload:
                 title: "Start Limit"
                 description: "the maximum load for all CPUs together per second in usage to start"
                 type: 'percent'

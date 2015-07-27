@@ -102,7 +102,7 @@ configuration directory.
 Like supported by [Config](http://alinex.github.io/node-config) you only have to
 write the settings which differ from the defaults.
 
-The configuration contains the following two parts:
+The configuration contains the following three parts:
 
 ### Retry if failed
 
@@ -189,6 +189,63 @@ priority:
       nice: 0
 ```
 
+### Remote Servers
+
+This section can be used to execute commands on external machines. This section
+define the remote servers with an internal name and contains all the necessary
+access parameters.
+
+``` yaml
+# Define remote hosts or host pools to be used through ssh.
+remote:
+  server:
+    # virtual name for server
+    server1:
+      # hostname or ip to connect to
+      host: localhost
+      # connection port
+      port:  ssh
+      # user to login as
+      username: alex
+      # (optionally) login using password
+      #password: 'geheim'
+      # (optionally) private key for login
+      privateKey: <<<file:///home/alex/.ssh/id_rsa>>>
+      # the passphrase for the key (if necessary)
+      #passphrase: '.....'
+      # the host used for hostbased authentication
+      #localHostname: '...'
+      # the username for host based authentcation
+      #localUsername: '...'
+      # time for sending keepalive packets
+      keepaliveIntervall: 1s
+      # the maximum time for the ssh handshake
+      readyTimeout: 20s
+      # maximum load to start here per each cpu
+      startload: 2.4
+      # debug also server communication
+      debug: false
+    server2:
+      host: 127.0.0.1
+      port:  ssh
+      username: alex
+      password: dontknow
+      maxConnections: 5
+  group:
+    testpool:
+      - host: server1
+        weight: 0.4
+      - host: server2
+        weight: 0.6
+```
+
+As seen above there are two servers defined to access as `server1` and `server2`
+both are the localhost for test purpose.
+
+The `group` area can be used to define some server groups. commands which should
+be executed in a group will be run on one server of the group. Which one will
+be decided based on load balancing.
+
 
 Setup Execution
 -------------------------------------------------
@@ -208,25 +265,32 @@ You can give both separately but you may also give attributes in the command
 string. If you do so the arguments will be extracted automatically so you need
 to use proper quoting.
 
+### Remote
+
+To run on a remote machine you only need the virtual name which has to correspond
+to the configuration (see above).
+
+- remote - (string) reference to configuration
+
 ### Environment
 
-
-- cwd - the current working directory
-- uid - the userid under which to run
-- gid - the group id under which to run
-- env - environment object for special settings
+- cwd - (absolute path) the current working directory
+- uid - (integer) the userid under which to run
+- gid - (integer) the group id under which to run
+- env - environment object for key-value-pairs
 
 If you want to use different user and/or group id you have to be root first.
 
-### Host and Priority
+### Priority
 
-- remote - reference to the remote machine
-- priority - name of configured priority to use
+The priority defines which command to run first in case of multiple commands.
+
+- priority - (string) name of configured priority to use
 
 By default the following priorities are possible: anytime, low, medium, high,
 immediately.
 
-### Retry
+### Retry/Checks
 
 - check - name of the check with
   - args - (array) list of arguments for the check if possible
@@ -258,7 +322,6 @@ the following streams;
 - input
 - output
 - error
-- fd3
 
 > But this is not implemented, yet.
 
