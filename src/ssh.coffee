@@ -78,7 +78,6 @@ run = (cb) ->
 # -------------------------------------------------
 vital = async.onceTime (host, vital, date, cb) ->
   return cb() if vital.date is date
-  ######################################### support groups
   # reinit
   vital.date = date
   vital.error = {}

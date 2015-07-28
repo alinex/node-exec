@@ -57,12 +57,19 @@ priority:
 # Define remote hosts or host pools to be used through ssh.
 remote:
   server:
+    # virtual name for server
     server1:
+      # hostname or ip to connect to
       host: localhost
+      # connection port
       port:  ssh
+      # user to login as
       username: alex
+      # (optionally) private key for login
       privateKey: <<<file:///home/alex/.ssh/id_rsa>>>
-      maxConnections: 5
+      # time for sending keepalive packets
+      keepaliveIntervall: 1s
+      # debug also server communication
       debug: false
     server2:
       host: localhost

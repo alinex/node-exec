@@ -79,6 +79,8 @@ After the process has completed it's task the callback will get only an error
 obect and the process instance which you don't need. You may access all details
 through the `proc.result` and `proc.process` objects.
 
+You may also run the same command but only after the first run has finished.
+
 ### Simplified run
 
 You may call all of this directly using:

@@ -182,33 +182,21 @@ module.exports =
                 title: "Local User"
                 description: "the username used for hostbased user authentication"
                 type: 'string'
-              keepaliveinterval:
+              keepaliveInterval:
                 title: "Keepalive"
                 description: "the interval for the keepalive packets to be send"
                 type: 'interval'
                 unit: 'ms'
                 default: 1000
-              minSpare:
-                title: "min Spare Connections"
-                description: "the number of spare connections to keep up if possible"
-                type: 'integer'
-                default: 0
-                min: 0
-              maxSpare:
-                title: "max Spare Connections"
-                description: "the maximum number of connections which being kept open"
-                type: 'integer'
-                default: 0
-                min: '<<<minSpare>>>'
-              maxConnections:
-                title: "max Connections"
-                description: "the maximum number of simultaneously connections to this host"
-                type: 'integer'
-                default: 8
-                min: 1
+              readyTimeout:
+                title: "Ready TImeout"
+                description: "the time to wait for the ssh handshake to succeed"
+                type: 'interval'
+                unit: 'ms'
+                default: 20000
               startload:
                 title: "Start Limit"
-                description: "the maximum load for all CPUs together per second in usage to start"
+                description: "the maximum load for each CPUs per second in usage to start"
                 type: 'percent'
                 min: 0.01
               debug:

@@ -201,6 +201,7 @@ class Exec extends EventEmitter
 
   # start execution
   run: (cb) ->
+    return cb new Error "Already running." if @result?.start and not @result.end
     host = @setup.remote ? 'localhost'
     @name = chalk.grey "#{host}##{@id}:"
     # optimize cmd - extract arguments
