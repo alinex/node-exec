@@ -4,6 +4,31 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.0 (2015-07-29)
+-------------------------------------------------
+- Move test config into test folder.
+- Allow rerun but prevent parallel run of the same object.
+- Update properties in mindmap.
+- Updated documentation.
+- Disable remote checks if not on my pc.
+- Small bug fixes to make complete test suit runnable again.
+- Make ssh execution run for simple date command.
+- Extend commandline creation to allow set uid/gid using sudo.
+- Added env and dir support for remote.
+- Get vital data on remote server.
+- Reduce code to only use one ssh connection with parallel execution.
+- Allow remote host to have different startLoad setting.
+- Fill up spare sessions.
+- Add connection to spare if possible.
+- Display connection stats per host.
+- Close ssh connections.
+- Extend debug functionality.
+- Added more configuration values for ssh connections.
+- Added first tests for remote connections using ssh.
+- Stderr stdout while running.
+- Added ssh configuration example.
+- Start adding ssh support.
+
 Version 0.2.0 (2015-07-18)
 -------------------------------------------------
 - Enable all tests.
