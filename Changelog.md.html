@@ -36,6 +36,12 @@
         <a href="#version%20changes">Version changes</a>
       </div>
       <div class="heading h2">
+        <a href="#version%201.0.0%20(2015-07-29)">Version 1.0.0 (2015-07-29)</a>
+      </div>
+      <div class="heading h2">
+        <a href="#version%200.2.0%20(2015-07-18)">Version 0.2.0 (2015-07-18)</a>
+      </div>
+      <div class="heading h2">
         <a href="#version%200.1.0%20(2015-07-15)">Version 0.1.0 (2015-07-15)</a>
       </div>
     </div>
@@ -52,6 +58,69 @@
 
 <p>The following list gives a short overview about what is changed between
 individual versions:</p>
+
+
+<div class="pilwrap" id="version%201.0.0%20(2015-07-29)">
+  <h2>
+    <a href="#version%201.0.0%20(2015-07-29)" name="version%201.0.0%20(2015-07-29)" class="pilcrow">&#182;</a>
+    Version 1.0.0 (2015-07-29)
+  </h2>
+</div>
+
+
+<ul>
+<li>Move test config into test folder.</li>
+<li>Allow rerun but prevent parallel run of the same object.</li>
+<li>Update properties in mindmap.</li>
+<li>Updated documentation.</li>
+<li>Disable remote checks if not on my pc.</li>
+<li>Small bug fixes to make complete test suit runnable again.</li>
+<li>Make ssh execution run for simple date command.</li>
+<li>Extend commandline creation to allow set uid/gid using sudo.</li>
+<li>Added env and dir support for remote.</li>
+<li>Get vital data on remote server.</li>
+<li>Reduce code to only use one ssh connection with parallel execution.</li>
+<li>Allow remote host to have different startLoad setting.</li>
+<li>Fill up spare sessions.</li>
+<li>Add connection to spare if possible.</li>
+<li>Display connection stats per host.</li>
+<li>Close ssh connections.</li>
+<li>Extend debug functionality.</li>
+<li>Added more configuration values for ssh connections.</li>
+<li>Added first tests for remote connections using ssh.</li>
+<li>Stderr stdout while running.</li>
+<li>Added ssh configuration example.</li>
+<li>Start adding ssh support.</li>
+</ul>
+
+
+<div class="pilwrap" id="version%200.2.0%20(2015-07-18)">
+  <h2>
+    <a href="#version%200.2.0%20(2015-07-18)" name="version%200.2.0%20(2015-07-18)" class="pilcrow">&#182;</a>
+    Version 0.2.0 (2015-07-18)
+  </h2>
+</div>
+
+
+<ul>
+<li>Enable all tests.</li>
+<li>Document current API.</li>
+<li>Added simplified call of arguments within command string.</li>
+<li>Fixed worker handling and added startload test.</li>
+<li>Added startload handling and fixed queue cleanup.</li>
+<li>Made queue worker running.</li>
+<li>Fixed messages for overload display.</li>
+<li>Calculate cpu load over 1sec.</li>
+<li>Make check errors more descriptive.</li>
+<li>Updated Mindmap..</li>
+<li>Added to queue on overload.</li>
+<li>Added correct coveralls call.</li>
+<li>Removed lag because this doesn't bring better check results.</li>
+<li>Use the js-only version of toobusy.</li>
+<li>Added node.js lag checking.</li>
+<li>Check vital data after new ones collected.</li>
+<li>Collect vital data.</li>
+</ul>
 
 
 <div class="pilwrap" id="version%200.1.0%20(2015-07-15)">

@@ -47,11 +47,50 @@
       <div class="heading h3">
         <a href="#simplified%20run">Simplified run</a>
       </div>
-      <div class="heading h3">
-        <a href="#check%20the%20results">Check the results</a>
+      <div class="heading h2">
+        <a href="#configuration">Configuration</a>
       </div>
       <div class="heading h3">
-        <a href="#run%20using%20events">Run using Events</a>
+        <a href="#retry%20if%20failed">Retry if failed</a>
+      </div>
+      <div class="heading h3">
+        <a href="#priority%20levels">Priority Levels</a>
+      </div>
+      <div class="heading h3">
+        <a href="#remote%20servers">Remote Servers</a>
+      </div>
+      <div class="heading h2">
+        <a href="#setup%20execution">Setup Execution</a>
+      </div>
+      <div class="heading h3">
+        <a href="#execution">Execution</a>
+      </div>
+      <div class="heading h3">
+        <a href="#remote">Remote</a>
+      </div>
+      <div class="heading h3">
+        <a href="#environment">Environment</a>
+      </div>
+      <div class="heading h3">
+        <a href="#priority">Priority</a>
+      </div>
+      <div class="heading h3">
+        <a href="#retry%2Fchecks">Retry/Checks</a>
+      </div>
+      <div class="heading h3">
+        <a href="#streams">Streams</a>
+      </div>
+      <div class="heading h2">
+        <a href="#access%20results">Access Results</a>
+      </div>
+      <div class="heading h3">
+        <a href="#process">Process</a>
+      </div>
+      <div class="heading h3">
+        <a href="#tries">Tries</a>
+      </div>
+      <div class="heading h3">
+        <a href="#results">Results</a>
       </div>
       <div class="heading h2">
         <a href="#license">License</a>
@@ -78,9 +117,10 @@ wrapper arround the core <code>process.spawn</code> command. It's benefits are:<
 <ul>
 <li>automatic error control</li>
 <li>automatic retry in case of error</li>
-<li>automatic delaying in case of high server load</li>
 <li>completely adjustable</li>
-<li>supports remote execution (comes later)</li>
+<li>supports remote execution</li>
+<li>pipes between processes (comes later)</li>
+<li>detachable execution (comes later)</li>
 </ul>
 
 <blockquote>
@@ -180,6 +220,8 @@ use the events.</p>
 obect and the process instance which you don't need. You may access all details
 through the <code>proc.result</code> and <code>proc.process</code> objects.</p>
 
+<p>You may also run the same command but only after the first run has finished.</p>
+
 
 <div class="pilwrap" id="simplified%20run">
   <h3>
@@ -192,7 +234,7 @@ through the <code>proc.result</code> and <code>proc.process</code> objects.</p>
 <p>You may call all of this directly using:</p>
 
 
-<div class="highlight"><pre><code><span class="nx">Exec</span><span class="p">.</span><span class="nx">proc</span>
+<div class="highlight"><pre><code><span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
   <span class="nv">cmd: </span><span class="s">&#39;date&#39;</span>
 <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
   <span class="c1"># work with the results within the process instance</span>
@@ -201,44 +243,422 @@ through the <code>proc.result</code> and <code>proc.process</code> objects.</p>
 
 
 
-<div class="pilwrap" id="check%20the%20results">
+<div class="pilwrap" id="configuration">
+  <h2>
+    <a href="#configuration" name="configuration" class="pilcrow">&#182;</a>
+    Configuration
+  </h2>
+</div>
+
+
+<p>To configure this to your needs, please make a new configuration file for <code>/exec</code>
+context. To do so you may copy the base settings from <code>src/config/exec.yml</code> into
+<code>var/local/config/exec.yml</code> and change it's values or put it into your applications
+configuration directory.</p>
+
+<p>Like supported by <a href="http://alinex.github.io/node-config">Config</a> you only have to
+write the settings which differ from the defaults.</p>
+
+<p>The configuration contains the following three parts:</p>
+
+
+<div class="pilwrap" id="retry%20if%20failed">
   <h3>
-    <a href="#check%20the%20results" name="check%20the%20results" class="pilcrow">&#182;</a>
-    Check the results
+    <a href="#retry%20if%20failed" name="retry%20if%20failed" class="pilcrow">&#182;</a>
+    Retry if failed
   </h3>
 </div>
 
 
-<p>To check the response some predefined methods can be used by configuring:</p>
+<p>In this part you define the number of retries and timeouts used for rechecking in
+all parts which prevent the execution to start or run successfully.</p>
 
 
-<div class="highlight"><pre><code>
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">retry</span><span class="p-Indicator">:</span>
+  <span class="c1"># check for host vital signs</span>
+  <span class="l-Scalar-Plain">vital</span><span class="p-Indicator">:</span>
+    <span class="c1"># time to recheck host vital signs</span>
+    <span class="l-Scalar-Plain">interval</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5s</span>
+    <span class="c1"># maximum load% per CPU core per second in usage to start</span>
+    <span class="l-Scalar-Plain">startload</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">80%</span>
+  <span class="c1"># too much processes opened on system</span>
+  <span class="l-Scalar-Plain">ulimit</span><span class="p-Indicator">:</span>
+    <span class="c1"># time to sleep till next try</span>
+    <span class="l-Scalar-Plain">interval</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1s</span>
+  <span class="c1"># a queue will be created if host is overloaded</span>
+  <span class="l-Scalar-Plain">queue</span><span class="p-Indicator">:</span>
+    <span class="c1"># specify the time after that a retry for queued executions should run</span>
+    <span class="l-Scalar-Plain">interval</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3s</span>
+  <span class="c1"># process failed retry check</span>
+  <span class="l-Scalar-Plain">error</span><span class="p-Indicator">:</span>
+    <span class="c1"># number of attempts</span>
+    <span class="l-Scalar-Plain">times</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3</span>
+    <span class="c1"># time to sleep till next try</span>
+    <span class="l-Scalar-Plain">interval</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3s</span>
+</code></pre></div>
+
+
+
+<p>All <code>interval</code> settings can be set as a time range in milliseconds or with the
+unit appended. Use something like '1.5s' (possible units: ms, s, m, h, d).</p>
+
+
+<div class="pilwrap" id="priority%20levels">
+  <h3>
+    <a href="#priority%20levels" name="priority%20levels" class="pilcrow">&#182;</a>
+    Priority Levels
+  </h3>
+</div>
+
+
+<p>This defines the possible priority levels to be used. The following configuration
+shows the default.</p>
+
+
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">priority</span><span class="p-Indicator">:</span>
+  <span class="c1"># specify the default priority</span>
+  <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">medium</span>
+  <span class="c1"># specify the possible priorities with their checks</span>
+  <span class="l-Scalar-Plain">level</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">anytime</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">maxCpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">20%</span>
+      <span class="l-Scalar-Plain">maxLoad</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">20%</span>
+      <span class="l-Scalar-Plain">nice</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">19</span>
+    <span class="l-Scalar-Plain">low</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">maxCpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">40%</span>
+      <span class="l-Scalar-Plain">maxLoad</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60%</span>
+      <span class="l-Scalar-Plain">nice</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+    <span class="l-Scalar-Plain">medium</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">maxCpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60%</span>
+      <span class="l-Scalar-Plain">maxLoad</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100%</span>
+      <span class="l-Scalar-Plain">nice</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+    <span class="l-Scalar-Plain">high</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">maxCpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">90%</span>
+      <span class="l-Scalar-Plain">maxLoad</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">150%</span>
+    <span class="l-Scalar-Plain">immediately</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">nice</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">-20</span>
+</code></pre></div>
+
+
+
+<p>You may add other values or remove some of them to get your very own set of priorities:</p>
+
+
+<div class="highlight"><pre><code><span class="l-Scalar-Plain">priority</span><span class="p-Indicator">:</span>
+  <span class="c1"># specify the possible priorities with their checks</span>
+  <span class="l-Scalar-Plain">level</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">low</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">null</span>
+    <span class="l-Scalar-Plain">medium</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">null</span>
+    <span class="l-Scalar-Plain">high</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">null</span>
+    <span class="l-Scalar-Plain">1</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">maxCpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">40%</span>
+      <span class="l-Scalar-Plain">maxLoad</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100%</span>
+      <span class="l-Scalar-Plain">nice</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">15</span>
+    <span class="l-Scalar-Plain">2</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">maxCpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50%</span>
+      <span class="l-Scalar-Plain">maxLoad</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">120%</span>
+      <span class="l-Scalar-Plain">nice</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+    <span class="l-Scalar-Plain">3</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">maxCpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60%</span>
+      <span class="l-Scalar-Plain">maxLoad</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">140%</span>
+      <span class="l-Scalar-Plain">nice</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0</span>
 </code></pre></div>
 
 
 
 
-<div class="pilwrap" id="run%20using%20events">
+<div class="pilwrap" id="remote%20servers">
   <h3>
-    <a href="#run%20using%20events" name="run%20using%20events" class="pilcrow">&#182;</a>
-    Run using Events
+    <a href="#remote%20servers" name="remote%20servers" class="pilcrow">&#182;</a>
+    Remote Servers
   </h3>
 </div>
 
 
-<p>With events you can monitor what's going on while the process works.</p>
+<p>This section can be used to execute commands on external machines. This section
+define the remote servers with an internal name and contains all the necessary
+access parameters.</p>
 
 
-<div class="highlight"><pre><code><span class="nx">proc</span><span class="p">.</span><span class="nx">run</span><span class="p">()</span>
-
-<span class="nv">stdout = </span><span class="s">&#39;&#39;</span>
-<span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;stdout&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
-  <span class="nx">stdout</span> <span class="o">+=</span> <span class="nx">data</span>
-<span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;done&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-  <span class="c1"># analyse the results</span>
+<div class="highlight"><pre><code><span class="c1"># Define remote hosts or host pools to be used through ssh.</span>
+<span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">server</span><span class="p-Indicator">:</span>
+    <span class="c1"># virtual name for server</span>
+    <span class="l-Scalar-Plain">server1</span><span class="p-Indicator">:</span>
+      <span class="c1"># hostname or ip to connect to</span>
+      <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
+      <span class="c1"># connection port</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">ssh</span>
+      <span class="c1"># user to login as</span>
+      <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">alex</span>
+      <span class="c1"># (optionally) login using password</span>
+      <span class="c1">#password: &#39;geheim&#39;</span>
+      <span class="c1"># (optionally) private key for login</span>
+      <span class="l-Scalar-Plain">privateKey</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;&lt;&lt;file:///home/alex/.ssh/id_rsa&gt;&gt;&gt;</span>
+      <span class="c1"># the passphrase for the key (if necessary)</span>
+      <span class="c1">#passphrase: &#39;.....&#39;</span>
+      <span class="c1"># the host used for hostbased authentication</span>
+      <span class="c1">#localHostname: &#39;...&#39;</span>
+      <span class="c1"># the username for host based authentcation</span>
+      <span class="c1">#localUsername: &#39;...&#39;</span>
+      <span class="c1"># time for sending keepalive packets</span>
+      <span class="l-Scalar-Plain">keepaliveIntervall</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1s</span>
+      <span class="c1"># the maximum time for the ssh handshake</span>
+      <span class="l-Scalar-Plain">readyTimeout</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">20s</span>
+      <span class="c1"># maximum load to start here per each cpu</span>
+      <span class="l-Scalar-Plain">startload</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2.4</span>
+      <span class="c1"># debug also server communication</span>
+      <span class="l-Scalar-Plain">debug</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+    <span class="l-Scalar-Plain">server2</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">127.0.0.1</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">ssh</span>
+      <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">alex</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dontknow</span>
+      <span class="l-Scalar-Plain">maxConnections</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+  <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">testpool</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">server1</span>
+        <span class="l-Scalar-Plain">weight</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0.4</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">server2</span>
+        <span class="l-Scalar-Plain">weight</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0.6</span>
 </code></pre></div>
 
 
+
+<p>As seen above there are two servers defined to access as <code>server1</code> and <code>server2</code>
+both are the localhost for test purpose.</p>
+
+<p>The <code>group</code> area can be used to define some server groups. commands which should
+be executed in a group will be run on one server of the group. Which one will
+be decided based on load balancing.</p>
+
+
+<div class="pilwrap" id="setup%20execution">
+  <h2>
+    <a href="#setup%20execution" name="setup%20execution" class="pilcrow">&#182;</a>
+    Setup Execution
+  </h2>
+</div>
+
+
+<p>To specify your executable you give an object with the following settings.</p>
+
+
+<div class="pilwrap" id="execution">
+  <h3>
+    <a href="#execution" name="execution" class="pilcrow">&#182;</a>
+    Execution
+  </h3>
+</div>
+
+
+<p>The basic settings needed are which command to start and with which parameter.
+Keep in mind that here no shell execution is possible so don't use bash basics
+without specifying 'sh' or 'bash' as the command.</p>
+
+<ul>
+<li>cmd - (string) giving the command to call with path if needed</li>
+<li>args - (array) list of arguments to use in the given order</li>
+</ul>
+
+<p>You can give both separately but you may also give attributes in the command
+string. If you do so the arguments will be extracted automatically so you need
+to use proper quoting.</p>
+
+
+<div class="pilwrap" id="remote">
+  <h3>
+    <a href="#remote" name="remote" class="pilcrow">&#182;</a>
+    Remote
+  </h3>
+</div>
+
+
+<p>To run on a remote machine you only need the virtual name which has to correspond
+to the configuration (see above).</p>
+
+<ul>
+<li>remote - (string) reference to configuration</li>
+</ul>
+
+
+<div class="pilwrap" id="environment">
+  <h3>
+    <a href="#environment" name="environment" class="pilcrow">&#182;</a>
+    Environment
+  </h3>
+</div>
+
+
+<ul>
+<li>cwd - (absolute path) the current working directory</li>
+<li>uid - (integer) the userid under which to run</li>
+<li>gid - (integer) the group id under which to run</li>
+<li>env - environment object for key-value-pairs</li>
+</ul>
+
+<p>If you want to use different user and/or group id you have to be root first.</p>
+
+
+<div class="pilwrap" id="priority">
+  <h3>
+    <a href="#priority" name="priority" class="pilcrow">&#182;</a>
+    Priority
+  </h3>
+</div>
+
+
+<p>The priority defines which command to run first in case of multiple commands.</p>
+
+<ul>
+<li>priority - (string) name of configured priority to use</li>
+</ul>
+
+<p>By default the following priorities are possible: anytime, low, medium, high,
+immediately.</p>
+
+
+<div class="pilwrap" id="retry%2Fchecks">
+  <h3>
+    <a href="#retry%2Fchecks" name="retry%2Fchecks" class="pilcrow">&#182;</a>
+    Retry/Checks
+  </h3>
+</div>
+
+
+<ul>
+<li>check - name of the check with
+<ul><li>args - (array) list of arguments for the check if possible</li>
+<li>retry - (boolean) should retry on this failure</li></ul></li>
+<li>retry - specify if not use the default
+<ul><li>times - (integer) maximum number of retries</li>
+<li>interval - (milliseconds)</li></ul></li>
+</ul>
+
+<p>The following checks may be used:</p>
+
+<ul>
+<li>noExitCode() - check that the exit code is 0</li>
+<li>exitCode(<code>...) - check that the exit code is in allowed list</li>
+<li>noStderr() - check that STDERR is empty</li>
+<li>noStdout() - check that STDOUT is empty</li>
+<li>matchStdout(<ok>, <report>) - check that the given <ok> RegExp succeeds,
+if not output the result of the <report> RegExp</li>
+<li>matchStderr(<ok>, <report>) - check that the given <ok> RegExp succeeds,
+if not output the result of the <report> RegExp</li>
+<li>notMatchStderr(<fail>) - check that the <fail> RegExp don't match</li>
+</ul>
+
+<p>This are only the general checks. There may be more command specific matches
+which you may use.</p>
+
+
+<div class="pilwrap" id="streams">
+  <h3>
+    <a href="#streams" name="streams" class="pilcrow">&#182;</a>
+    Streams
+  </h3>
+</div>
+
+
+<p>To concat execution with other exec instances  or other objects you may concat
+the following streams;</p>
+
+<ul>
+<li>input</li>
+<li>output</li>
+<li>error</li>
+</ul>
+
+<blockquote>
+  <p>But this is not implemented, yet.</p>
+</blockquote>
+
+
+<div class="pilwrap" id="access%20results">
+  <h2>
+    <a href="#access%20results" name="access%20results" class="pilcrow">&#182;</a>
+    Access Results
+  </h2>
+</div>
+
+
+
+<div class="pilwrap" id="process">
+  <h3>
+    <a href="#process" name="process" class="pilcrow">&#182;</a>
+    Process
+  </h3>
+</div>
+
+
+<p>With this attribute you may get the following information:</p>
+
+<ul>
+<li>exec.process.host - remote host identifier</li>
+<li>exec.process.pid - process id</li>
+<li>exec.process.start - start time</li>
+<li>exec.process.end - end time</li>
+<li>exec.process.error - system error</li>
+</ul>
+
+
+<div class="pilwrap" id="tries">
+  <h3>
+    <a href="#tries" name="tries" class="pilcrow">&#182;</a>
+    Tries
+  </h3>
+</div>
+
+
+<p>If multiple tries are done you may access the information of each try:</p>
+
+<ul>
+<li>exec.tries[n].process - first calls</li>
+<li>exec.tries[n].result . first calls</li>
+<li>exec.process - last run</li>
+<li>exec.result - last run</li>
+</ul>
+
+
+<div class="pilwrap" id="results">
+  <h3>
+    <a href="#results" name="results" class="pilcrow">&#182;</a>
+    Results
+  </h3>
+</div>
+
+
+<p>The result code and maybe error of the defined checks may be red directly:</p>
+
+<ul>
+<li>exec.result.code</li>
+<li>exec.result.error</li>
+</ul>
+
+<p>But to get one of the outputs better use the functions:</p>
+
+<ul>
+<li>exec.stdout()</li>
+<li>exec.stderr()</li>
+</ul>
+
+<p>They will give you a complete text out of the line data which lists all channels
+in the proper order. If order of messages matters better directly access them:</p>
+
+<ul>
+<li>exec.result.lines
+<ul><li>0 - stdin</li>
+<li>1 - stdout</li>
+<li>2 - stderr</li></ul></li>
+</ul>
+
+<p>You may also use the above methods on previous tries:</p>
+
+<ul>
+<li>exec.stdout(exec.tries[0].result)</li>
+<li>exec.stderr(exec.tries[0].result)</li>
+</ul>
 
 
 <div class="pilwrap" id="license">

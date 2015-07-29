@@ -42,7 +42,7 @@
         <a href="#priority%20levels">Priority Levels</a>
       </div>
       <div class="heading h2">
-        <a href="#work%20queue">Work Queue</a>
+        <a href="#remote%20server">Remote Server</a>
       </div>
     </div>
   </div>
@@ -86,6 +86,71 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
 </div>
+<p>check for host vital signs</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="l-Scalar-Plain">vital</span><span class="p-Indicator">:</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>time to recheck host vital signs</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">interval</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3s</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>maximum load% per CPU core per second in usage to start</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">startload</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">80%</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>a queue will be created if host is overloaded</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="l-Scalar-Plain">queue</span><span class="p-Indicator">:</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>specify the time after that a retry for queued executions should run</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">interval</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3s</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
 <p>too much processes opened on system</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
@@ -97,7 +162,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
 </div>
 <p>time to sleep till next try</p>
         </td>
@@ -110,7 +175,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
 </div>
 <p>process failed retry check</p>
         </td>
@@ -123,7 +188,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
 <p>number of attempts</p>
         </td>
@@ -136,7 +201,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>time to sleep till next try</p>
         </td>
@@ -168,7 +233,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>specify the default priority</p>
         </td>
@@ -181,7 +246,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
 <p>specify the possible priorities with their checks</p>
         </td>
@@ -199,7 +264,7 @@
       <span class="l-Scalar-Plain">maxCpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60%</span>
       <span class="l-Scalar-Plain">maxLoad</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100%</span>
       <span class="l-Scalar-Plain">nice</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
-    <span class="l-Scalar-Plain">heigh</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">high</span><span class="p-Indicator">:</span>
       <span class="l-Scalar-Plain">maxCpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">90%</span>
       <span class="l-Scalar-Plain">maxLoad</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">150%</span>
     <span class="l-Scalar-Plain">immediately</span><span class="p-Indicator">:</span>
@@ -211,19 +276,121 @@
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="work%20queue">
+<div class="pilwrap" id="remote%20server">
   <h2>
-    <a href="#work%20queue" name="work%20queue" class="pilcrow">&#182;</a>
-    Work Queue
+    <a href="#remote%20server" name="remote%20server" class="pilcrow">&#182;</a>
+    Remote Server
   </h2>
 </div>
 
 
-<p>If too much load a queue will be created. Here you specify how to work on it.</p>
+<p>Define remote hosts or host pools to be used through ssh.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="l-Scalar-Plain">queue</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">recheck</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3s</span>
+<span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">server</span><span class="p-Indicator">:</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+</div>
+<p>virtual name for server</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="l-Scalar-Plain">server1</span><span class="p-Indicator">:</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<p>hostname or ip to connect to</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>connection port</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">ssh</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+<p>user to login as</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">alex</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+</div>
+<p>(optionally) private key for login</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="l-Scalar-Plain">privateKey</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;&lt;&lt;file:///home/alex/.ssh/id_rsa&gt;&gt;&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+</div>
+<p>time for sending keepalive packets</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="l-Scalar-Plain">keepaliveInterval</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1s</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+</div>
+<p>debug also server communication</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="l-Scalar-Plain">debug</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+    <span class="l-Scalar-Plain">server2</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">ssh</span>
+      <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">alex</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dontknow</span>
+  <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">testpool</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">server1</span>
+        <span class="l-Scalar-Plain">weight</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0.4</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">server2</span>
+        <span class="l-Scalar-Plain">weight</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0.6</span>
 </pre></div>
         </td>
       </tr>

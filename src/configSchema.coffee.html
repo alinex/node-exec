@@ -65,6 +65,36 @@
       <span class="nv">allowedKeys: </span><span class="kc">true</span>
       <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
       <span class="nv">keys:</span>
+        <span class="nv">vital:</span>
+          <span class="nv">title: </span><span class="s">&quot;Vital Sign Check&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the check for host vital data&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+          <span class="nv">allowedKeys: </span><span class="kc">true</span>
+          <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
+          <span class="nv">keys:</span>
+            <span class="nv">interval:</span>
+              <span class="nv">title: </span><span class="s">&quot;Time before Recheck&quot;</span>
+              <span class="nv">description: </span><span class="s">&quot;the time to wait before rechecking the host vital signs&quot;</span>
+              <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+              <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+              <span class="nv">min: </span><span class="mi">0</span>
+            <span class="nv">startload:</span>
+              <span class="nv">title: </span><span class="s">&quot;Start Limit&quot;</span>
+              <span class="nv">description: </span><span class="s">&quot;the maximum load% per CPU core per second in usage to start&quot;</span>
+              <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+              <span class="nv">min: </span><span class="mf">0.01</span>
+        <span class="nv">queue:</span>
+          <span class="nv">title: </span><span class="s">&quot;Work Queue&quot;</span>
+          <span class="nv">description: </span><span class="s">&quot;the handling of the queue if load is too high&quot;</span>
+          <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+          <span class="nv">allowedKeys: </span><span class="kc">true</span>
+          <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
+          <span class="nv">keys:</span>
+            <span class="nv">interval:</span>
+              <span class="nv">title: </span><span class="s">&quot;Recheck Time&quot;</span>
+              <span class="nv">description: </span><span class="s">&quot;the time after that the worker will retry to start queued executions&quot;</span>
+              <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+              <span class="nv">min: </span><span class="mi">0</span>
         <span class="nv">ulimit:</span>
           <span class="nv">title: </span><span class="s">&quot;Retry if ULimit&quot;</span>
           <span class="nv">description: </span><span class="s">&quot;the retry if the process limit is reached&quot;</span>
@@ -128,6 +158,18 @@
               <span class="nv">maxLoad:</span>
                 <span class="nv">title: </span><span class="s">&quot;Max Load&quot;</span>
                 <span class="nv">description: </span><span class="s">&quot;the maximum system load, till that execution may be started&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+                <span class="nv">delimiter: </span><span class="sr">/\s/</span>
+                <span class="nv">minLength: </span><span class="mi">1</span>
+                <span class="nv">maxLength: </span><span class="mi">3</span>
+                <span class="nv">entries:</span>
+                  <span class="nv">title: </span><span class="s">&quot;Max Load&quot;</span>
+                  <span class="nv">description: </span><span class="s">&quot;the maximum system load for period&quot;</span>
+                  <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+                  <span class="nv">min: </span><span class="mi">0</span>
+              <span class="nv">minFreemem:</span>
+                <span class="nv">title: </span><span class="s">&quot;Min free Mem&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the minimum free memory needed to execute&quot;</span>
                 <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
                 <span class="nv">min: </span><span class="mi">0</span>
               <span class="nv">nice:</span>
@@ -137,18 +179,103 @@
                 <span class="nv">min: </span><span class="o">-</span><span class="mi">20</span>
                 <span class="nv">max: </span><span class="mi">19</span>
           <span class="p">]</span>
-    <span class="nv">queue:</span>
-      <span class="nv">title: </span><span class="s">&quot;Work Queue&quot;</span>
-      <span class="nv">description: </span><span class="s">&quot;the handling of the queue if load is too high&quot;</span>
+    <span class="nv">remote:</span>
+      <span class="nv">title: </span><span class="s">&quot;Remote Servers&quot;</span>
+      <span class="nv">description: </span><span class="s">&quot;the setup of remote execution servers&quot;</span>
       <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
-      <span class="nv">allowedKeys: </span><span class="kc">true</span>
-      <span class="nv">mandatoryKeys: </span><span class="kc">true</span>
       <span class="nv">keys:</span>
-        <span class="nv">recheck:</span>
-          <span class="nv">title: </span><span class="s">&quot;Recheck Time&quot;</span>
-          <span class="nv">description: </span><span class="s">&quot;the time after that cpu and load will be rechecked&quot;</span>
-          <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
-          <span class="nv">min: </span><span class="mi">0</span>
+        <span class="nv">server:</span>
+          <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+          <span class="nv">entries: </span><span class="p">[</span>
+            <span class="nv">title: </span><span class="s">&quot;Remote Server&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;a remote server ssh connection setup&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+            <span class="nv">allowedKeys: </span><span class="kc">true</span>
+            <span class="nv">mandatoryKeys: </span><span class="p">[</span><span class="s">&#39;host&#39;</span><span class="p">,</span> <span class="s">&#39;port&#39;</span><span class="p">,</span> <span class="s">&#39;username&#39;</span><span class="p">]</span>
+            <span class="nv">keys:</span>
+              <span class="nv">host:</span>
+                <span class="nv">title: </span><span class="s">&quot;Hostname or IP Address&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the hostname or IP address to connect to&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;or&#39;</span>
+                <span class="o">or:</span> <span class="p">[</span>
+                  <span class="nv">type: </span><span class="s">&#39;hostname&#39;</span>
+                <span class="p">,</span>
+                  <span class="nv">type: </span><span class="s">&#39;ipaddr&#39;</span>
+                <span class="p">]</span>
+              <span class="nv">port:</span>
+                <span class="nv">title: </span><span class="s">&quot;Port NUmber&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the port on which to connect using ssh protocol&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;port&#39;</span>
+                <span class="nv">default: </span><span class="mi">22</span>
+              <span class="nv">username:</span>
+                <span class="nv">title: </span><span class="s">&quot;Username&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the username to use for the connection&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+              <span class="nv">password:</span>
+                <span class="nv">title: </span><span class="s">&quot;Password&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the password to use for connecting&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+                <span class="nv">optional: </span><span class="kc">true</span>
+              <span class="nv">privateKey:</span>
+                <span class="nv">title: </span><span class="s">&quot;Private Key&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the private key file to use for OpenSSH authentication&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+              <span class="nv">passphrase:</span>
+                <span class="nv">title: </span><span class="s">&quot;Passphrase&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the passphrase used to decrypt an encrypted private key&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+              <span class="nv">localHostname:</span>
+                <span class="nv">title: </span><span class="s">&quot;Local Hostname&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the host used for hostbased user authentication&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+              <span class="nv">localUsername:</span>
+                <span class="nv">title: </span><span class="s">&quot;Local User&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the username used for hostbased user authentication&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+              <span class="nv">keepaliveInterval:</span>
+                <span class="nv">title: </span><span class="s">&quot;Keepalive&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the interval for the keepalive packets to be send&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+                <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+                <span class="nv">default: </span><span class="mi">1000</span>
+              <span class="nv">readyTimeout:</span>
+                <span class="nv">title: </span><span class="s">&quot;Ready TImeout&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the time to wait for the ssh handshake to succeed&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;interval&#39;</span>
+                <span class="nv">unit: </span><span class="s">&#39;ms&#39;</span>
+                <span class="nv">default: </span><span class="mi">20000</span>
+              <span class="nv">startload:</span>
+                <span class="nv">title: </span><span class="s">&quot;Start Limit&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the maximum load for each CPUs per second in usage to start&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+                <span class="nv">min: </span><span class="mf">0.01</span>
+              <span class="nv">debug:</span>
+                <span class="nv">title: </span><span class="s">&quot;Extended Debug&quot;</span>
+                <span class="nv">description: </span><span class="s">&quot;the DEBUG=exec.ssh messages are extended with server communication&quot;</span>
+                <span class="nv">type: </span><span class="s">&#39;boolean&#39;</span>
+          <span class="p">]</span>
+        <span class="nv">group:</span>
+          <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+          <span class="nv">entries: </span><span class="p">[</span>
+            <span class="nv">title: </span><span class="s">&quot;Remote Server Pool&quot;</span>
+            <span class="nv">description: </span><span class="s">&quot;a pool of remote servers which one of them may be used&quot;</span>
+            <span class="nv">type: </span><span class="s">&#39;array&#39;</span>
+            <span class="nv">entries:</span>
+              <span class="nv">title: </span><span class="s">&quot;&quot;</span>
+              <span class="nv">description: </span><span class="s">&quot;&quot;</span>
+              <span class="nv">type: </span><span class="s">&#39;object&#39;</span>
+              <span class="nv">keys:</span>
+                <span class="nv">host:</span>
+                  <span class="nv">title: </span><span class="s">&quot;Reference to host entry&quot;</span>
+                  <span class="nv">description: </span><span class="s">&quot;an host entry becomming member of this pool&quot;</span>
+                  <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+                  <span class="nv">values: </span><span class="s">&#39;&lt;&lt;&lt;remote/server&gt;&gt;&gt;&#39;</span>
+                <span class="nv">weight:</span>
+                  <span class="nv">title: </span><span class="s">&quot;Weight&quot;</span>
+                  <span class="nv">description: </span><span class="s">&quot;the weight for this host in balancing&quot;</span>
+                  <span class="nv">type: </span><span class="s">&#39;percent&#39;</span>
+                  <span class="nv">default: </span><span class="mf">0.5</span>
+          <span class="p">]</span>
 </pre></div>
         </td>
       </tr>

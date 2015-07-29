@@ -38,6 +38,21 @@
       <div class="heading h2">
         <a href="#node%20modules">Node Modules</a>
       </div>
+      <div class="heading h2">
+        <a href="#configuration">Configuration</a>
+      </div>
+      <div class="heading h2">
+        <a href="#run%20local%20command">Run local command</a>
+      </div>
+      <div class="heading h2">
+        <a href="#check%20vital%20signs">Check vital signs</a>
+      </div>
+      <div class="heading h3">
+        <a href="#measure%20cpu%20usage">Measure CPU usage</a>
+      </div>
+      <div class="heading h2">
+        <a href="#export%20public%20methods">Export public methods</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -90,6 +105,8 @@ command and alternatively ssh connections.</p>
 <span class="nv">debugErr = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;exec:err&#39;</span><span class="p">)</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="p">{</span><span class="nx">spawn</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
+<span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
+<span class="nv">os = </span><span class="nx">require</span> <span class="s">&#39;os&#39;</span>
 <span class="nv">carrier = </span><span class="nx">require</span> <span class="s">&#39;carrier&#39;</span>
 
 </pre></div>
@@ -104,8 +121,8 @@ command and alternatively ssh connections.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="p">{</span><span class="nx">object</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;alinex-util&#39;</span>
-
-<span class="nv">run = </span><span class="nf">(cb) -&gt;</span>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
+<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
 
 </pre></div>
         </td>
@@ -114,6 +131,53 @@ command and alternatively ssh connections.</p>
         <td class="docs">
 <div class="pilwrap">
   <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>include helper classes</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">helper = </span><span class="nx">require</span> <span class="s">&#39;./helper&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="configuration">
+  <h2>
+    <a href="#configuration" name="configuration" class="pilcrow">&#182;</a>
+    Configuration
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">MEASURE_TIME = </span><span class="mi">1000</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="run%20local%20command">
+  <h2>
+    <a href="#run%20local%20command" name="run%20local%20command" class="pilcrow">&#182;</a>
+    Run local command
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">run = </span><span class="nf">(cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
 </div>
 <p>set command</p>
         </td>
@@ -127,7 +191,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
 </div>
 <p>support priority based nice values</p>
         </td>
@@ -142,7 +206,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
 </div>
 <p>add support for nice call</p>
         </td>
@@ -156,7 +220,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
 <p>set environment to english language</p>
         </td>
@@ -171,7 +235,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>store process information</p>
         </td>
@@ -186,7 +250,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>start process</p>
         </td>
@@ -208,7 +272,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>{interval} ms..."</p>
         </td>
@@ -223,24 +287,14 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
 <p>output debug lines</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="s">  debug &quot;</span><span class="c1">#{@name} start using spawn under pid #{@proc.pid}&quot;</span>
   <span class="vi">@process.pid = </span><span class="nx">@proc</span><span class="p">.</span><span class="nx">pid</span>
-  <span class="nv">cmdline = </span><span class="s">&#39;&#39;</span>
-  <span class="k">for</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">e</span> <span class="k">of</span> <span class="nx">@setup</span><span class="p">.</span><span class="nx">env</span>
-    <span class="nx">cmdline</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">n</span><span class="si">}</span><span class="s">=</span><span class="si">#{</span><span class="nx">e</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nx">cmdline</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="k">if</span> <span class="nx">@setup</span><span class="p">.</span><span class="nx">args</span><span class="o">?</span>
-    <span class="k">for</span> <span class="nx">a</span> <span class="k">in</span> <span class="nx">@setup</span><span class="p">.</span><span class="nx">args</span>
-      <span class="k">if</span> <span class="k">typeof</span> <span class="nx">a</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
-        <span class="nx">cmdline</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">a</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/[ ]/</span><span class="p">,</span> <span class="s">&#39;\ &#39;</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="k">else</span>
-        <span class="nx">cmdline</span> <span class="o">+=</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">a</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nx">debugCmd</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">cmdline</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nx">debugCmd</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">helper</span><span class="p">.</span><span class="nx">cmdline</span> <span class="nx">@setup</span><span class="si">}</span><span class="s">&quot;</span>
 
 </pre></div>
         </td>
@@ -248,7 +302,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>collect output</p>
         </td>
@@ -272,7 +326,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>error management</p>
         </td>
@@ -280,21 +334,14 @@ command and alternatively ssh connections.</p>
   <span class="nx">@proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
     <span class="vi">@process.error = </span><span class="nx">err</span>
 
-
 </pre></div>
         </td>
       </tr>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
-
-<div class="highlight"><pre><code> <span class="err">@</span><span class="nx">retry</span> <span class="nx">cb</span>
-</code></pre></div>
-
-
-
 <p>process finished</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
@@ -307,6 +354,25 @@ command and alternatively ssh connections.</p>
     <span class="k">else</span>
       <span class="nx">debugCmd</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> exit: code </span><span class="si">#{</span><span class="nx">@result</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s"> after </span><span class="si">#{</span><span class="nx">@process</span><span class="p">.</span><span class="nx">end</span><span class="o">-</span><span class="nx">@process</span><span class="p">.</span><span class="nx">start</span><span class="si">}</span><span class="s"> ms&quot;</span>
     <span class="nx">@emit</span> <span class="s">&#39;done&#39;</span><span class="p">,</span> <span class="nx">@result</span><span class="p">.</span><span class="nx">code</span>
+    <span class="nx">cb</span> <span class="nx">@process</span><span class="p">.</span><span class="nx">error</span><span class="p">,</span> <span class="k">this</span> <span class="k">if</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="check%20vital%20signs">
+  <h2>
+    <a href="#check%20vital%20signs" name="check%20vital%20signs" class="pilcrow">&#182;</a>
+    Check vital signs
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">vital = </span><span class="nx">async</span><span class="p">.</span><span class="nx">onceTime</span> <span class="nf">(host, vital, date, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">date</span> <span class="o">is</span> <span class="nx">date</span>
 
 </pre></div>
         </td>
@@ -314,20 +380,104 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
 </div>
+<p>init startmax</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;exec/retry/vital&#39;</span>
+  <span class="nx">vital</span><span class="p">.</span><span class="nx">startmax</span> <span class="o">?=</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">startload</span> <span class="o">*</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">interval</span> <span class="o">/</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">os</span><span class="p">.</span><span class="nx">cpus</span><span class="p">().</span><span class="nx">length</span>
 
-<div class="highlight"><pre><code> <span class="err">@</span><span class="nx">error</span> <span class="o">=</span> <span class="err">@</span><span class="nx">config</span><span class="p">.</span><span class="nx">check</span> <span class="err">@</span>
- <span class="k">return</span> <span class="err">@</span><span class="nx">retry</span> <span class="nx">cb</span> <span class="k">if</span> <span class="err">@</span><span class="nx">error</span>
-</code></pre></div>
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+</div>
+<p>calculate cpu usage</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">start = </span><span class="nx">cpuMeasure</span><span class="p">()</span>
+  <span class="nx">setTimeout</span> <span class="nf">-&gt;</span>
+    <span class="nv">end = </span><span class="nx">cpuMeasure</span><span class="p">()</span>
+    <span class="nv">vital.cpu = </span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="nx">end</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">start</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="nx">end</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">start</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;vital signs: </span><span class="si">#{</span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span><span class="p">(</span><span class="nx">vital</span><span class="p">).</span><span class="nx">replace</span> <span class="sr">/\s+/g</span><span class="p">,</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">cb</span><span class="p">()</span>
+  <span class="p">,</span> <span class="nx">MEASURE_TIME</span>
 
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+</div>
+<p>set the other values</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">vital.date = </span><span class="nx">date</span>
+  <span class="nv">vital.error = </span><span class="p">{}</span>
+  <span class="nv">vital.startload = </span><span class="mi">0</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+</div>
+<p>freemem</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">vital.freemem = </span><span class="nx">os</span><span class="p">.</span><span class="nx">freemem</span><span class="p">()</span> <span class="o">/</span> <span class="nx">os</span><span class="p">.</span><span class="nx">totalmem</span><span class="p">()</span>
+  <span class="nv">vital.load = </span><span class="nx">os</span><span class="p">.</span><span class="nx">loadavg</span><span class="p">().</span><span class="nx">map</span> <span class="nf">(v) -&gt;</span> <span class="nx">v</span> <span class="o">/</span> <span class="nx">os</span><span class="p">.</span><span class="nx">cpus</span><span class="p">().</span><span class="nx">length</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="measure%20cpu%20usage">
+  <h3>
+    <a href="#measure%20cpu%20usage" name="measure%20cpu%20usage" class="pilcrow">&#182;</a>
+    Measure CPU usage
+  </h3>
+</div>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">cb</span> <span class="nx">@process</span><span class="p">.</span><span class="nx">error</span><span class="p">,</span> <span class="k">this</span> <span class="k">if</span> <span class="nx">cb</span>
+<span class="nv">cpuMeasure = </span><span class="nf">-&gt;</span>
+  <span class="nv">cpus = </span><span class="nx">os</span><span class="p">.</span><span class="nx">cpus</span><span class="p">()</span>
+  <span class="nv">total = </span><span class="mi">0</span>
+  <span class="nv">idle = </span><span class="mi">0</span>
+  <span class="k">for</span> <span class="nx">core</span> <span class="k">in</span> <span class="nx">cpus</span>
+    <span class="nx">total</span> <span class="o">+=</span> <span class="nx">v</span> <span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">core</span><span class="p">.</span><span class="nx">times</span>
+    <span class="nx">idle</span> <span class="o">+=</span> <span class="nx">core</span><span class="p">.</span><span class="nx">times</span><span class="p">.</span><span class="nx">idle</span>
+  <span class="p">[</span><span class="nx">total</span><span class="p">,</span> <span class="nx">idle</span><span class="p">]</span>
 
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="export%20public%20methods">
+  <h2>
+    <a href="#export%20public%20methods" name="export%20public%20methods" class="pilcrow">&#182;</a>
+    Export public methods
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">module.exports =</span>
   <span class="nv">run: </span><span class="nx">run</span>
+  <span class="nv">vital: </span><span class="nx">vital</span>
 </pre></div>
         </td>
       </tr>
