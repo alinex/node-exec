@@ -5,17 +5,21 @@ fs = require 'fs'
 
 describe "Remote", ->
 
+  config = require 'alinex-config'
   Exec = require '../../src/index'
 
   before (cb) ->
     @timeout 20000
+    Exec.setup ->
+      config.pushOrigin
+        uri: "#{__dirname}/../data/config/exec.yml"
     Exec.init cb
 
   describe "command", ->
     @timeout 5000
 
     it "should run date", (cb) ->
-      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rs'
+      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
       exec = new Exec
         remote: 'server1'
         cmd: 'date'
@@ -26,7 +30,7 @@ describe "Remote", ->
         cb()
 
     it "should allow arguments", (cb) ->
-      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rs'
+      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
       now = (new Date()).toISOString()
       Exec.run
         remote: 'server1'
@@ -41,7 +45,7 @@ describe "Remote", ->
         cb()
 
     it "should allow changed working directory", (cb) ->
-      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rs'
+      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
       Exec.run
         remote: 'server1'
         cmd: 'pwd'
@@ -53,7 +57,7 @@ describe "Remote", ->
         cb()
 
     it "should change environment", (cb) ->
-      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rs'
+      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
       Exec.run
         remote: 'server1'
         cmd: 'sh'
@@ -67,7 +71,7 @@ describe "Remote", ->
         cb()
 
     it "should not fail on ulimit", (cb) ->
-      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rs'
+      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
       @timeout 30000
       config = require 'alinex-config'
       Exec.init -> config.init ->
@@ -84,7 +88,7 @@ describe "Remote", ->
           cb()
 
     it "should use priorities", (cb) ->
-      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rs'
+      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
       # not really showing a change but worḱing
       @timeout 50000
       config = require 'alinex-config'

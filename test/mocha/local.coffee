@@ -4,10 +4,14 @@ async = require 'alinex-async'
 
 describe "Local", ->
 
+  config = require 'alinex-config'
   Exec = require '../../src/index'
 
   before (cb) ->
     @timeout 5000
+    Exec.setup ->
+      config.pushOrigin
+        uri: "#{__dirname}/../data/config/exec.yml"
     Exec.init cb
 
   describe "command", ->

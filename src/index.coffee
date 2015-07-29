@@ -58,13 +58,18 @@ class Exec extends EventEmitter
 
   # ### Initialization
 
+  # set the modules config paths and validation schema
+  @setup: async.once this, (cb) ->
+    # set module search path
+    config.register false, fspath.dirname __dirname
+    # add schema for module's configuration
+    config.setSchema '/exec', schema, cb
+
   # set the modules config paths, validation schema and initialize the configuration
   @init: async.once this, (cb) ->
     debug "initialize"
     # set module search path
-    config.register false, fspath.dirname __dirname
-    # add schema for module's configuration
-    config.setSchema '/exec', schema, (err) ->
+    @setup (err) ->
       return cb err if err
       config.init cb
 

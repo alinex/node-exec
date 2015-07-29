@@ -9,6 +9,9 @@ describe "Retry", ->
 
   before (cb) ->
     @timeout 5000
+    Exec.setup ->
+      config.pushOrigin
+        uri: "#{__dirname}/../data/config/exec.yml"
     Exec.init -> config.init cb
 
   beforeEach ->

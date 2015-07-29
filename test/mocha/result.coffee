@@ -3,9 +3,14 @@ expect = chai.expect
 
 describe "Result", ->
 
+  config = require 'alinex-config'
   Exec = require '../../src/index'
 
-  before (cb) -> Exec.init cb
+  before (cb) ->
+    Exec.setup ->
+      config.pushOrigin
+        uri: "#{__dirname}/../data/config/exec.yml"
+    Exec.init cb
 
   describe "output", ->
 
