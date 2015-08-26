@@ -303,15 +303,15 @@ immediately.
 
 The following checks may be used:
 
-- noExitCode() - check that the exit code is 0
-- exitCode(<code>...) - check that the exit code is in allowed list
-- noStderr() - check that STDERR is empty
-- noStdout() - check that STDOUT is empty
-- matchStdout(<ok>, <report>) - check that the given <ok> RegExp succeeds,
+- `noExitCode()` - check that the exit code is 0
+- `exitCode(<code>...)` - check that the exit code is in allowed list
+- `noStderr()` - check that STDERR is empty
+- `noStdout()` - check that STDOUT is empty
+- `matchStdout(<ok>, <report>)` - check that the given `<ok>` RegExp succeeds,
   if not output the result of the <report> RegExp
-- matchStderr(<ok>, <report>) - check that the given <ok> RegExp succeeds,
+- `matchStderr(<ok>, <report>)` - check that the given `<ok>` RegExp succeeds,
   if not output the result of the <report> RegExp
-- notMatchStderr(<fail>) - check that the <fail> RegExp don't match
+- `notMatchStderr(<fail>)` - check that the `<fail>` RegExp don't match
 
 This are only the general checks. There may be more command specific matches
 which you may use.
