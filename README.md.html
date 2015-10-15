@@ -528,7 +528,8 @@ immediately.</p>
 
 <ul>
 <li>check - name of the check with
-<ul><li>args - (array) list of arguments for the check if possible</li>
+<ul><li>'true' as value if no args</li>
+<li>args - (array) list of arguments for the check if possible</li>
 <li>retry - (boolean) should retry on this failure</li></ul></li>
 <li>retry - specify if not use the default
 <ul><li>times - (integer) maximum number of retries</li>
@@ -538,15 +539,15 @@ immediately.</p>
 <p>The following checks may be used:</p>
 
 <ul>
-<li>noExitCode() - check that the exit code is 0</li>
-<li>exitCode(<code>...) - check that the exit code is in allowed list</li>
-<li>noStderr() - check that STDERR is empty</li>
-<li>noStdout() - check that STDOUT is empty</li>
-<li>matchStdout(<ok>, <report>) - check that the given <ok> RegExp succeeds,
-if not output the result of the <report> RegExp</li>
-<li>matchStderr(<ok>, <report>) - check that the given <ok> RegExp succeeds,
-if not output the result of the <report> RegExp</li>
-<li>notMatchStderr(<fail>) - check that the <fail> RegExp don't match</li>
+<li><code>noExitCode</code> - check that the exit code is 0</li>
+<li><code>exitCode code</code> - check that the exit code is in allowed list</li>
+<li><code>noStderr</code> - check that STDERR is empty</li>
+<li><code>noStdout</code> - check that STDOUT is empty</li>
+<li><code>matchStdout ok, report</code> - check that the given <code>ok</code> RegExp succeeds,
+if not output the result of the report RegExp</li>
+<li><code>matchStderr ok&gt;, report</code> - check that the given <code>ok</code> RegExp succeeds,
+if not output the result of the report RegExp</li>
+<li><code>notMatchStderr fail</code> - check that the <code>fail</code> RegExp don't match</li>
 </ul>
 
 <p>This are only the general checks. There may be more command specific matches
