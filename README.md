@@ -295,6 +295,7 @@ immediately.
 ### Retry/Checks
 
 - check - name of the check with
+  - 'true' as value if no args
   - args - (array) list of arguments for the check if possible
   - retry - (boolean) should retry on this failure
 - retry - specify if not use the default
@@ -303,15 +304,15 @@ immediately.
 
 The following checks may be used:
 
-- `noExitCode()` - check that the exit code is 0
-- `exitCode(<code>...)` - check that the exit code is in allowed list
-- `noStderr()` - check that STDERR is empty
-- `noStdout()` - check that STDOUT is empty
-- `matchStdout(<ok>, <report>)` - check that the given `<ok>` RegExp succeeds,
-  if not output the result of the <report> RegExp
-- `matchStderr(<ok>, <report>)` - check that the given `<ok>` RegExp succeeds,
-  if not output the result of the <report> RegExp
-- `notMatchStderr(<fail>)` - check that the `<fail>` RegExp don't match
+- `noExitCode` - check that the exit code is 0
+- `exitCode code` - check that the exit code is in allowed list
+- `noStderr` - check that STDERR is empty
+- `noStdout` - check that STDOUT is empty
+- `matchStdout ok, report` - check that the given `ok` RegExp succeeds,
+  if not output the result of the report RegExp
+- `matchStderr ok>, report` - check that the given `ok` RegExp succeeds,
+  if not output the result of the report RegExp
+- `notMatchStderr fail` - check that the `fail` RegExp don't match
 
 This are only the general checks. There may be more command specific matches
 which you may use.

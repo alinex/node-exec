@@ -87,9 +87,9 @@ class Exec extends EventEmitter
       @workerRunning = false
       return
     debug chalk.grey """
-    worker started: #{@queueCounter.total} total tasks waiting
-    hosts: #{@queueCounter.host}
-    priority: #{@queueCounter.priority}
+    worker started: #{@queueCounter.total} total tasks waiting / \
+    hosts: #{util.inspect @queueCounter.host} / \
+    priority: #{util.inspect @queueCounter.priority}
     """
 #    #####################################################################
 #    util = require 'util'

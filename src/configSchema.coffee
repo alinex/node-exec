@@ -201,7 +201,7 @@ module.exports =
                 min: 0.01
               debug:
                 title: "Extended Debug"
-                description: "the DEBUG=exec.ssh messages are extended with server communication"
+                description: "the DEBUG=exec:ssh messages are extended with server communication"
                 type: 'boolean'
           ]
         group:
