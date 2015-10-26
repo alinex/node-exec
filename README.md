@@ -5,7 +5,7 @@ Package: alinex-exec
 [![Coverage Status](https://coveralls.io/repos/alinex/node-exec/badge.png?branch=master)](https://coveralls.io/r/alinex/node-exec?branch=master)
 [![Dependency Status](https://gemnasium.com/alinex/node-exec.png)](https://gemnasium.com/alinex/node-exec)
 
-This is module should be used to call external commands. It is an extended
+This module should be used to call external commands. It is an extended
 wrapper arround the core `process.spawn` command. It's benefits are:
 
 - automatic error control
