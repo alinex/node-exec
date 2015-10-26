@@ -193,9 +193,7 @@ priority:
 
 ### Remote Servers
 
-This section can be used to execute commands on external machines. This section
-define the remote servers with an internal name and contains all the necessary
-access parameters.
+This section shows you how to setup remote servers:
 
 ``` yaml
 # Define remote hosts or host pools to be used through ssh.
@@ -247,6 +245,9 @@ both are the localhost for test purpose.
 The `group` area can be used to define some server groups. commands which should
 be executed in a group will be run on one server of the group. Which one will
 be decided based on load balancing.
+
+To use one of these send it's name (key) or that of an group as `remote` parameter
+in the constructor.
 
 
 Setup Execution
