@@ -81,7 +81,7 @@ describe "Retry", ->
   describe "startload", ->
 
     it "should queue on start overload", (cb) ->
-      @timeout 30000
+      @timeout 40000
       Exec.load['cartoon-date'] = -> 15
       async.each [1..3], (n, cb) ->
         Exec.run

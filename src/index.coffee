@@ -224,8 +224,8 @@ class Exec extends EventEmitter
       if parts.length > 1
         @setup.cmd = parts.shift()
         @setup.args = parts.concat args ? []
-    # if queue for host exists add this
-    return @addQueue cb if Exec.queueCounter.host[host]
+#    # if queue for host exists add this
+#    return @addQueue null, cb if Exec.queueCounter.host[host]
     # check existing vital data
     @conf ?= config.get '/exec'
     load = Exec.load[@setup.cmd]?(@setup.args) ? DEFAULT_LOAD
