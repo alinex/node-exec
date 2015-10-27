@@ -354,7 +354,6 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nx">connect</span> <span class="nx">host</span><span class="p">,</span> <span class="nf">(err, conn) -&gt;</span>
-    <span class="nv">vital.failed = </span><span class="nx">err</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> detect vital signs&quot;</span>
     <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
@@ -363,7 +362,7 @@
     <span class="p">],</span> <span class="nf">(err) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> vital signs: </span><span class="si">#{</span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span><span class="p">(</span><span class="nx">vital</span><span class="p">).</span><span class="nx">replace</span> <span class="sr">/\s+/g</span><span class="p">,</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">vital</span>
+      <span class="nx">cb</span><span class="p">()</span>
 
 
 </pre></div>

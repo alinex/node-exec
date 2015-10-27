@@ -433,6 +433,37 @@ be decided based on load balancing.</p>
 <p>To use one of these send it's name (key) or that of an group as <code>remote</code> parameter
 in the constructor.</p>
 
+<p>If you use this module in your app call the <code>Exec.setup()</code> method before initialization
+of the config module:</p>
+
+
+<div class="highlight"><pre><code><span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
+<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
+<span class="nv">schema = </span><span class="nx">require</span> <span class="s">&#39;./configSchema&#39;</span>
+
+<span class="k">class</span> <span class="nx">App</span>
+
+  <span class="vi">@setup: </span><span class="nf">(cb) -&gt;</span>
+    <span class="c1"># setup module configs first</span>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="p">[</span><span class="nx">Exec</span><span class="p">],</span> <span class="nf">(mod, cb) -&gt;</span>
+      <span class="nx">mod</span><span class="p">.</span><span class="nx">setup</span> <span class="nx">cb</span>
+    <span class="p">,</span> <span class="nf">(err) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="c1"># add schema for app&#39;s configuration</span>
+      <span class="nx">config</span><span class="p">.</span><span class="nx">setSchema</span> <span class="s">&#39;/app&#39;</span><span class="p">,</span> <span class="nx">schema</span>
+      <span class="c1"># extend module search path</span>
+      <span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;app&#39;</span><span class="p">,</span> <span class="nx">fspath</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span>
+      <span class="nx">cb</span><span class="p">()</span>
+
+  <span class="vi">@init: </span><span class="nf">(cb) -&gt;</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">init</span> <span class="nf">(err) =&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="vi">@conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/app&#39;</span>
+      <span class="nx">cb</span><span class="p">()</span>
+</code></pre></div>
+
+
+
 
 <div class="pilwrap" id="setup%20execution">
   <h2>
@@ -546,13 +577,27 @@ immediately.</p>
 <li><code>noStdout</code> - check that STDOUT is empty</li>
 <li><code>matchStdout ok, report</code> - check that the given <code>ok</code> RegExp succeeds,
 if not output the result of the report RegExp</li>
-<li><code>matchStderr ok&gt;, report</code> - check that the given <code>ok</code> RegExp succeeds,
+<li><code>matchStderr ok, report</code> - check that the given <code>ok</code> RegExp succeeds,
 if not output the result of the report RegExp</li>
 <li><code>notMatchStderr fail</code> - check that the <code>fail</code> RegExp don't match</li>
 </ul>
 
 <p>This are only the general checks. There may be more command specific matches
 which you may use.</p>
+
+<p>As an example you may use:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
+  <span class="nv">cmd: </span><span class="s">&#39;ffmpeg&#39;</span>
+  <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;001.wma&#39;</span><span class="p">,</span> <span class="s">&#39;001.mp3&#39;</span><span class="p">]</span>
+  <span class="nv">priority: </span><span class="nx">medium</span>
+  <span class="nv">check:</span>
+    <span class="nv">noExitCode: </span><span class="kc">true</span>
+    <span class="nv">matchStdErr: </span><span class="p">[</span><span class="sr">/Succedded/</span><span class="p">,</span> <span class="sr">/Failed: (\w+)/</span><span class="p">]</span>
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="streams">
