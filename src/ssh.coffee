@@ -77,14 +77,15 @@ run = (cb) ->
 # Check vital signs
 # -------------------------------------------------
 vital = async.onceTime (host, vital, date, cb) ->
-  return cb vital.error if vital.date is date
+  return cb vital.failed if vital.date is date and vital.failed
+  return cb() if vital.date is date
   # reinit
   vital.date = date
-  vital.error = null
+  vital.error = {}
   vital.startload = 0
   # connect to host and get data
   connect host, (err, conn) ->
-    vital.error = err
+    vital.failed = err
     return cb err if err
     debug chalk.grey "#{conn.name} detect vital signs"
     async.parallel [
@@ -156,7 +157,8 @@ connect = (host, cb) ->
 
 # ### Open a new connection
 open = (host, cb) ->
-  done = async.once cb
+  done = async.onceSkip (err, conn, cb) ->
+    cb err, conn
   conf = config.get 'exec/remote/server/' + host
   # make new connection
   conn = new ssh.Client()
@@ -164,12 +166,12 @@ open = (host, cb) ->
   debug "#{conn.name} open ssh connection for #{host}"
   conn.on 'ready', ->
     debug chalk.grey "#{conn.name} connection established"
-    done null, conn
+    done null, conn, cb
   .on 'banner', (msg) ->
     debug chalk.yellow "#{conn.name} #{msg}"
   .on 'error', (err) ->
     debug chalk.magenta "#{conn.name} got error: #{err.message}"
-    done err, conn
+    done err, conn, cb
   .on 'end', ->
     debug chalk.grey "#{conn.name} connection closed"
   .connect object.extend {}, conf,

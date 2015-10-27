@@ -43,4 +43,3 @@ escape = (arg) ->
     # remove non-escaped single-quote if there are enclosed between 2 escaped
     .replace /\\'''/g, "\\'"
   arg
-

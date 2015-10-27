@@ -230,11 +230,9 @@ class Exec extends EventEmitter
     @conf ?= config.get '/exec'
     load = Exec.load[@setup.cmd]?(@setup.args) ? DEFAULT_LOAD
     Exec.vitalCheck host, @setup.priority, load, (err) =>
-#      return @addQueue err, cb if err
-      return cb new Error "#{err.message} on #{host} connection" if err
+      return @addQueue err, cb if err
       # add load to calculate startlimit
       Exec.vital[host].startload += load
-#      console.log Exec.vital ############################################################
       debug "#{@name} with #{@setup.priority} priority at #{host}"
       # run locally or remote
       lib = require if host is 'localhost' then './spawn' else './ssh'

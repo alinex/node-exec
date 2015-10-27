@@ -15,7 +15,7 @@ describe "Remote", ->
         uri: "#{__dirname}/../data/config/exec.yml"
     Exec.init cb
 
-  describe "command", ->
+  describe.only "command", ->
     @timeout 5000
 
     it "should run date", (cb) ->
