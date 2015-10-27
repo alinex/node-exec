@@ -77,15 +77,16 @@ run = (cb) ->
 # Check vital signs
 # -------------------------------------------------
 vital = async.onceTime (host, vital, date, cb) ->
-  return cb() if vital.date is date
+  return cb vital.error if vital.date is date
   # reinit
   vital.date = date
-  vital.error = {}
+  vital.error = null
   vital.startload = 0
   # connect to host and get data
   connect host, (err, conn) ->
+    vital.error = err
+    return cb err if err
     debug chalk.grey "#{conn.name} detect vital signs"
-
     async.parallel [
       (cb) -> startmax conn, vital, host, cb
       (cb) -> top conn, vital, cb
@@ -149,12 +150,13 @@ connect = (host, cb) ->
   unless host in Object.keys conf.server
     return cb new Error "The remote server '#{host}' is not configured."
   open host, (err, conn) ->
-    return cb err if err
+    return cb err, conn if err
     pool[host] = conn
     cb null, conn
 
 # ### Open a new connection
 open = (host, cb) ->
+  done = async.once cb
   conf = config.get 'exec/remote/server/' + host
   # make new connection
   conn = new ssh.Client()
@@ -162,11 +164,12 @@ open = (host, cb) ->
   debug "#{conn.name} open ssh connection for #{host}"
   conn.on 'ready', ->
     debug chalk.grey "#{conn.name} connection established"
-    cb null, conn
+    done null, conn
   .on 'banner', (msg) ->
     debug chalk.yellow "#{conn.name} #{msg}"
   .on 'error', (err) ->
     debug chalk.magenta "#{conn.name} got error: #{err.message}"
+    done err, conn
   .on 'end', ->
     debug chalk.grey "#{conn.name} connection closed"
   .connect object.extend {}, conf,

@@ -11,6 +11,7 @@ debug = require('debug')('exec')
 chalk = require 'chalk'
 fspath = require 'path'
 os = require 'os'
+util = require 'util'
 EventEmitter = require('events').EventEmitter
 # include alinex modules
 config = require 'alinex-config'
@@ -229,7 +230,8 @@ class Exec extends EventEmitter
     @conf ?= config.get '/exec'
     load = Exec.load[@setup.cmd]?(@setup.args) ? DEFAULT_LOAD
     Exec.vitalCheck host, @setup.priority, load, (err) =>
-      return @addQueue err, cb if err
+#      return @addQueue err, cb if err
+      return cb new Error "#{err.message} on #{host} connection" if err
       # add load to calculate startlimit
       Exec.vital[host].startload += load
 #      console.log Exec.vital ############################################################
@@ -257,7 +259,9 @@ class Exec extends EventEmitter
     Exec.queue[host][@setup.priority] ?= []
     Exec.queue[host][@setup.priority].push [this, cb]
     Exec.queueCounter.total++
+    Exec.queueCounter.host[host] ?= 0
     Exec.queueCounter.host[host]++
+    Exec.queueCounter.priority[@setup.priority] ?= 0
     Exec.queueCounter.priority[@setup.priority]++
 
   # ### Result
