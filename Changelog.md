@@ -4,6 +4,19 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.1 (2015-10-27)
+-------------------------------------------------
+- Small fixes on debugging.
+- Fixed problem with ssh execution on working vital test.
+- Upgraded carrier submodule (speed optimization).
+- Fixed bug in handling connection problems.
+- Removed demo servers in base config.
+- Better explain remote use.
+- Wording fix in docs.
+- Fix documentation style.
+- Fixed format of README.
+- Removed unused dependencies.
+
 Version 1.0.0 (2015-07-29)
 -------------------------------------------------
 - Move test config into test folder.
