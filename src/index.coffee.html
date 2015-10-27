@@ -112,6 +112,7 @@ command and alternatively ssh connections.</p>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="nv">fspath = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">os = </span><span class="nx">require</span> <span class="s">&#39;os&#39;</span>
+<span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
 <span class="nv">EventEmitter = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;events&#39;</span><span class="p">).</span><span class="nx">EventEmitter</span>
 
 </pre></div>
@@ -446,9 +447,9 @@ queue is not done. It will run all the tasks by priority on all hosts.</p>
       <span class="vi">@workerRunning = </span><span class="kc">false</span>
       <span class="k">return</span>
     <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">    worker started: </span><span class="si">#{</span><span class="nx">@queueCounter</span><span class="p">.</span><span class="nx">total</span><span class="si">}</span><span class="s"> total tasks waiting</span>
-<span class="s">    hosts: </span><span class="si">#{</span><span class="nx">@queueCounter</span><span class="p">.</span><span class="nx">host</span><span class="si">}</span><span class="s"></span>
-<span class="s">    priority: </span><span class="si">#{</span><span class="nx">@queueCounter</span><span class="p">.</span><span class="nx">priority</span><span class="si">}</span><span class="s"></span>
+<span class="s">    worker started: </span><span class="si">#{</span><span class="nx">@queueCounter</span><span class="p">.</span><span class="nx">total</span><span class="si">}</span><span class="s"> total tasks waiting / \</span>
+<span class="s">    hosts: </span><span class="si">#{</span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">@queueCounter</span><span class="p">.</span><span class="nx">host</span><span class="si">}</span><span class="s"> / \</span>
+<span class="s">    priority: </span><span class="si">#{</span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">@queueCounter</span><span class="p">.</span><span class="nx">priority</span><span class="si">}</span><span class="s"></span>
 <span class="s">    &quot;&quot;&quot;</span>
 
 </pre></div>
@@ -969,20 +970,9 @@ from running the process</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-57" id="section-57">&#182;</a>
 </div>
-<p>if queue for host exists add this</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">return</span> <span class="nx">@addQueue</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">Exec</span><span class="p">.</span><span class="nx">queueCounter</span><span class="p">.</span><span class="nx">host</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-58" id="section-58">&#182;</a>
-</div>
-<p>check existing vital data</p>
+<p># if queue for host exists add this
+   return @addQueue null, cb if Exec.queueCounter.host[host]
+check existing vital data</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">@conf</span> <span class="o">?=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/exec&#39;</span>
@@ -996,28 +986,12 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-59" id="section-59">&#182;</a>
+  <a class="pilcrow" href="#section-58" id="section-58">&#182;</a>
 </div>
 <p>add load to calculate startlimit</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nx">Exec</span><span class="p">.</span><span class="nx">vital</span><span class="p">[</span><span class="nx">host</span><span class="p">].</span><span class="nx">startload</span> <span class="o">+=</span> <span class="nx">load</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-60" id="section-60">&#182;</a>
-</div>
-
-<div class="highlight"><pre><code> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">Exec</span><span class="p">.</span><span class="nx">vital</span> <span class="err">############################################################</span>
-</code></pre></div>
-
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
       <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> with </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span><span class="si">}</span><span class="s"> priority at </span><span class="si">#{</span><span class="nx">host</span><span class="si">}</span><span class="s">&quot;</span>
 
 </pre></div>
@@ -1026,7 +1000,7 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-61" id="section-61">&#182;</a>
+  <a class="pilcrow" href="#section-59" id="section-59">&#182;</a>
 </div>
 <p>run locally or remote</p>
         </td>
@@ -1043,7 +1017,7 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-62" id="section-62">&#182;</a>
+  <a class="pilcrow" href="#section-60" id="section-60">&#182;</a>
 </div>
 <p>success</p>
         </td>
@@ -1057,7 +1031,7 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-63" id="section-63">&#182;</a>
+  <a class="pilcrow" href="#section-61" id="section-61">&#182;</a>
 </div>
 <p>if direct execution is not possible add this task to the queue</p>
         </td>
@@ -1075,7 +1049,9 @@ from running the process</p>
     <span class="nx">Exec</span><span class="p">.</span><span class="nx">queue</span><span class="p">[</span><span class="nx">host</span><span class="p">][</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span><span class="p">]</span> <span class="o">?=</span> <span class="p">[]</span>
     <span class="nx">Exec</span><span class="p">.</span><span class="nx">queue</span><span class="p">[</span><span class="nx">host</span><span class="p">][</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span><span class="p">].</span><span class="nx">push</span> <span class="p">[</span><span class="k">this</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
     <span class="nx">Exec</span><span class="p">.</span><span class="nx">queueCounter</span><span class="p">.</span><span class="nx">total</span><span class="o">++</span>
+    <span class="nx">Exec</span><span class="p">.</span><span class="nx">queueCounter</span><span class="p">.</span><span class="nx">host</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span> <span class="o">?=</span> <span class="mi">0</span>
     <span class="nx">Exec</span><span class="p">.</span><span class="nx">queueCounter</span><span class="p">.</span><span class="nx">host</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span><span class="o">++</span>
+    <span class="nx">Exec</span><span class="p">.</span><span class="nx">queueCounter</span><span class="p">.</span><span class="nx">priority</span><span class="p">[</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span><span class="p">]</span> <span class="o">?=</span> <span class="mi">0</span>
     <span class="nx">Exec</span><span class="p">.</span><span class="nx">queueCounter</span><span class="p">.</span><span class="nx">priority</span><span class="p">[</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span><span class="p">]</span><span class="o">++</span>
 
 
@@ -1101,7 +1077,7 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-65" id="section-65">&#182;</a>
+  <a class="pilcrow" href="#section-63" id="section-63">&#182;</a>
 </div>
 <p>run defined checks on result</p>
         </td>
@@ -1114,7 +1090,7 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-66" id="section-66">&#182;</a>
+  <a class="pilcrow" href="#section-64" id="section-64">&#182;</a>
 </div>
 <p>find check to use</p>
         </td>
@@ -1130,7 +1106,7 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-67" id="section-67">&#182;</a>
+  <a class="pilcrow" href="#section-65" id="section-65">&#182;</a>
 </div>
 <p>run checks</p>
         </td>
@@ -1147,7 +1123,7 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-68" id="section-68">&#182;</a>
+  <a class="pilcrow" href="#section-66" id="section-66">&#182;</a>
 </div>
 <p>got an error</p>
         </td>
@@ -1166,7 +1142,7 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-69" id="section-69">&#182;</a>
+  <a class="pilcrow" href="#section-67" id="section-67">&#182;</a>
 </div>
 <p>store last try</p>
         </td>
@@ -1182,7 +1158,7 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-70" id="section-70">&#182;</a>
+  <a class="pilcrow" href="#section-68" id="section-68">&#182;</a>
 </div>
 <p>run again</p>
         </td>
@@ -1197,7 +1173,7 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-71" id="section-71">&#182;</a>
+  <a class="pilcrow" href="#section-69" id="section-69">&#182;</a>
 </div>
 <p>everything ok, go on</p>
         </td>

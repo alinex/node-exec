@@ -41,9 +41,6 @@
       <div class="heading h2">
         <a href="#priority%20levels">Priority Levels</a>
       </div>
-      <div class="heading h2">
-        <a href="#remote%20server">Remote Server</a>
-      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -269,128 +266,6 @@
       <span class="l-Scalar-Plain">maxLoad</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">150%</span>
     <span class="l-Scalar-Plain">immediately</span><span class="p-Indicator">:</span>
       <span class="l-Scalar-Plain">nice</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">-20</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="remote%20server">
-  <h2>
-    <a href="#remote%20server" name="remote%20server" class="pilcrow">&#182;</a>
-    Remote Server
-  </h2>
-</div>
-
-
-<p>Define remote hosts or host pools to be used through ssh.</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="l-Scalar-Plain">remote</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">server</span><span class="p-Indicator">:</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
-</div>
-<p>virtual name for server</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="l-Scalar-Plain">server1</span><span class="p-Indicator">:</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
-</div>
-<p>hostname or ip to connect to</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
-</div>
-<p>connection port</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">ssh</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
-</div>
-<p>user to login as</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">alex</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
-</div>
-<p>(optionally) private key for login</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="l-Scalar-Plain">privateKey</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;&lt;&lt;file:///home/alex/.ssh/id_rsa&gt;&gt;&gt;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
-</div>
-<p>time for sending keepalive packets</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="l-Scalar-Plain">keepaliveInterval</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1s</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
-</div>
-<p>debug also server communication</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="l-Scalar-Plain">debug</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
-    <span class="l-Scalar-Plain">server2</span><span class="p-Indicator">:</span>
-      <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">localhost</span>
-      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">ssh</span>
-      <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">alex</span>
-      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dontknow</span>
-  <span class="l-Scalar-Plain">group</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">testpool</span><span class="p-Indicator">:</span>
-      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">server1</span>
-        <span class="l-Scalar-Plain">weight</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0.4</span>
-      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">server2</span>
-        <span class="l-Scalar-Plain">weight</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0.6</span>
 </pre></div>
         </td>
       </tr>

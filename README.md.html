@@ -111,7 +111,7 @@
 <a href="https://coveralls.io/r/alinex/node-exec?branch=master"><img src="https://coveralls.io/repos/alinex/node-exec/badge.png?branch=master" alt="Coverage Status" title="" /></a>
 <a href="https://gemnasium.com/alinex/node-exec"><img src="https://gemnasium.com/alinex/node-exec.png" alt="Dependency Status" title="" /></a></p>
 
-<p>This is module should be used to call external commands. It is an extended
+<p>This module should be used to call external commands. It is an extended
 wrapper arround the core <code>process.spawn</code> command. It's benefits are:</p>
 
 <ul>
@@ -375,9 +375,7 @@ shows the default.</p>
 </div>
 
 
-<p>This section can be used to execute commands on external machines. This section
-define the remote servers with an internal name and contains all the necessary
-access parameters.</p>
+<p>This section shows you how to setup remote servers:</p>
 
 
 <div class="highlight"><pre><code><span class="c1"># Define remote hosts or host pools to be used through ssh.</span>
@@ -431,6 +429,9 @@ both are the localhost for test purpose.</p>
 <p>The <code>group</code> area can be used to define some server groups. commands which should
 be executed in a group will be run on one server of the group. Which one will
 be decided based on load balancing.</p>
+
+<p>To use one of these send it's name (key) or that of an group as <code>remote</code> parameter
+in the constructor.</p>
 
 
 <div class="pilwrap" id="setup%20execution">

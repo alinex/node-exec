@@ -324,6 +324,7 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">vital = </span><span class="nx">async</span><span class="p">.</span><span class="nx">onceTime</span> <span class="nf">(host, vital, date, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">failed</span> <span class="k">if</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">date</span> <span class="o">is</span> <span class="nx">date</span> <span class="o">and</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">failed</span>
   <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">date</span> <span class="o">is</span> <span class="nx">date</span>
 
 </pre></div>
@@ -353,8 +354,9 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nx">connect</span> <span class="nx">host</span><span class="p">,</span> <span class="nf">(err, conn) -&gt;</span>
+    <span class="nv">vital.failed = </span><span class="nx">err</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> detect vital signs&quot;</span>
-
     <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
       <span class="nf">(cb) -&gt;</span> <span class="nx">startmax</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">vital</span><span class="p">,</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">cb</span>
       <span class="nf">(cb) -&gt;</span> <span class="nx">top</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">vital</span><span class="p">,</span> <span class="nx">cb</span>
@@ -513,7 +515,7 @@
 <span class="s">  unless host in Object.keys conf.server</span>
 <span class="s">    return cb new Error &quot;</span><span class="nx">The</span> <span class="nx">remote</span> <span class="nx">server</span> <span class="s">&#39;#{host}&#39;</span> <span class="o">is</span> <span class="o">not</span> <span class="nx">configured</span><span class="p">.</span><span class="s">&quot;</span>
 <span class="s">  open host, (err, conn) -&gt;</span>
-<span class="s">    return cb err if err</span>
+<span class="s">    return cb err, conn if err</span>
 <span class="s">    pool[host] = conn</span>
 <span class="s">    cb null, conn</span>
 
@@ -533,6 +535,8 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="s">open = (host, cb) -&gt;</span>
+<span class="s">  done = async.onceSkip (err, conn, cb) -&gt;</span>
+<span class="s">    cb err, conn</span>
 <span class="s">  conf = config.get &#39;exec/remote/server/&#39; + host</span>
 
 </pre></div>
@@ -551,11 +555,12 @@
   <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> open ssh connection for </span><span class="si">#{</span><span class="nx">host</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="nx">conn</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;ready&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
     <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> connection established&quot;</span>
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conn</span>
+    <span class="nx">done</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">cb</span>
   <span class="p">.</span><span class="nx">on</span> <span class="s">&#39;banner&#39;</span><span class="p">,</span> <span class="nf">(msg) -&gt;</span>
     <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">msg</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
     <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> got error: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">done</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">cb</span>
   <span class="p">.</span><span class="nx">on</span> <span class="s">&#39;end&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
     <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> connection closed&quot;</span>
   <span class="p">.</span><span class="nx">connect</span> <span class="nx">object</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">conf</span><span class="p">,</span>
