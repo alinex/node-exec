@@ -112,7 +112,7 @@ class Exec extends EventEmitter
           # check if tnext process is already done in this round
           return cb true if list[0][0].id in mark
           # check
-          @vitalCheck host, prio, DEFAULT_LOAD, (err) =>
+          @vitalCheck host, prio, DEFAULT_LOAD, (err, res) =>
           # stop if check failed
             return cb true unless list.length
             return cb err if err
@@ -159,10 +159,10 @@ class Exec extends EventEmitter
       return cb err if err
       # check startload
       if vital.startload and vital.startload + load > vital.startmax
-        return cb new Error "The maximum load to start per interval would be exceeded
+        return cb null, new Error "The maximum load to start per interval would be exceeded
         with this process at #{host}"
       # error already detected
-      return cb vital.error[priority] if vital.error[priority]?
+      return cb null, vital.error[priority] if vital.error[priority]?
       # check for new error
       prio = conf.priority.level[priority]
       vital.error[priority] = if prio.maxCpu? and vital.cpu > prio.maxCpu
@@ -181,7 +181,7 @@ class Exec extends EventEmitter
         new Error "The average long load of #{Math.round vital.load[2], 2} is above
         #{Math.round prio.maxLoad[2] * 100}% allowed for #{priority} priority at #{host}"
       else false
-      cb vital.error[priority]
+      cb null, vital.error[priority]
 
   # ### Start execution
 
@@ -229,8 +229,9 @@ class Exec extends EventEmitter
     # check existing vital data
     @conf ?= config.get '/exec'
     load = Exec.load[@setup.cmd]?(@setup.args) ? DEFAULT_LOAD
-    Exec.vitalCheck host, @setup.priority, load, (err) =>
-      return @addQueue err, cb if err
+    Exec.vitalCheck host, @setup.priority, load, (err, res) =>
+      return cb err if err
+      return @addQueue res, cb if res
       # add load to calculate startlimit
       Exec.vital[host].startload += load
       debug "#{@name} with #{@setup.priority} priority at #{host}"

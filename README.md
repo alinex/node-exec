@@ -249,6 +249,35 @@ be decided based on load balancing.
 To use one of these send it's name (key) or that of an group as `remote` parameter
 in the constructor.
 
+If you use this module in your app call the `Exec.setup()` method before initialization
+of the config module:
+
+``` coffee
+config = require 'alinex-config'
+Exec = require 'alinex-exec'
+schema = require './configSchema'
+
+class App
+
+  @setup: (cb) ->
+    # setup module configs first
+    async.each [Exec], (mod, cb) ->
+      mod.setup cb
+    , (err) ->
+      return cb err if err
+      # add schema for app's configuration
+      config.setSchema '/app', schema
+      # extend module search path
+      config.register 'app', fspath.dirname __dirname
+      cb()
+
+  @init: (cb) ->
+    config.init (err) =>
+      return cb err if err
+      @conf = config.get '/app'
+      cb()
+```
+
 
 Setup Execution
 -------------------------------------------------
@@ -311,12 +340,24 @@ The following checks may be used:
 - `noStdout` - check that STDOUT is empty
 - `matchStdout ok, report` - check that the given `ok` RegExp succeeds,
   if not output the result of the report RegExp
-- `matchStderr ok>, report` - check that the given `ok` RegExp succeeds,
+- `matchStderr ok, report` - check that the given `ok` RegExp succeeds,
   if not output the result of the report RegExp
 - `notMatchStderr fail` - check that the `fail` RegExp don't match
 
 This are only the general checks. There may be more command specific matches
 which you may use.
+
+As an example you may use:
+
+``` coffee
+Exec.run
+  cmd: 'ffmpeg'
+  args: ['001.wma', '001.mp3']
+  priority: medium
+  check:
+    noExitCode: true
+    matchStdErr: [/Succedded/, /Failed: (\w+)/]
+```
 
 ### Streams
 

@@ -85,7 +85,6 @@ vital = async.onceTime (host, vital, date, cb) ->
   vital.startload = 0
   # connect to host and get data
   connect host, (err, conn) ->
-    vital.failed = err
     return cb err if err
     debug chalk.grey "#{conn.name} detect vital signs"
     async.parallel [
@@ -94,7 +93,7 @@ vital = async.onceTime (host, vital, date, cb) ->
     ], (err) ->
       return cb err if err
       debug chalk.grey "#{conn.name} vital signs: #{util.inspect(vital).replace /\s+/g, ' '}"
-      cb null, vital
+      cb()
 
 # ### get the starmax value
 # THis is based on the number of cpus and the configuration value

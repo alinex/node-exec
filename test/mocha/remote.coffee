@@ -4,6 +4,7 @@ async = require 'alinex-async'
 fs = require 'fs'
 
 describe "Remote", ->
+  @timeout 15000
 
   config = require 'alinex-config'
   Exec = require '../../src/index'
@@ -15,8 +16,19 @@ describe "Remote", ->
         uri: "#{__dirname}/../data/config/exec.yml"
     Exec.init cb
 
+  describe "connection", ->
+
+    it "should fail if connection impossible", (cb) ->
+      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
+      exec = new Exec
+        remote: 'server2'
+        cmd: 'date'
+      exec.run (err) ->
+        expect(err, 'error').to.exist
+        expect(exec.result, "result").to.not.exist
+        cb()
+
   describe "command", ->
-    @timeout 5000
 
     it "should run date", (cb) ->
       return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
