@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.2 (2015-10-28)
+-------------------------------------------------
+- Try to fix connection problem reporting and extend documentation.
+
 Version 1.0.1 (2015-10-27)
 -------------------------------------------------
 - Small fixes on debugging.
