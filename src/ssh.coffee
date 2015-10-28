@@ -132,12 +132,18 @@ exec = (conn, cmdline, cb) ->
     .stderr.on 'data', (data) -> debug "#{conn.name} Command #{cmdline} got error:
       #{data}"
 
+# ### close all connections
+closeAll = ->
+  for host, conn of pool
+    debug "close connection to #{host}"
+    conn.end()
 
 # Export public methods
 # -------------------------------------------------
 module.exports =
   run: run
   vital: vital
+  closeAll: closeAll
 
 
 # Helper Methods

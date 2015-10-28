@@ -92,6 +92,15 @@ Exec.run
   # work with the results within the process instance
 ```
 
+### Closeup
+
+If you used remote executions, there may be some open server connections in the pool
+which prevent your program from ending. To end them call:
+
+``` coffee
+Exec.close()
+```
+
 
 Configuration
 -------------------------------------------------

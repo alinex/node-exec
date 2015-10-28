@@ -192,6 +192,11 @@ class Exec extends EventEmitter
       proc = new Exec setup
       proc.run cb
 
+  # ### Close remote connections
+  @close: ->
+    lib = require './ssh'
+    lib.closeAll()
+
   # create a new execution object to specify and call later
   constructor: (@setup) ->
     @id = ++objectId
