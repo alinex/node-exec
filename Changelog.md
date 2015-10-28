@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.3 (2015-10-28)
+-------------------------------------------------
+- Support closing remote connections after everything done per command.
+- Report connection error with server location.
+- Allow remote-key in configuration to be missing.
+
 Version 1.0.2 (2015-10-28)
 -------------------------------------------------
 - Try to fix connection problem reporting and extend documentation.
