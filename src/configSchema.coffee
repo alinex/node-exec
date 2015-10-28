@@ -6,7 +6,7 @@ module.exports =
   description: "the configuration for the external command calls"
   type: 'object'
   allowedKeys: true
-  mandatoryKeys: true
+  mandatoryKeys: ['retry', 'priority']
   keys:
     retry:
       title: "Retry"
