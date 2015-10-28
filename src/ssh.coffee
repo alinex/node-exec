@@ -169,7 +169,8 @@ open = (host, cb) ->
   .on 'banner', (msg) ->
     debug chalk.yellow "#{conn.name} #{msg}"
   .on 'error', (err) ->
-    debug chalk.magenta "#{conn.name} got error: #{err.message}"
+    err = new Error "#{err.message} on #{conn.name}"
+    debug chalk.magenta "#{conn.name} error: #{err.message}"
     done err, conn, cb
   .on 'end', ->
     debug chalk.grey "#{conn.name} connection closed"
