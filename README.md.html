@@ -47,6 +47,9 @@
       <div class="heading h3">
         <a href="#simplified%20run">Simplified run</a>
       </div>
+      <div class="heading h3">
+        <a href="#closeup">Closeup</a>
+      </div>
       <div class="heading h2">
         <a href="#configuration">Configuration</a>
       </div>
@@ -238,6 +241,24 @@ through the <code>proc.result</code> and <code>proc.process</code> objects.</p>
   <span class="nv">cmd: </span><span class="s">&#39;date&#39;</span>
 <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
   <span class="c1"># work with the results within the process instance</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="closeup">
+  <h3>
+    <a href="#closeup" name="closeup" class="pilcrow">&#182;</a>
+    Closeup
+  </h3>
+</div>
+
+
+<p>If you used remote executions, there may be some open server connections in the pool
+which prevent your program from ending. To end them call:</p>
+
+
+<div class="highlight"><pre><code><span class="nx">Exec</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
 </code></pre></div>
 
 

@@ -60,6 +60,9 @@
         <a href="#start%20execution">Start execution</a>
       </div>
       <div class="heading h3">
+        <a href="#close%20remote%20connections">Close remote connections</a>
+      </div>
+      <div class="heading h3">
         <a href="#result">Result</a>
       </div>
     </div>
@@ -891,8 +894,27 @@ from running the process</p>
       </tr>
       <tr>
         <td class="docs">
+<div class="pilwrap" id="close%20remote%20connections">
+  <h3>
+    <a href="#close%20remote%20connections" name="close%20remote%20connections" class="pilcrow">&#182;</a>
+    Close remote connections
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  @close: -&gt;</span>
+<span class="s">    lib = require &#39;./ssh&#39;</span>
+<span class="s">    lib.closeAll()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-53" id="section-53">&#182;</a>
+  <a class="pilcrow" href="#section-54" id="section-54">&#182;</a>
 </div>
 <p>create a new execution object to specify and call later</p>
         </td>
@@ -908,7 +930,7 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-54" id="section-54">&#182;</a>
+  <a class="pilcrow" href="#section-55" id="section-55">&#182;</a>
 </div>
 <p>set priority</p>
         </td>
@@ -927,7 +949,7 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-55" id="section-55">&#182;</a>
+  <a class="pilcrow" href="#section-56" id="section-56">&#182;</a>
 </div>
 <p>start execution</p>
         </td>
@@ -943,7 +965,7 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-56" id="section-56">&#182;</a>
+  <a class="pilcrow" href="#section-57" id="section-57">&#182;</a>
 </div>
 <p>optimize cmd - extract arguments</p>
         </td>
@@ -968,7 +990,7 @@ from running the process</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-57" id="section-57">&#182;</a>
+  <a class="pilcrow" href="#section-58" id="section-58">&#182;</a>
 </div>
 <p># if queue for host exists add this
    return @addQueue null, cb if Exec.queueCounter.host[host]
@@ -987,7 +1009,7 @@ check existing vital data</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-58" id="section-58">&#182;</a>
+  <a class="pilcrow" href="#section-59" id="section-59">&#182;</a>
 </div>
 <p>add load to calculate startlimit</p>
         </td>
@@ -1001,7 +1023,7 @@ check existing vital data</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-59" id="section-59">&#182;</a>
+  <a class="pilcrow" href="#section-60" id="section-60">&#182;</a>
 </div>
 <p>run locally or remote</p>
         </td>
@@ -1018,7 +1040,7 @@ check existing vital data</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-60" id="section-60">&#182;</a>
+  <a class="pilcrow" href="#section-61" id="section-61">&#182;</a>
 </div>
 <p>success</p>
         </td>
@@ -1032,7 +1054,7 @@ check existing vital data</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-61" id="section-61">&#182;</a>
+  <a class="pilcrow" href="#section-62" id="section-62">&#182;</a>
 </div>
 <p>if direct execution is not possible add this task to the queue</p>
         </td>
@@ -1078,7 +1100,7 @@ check existing vital data</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-63" id="section-63">&#182;</a>
+  <a class="pilcrow" href="#section-64" id="section-64">&#182;</a>
 </div>
 <p>run defined checks on result</p>
         </td>
@@ -1091,7 +1113,7 @@ check existing vital data</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-64" id="section-64">&#182;</a>
+  <a class="pilcrow" href="#section-65" id="section-65">&#182;</a>
 </div>
 <p>find check to use</p>
         </td>
@@ -1107,7 +1129,7 @@ check existing vital data</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-65" id="section-65">&#182;</a>
+  <a class="pilcrow" href="#section-66" id="section-66">&#182;</a>
 </div>
 <p>run checks</p>
         </td>
@@ -1124,7 +1146,7 @@ check existing vital data</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-66" id="section-66">&#182;</a>
+  <a class="pilcrow" href="#section-67" id="section-67">&#182;</a>
 </div>
 <p>got an error</p>
         </td>
@@ -1143,7 +1165,7 @@ check existing vital data</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-67" id="section-67">&#182;</a>
+  <a class="pilcrow" href="#section-68" id="section-68">&#182;</a>
 </div>
 <p>store last try</p>
         </td>
@@ -1159,7 +1181,7 @@ check existing vital data</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-68" id="section-68">&#182;</a>
+  <a class="pilcrow" href="#section-69" id="section-69">&#182;</a>
 </div>
 <p>run again</p>
         </td>
@@ -1174,7 +1196,7 @@ check existing vital data</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-69" id="section-69">&#182;</a>
+  <a class="pilcrow" href="#section-70" id="section-70">&#182;</a>
 </div>
 <p>everything ok, go on</p>
         </td>
