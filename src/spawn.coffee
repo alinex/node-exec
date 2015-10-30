@@ -55,6 +55,7 @@ run = (cb) ->
       cwd: @setup.cwd
       uid: @setup.uid
       gid: @setup.gid
+      timeout: @setup.timeout
   catch err
     if err.message is 'spawn EMFILE'
       interval = @conf.retry.ulimit.interval
@@ -88,12 +89,16 @@ run = (cb) ->
     @result.code = code
     @process.end = new Date()
     if signal?
-      debugCmd "#{@name} exit: signal #{signal} after #{@process.end-@process.start} ms"
+      @process.error = new Error "#{@name} exit: signal #{signal}
+      after #{@process.end-@process.start} ms"
       @code ?= -1
-    else
-      debugCmd "#{@name} exit: code #{@result.code} after #{@process.end-@process.start} ms"
+    else if code
+      @process.error = new Error "#{@name} exit: code #{@result.code}
+      after #{@process.end-@process.start} ms"
+    if @process.error?
+      debugCmd @process.error.message
     @emit 'done', @result.code
-    cb @process.error, this if cb
+    cb null, this if cb
 
 # Check vital signs
 # -------------------------------------------------

@@ -101,6 +101,3 @@ describe "Local", ->
         expect(results[0].process.end).to.be.above results[1].process.end
         expect(results[1].process.end).to.be.above results[2].process.end
         cb()
-
-    # retry
-    # checks

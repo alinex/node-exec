@@ -331,8 +331,9 @@ The priority defines which command to run first in case of multiple commands.
 By default the following priorities are possible: anytime, low, medium, high,
 immediately.
 
-### Retry/Checks
+### Failure Management
 
+- timeout - time in milliseconds after that the process will be killed
 - check - name of the check with
   - 'true' as value if no args
   - args - (array) list of arguments for the check if possible

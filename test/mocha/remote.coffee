@@ -115,3 +115,16 @@ describe "Remote", ->
       , (err, results) ->
         expect(results[0].process.end + 100).to.be.not.below results[1].process.end
         cb()
+
+    it "should support timeout", (cb) ->
+      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
+      exec = new Exec
+        remote: 'server1'
+        cmd: 'sleep'
+        args: [300]
+        timeout: 1000
+        check:
+          noExitCode: true
+      exec.run (err) ->
+        expect(err, 'error').to.exist
+        cb()

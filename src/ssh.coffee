@@ -51,6 +51,14 @@ run = (cb) ->
           @emit 'wait', interval
           return setTimeout (=> run.call this, cb), interval
         return cb err
+      if @setup.timeout
+        #console.log '----------------', stream
+        @timer = setTimeout ->
+          #stream.exit(0)
+          #stream.write '\x03', ->
+          #  console.log '########'
+          stream.emit 'close', -1, 15
+        , @setup.timeout
       carrier.carry stream, (line) =>
         @result.lines.push [1, line]
         @emit 'stdout', line # send through
@@ -62,17 +70,24 @@ run = (cb) ->
         debugErr "#{@name} #{line}"
       , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
       # process finished
+#      stream.on 'finish', -> console.log 'FINISH'
+#      stream.on 'error', -> console.log 'ERROR'
+#      stream.on 'end', -> console.log 'END'
       stream.on 'close', (code, signal) =>
         @result.code = code
-        process.nextTick (signal) =>
+        process.nextTick =>
           @process.end = new Date()
           if signal?
-            debugCmd "#{@name} exit: signal #{signal} after #{@process.end-@process.start} ms"
+            @process.error = new Error "#{@name} exit: signal #{signal}
+            after #{@process.end-@process.start} ms"
             @code ?= -1
-          else
-            debugCmd "#{@name} exit: code #{@result.code} after #{@process.end-@process.start} ms"
+          else if code
+            @process.error = new Error "#{@name} exit: code #{@result.code}
+            after #{@process.end-@process.start} ms"
+          if @process.error?
+            debugCmd @process.error.message
           @emit 'done', @result.code
-          cb @process.error, this if cb
+          cb null, this if cb
 
 # Check vital signs
 # -------------------------------------------------

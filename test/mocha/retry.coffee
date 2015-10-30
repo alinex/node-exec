@@ -94,4 +94,12 @@ describe "Retry", ->
           cb()
       , cb
 
-
+    it "should support timeout", (cb) ->
+      exec = new Exec
+        remote: 'server1'
+        cmd: 'sleep'
+        args: [300]
+        timeout: 1000
+      exec.run (err) ->
+        expect(err, 'error').to.exist
+        cb()
