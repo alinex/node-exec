@@ -51,14 +51,10 @@ run = (cb) ->
           @emit 'wait', interval
           return setTimeout (=> run.call this, cb), interval
         return cb err
-      if @setup.timeout
-        #console.log '----------------', stream
-        @timer = setTimeout ->
-          #stream.exit(0)
-          #stream.write '\x03', ->
-          #  console.log '########'
-          stream.emit 'close', -1, 15
-        , @setup.timeout
+#      if @setup.timeout
+#        @timer = setTimeout ->
+#          stream.emit 'close', -1, 15
+#        , @setup.timeout
       carrier.carry stream, (line) =>
         @result.lines.push [1, line]
         @emit 'stdout', line # send through
@@ -70,9 +66,6 @@ run = (cb) ->
         debugErr "#{@name} #{line}"
       , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
       # process finished
-#      stream.on 'finish', -> console.log 'FINISH'
-#      stream.on 'error', -> console.log 'ERROR'
-#      stream.on 'end', -> console.log 'END'
       stream.on 'close', (code, signal) =>
         @result.code = code
         process.nextTick =>
