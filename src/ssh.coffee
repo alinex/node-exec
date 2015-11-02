@@ -52,7 +52,6 @@ run = (cb) ->
           return setTimeout (=> run.call this, cb), interval
         return cb err
       if @setup.timeout
-        #console.log '----------------', stream
         @timer = setTimeout ->
           #stream.exit(0)
           #stream.write '\x03', ->
@@ -70,10 +69,8 @@ run = (cb) ->
         debugErr "#{@name} #{line}"
       , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
       # process finished
-#      stream.on 'finish', -> console.log 'FINISH'
-#      stream.on 'error', -> console.log 'ERROR'
-#      stream.on 'end', -> console.log 'END'
       stream.on 'close', (code, signal) =>
+        clearTimeout @timer
         @result.code = code
         process.nextTick =>
           @process.end = new Date()
