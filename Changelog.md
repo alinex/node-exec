@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.5 (2015-11-02)
+-------------------------------------------------
+- Fix running callback twice on timeout.
+
 Version 1.0.4 (2015-11-02)
 -------------------------------------------------
 - Implement timeout parameter to stop execution after this time with SIGTERM.
