@@ -78,7 +78,7 @@
         <a href="#priority">Priority</a>
       </div>
       <div class="heading h3">
-        <a href="#retry%2Fchecks">Retry/Checks</a>
+        <a href="#failure%20management">Failure Management</a>
       </div>
       <div class="heading h3">
         <a href="#streams">Streams</a>
@@ -571,15 +571,16 @@ to the configuration (see above).</p>
 immediately.</p>
 
 
-<div class="pilwrap" id="retry%2Fchecks">
+<div class="pilwrap" id="failure%20management">
   <h3>
-    <a href="#retry%2Fchecks" name="retry%2Fchecks" class="pilcrow">&#182;</a>
-    Retry/Checks
+    <a href="#failure%20management" name="failure%20management" class="pilcrow">&#182;</a>
+    Failure Management
   </h3>
 </div>
 
 
 <ul>
+<li>timeout - time in milliseconds after that the process will be killed</li>
 <li>check - name of the check with
 <ul><li>'true' as value if no args</li>
 <li>args - (array) list of arguments for the check if possible</li>

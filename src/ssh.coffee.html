@@ -277,6 +277,36 @@
 <span class="s">          @emit &#39;wait&#39;, interval</span>
 <span class="s">          return setTimeout (=&gt; run.call this, cb), interval</span>
 <span class="s">        return cb err</span>
+<span class="s">      if @setup.timeout</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+</div>
+<p>console.log '----------------', stream</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">        @timer = setTimeout -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+</div>
+<p>stream.exit(0)
+stream.write '\x03', ->
+ console.log '########'</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">          stream.emit &#39;close&#39;, -1, 15</span>
+<span class="s">        , @setup.timeout</span>
 <span class="s">      carrier.carry stream, (line) =&gt;</span>
 <span class="s">        @result.lines.push [1, line]</span>
 <span class="s">        @emit &#39;stdout&#39;, line </span><span class="err">#</span><span class="s"> send through</span>
@@ -294,22 +324,29 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
-<p>process finished</p>
+<p>process finished
+     stream.on 'finish', -> console.log 'FINISH'
+     stream.on 'error', -> console.log 'ERROR'
+     stream.on 'end', -> console.log 'END'</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nx">stream</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;close&#39;</span><span class="p">,</span> <span class="nf">(code, signal) =&gt;</span>
         <span class="vi">@result.code = </span><span class="nx">code</span>
-        <span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span> <span class="nf">(signal) =&gt;</span>
+        <span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span> <span class="o">=&gt;</span>
           <span class="vi">@process.end = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
           <span class="k">if</span> <span class="nx">signal</span><span class="o">?</span>
-            <span class="nx">debugCmd</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> exit: signal </span><span class="si">#{</span><span class="nx">signal</span><span class="si">}</span><span class="s"> after </span><span class="si">#{</span><span class="nx">@process</span><span class="p">.</span><span class="nx">end</span><span class="o">-</span><span class="nx">@process</span><span class="p">.</span><span class="nx">start</span><span class="si">}</span><span class="s"> ms&quot;</span>
+            <span class="vi">@process.error = </span><span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> exit: signal </span><span class="si">#{</span><span class="nx">signal</span><span class="si">}</span><span class="s"></span>
+<span class="s">            after </span><span class="si">#{</span><span class="nx">@process</span><span class="p">.</span><span class="nx">end</span><span class="o">-</span><span class="nx">@process</span><span class="p">.</span><span class="nx">start</span><span class="si">}</span><span class="s"> ms&quot;</span>
             <span class="nx">@code</span> <span class="o">?=</span> <span class="o">-</span><span class="mi">1</span>
-          <span class="k">else</span>
-            <span class="nx">debugCmd</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> exit: code </span><span class="si">#{</span><span class="nx">@result</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s"> after </span><span class="si">#{</span><span class="nx">@process</span><span class="p">.</span><span class="nx">end</span><span class="o">-</span><span class="nx">@process</span><span class="p">.</span><span class="nx">start</span><span class="si">}</span><span class="s"> ms&quot;</span>
+          <span class="k">else</span> <span class="k">if</span> <span class="nx">code</span>
+            <span class="vi">@process.error = </span><span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> exit: code </span><span class="si">#{</span><span class="nx">@result</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s"></span>
+<span class="s">            after </span><span class="si">#{</span><span class="nx">@process</span><span class="p">.</span><span class="nx">end</span><span class="o">-</span><span class="nx">@process</span><span class="p">.</span><span class="nx">start</span><span class="si">}</span><span class="s"> ms&quot;</span>
+          <span class="k">if</span> <span class="nx">@process</span><span class="p">.</span><span class="nx">error</span><span class="o">?</span>
+            <span class="nx">debugCmd</span> <span class="nx">@process</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span>
           <span class="nx">@emit</span> <span class="s">&#39;done&#39;</span><span class="p">,</span> <span class="nx">@result</span><span class="p">.</span><span class="nx">code</span>
-          <span class="nx">cb</span> <span class="nx">@process</span><span class="p">.</span><span class="nx">error</span><span class="p">,</span> <span class="k">this</span> <span class="k">if</span> <span class="nx">cb</span>
+          <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="k">this</span> <span class="k">if</span> <span class="nx">cb</span>
 
 
 </pre></div>
@@ -336,7 +373,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>reinit</p>
         </td>
@@ -351,7 +388,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>connect to host and get data</p>
         </td>
@@ -453,7 +490,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
 </div>
 <p>{data}"</p>
         </td>
@@ -567,7 +604,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
 </div>
 <p>make new connection</p>
         </td>
