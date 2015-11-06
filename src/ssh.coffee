@@ -55,6 +55,15 @@ run = (cb) ->
 #        @timer = setTimeout ->
 #          stream.emit 'close', -1, 15
 #        , @setup.timeout
+#=======
+#      if @setup.timeout
+#        @timer = setTimeout ->
+#          #stream.exit(0)
+#          #stream.write '\x03', ->
+#          #  console.log '########'
+#          stream.emit 'close', -1, 15
+#        , @setup.timeout
+#>>>>>>> aef980696d223e7c66592d2512a25aa4b371b76c
       carrier.carry stream, (line) =>
         @result.lines.push [1, line]
         @emit 'stdout', line # send through
@@ -67,6 +76,7 @@ run = (cb) ->
       , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
       # process finished
       stream.on 'close', (code, signal) =>
+        clearTimeout @timer
         @result.code = code
         process.nextTick =>
           @process.end = new Date()
