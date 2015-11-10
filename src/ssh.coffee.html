@@ -279,26 +279,13 @@
 <span class="s">        return cb err</span>
 <span class="s">      if @setup.timeout</span>
 <span class="s">        @timer = setTimeout -&gt;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
-</div>
-<p>stream.exit(0)
-stream.write '\x03', ->
- console.log '########'</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">          stream.emit &#39;close&#39;, -1, 15</span>
-<span class="s">        , @setup.timeout</span>
-<span class="s">      carrier.carry stream, (line) =&gt;</span>
-<span class="s">        @result.lines.push [1, line]</span>
-<span class="s">        @emit &#39;stdout&#39;, line </span><span class="err">#</span><span class="s"> send through</span>
-<span class="s">        debugOut &quot;</span><span class="c1">#{@name} #{line}&quot;</span>
+<span class="s">          debugCmd chalk.grey &quot;</span><span class="c1">#{@name} close stream because timeout exceeded&quot;</span>
+          <span class="nx">stream</span><span class="p">.</span><span class="nx">emit</span> <span class="s">&#39;close&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">15</span>
+        <span class="p">,</span> <span class="nx">@setup</span><span class="p">.</span><span class="nx">timeout</span> <span class="o">+</span> <span class="mi">1000</span>
+      <span class="nx">carrier</span><span class="p">.</span><span class="nx">carry</span> <span class="nx">stream</span><span class="p">,</span> <span class="nf">(line) =&gt;</span>
+        <span class="nx">@result</span><span class="p">.</span><span class="nx">lines</span><span class="p">.</span><span class="nx">push</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="nx">line</span><span class="p">]</span>
+        <span class="nx">@emit</span> <span class="s">&#39;stdout&#39;</span><span class="p">,</span> <span class="nx">line</span> <span class="c1"># send through</span>
+        <span class="nx">debugOut</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">line</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="p">,</span> <span class="s">&#39;utf-8&#39;</span><span class="p">,</span> <span class="sr">/\r?\n|\r(?!\n)/</span> <span class="c1"># match also single \r</span>
       <span class="nx">carrier</span><span class="p">.</span><span class="nx">carry</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">stderr</span><span class="p">,</span> <span class="nf">(line) =&gt;</span>
         <span class="nx">@result</span><span class="p">.</span><span class="nx">lines</span><span class="p">.</span><span class="nx">push</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="nx">line</span><span class="p">]</span>
@@ -312,7 +299,7 @@ stream.write '\x03', ->
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>process finished</p>
         </td>
@@ -359,7 +346,7 @@ stream.write '\x03', ->
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>reinit</p>
         </td>
@@ -374,7 +361,7 @@ stream.write '\x03', ->
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>connect to host and get data</p>
         </td>
@@ -476,7 +463,7 @@ stream.write '\x03', ->
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>{data}"</p>
         </td>
@@ -590,7 +577,7 @@ stream.write '\x03', ->
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
 </div>
 <p>make new connection</p>
         </td>

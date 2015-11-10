@@ -259,9 +259,25 @@ command and alternatively ssh connections.</p>
     <span class="vi">@proc = </span><span class="nx">spawn</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span>
       <span class="nv">env: </span><span class="nx">env</span>
       <span class="nv">cwd: </span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cwd</span>
-      <span class="nv">uid: </span><span class="nx">@setup</span><span class="p">.</span><span class="nx">uid</span>
-      <span class="nv">gid: </span><span class="nx">@setup</span><span class="p">.</span><span class="nx">gid</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+</div>
+
+<div class="highlight"><pre><code> <span class="nx">uid</span><span class="o">:</span> <span class="err">@</span><span class="nx">setup</span><span class="p">.</span><span class="nx">uid</span>
+ <span class="nx">gid</span><span class="o">:</span> <span class="err">@</span><span class="nx">setup</span><span class="p">.</span><span class="nx">gid</span>
+</code></pre></div>
+
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
       <span class="nv">timeout: </span><span class="nx">@setup</span><span class="p">.</span><span class="nx">timeout</span>
+      <span class="nv">killSignal: </span><span class="s">&#39;SIGKILL&#39;</span>
   <span class="k">catch</span> <span class="nx">err</span>
     <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span> <span class="o">is</span> <span class="s">&#39;spawn EMFILE&#39;</span>
       <span class="nv">interval = </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">retry</span><span class="p">.</span><span class="nx">ulimit</span><span class="p">.</span><span class="nx">interval</span>
@@ -273,7 +289,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
 <p>{interval} ms..."</p>
         </td>
@@ -288,7 +304,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>output debug lines</p>
         </td>
@@ -303,7 +319,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>collect output</p>
         </td>
@@ -327,7 +343,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>error management</p>
         </td>
@@ -341,7 +357,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>process finished</p>
         </td>
@@ -360,6 +376,12 @@ command and alternatively ssh connections.</p>
       <span class="nx">debugCmd</span> <span class="nx">@process</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span>
     <span class="nx">@emit</span> <span class="s">&#39;done&#39;</span><span class="p">,</span> <span class="nx">@result</span><span class="p">.</span><span class="nx">code</span>
     <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="k">this</span> <span class="k">if</span> <span class="nx">cb</span>
+  <span class="k">if</span> <span class="nx">@setup</span><span class="p">.</span><span class="nx">timeout</span>
+    <span class="nx">setTimeout</span> <span class="o">=&gt;</span>
+      <span class="nx">debugCmd</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> send KILL because timeout exceeded&quot;</span>
+      <span class="nx">@proc</span><span class="p">.</span><span class="nx">kill</span><span class="p">()</span>
+    <span class="p">,</span> <span class="nx">@setup</span><span class="p">.</span><span class="nx">timeout</span> <span class="o">+</span> <span class="mi">1000</span>
+
 
 
 </pre></div>
@@ -385,7 +407,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>init startmax</p>
         </td>
@@ -399,7 +421,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
 </div>
 <p>calculate cpu usage</p>
         </td>
@@ -418,7 +440,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
 </div>
 <p>set the other values</p>
         </td>
@@ -433,7 +455,7 @@ command and alternatively ssh connections.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
 </div>
 <p>freemem</p>
         </td>

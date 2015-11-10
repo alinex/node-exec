@@ -123,6 +123,8 @@ include alinex modules</p>
     <span class="nx">cmdline</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;-u&#39;</span><span class="p">,</span> <span class="s">&quot;\\</span><span class="err">#</span><span class="si">#{</span><span class="nx">setup</span><span class="p">.</span><span class="nx">uid</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">uid</span><span class="o">?</span>
     <span class="nx">cmdline</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;-g&#39;</span><span class="p">,</span> <span class="s">&quot;\\</span><span class="err">#</span><span class="si">#{</span><span class="nx">setup</span><span class="p">.</span><span class="nx">gid</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">gid</span><span class="o">?</span>
     <span class="nx">cmdline</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;sudo&#39;</span>
+  <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">timeout</span>
+    <span class="nx">cmdline</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;timeout&#39;</span><span class="p">,</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">timeout</span> <span class="o">/</span> <span class="mi">1000</span>
 
 </pre></div>
         </td>
