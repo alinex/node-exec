@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.6 (2015-11-10)
+-------------------------------------------------
+- Test for ulimit need more time.
+- Fixed timeout by sending kill/close one second after timeout.
+
 Version 1.0.5 (2015-11-02)
 -------------------------------------------------
 - Fix running callback twice on timeout.
