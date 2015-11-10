@@ -53,9 +53,10 @@ run = (cb) ->
     @proc = spawn cmd, args,
       env: env
       cwd: @setup.cwd
-      uid: @setup.uid
-      gid: @setup.gid
+#      uid: @setup.uid
+#      gid: @setup.gid
       timeout: @setup.timeout
+      killSignal: 'SIGKILL'
   catch err
     if err.message is 'spawn EMFILE'
       interval = @conf.retry.ulimit.interval
@@ -99,6 +100,12 @@ run = (cb) ->
       debugCmd @process.error.message
     @emit 'done', @result.code
     cb null, this if cb
+  if @setup.timeout
+    setTimeout =>
+      debugCmd chalk.grey "#{@name} send KILL because timeout exceeded"
+      @proc.kill()
+    , @setup.timeout + 1000
+
 
 # Check vital signs
 # -------------------------------------------------

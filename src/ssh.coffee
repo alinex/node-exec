@@ -53,11 +53,9 @@ run = (cb) ->
         return cb err
       if @setup.timeout
         @timer = setTimeout ->
-          #stream.exit(0)
-          #stream.write '\x03', ->
-          #  console.log '########'
+          debugCmd chalk.grey "#{@name} close stream because timeout exceeded"
           stream.emit 'close', -1, 15
-        , @setup.timeout
+        , @setup.timeout + 1000
       carrier.carry stream, (line) =>
         @result.lines.push [1, line]
         @emit 'stdout', line # send through
