@@ -20,6 +20,8 @@ module.exports.cmdline = (setup, host) ->
     cmdline.unshift '-u', "\\##{setup.uid}" if setup.uid?
     cmdline.unshift '-g', "\\##{setup.gid}" if setup.gid?
     cmdline.unshift 'sudo'
+  if setup.timeout
+    cmdline.unshift 'timeout', setup.timeout / 1000
   # support priority based nice values
   prio = conf.priority.level[setup.priority]
   if prio.nice

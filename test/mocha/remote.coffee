@@ -84,7 +84,7 @@ describe "Remote", ->
 
     it "should not fail on ulimit", (cb) ->
       return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
-      @timeout 30000
+      @timeout 60000
       config = require 'alinex-config'
       Exec.init -> config.init ->
         async.each [1..200], (n, cb) ->
