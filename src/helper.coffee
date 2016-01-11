@@ -31,7 +31,7 @@ module.exports.cmdline = (setup, host) ->
       cmdline.unshift 'nice', '-n', prio.nice
   # set timeout
   if setup.timeout
-    cmdline.unshift 'timeout', @setup.timeout/1000
+    cmdline.unshift 'timeout', setup.timeout/1000
   # set working directory
   if setup.cwd
     cmdline.unshift 'cd', escape(setup.cwd), '&&'

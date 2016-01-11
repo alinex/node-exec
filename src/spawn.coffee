@@ -87,6 +87,7 @@ run = (cb) ->
     @process.error = err
   # process finished
   @proc.on 'close', (code, signal) =>
+    clearTimeout @timer if @prockill?
     @result.code = code
     @process.end = new Date()
     if signal?
@@ -101,7 +102,7 @@ run = (cb) ->
     @emit 'done', @result.code
     cb null, this if cb
   if @setup.timeout
-    setTimeout =>
+    @timer = setTimeout =>
       debugCmd chalk.grey "#{@name} send KILL because timeout exceeded"
       @proc.kill()
     , @setup.timeout + 1000
