@@ -116,6 +116,58 @@ describe "Response check", ->
         expect(exec.result.error, "result error").to.exist
         cb()
 
+  describe "stderr", ->
+
+    it "should succeed", (cb) ->
+      Exec.run
+        cmd: 'cartoon-date'
+        check:
+          stderr: true
+      , (err, exec) ->
+        expect(err, 'error').to.not.exist
+        expect(exec.result, "result").to.exist
+        expect(exec.result.code, "code").to.equal 127
+        expect(exec.result.error, "result error").to.not.exist
+        cb()
+
+    it "should fail", (cb) ->
+      Exec.run
+        cmd: 'date'
+        check:
+          stderr: true
+      , (err, exec) ->
+        expect(err, 'error').to.exist
+        expect(exec.result, "result").to.exist
+        expect(exec.result.code, "code").to.equal 0
+        expect(exec.result.error, "result error").to.exist
+        cb()
+
+  describe "stdout", ->
+
+    it "should succeed", (cb) ->
+      Exec.run
+        cmd: 'date'
+        check:
+          stdout: true
+      , (err, exec) ->
+        expect(err, 'error').to.not.exist
+        expect(exec.result, "result").to.exist
+        expect(exec.result.code, "code").to.equal 0
+        expect(exec.result.error, "result error").to.not.exist
+        cb()
+
+    it "should fail", (cb) ->
+      Exec.run
+        cmd: 'cartoon-date'
+        check:
+          stdout: true
+      , (err, exec) ->
+        expect(err, 'error').to.exist
+        expect(exec.result, "result").to.exist
+        expect(exec.result.code, "code").to.equal 127
+        expect(exec.result.error, "result error").to.exist
+        cb()
+
   describe "matchStdout", ->
 
     it "should succeed", (cb) ->
@@ -240,3 +292,28 @@ describe "Response check", ->
         expect(exec.result.error, "result error").to.exist
         cb()
 
+  describe "stdoutLines", ->
+
+    it "should succeed", (cb) ->
+      Exec.run
+        cmd: 'date'
+        check:
+          stdoutLines: 1
+      , (err, exec) ->
+        expect(err, 'error').to.not.exist
+        expect(exec.result, "result").to.exist
+        expect(exec.result.code, "code").to.equal 0
+        expect(exec.result.error, "result error").to.not.exist
+        cb()
+
+    it "should fail", (cb) ->
+      Exec.run
+        cmd: 'cartoon-date'
+        check:
+          stdoutLines: 1
+      , (err, exec) ->
+        expect(err, 'error').to.exist
+        expect(exec.result, "result").to.exist
+        expect(exec.result.code, "code").to.equal 127
+        expect(exec.result.error, "result error").to.exist
+        cb()

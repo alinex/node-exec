@@ -41,6 +41,14 @@ module.exports =
     #{abstract res}
     """
 
+  stderr: ->
+    return false if @stderr()
+    new Error "STDERR of #{@setup.cmd} should be set but was empty"
+
+  stdout: ->
+    return false if @stdout()
+    new Error "STDOUT of #{@setup.cmd} should be set but was empty"
+
   matchStdout: (ok, report) ->
     return false if @stdout().match ok
     if report?
@@ -71,3 +79,9 @@ module.exports =
     if res.input
       res = if res.length > 1 then res[1..-1] else [res[0]]
     new Error "Process #{@setup.cmd} failed with: \"#{res.join '\", \"'}\""
+
+  stdoutLines: (list) ->
+    list = [list] if typeof list is 'number'
+    lines = if @stderr() then @stderr().split /\n/ else []
+    return false if lines.length in list
+    new Error "Process #{@setup.cmd} should have #{list} number of lines but has #{lines.length}"

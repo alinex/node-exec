@@ -348,11 +348,14 @@ The following checks may be used:
 - `exitCode code` - check that the exit code is in allowed list
 - `noStderr` - check that STDERR is empty
 - `noStdout` - check that STDOUT is empty
+- `stderr` - check that STDERR isn't empty
+- `stdout` - check that STDOUT isn't empty
 - `matchStdout ok, report` - check that the given `ok` RegExp succeeds,
   if not output the result of the report RegExp
 - `matchStderr ok, report` - check that the given `ok` RegExp succeeds,
   if not output the result of the report RegExp
 - `notMatchStderr fail` - check that the `fail` RegExp don't match
+- `stdoutLines num` - check that the output has the correct number of lines (number, array)
 
 This are only the general checks. There may be more command specific matches
 which you may use.
