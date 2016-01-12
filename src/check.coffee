@@ -58,7 +58,7 @@ module.exports =
     reason = if res?
       "with: \"#{res.join '", "'}\""
     else
-      "got:\n#{abstract @stdout()}"
+      "because got:\n#{abstract @stdout()}"
     new Error "STDOUT of #{@setup.cmd} should match #{ok} but failed #{reason}."
 
   matchStderr: (ok, report) ->
@@ -70,7 +70,7 @@ module.exports =
     reason = if res?
       "with: \"#{res.join '", "'}\""
     else
-      "got:\n#{abstract @stderr()}"
+      "because got:\n#{abstract @stderr()}"
     new Error "STDERR of #{@setup.cmd} should match #{ok} but failed #{reason}."
 
   notMatchStderr: (fail) ->
