@@ -151,6 +151,8 @@ class Exec extends EventEmitter
   # from running the process
   @vitalCheck: (host, priority, load, cb) ->
     conf = config.get '/exec'
+    prio = conf.priority.level[priority]
+    return cb() unless prio.maxCpu? or prio.minFreemem? or prio.maxLoad?
     vital = @vital[host] ?= {}
     # get vital data
     date = Math.floor new Date().getTime() / conf.retry.vital.interval
@@ -164,7 +166,6 @@ class Exec extends EventEmitter
       # error already detected
       return cb null, vital.error[priority] if vital.error[priority]?
       # check for new error
-      prio = conf.priority.level[priority]
       vital.error[priority] = if prio.maxCpu? and vital.cpu > prio.maxCpu
         new Error "The CPU utilization of #{Math.round vital.cpu * 100}% is above
         #{Math.round prio.maxCpu * 100}% allowed for #{priority} priority at #{host}"
