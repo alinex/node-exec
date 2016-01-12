@@ -69,6 +69,8 @@ remote:
       privateKey: <<<file:///home/alex/.ssh/id_rsa>>>
       # time for sending keepalive packets
       keepaliveInterval: 1s
+      # maximum number of parallel sessions on this connection
+      #maxSessions: 4
       # debug also server communication
       debug: false
     server2:

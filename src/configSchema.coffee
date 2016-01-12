@@ -199,6 +199,11 @@ module.exports =
                 description: "the maximum load for each CPUs per second in usage to start"
                 type: 'percent'
                 min: 0.01
+              maxSessions:
+                title: "Max. Parallel Sessions"
+                description: "the number of max. parallel sessions on the connection"
+                type: 'integer'
+                min: 1
               debug:
                 title: "Extended Debug"
                 description: "the DEBUG=exec:ssh messages are extended with server communication"

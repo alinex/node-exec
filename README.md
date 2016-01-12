@@ -232,6 +232,8 @@ remote:
       readyTimeout: 20s
       # maximum load to start here per each cpu
       startload: 2.4
+      # maximum number of parallel sessions on this connection
+      #maxSessions: 4
       # debug also server communication
       debug: false
     server2:

@@ -43,6 +43,7 @@ run = (cb) ->
     conn.exec cmdline, (err, stream) =>
       # error management
       if err
+        disconnect conn
         @process.error = err
         if err.message.match /open failed/
           interval = @conf.retry.ulimit.interval
@@ -68,6 +69,7 @@ run = (cb) ->
       , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
       # process finished
       stream.on 'close', (code, signal) =>
+        disconnect conn
         clearTimeout @timer
         @result.code = code
         process.nextTick =>
@@ -162,13 +164,31 @@ module.exports =
 # ### Connect to remote server
 connect = (host, cb) ->
   conf = config.get 'exec/remote'
-  return cb null, pool[host] if pool[host]
+  # check active sessions and wait if too high
+  if conf.maxSessions
+    unless conf.maxSessions > pool[host].session
+      interval = @conf.retry.ulimit.interval
+      debug chalk.grey "#{@name} ssh session limit reached, waiting
+      #{interval} ms..."
+      @emit 'wait', interval
+      return setTimeout (-> connect host, cb), interval
+  # return connection if already present
+  if pool[host]
+    pool[host].session++
+    return cb null, pool[host]
+  # check if host is configured
   unless host in Object.keys conf.server
     return cb new Error "The remote server '#{host}' is not configured."
+  # open new connection
   open host, (err, conn) ->
     return cb err, conn if err
     pool[host] = conn
+    conn.session++
     cb null, conn
+
+disconnect = (conn) ->
+  # decrease connection count
+  conn.session--
 
 # ### Open a new connection
 open = (host, cb) ->
@@ -178,6 +198,7 @@ open = (host, cb) ->
   # make new connection
   conn = new ssh.Client()
   conn.name = chalk.grey "ssh://#{conf.username}@#{conf.host}:#{conf.port}"
+  conn.sessions = 0
   debug "#{conn.name} open ssh connection for #{host}"
   conn.on 'ready', ->
     debug chalk.grey "#{conn.name} connection established"
