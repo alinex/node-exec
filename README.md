@@ -355,7 +355,7 @@ The following checks may be used:
 - `matchStderr ok, report` - check that the given `ok` RegExp succeeds,
   if not output the result of the report RegExp
 - `notMatchStderr fail` - check that the `fail` RegExp don't match
-- `stdoutLines num` - check that the output has the correct number of lines (number, array)
+- `stdoutLines min, max` - check that the output has the correct number of lines
 
 This are only the general checks. There may be more command specific matches
 which you may use.
@@ -369,7 +369,8 @@ Exec.run
   priority: medium
   check:
     noExitCode: true
-    matchStdErr: [/Succedded/, /Failed: (\w+)/]
+    matchStdErr:
+      args: [/Succeeded/, /Failed: (\w+)/]
 ```
 
 ### Streams

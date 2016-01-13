@@ -109,7 +109,7 @@ class Exec extends EventEmitter
         async.forever (cb) =>
 #          console.log '?? loop', list.length
           return cb true unless list.length
-          # check if tnext process is already done in this round
+          # check if next process is already done in this round
           return cb true if list[0][0].id in mark
           # check
           @vitalCheck host, prio, DEFAULT_LOAD, (err, res) =>
@@ -282,6 +282,7 @@ class Exec extends EventEmitter
     # run checks
     for n, v of list
       return cb new Error "Unknown check function #{n} in Exec" unless check[n]?
+      v.args = [v.args] unless Array.isArray v.args
       err = check[n].apply this, v.args ? null
       continue unless err
       debug chalk.magenta "#{@name} #{n}: #{err.message}"

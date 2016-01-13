@@ -80,8 +80,9 @@ module.exports =
       res = if res.length > 1 then res[1..-1] else [res[0]]
     new Error "Process #{@setup.cmd} failed with: \"#{res.join '\", \"'}\""
 
-  stdoutLines: (list) ->
-    list = [list] if typeof list is 'number'
-    lines = if @stderr() then @stderr().split /\n/ else []
-    return false if lines.length in list
-    new Error "Process #{@setup.cmd} should have #{list} number of lines but has #{lines.length}"
+  stdoutLines: (min, max) ->
+    lines = if @stdout() then @stdout().split /\n/ else []
+    min ?= lines.length
+    max ?= lines.length
+    return false if min <= lines.length <= max
+    new Error "Process #{@setup.cmd} should have #{min}..#{max} number of lines but has #{lines.length}"
