@@ -41,6 +41,18 @@ describe "Remote", ->
         expect(exec.result.code, "code").equal 0
         cb()
 
+    it "should run date immediately", (cb) ->
+      return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
+      exec = new Exec
+        remote: 'server1'
+        cmd: 'date'
+        priority: 'immediately'
+      exec.run (err) ->
+        expect(err, 'error').to.not.exist
+        expect(exec.result, "result").to.exist
+        expect(exec.result.code, "code").equal 0
+        cb()
+
     it "should allow arguments", (cb) ->
       return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
       now = (new Date()).toISOString()

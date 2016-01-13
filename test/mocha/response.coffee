@@ -298,7 +298,8 @@ describe "Response check", ->
       Exec.run
         cmd: 'date'
         check:
-          stdoutLines: 1
+          stdoutLines:
+            args: 1
       , (err, exec) ->
         expect(err, 'error').to.not.exist
         expect(exec.result, "result").to.exist
@@ -310,7 +311,8 @@ describe "Response check", ->
       Exec.run
         cmd: 'cartoon-date'
         check:
-          stdoutLines: 1
+          stdoutLines:
+            args: 1
       , (err, exec) ->
         expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
