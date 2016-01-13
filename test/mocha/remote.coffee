@@ -3,7 +3,7 @@ expect = chai.expect
 async = require 'alinex-async'
 fs = require 'fs'
 
-describe "Remote", ->
+describe.only "Remote", ->
   @timeout 15000
 
   config = require 'alinex-config'
@@ -35,6 +35,7 @@ describe "Remote", ->
       exec = new Exec
         remote: 'server1'
         cmd: 'date'
+        priority: 'high'
       exec.run (err) ->
         expect(err, 'error').to.not.exist
         expect(exec.result, "result").to.exist

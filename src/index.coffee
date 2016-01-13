@@ -152,10 +152,10 @@ class Exec extends EventEmitter
   @vitalCheck: (host, priority, load, cb) ->
     conf = config.get '/exec'
     prio = conf.priority.level[priority]
-    return cb() unless prio.maxCpu? or prio.minFreemem? or prio.maxLoad?
     vital = @vital[host] ?= {}
+    return cb null, false unless prio.maxCpu? or prio.minFreemem? or prio.maxLoad?
     # prevent vital check if no restrictions
-    return cb() unless prio.minFreemem? or prio.maxCpu? or prio.maxLoad?
+    return cb null, false unless prio.minFreemem? or prio.maxCpu? or prio.maxLoad?
     # get vital data
     date = Math.floor new Date().getTime() / conf.retry.vital.interval
     lib = require if host is 'localhost' then './spawn' else './ssh'
