@@ -151,7 +151,10 @@ class Exec extends EventEmitter
   # from running the process
   @vitalCheck: (host, priority, load, cb) ->
     conf = config.get '/exec'
+    prio = conf.priority.level[priority]
     vital = @vital[host] ?= {}
+    # prevent vital check if no restrictions
+    return cb() unless prio.minFreemem? or prio.maxCpu? or prio.maxLoad?
     # get vital data
     date = Math.floor new Date().getTime() / conf.retry.vital.interval
     lib = require if host is 'localhost' then './spawn' else './ssh'
@@ -164,7 +167,6 @@ class Exec extends EventEmitter
       # error already detected
       return cb null, vital.error[priority] if vital.error[priority]?
       # check for new error
-      prio = conf.priority.level[priority]
       vital.error[priority] = if prio.maxCpu? and vital.cpu > prio.maxCpu
         new Error "The CPU utilization of #{Math.round vital.cpu * 100}% is above
         #{Math.round prio.maxCpu * 100}% allowed for #{priority} priority at #{host}"
