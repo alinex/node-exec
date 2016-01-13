@@ -85,4 +85,5 @@ module.exports =
     min ?= lines.length
     max ?= lines.length
     return false if min <= lines.length <= max
-    new Error "Process #{@setup.cmd} should have #{min}..#{max} number of lines but has #{lines.length}"
+    new Error "Process #{@setup.cmd} should have #{min}..#{max} number of lines
+    but has #{lines.length}"
