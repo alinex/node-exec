@@ -4,6 +4,27 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.0 (2016-01-14)
+-------------------------------------------------
+- Finished implementation of session limit on ssh connections.
+- Fixed immediately rmote test.
+- Merge branch 'master' of http://github.com/alinex/node-exec
+- Fixed line length of code.
+- Fixed stdoutLines check to work with min, max values.
+- Prevent vital check if no restrictions in priority.
+- Optimized failure text on checks.
+- Don't run vital check on immediate priority calls.
+- Add session limit on remote connections.
+- Merge branch 'master' of http://github.com/alinex/node-exec
+- Add more checks for containing output or specific number of lines.
+- Fixed reference to timeout variable causing access to undefined.
+- Merge branch 'master' of https://github.com/alinex/node-exec
+- Fix access to timeout setting.
+- Merge branch 'master' of http://github.com/alinex/node-exec
+- Remove KILL timer after process ended.
+- Merge branch 'master' of http://github.com/alinex/node-exec
+- Implement timeout through commandline in both spawn and ssh.
+
 Version 1.0.6 (2015-11-10)
 -------------------------------------------------
 - Test for ulimit need more time.
