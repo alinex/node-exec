@@ -163,32 +163,32 @@ module.exports =
 
 # ### Connect to remote server
 connect = (host, cb) ->
-  conf = config.get 'exec/remote'
+  conf = config.get 'exec'
+  # check if host is configured
+  unless server = conf.remote?.server?[host]
+    return cb new Error "The remote server '#{host}' is not configured."
   # check active sessions and wait if too high
-  if conf.maxSessions
-    unless conf.maxSessions > pool[host].session
-      interval = @conf.retry.ulimit.interval
-      debug chalk.grey "#{@name} ssh session limit reached, waiting
+  if server.maxSessions and pool[host]?
+    unless server.maxSessions > pool[host].sessions
+      interval = conf.retry.ulimit.interval
+      debug chalk.grey "#{pool[host].name} session limit reached, waiting
       #{interval} ms..."
-      @emit 'wait', interval
+      pool[host].emit 'wait'
       return setTimeout (-> connect host, cb), interval
   # return connection if already present
   if pool[host]
-    pool[host].session++
+    pool[host].sessions++
     return cb null, pool[host]
-  # check if host is configured
-  unless host in Object.keys conf.server
-    return cb new Error "The remote server '#{host}' is not configured."
   # open new connection
   open host, (err, conn) ->
     return cb err, conn if err
     pool[host] = conn
-    conn.session++
+    conn.sessions++
     cb null, conn
 
 disconnect = (conn) ->
   # decrease connection count
-  conn.session--
+  conn.sessions--
 
 # ### Open a new connection
 open = (host, cb) ->
