@@ -426,6 +426,8 @@ shows the default.</p>
       <span class="l-Scalar-Plain">readyTimeout</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">20s</span>
       <span class="c1"># maximum load to start here per each cpu</span>
       <span class="l-Scalar-Plain">startload</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2.4</span>
+      <span class="c1"># maximum number of parallel sessions on this connection</span>
+      <span class="c1">#maxSessions: 4</span>
       <span class="c1"># debug also server communication</span>
       <span class="l-Scalar-Plain">debug</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
     <span class="l-Scalar-Plain">server2</span><span class="p-Indicator">:</span>
@@ -597,11 +599,14 @@ immediately.</p>
 <li><code>exitCode code</code> - check that the exit code is in allowed list</li>
 <li><code>noStderr</code> - check that STDERR is empty</li>
 <li><code>noStdout</code> - check that STDOUT is empty</li>
+<li><code>stderr</code> - check that STDERR isn't empty</li>
+<li><code>stdout</code> - check that STDOUT isn't empty</li>
 <li><code>matchStdout ok, report</code> - check that the given <code>ok</code> RegExp succeeds,
 if not output the result of the report RegExp</li>
 <li><code>matchStderr ok, report</code> - check that the given <code>ok</code> RegExp succeeds,
 if not output the result of the report RegExp</li>
 <li><code>notMatchStderr fail</code> - check that the <code>fail</code> RegExp don't match</li>
+<li><code>stdoutLines min, max</code> - check that the output has the correct number of lines</li>
 </ul>
 
 <p>This are only the general checks. There may be more command specific matches
@@ -616,7 +621,8 @@ which you may use.</p>
   <span class="nv">priority: </span><span class="nx">medium</span>
   <span class="nv">check:</span>
     <span class="nv">noExitCode: </span><span class="kc">true</span>
-    <span class="nv">matchStdErr: </span><span class="p">[</span><span class="sr">/Succedded/</span><span class="p">,</span> <span class="sr">/Failed: (\w+)/</span><span class="p">]</span>
+    <span class="nv">matchStdErr:</span>
+      <span class="nv">args: </span><span class="p">[</span><span class="sr">/Succeeded/</span><span class="p">,</span> <span class="sr">/Failed: (\w+)/</span><span class="p">]</span>
 </code></pre></div>
 
 

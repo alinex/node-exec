@@ -258,6 +258,7 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="k">if</span> <span class="nx">err</span>
+        <span class="nx">disconnect</span> <span class="nx">conn</span>
         <span class="vi">@process.error = </span><span class="nx">err</span>
         <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/open failed/</span>
           <span class="nv">interval = </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">retry</span><span class="p">.</span><span class="nx">ulimit</span><span class="p">.</span><span class="nx">interval</span>
@@ -305,6 +306,7 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nx">stream</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;close&#39;</span><span class="p">,</span> <span class="nf">(code, signal) =&gt;</span>
+        <span class="nx">disconnect</span> <span class="nx">conn</span>
         <span class="nx">clearTimeout</span> <span class="nx">@timer</span>
         <span class="vi">@result.code = </span><span class="nx">code</span>
         <span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span> <span class="o">=&gt;</span>
@@ -542,14 +544,98 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">connect = </span><span class="nf">(host, cb) -&gt;</span>
-  <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;exec/remote&#39;</span>
-  <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">pool</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span> <span class="k">if</span> <span class="nx">pool</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span>
-  <span class="k">unless</span> <span class="nx">host</span> <span class="k">in</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">server</span>
+  <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;exec&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+</div>
+<p>check if host is configured</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">unless</span> <span class="nv">server = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">remote</span><span class="o">?</span><span class="p">.</span><span class="nx">server</span><span class="o">?</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;The remote server &#39;</span><span class="si">#{</span><span class="nx">host</span><span class="si">}</span><span class="s">&#39; is not configured.&quot;</span>
-  <span class="nx">open</span> <span class="nx">host</span><span class="p">,</span> <span class="nf">(err, conn) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">conn</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">pool</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span> <span class="o">=</span> <span class="nx">conn</span>
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">conn</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+</div>
+<p>check active sessions and wait if too high</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">if</span> <span class="nx">server</span><span class="p">.</span><span class="nx">maxSessions</span> <span class="o">and</span> <span class="nx">pool</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span><span class="o">?</span>
+    <span class="k">unless</span> <span class="nx">server</span><span class="p">.</span><span class="nx">maxSessions</span> <span class="o">&gt;</span> <span class="nx">pool</span><span class="p">[</span><span class="nx">host</span><span class="p">].</span><span class="nx">sessions</span>
+      <span class="nv">interval = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">retry</span><span class="p">.</span><span class="nx">ulimit</span><span class="p">.</span><span class="nx">interval</span>
+      <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">pool</span><span class="p">[</span><span class="nx">host</span><span class="p">].</span><span class="nx">name</span><span class="si">}</span><span class="s"> session limit reached, waiting</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+</div>
+<p>{interval} ms..."</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">      pool[host].emit &#39;wait&#39;</span>
+<span class="s">      return setTimeout (-&gt; connect host, cb), interval</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+</div>
+<p>return connection if already present</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  if pool[host]</span>
+<span class="s">    pool[host].sessions++</span>
+<span class="s">    return cb null, pool[host]</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+</div>
+<p>open new connection</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  open host, (err, conn) -&gt;</span>
+<span class="s">    return cb err, conn if err</span>
+<span class="s">    pool[host] = conn</span>
+<span class="s">    conn.sessions++</span>
+<span class="s">    cb null, conn</span>
+
+<span class="s">disconnect = (conn) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+</div>
+<p>decrease connection count</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="s">  conn.sessions--</span>
 
 
 </pre></div>
@@ -566,10 +652,10 @@
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">open = </span><span class="nf">(host, cb) -&gt;</span>
-  <span class="nv">done = </span><span class="nx">async</span><span class="p">.</span><span class="nx">onceSkip</span> <span class="nf">(err, conn, cb) -&gt;</span>
-    <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">conn</span>
-  <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;exec/remote/server/&#39;</span> <span class="o">+</span> <span class="nx">host</span>
+<span class="s">open = (host, cb) -&gt;</span>
+<span class="s">  done = async.onceSkip (err, conn, cb) -&gt;</span>
+<span class="s">    cb err, conn</span>
+<span class="s">  conf = config.get &#39;exec/remote/server/&#39; + host</span>
 
 </pre></div>
         </td>
@@ -577,13 +663,14 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
 </div>
 <p>make new connection</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">conn = </span><span class="k">new</span> <span class="nx">ssh</span><span class="p">.</span><span class="nx">Client</span><span class="p">()</span>
-  <span class="nv">conn.name = </span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;ssh://</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">username</span><span class="si">}</span><span class="s">@</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">host</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">conf</span><span class="p">.</span><span class="nx">port</span><span class="si">}</span><span class="s">&quot;</span>
+<span class="s">  conn = new ssh.Client()</span>
+<span class="s">  conn.name = chalk.grey &quot;</span><span class="nx">ssh</span><span class="o">://</span><span class="c1">#{conf.username}@#{conf.host}:#{conf.port}&quot;</span>
+  <span class="nv">conn.sessions = </span><span class="mi">0</span>
   <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> open ssh connection for </span><span class="si">#{</span><span class="nx">host</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="nx">conn</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;ready&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
     <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> connection established&quot;</span>

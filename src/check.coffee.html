@@ -139,6 +139,14 @@
         <td class="code highlight"><div class="highlight"><pre>
 <span class="s">    &quot;&quot;&quot;</span>
 
+  <span class="nv">stderr: </span><span class="nf">-&gt;</span>
+    <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">@stderr</span><span class="p">()</span>
+    <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;STDERR of </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> should be set but was empty&quot;</span>
+
+  <span class="nv">stdout: </span><span class="nf">-&gt;</span>
+    <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">@stdout</span><span class="p">()</span>
+    <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;STDOUT of </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> should be set but was empty&quot;</span>
+
   <span class="nv">matchStdout: </span><span class="nf">(ok, report) -&gt;</span>
     <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">@stdout</span><span class="p">().</span><span class="nx">match</span> <span class="nx">ok</span>
     <span class="k">if</span> <span class="nx">report</span><span class="o">?</span>
@@ -148,7 +156,7 @@
     <span class="nv">reason = </span><span class="k">if</span> <span class="nx">res</span><span class="o">?</span>
       <span class="s">&quot;with: \&quot;</span><span class="si">#{</span><span class="nx">res</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;&quot;, &quot;&#39;</span><span class="si">}</span><span class="s">\&quot;&quot;</span>
     <span class="k">else</span>
-      <span class="s">&quot;got:\n</span><span class="si">#{</span><span class="nx">abstract</span> <span class="nx">@stdout</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="s">&quot;because got:\n</span><span class="si">#{</span><span class="nx">abstract</span> <span class="nx">@stdout</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;STDOUT of </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> should match </span><span class="si">#{</span><span class="nx">ok</span><span class="si">}</span><span class="s"> but failed </span><span class="si">#{</span><span class="nx">reason</span><span class="si">}</span><span class="s">.&quot;</span>
 
   <span class="nv">matchStderr: </span><span class="nf">(ok, report) -&gt;</span>
@@ -160,7 +168,7 @@
     <span class="nv">reason = </span><span class="k">if</span> <span class="nx">res</span><span class="o">?</span>
       <span class="s">&quot;with: \&quot;</span><span class="si">#{</span><span class="nx">res</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;&quot;, &quot;&#39;</span><span class="si">}</span><span class="s">\&quot;&quot;</span>
     <span class="k">else</span>
-      <span class="s">&quot;got:\n</span><span class="si">#{</span><span class="nx">abstract</span> <span class="nx">@stderr</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="s">&quot;because got:\n</span><span class="si">#{</span><span class="nx">abstract</span> <span class="nx">@stderr</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;STDERR of </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> should match </span><span class="si">#{</span><span class="nx">ok</span><span class="si">}</span><span class="s"> but failed </span><span class="si">#{</span><span class="nx">reason</span><span class="si">}</span><span class="s">.&quot;</span>
 
   <span class="nv">notMatchStderr: </span><span class="nf">(fail) -&gt;</span>
@@ -169,6 +177,14 @@
     <span class="k">if</span> <span class="nx">res</span><span class="p">.</span><span class="nx">input</span>
       <span class="nv">res = </span><span class="k">if</span> <span class="nx">res</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">then</span> <span class="nx">res</span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="p">[</span><span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
     <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Process </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> failed with: \&quot;</span><span class="si">#{</span><span class="nx">res</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;\&quot;, \&quot;&#39;</span><span class="si">}</span><span class="s">\&quot;&quot;</span>
+
+  <span class="nv">stdoutLines: </span><span class="nf">(min, max) -&gt;</span>
+    <span class="nv">lines = </span><span class="k">if</span> <span class="nx">@stdout</span><span class="p">()</span> <span class="k">then</span> <span class="nx">@stdout</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="nx">min</span> <span class="o">?=</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span>
+    <span class="nx">max</span> <span class="o">?=</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span>
+    <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">min</span> <span class="o">&lt;=</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;=</span> <span class="nx">max</span>
+    <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Process </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> should have </span><span class="si">#{</span><span class="nx">min</span><span class="si">}</span><span class="s">..</span><span class="si">#{</span><span class="nx">max</span><span class="si">}</span><span class="s"> number of lines</span>
+<span class="s">    but has </span><span class="si">#{</span><span class="nx">lines</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="s">&quot;</span>
 </pre></div>
         </td>
       </tr>

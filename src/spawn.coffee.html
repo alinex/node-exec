@@ -363,6 +363,7 @@ command and alternatively ssh connections.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nx">@proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;close&#39;</span><span class="p">,</span> <span class="nf">(code, signal) =&gt;</span>
+    <span class="nx">clearTimeout</span> <span class="nx">@timer</span> <span class="k">if</span> <span class="nx">@prockill</span><span class="o">?</span>
     <span class="vi">@result.code = </span><span class="nx">code</span>
     <span class="vi">@process.end = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
     <span class="k">if</span> <span class="nx">signal</span><span class="o">?</span>
@@ -377,7 +378,7 @@ command and alternatively ssh connections.</p>
     <span class="nx">@emit</span> <span class="s">&#39;done&#39;</span><span class="p">,</span> <span class="nx">@result</span><span class="p">.</span><span class="nx">code</span>
     <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="k">this</span> <span class="k">if</span> <span class="nx">cb</span>
   <span class="k">if</span> <span class="nx">@setup</span><span class="p">.</span><span class="nx">timeout</span>
-    <span class="nx">setTimeout</span> <span class="o">=&gt;</span>
+    <span class="vi">@timer = </span><span class="nx">setTimeout</span> <span class="o">=&gt;</span>
       <span class="nx">debugCmd</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> send KILL because timeout exceeded&quot;</span>
       <span class="nx">@proc</span><span class="p">.</span><span class="nx">kill</span><span class="p">()</span>
     <span class="p">,</span> <span class="nx">@setup</span><span class="p">.</span><span class="nx">timeout</span> <span class="o">+</span> <span class="mi">1000</span>
