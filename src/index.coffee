@@ -10,7 +10,6 @@
 debug = require('debug')('exec')
 chalk = require 'chalk'
 fspath = require 'path'
-os = require 'os'
 util = require 'util'
 EventEmitter = require('events').EventEmitter
 # include alinex modules
@@ -112,7 +111,7 @@ class Exec extends EventEmitter
           # check if next process is already done in this round
           return cb true if list[0][0].id in mark
           # check
-          @vitalCheck host, prio, DEFAULT_LOAD, (err, res) =>
+          @vitalCheck host, prio, DEFAULT_LOAD, (err) =>
           # stop if check failed
             return cb true unless list.length
             return cb err if err
@@ -132,11 +131,11 @@ class Exec extends EventEmitter
 #          console.log '-- prio done'
           debug chalk.grey "worker finished round"
           delete @queue[host][prio] unless list.length
-          cb()
+          cb err
       , (err) =>
 #        console.log '-- host done'
         delete @queue[host] unless Object.keys(@queue[host]).length
-        cb()
+        cb err
     , =>
 #      console.log '-- all done'
       # stop worker if completely done
@@ -231,7 +230,7 @@ class Exec extends EventEmitter
       ///g
       if parts.length > 1
         @setup.cmd = parts.shift()
-        @setup.args = parts.concat args ? []
+        @setup.args = parts.concat @setup.args ? []
 #    # if queue for host exists add this
 #    return @addQueue null, cb if Exec.queueCounter.host[host]
     # check existing vital data

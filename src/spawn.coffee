@@ -57,14 +57,14 @@ run = (cb) ->
 #      gid: @setup.gid
       timeout: @setup.timeout
       killSignal: 'SIGKILL'
-  catch err
-    if err.message is 'spawn EMFILE'
+  catch error
+    if error.message is 'spawn EMFILE'
       interval = @conf.retry.ulimit.interval
       debug chalk.grey "#{@name} too much processes are opened, waiting
       #{interval} ms..."
       @emit 'wait', interval
       return setTimeout (=> run.call this, cb), interval
-    throw err
+    throw error
   # output debug lines
   debug "#{@name} start using spawn under pid #{@proc.pid}"
   @process.pid = @proc.pid

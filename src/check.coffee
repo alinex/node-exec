@@ -75,7 +75,6 @@ module.exports =
 
   notMatchStderr: (fail) ->
     return false unless res = @stderr().match fail
-    msg =
     if res.input
       res = if res.length > 1 then res[1..-1] else [res[0]]
     new Error "Process #{@setup.cmd} failed with: \"#{res.join '\", \"'}\""

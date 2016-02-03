@@ -211,6 +211,7 @@ open = (host, cb) ->
     done err, conn, cb
   .on 'end', ->
     debug chalk.grey "#{conn.name} connection closed"
+    close host, conn
   .connect object.extend {}, conf,
     debug: unless conf.debug then null else (msg) ->
       debug chalk.grey "#{conn.name} #{msg}"

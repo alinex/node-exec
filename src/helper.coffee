@@ -25,7 +25,7 @@ module.exports.cmdline = (setup, host) ->
   # support priority based nice values
   prio = conf.priority.level[setup.priority]
   if prio.nice
-    if prio.nice > 0 or conf.remote?.server?[host]?username is 'root' or
+    if prio.nice > 0 or conf.remote?.server?[host]?.username is 'root' or
     setup.uid is 0 or (not setup.uid? and not process.getuid())
       # add support for nice call
       cmdline.unshift 'nice', '-n', prio.nice
