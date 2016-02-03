@@ -1,5 +1,6 @@
 chai = require 'chai'
 expect = chai.expect
+### eslint-env node, mocha ###
 async = require 'alinex-async'
 
 describe "Local", ->
@@ -81,8 +82,7 @@ describe "Local", ->
             expect(err, 'error').to.not.exist
             cb()
             expect(exec.result.code, "code").equal 0
-        , (err) ->
-          cb()
+        , cb
 
     # set uid not testable
     # set gid not testable
