@@ -6,13 +6,9 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-exec/src/indexcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-exec/src/indexcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -114,7 +110,6 @@ command and alternatively ssh connections.</p>
 <span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;exec&#39;</span><span class="p">)</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="nv">fspath = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">os = </span><span class="nx">require</span> <span class="s">&#39;os&#39;</span>
 <span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
 <span class="nv">EventEmitter = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;events&#39;</span><span class="p">).</span><span class="nx">EventEmitter</span>
 
@@ -552,7 +547,7 @@ queue is not done. It will run all the tasks by priority on all hosts.</p>
 <p>check</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">@vitalCheck</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">prio</span><span class="p">,</span> <span class="nx">DEFAULT_LOAD</span><span class="p">,</span> <span class="nf">(err, res) =&gt;</span>
+          <span class="nx">@vitalCheck</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">prio</span><span class="p">,</span> <span class="nx">DEFAULT_LOAD</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
 
 </pre></div>
         </td>
@@ -651,7 +646,7 @@ queue is not done. It will run all the tasks by priority on all hosts.</p>
         <td class="code highlight"><div class="highlight"><pre>
           <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;worker finished round&quot;</span>
           <span class="k">delete</span> <span class="nx">@queue</span><span class="p">[</span><span class="nx">host</span><span class="p">][</span><span class="nx">prio</span><span class="p">]</span> <span class="k">unless</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span>
-          <span class="nx">cb</span><span class="p">()</span>
+          <span class="nx">cb</span> <span class="nx">err</span>
       <span class="p">,</span> <span class="nf">(err) =&gt;</span>
 
 </pre></div>
@@ -670,7 +665,7 @@ queue is not done. It will run all the tasks by priority on all hosts.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
         <span class="k">delete</span> <span class="nx">@queue</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span> <span class="k">unless</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">@queue</span><span class="p">[</span><span class="nx">host</span><span class="p">]).</span><span class="nx">length</span>
-        <span class="nx">cb</span><span class="p">()</span>
+        <span class="nx">cb</span> <span class="nx">err</span>
     <span class="p">,</span> <span class="o">=&gt;</span>
 
 </pre></div>
@@ -996,7 +991,7 @@ from running the process</p>
 <span class="sr">      ///g</span>
       <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
         <span class="vi">@setup.cmd = </span><span class="nx">parts</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
-        <span class="vi">@setup.args = </span><span class="nx">parts</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">args</span> <span class="o">?</span> <span class="p">[]</span>
+        <span class="vi">@setup.args = </span><span class="nx">parts</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">@setup</span><span class="p">.</span><span class="nx">args</span> <span class="o">?</span> <span class="p">[]</span>
 
 </pre></div>
         </td>

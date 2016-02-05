@@ -6,13 +6,9 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-exec/src/sshcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-exec/src/sshcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -683,6 +679,7 @@
     <span class="nx">done</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">conn</span><span class="p">,</span> <span class="nx">cb</span>
   <span class="p">.</span><span class="nx">on</span> <span class="s">&#39;end&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
     <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> connection closed&quot;</span>
+    <span class="nx">close</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">conn</span>
   <span class="p">.</span><span class="nx">connect</span> <span class="nx">object</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">conf</span><span class="p">,</span>
     <span class="nv">debug: </span><span class="k">unless</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">debug</span> <span class="k">then</span> <span class="kc">null</span> <span class="k">else</span> <span class="nf">(msg) -&gt;</span>
       <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">conn</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">msg</span><span class="si">}</span><span class="s">&quot;</span>

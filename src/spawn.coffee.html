@@ -6,13 +6,9 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-exec/src/spawncoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-exec/src/spawncoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -278,8 +274,8 @@ command and alternatively ssh connections.</p>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nv">timeout: </span><span class="nx">@setup</span><span class="p">.</span><span class="nx">timeout</span>
       <span class="nv">killSignal: </span><span class="s">&#39;SIGKILL&#39;</span>
-  <span class="k">catch</span> <span class="nx">err</span>
-    <span class="k">if</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span> <span class="o">is</span> <span class="s">&#39;spawn EMFILE&#39;</span>
+  <span class="k">catch</span> <span class="nx">error</span>
+    <span class="k">if</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="o">is</span> <span class="s">&#39;spawn EMFILE&#39;</span>
       <span class="nv">interval = </span><span class="nx">@conf</span><span class="p">.</span><span class="nx">retry</span><span class="p">.</span><span class="nx">ulimit</span><span class="p">.</span><span class="nx">interval</span>
       <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> too much processes are opened, waiting</span>
 
@@ -296,7 +292,7 @@ command and alternatively ssh connections.</p>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="s">      @emit &#39;wait&#39;, interval</span>
 <span class="s">      return setTimeout (=&gt; run.call this, cb), interval</span>
-<span class="s">    throw err</span>
+<span class="s">    throw error</span>
 
 </pre></div>
         </td>

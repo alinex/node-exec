@@ -6,13 +6,9 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-exec/src/helpercoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-exec/src/helpercoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -139,7 +135,7 @@ include alinex modules</p>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nv">prio = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">priority</span><span class="p">.</span><span class="nx">level</span><span class="p">[</span><span class="nx">setup</span><span class="p">.</span><span class="nx">priority</span><span class="p">]</span>
   <span class="k">if</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">nice</span>
-    <span class="k">if</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">nice</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">or</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">remote</span><span class="o">?</span><span class="p">.</span><span class="nx">server</span><span class="o">?</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span><span class="o">?</span><span class="nx">username</span> <span class="o">is</span> <span class="s">&#39;root&#39;</span> <span class="o">or</span>
+    <span class="k">if</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">nice</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">or</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">remote</span><span class="o">?</span><span class="p">.</span><span class="nx">server</span><span class="o">?</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span><span class="o">?</span><span class="p">.</span><span class="nx">username</span> <span class="o">is</span> <span class="s">&#39;root&#39;</span> <span class="o">or</span>
     <span class="nx">setup</span><span class="p">.</span><span class="nx">uid</span> <span class="o">is</span> <span class="mi">0</span> <span class="o">or</span> <span class="p">(</span><span class="o">not</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">uid</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">process</span><span class="p">.</span><span class="nx">getuid</span><span class="p">())</span>
 
 </pre></div>
