@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.1 (2016-02-05)
+-------------------------------------------------
+- Updated alinex packages.
+- updated ignore files.
+- Fixed style of test cases.
+- Fixed lint warnings in code.
+- Updated meta data of package and travis build versions.
+
 Version 1.1.0 (2016-01-14)
 -------------------------------------------------
 - Finished implementation of session limit on ssh connections.
