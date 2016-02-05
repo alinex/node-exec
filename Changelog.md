@@ -7,7 +7,7 @@ individual versions:
 Version 1.1.0 (2016-01-14)
 -------------------------------------------------
 - Finished implementation of session limit on ssh connections.
-- Fixed immediately rmote test.
+- Fixed immediately remote test.
 - Merge branch 'master' of http://github.com/alinex/node-exec
 - Fixed line length of code.
 - Fixed stdoutLines check to work with min, max values.
@@ -136,4 +136,3 @@ Version 0.1.0 (2015-07-15)
 - Added schema file.
 - Initial planing.
 - Initial commit
-

@@ -32,18 +32,18 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-async": "^0.2.3",
-    "alinex-config": "^1.0.0",
-    "alinex-util": "^0.3.4",
+    "alinex-async": "^1.0.0",
+    "alinex-config": "^1.0.11",
+    "alinex-util": "^0.3.15",
     "carrier": "^0.2.1",
     "chalk": "^1.1.0",
     "debug": "^2.2.0",
     "ssh2": "^0.4.10"
   },
   "devDependencies": {
-    "alinex-builder": "1.x",
-    "alinex-validator": "^1.0.1",
-    "chai": "^3.0.0"
+    "alinex-builder": "^1.2.0",
+    "alinex-validator": "^1.2.4",
+    "chai": "^3.5.0"
   },
   "optionalDependencies": {},
   "engines": {
