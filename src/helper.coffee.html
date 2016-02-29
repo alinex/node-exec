@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-exec/src/helpercoffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-exec/src/helper.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,207 +39,229 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#helper%20class">Helper class</a>
+        <a href="#helper-class">Helper class</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#get%20cmdline%20out%20of%20command%20setup">Get cmdline out of command setup</a>
+        <a href="#get-cmdline-out-of-command-setup">Get cmdline out of command setup</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-exec" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-exec" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="helper%20class">
+          <div class="pilwrap" id="helper-class">
   <h1>
-    <a href="#helper%20class" name="helper%20class" class="pilcrow">&#182;</a>
-    Helper class
+    <a href="#helper-class" name="helper-class" class="pilcrow"></a>
+Helper class
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules
 include alinex modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="get%20cmdline%20out%20of%20command%20setup">
+          <div class="pilwrap" id="get-cmdline-out-of-command-setup">
   <h2>
-    <a href="#get%20cmdline%20out%20of%20command%20setup" name="get%20cmdline%20out%20of%20command%20setup" class="pilcrow">&#182;</a>
-    Get cmdline out of command setup
+    <a href="#get-cmdline-out-of-command-setup" name="get-cmdline-out-of-command-setup" class="pilcrow"></a>
+Get cmdline out of command setup
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports.cmdline = </span><span class="nf">(setup, host) -&gt;</span>
-  <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;exec&#39;</span>
-  <span class="nv">cmdline = </span><span class="p">[</span><span class="nx">setup</span><span class="p">.</span><span class="nx">cmd</span><span class="p">]</span>
-  <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">args</span>
-    <span class="nv">cmdline = </span><span class="nx">cmdline</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">args</span><span class="p">.</span><span class="nx">map</span> <span class="nx">escape</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports.cmdline = <span class="hljs-function"><span class="hljs-params">(setup, host)</span> -&gt;</span>
+  conf = config.get <span class="hljs-string">'exec'</span>
+  cmdline = [setup.cmd]
+  <span class="hljs-keyword">if</span> setup.args
+    cmdline = cmdline.concat setup.args.map escape
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
 <p>support changes user/group</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">uid</span><span class="o">?</span> <span class="o">or</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">gid</span><span class="o">?</span>
-    <span class="nx">cmdline</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;-u&#39;</span><span class="p">,</span> <span class="s">&quot;\\</span><span class="err">#</span><span class="si">#{</span><span class="nx">setup</span><span class="p">.</span><span class="nx">uid</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">uid</span><span class="o">?</span>
-    <span class="nx">cmdline</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;-g&#39;</span><span class="p">,</span> <span class="s">&quot;\\</span><span class="err">#</span><span class="si">#{</span><span class="nx">setup</span><span class="p">.</span><span class="nx">gid</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">gid</span><span class="o">?</span>
-    <span class="nx">cmdline</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;sudo&#39;</span>
-  <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">timeout</span>
-    <span class="nx">cmdline</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;timeout&#39;</span><span class="p">,</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">timeout</span> <span class="o">/</span> <span class="mi">1000</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> setup.uid? <span class="hljs-keyword">or</span> setup.gid?
+    cmdline.unshift <span class="hljs-string">'-u'</span>, <span class="hljs-string">"\\#<span class="hljs-subst">#{setup.uid}</span>"</span> <span class="hljs-keyword">if</span> setup.uid?
+    cmdline.unshift <span class="hljs-string">'-g'</span>, <span class="hljs-string">"\\#<span class="hljs-subst">#{setup.gid}</span>"</span> <span class="hljs-keyword">if</span> setup.gid?
+    cmdline.unshift <span class="hljs-string">'sudo'</span>
+  <span class="hljs-keyword">if</span> setup.timeout
+    cmdline.unshift <span class="hljs-string">'timeout'</span>, setup.timeout / <span class="hljs-number">1000</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
 </div>
 <p>support priority based nice values</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">prio = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">priority</span><span class="p">.</span><span class="nx">level</span><span class="p">[</span><span class="nx">setup</span><span class="p">.</span><span class="nx">priority</span><span class="p">]</span>
-  <span class="k">if</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">nice</span>
-    <span class="k">if</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">nice</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">or</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">remote</span><span class="o">?</span><span class="p">.</span><span class="nx">server</span><span class="o">?</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span><span class="o">?</span><span class="p">.</span><span class="nx">username</span> <span class="o">is</span> <span class="s">&#39;root&#39;</span> <span class="o">or</span>
-    <span class="nx">setup</span><span class="p">.</span><span class="nx">uid</span> <span class="o">is</span> <span class="mi">0</span> <span class="o">or</span> <span class="p">(</span><span class="o">not</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">uid</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">process</span><span class="p">.</span><span class="nx">getuid</span><span class="p">())</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  prio = conf.priority.level[setup.priority]
+  <span class="hljs-keyword">if</span> prio.nice
+    <span class="hljs-keyword">if</span> prio.nice &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> conf.remote?.server?[host]?.username <span class="hljs-keyword">is</span> <span class="hljs-string">'root'</span> <span class="hljs-keyword">or</span>
+    setup.uid <span class="hljs-keyword">is</span> <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> (<span class="hljs-keyword">not</span> setup.uid? <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> process.getuid())
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
 </div>
 <p>add support for nice call</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">cmdline</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;nice&#39;</span><span class="p">,</span> <span class="s">&#39;-n&#39;</span><span class="p">,</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">nice</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      cmdline.unshift <span class="hljs-string">'nice'</span>, <span class="hljs-string">'-n'</span>, prio.nice
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
 <p>set timeout</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">timeout</span>
-    <span class="nx">cmdline</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;timeout&#39;</span><span class="p">,</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">timeout</span><span class="o">/</span><span class="mi">1000</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> setup.timeout
+    cmdline.unshift <span class="hljs-string">'timeout'</span>, setup.timeout/<span class="hljs-number">1000</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
 </div>
 <p>set working directory</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">if</span> <span class="nx">setup</span><span class="p">.</span><span class="nx">cwd</span>
-    <span class="nx">cmdline</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;cd&#39;</span><span class="p">,</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">setup</span><span class="p">.</span><span class="nx">cwd</span><span class="p">),</span> <span class="s">&#39;&amp;&amp;&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> setup.cwd
+    cmdline.unshift <span class="hljs-string">'cd'</span>, escape(setup.cwd), <span class="hljs-string">'&amp;&amp;'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
 <p>set environment to english language</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">env = </span><span class="nx">setup</span><span class="p">.</span><span class="nx">env</span> <span class="o">?</span> <span class="p">{</span><span class="nv">LANG: </span><span class="s">&#39;C&#39;</span><span class="p">,</span> <span class="nv">LC_ALL: </span><span class="s">&#39;C&#39;</span><span class="p">}</span>
-  <span class="nx">cmdline</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">k</span><span class="si">}</span><span class="s">=</span><span class="si">#{</span><span class="nx">v</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">env</span>
-  <span class="nx">cmdline</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">).</span><span class="nx">trim</span><span class="p">()</span>
-
-<span class="nv">escape = </span><span class="nf">(arg) -&gt;</span>
-  <span class="k">if</span> <span class="sr">/[^A-Za-z0-9_\/:=-]/</span><span class="p">.</span><span class="nx">test</span> <span class="nx">arg</span>
-    <span class="nv">arg = </span><span class="s">&quot;&#39;</span><span class="si">#{</span><span class="nx">arg</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/&#39;/g</span><span class="p">,</span> <span class="s">&quot;&#39;\\&#39;&#39;&quot;</span><span class="si">}</span><span class="s">&#39;&quot;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  env = setup.env ? {<span class="hljs-attribute">LANG</span>: <span class="hljs-string">'C'</span>, <span class="hljs-attribute">LC_ALL</span>: <span class="hljs-string">'C'</span>}
+  cmdline.unshift <span class="hljs-string">"<span class="hljs-subst">#{k}</span>=<span class="hljs-subst">#{v}</span>"</span> <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> env
+  cmdline.join(<span class="hljs-string">' '</span>).trim()
+<span class="hljs-function">
+<span class="hljs-title">escape</span> = <span class="hljs-params">(arg)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> <span class="hljs-regexp">/[^A-Za-z0-9_\/:=-]/</span>.test arg
+    arg = <span class="hljs-string">"'<span class="hljs-subst">#{arg.replace <span class="hljs-regexp">/'/g</span>, <span class="hljs-string">"'\\''"</span>}</span>'"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>unduplicate single-quote at the beginning</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="p">.</span><span class="nx">replace</span> <span class="sr">/^(?:&#39;&#39;)+/g</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    .replace <span class="hljs-regexp">/^(?:'')+/g</span>, <span class="hljs-string">''</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>remove non-escaped single-quote if there are enclosed between 2 escaped</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="p">.</span><span class="nx">replace</span> <span class="sr">/\\&#39;&#39;&#39;/g</span><span class="p">,</span> <span class="s">&quot;\\&#39;&quot;</span>
-  <span class="nx">arg</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">    .replace <span class="hljs-regexp">/\\'''/g</span>, <span class="hljs-string">"\\'"</span>
+  arg
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

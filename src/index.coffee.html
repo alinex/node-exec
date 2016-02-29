@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-exec/src/indexcoffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-exec/src/index.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,1218 +39,1278 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#execution%20class">Execution class</a>
+        <a href="#execution-class">Execution class</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#general%20setup">General setup</a>
+        <a href="#general-setup">General setup</a>
       </div>
+
       <div class="heading h2">
-        <a href="#class%20definition">Class definition</a>
+        <a href="#class-definition">Class definition</a>
       </div>
+
       <div class="heading h3">
-        <a href="#vital%20data">Vital Data</a>
+        <a href="#vital-data">Vital Data</a>
       </div>
+
       <div class="heading h3">
         <a href="#queue">Queue</a>
       </div>
+
       <div class="heading h3">
         <a href="#initialization">Initialization</a>
       </div>
+
       <div class="heading h3">
         <a href="#worker">Worker</a>
       </div>
+
       <div class="heading h3">
-        <a href="#start%20execution">Start execution</a>
+        <a href="#start-execution">Start execution</a>
       </div>
+
       <div class="heading h3">
-        <a href="#close%20remote%20connections">Close remote connections</a>
+        <a href="#close-remote-connections">Close remote connections</a>
       </div>
+
+      <div class="heading h1">
+        <a href="#if-queue-for-host-exists-add-this">if queue for host exists add this</a>
+      </div>
+
       <div class="heading h3">
         <a href="#result">Result</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-exec" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-exec" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="execution%20class">
+          <div class="pilwrap" id="execution-class">
   <h1>
-    <a href="#execution%20class" name="execution%20class" class="pilcrow">&#182;</a>
-    Execution class
+    <a href="#execution-class" name="execution-class" class="pilcrow"></a>
+Execution class
   </h1>
 </div>
-
-
 <p>This is an object oriented implementation around the core <code>process.spawn</code>
 command and alternatively ssh connections.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;exec&#39;</span><span class="p">)</span>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-<span class="nv">fspath = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">util = </span><span class="nx">require</span> <span class="s">&#39;util&#39;</span>
-<span class="nv">EventEmitter = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;events&#39;</span><span class="p">).</span><span class="nx">EventEmitter</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'exec'</span>)
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
+EventEmitter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>).EventEmitter
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>include alinex modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">config = </span><span class="nx">require</span> <span class="s">&#39;alinex-config&#39;</span>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
 <p>internal helpers</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">schema = </span><span class="nx">require</span> <span class="s">&#39;./configSchema&#39;</span>
-<span class="nv">check = </span><span class="nx">require</span> <span class="s">&#39;./check&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">schema = <span class="hljs-built_in">require</span> <span class="hljs-string">'./configSchema'</span>
+check = <span class="hljs-built_in">require</span> <span class="hljs-string">'./check'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="general%20setup">
+          <div class="pilwrap" id="general-setup">
   <h2>
-    <a href="#general%20setup" name="general%20setup" class="pilcrow">&#182;</a>
-    General setup
+    <a href="#general-setup" name="general-setup" class="pilcrow"></a>
+General setup
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
 </div>
 <p>The load should be near the sys and usr time the process needs.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">DEFAULT_LOAD = </span><span class="mf">0.001</span>
+        <td class="code highlight">
+          <pre class="coffeescript">DEFAULT_LOAD = <span class="hljs-number">0.001</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
 <p>counter for unique object IDs</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">objectId = </span><span class="mi">0</span>
+        <td class="code highlight">
+          <pre class="coffeescript">objectId = <span class="hljs-number">0</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="class%20definition">
+          <div class="pilwrap" id="class-definition">
   <h2>
-    <a href="#class%20definition" name="class%20definition" class="pilcrow">&#182;</a>
-    Class definition
+    <a href="#class-definition" name="class-definition" class="pilcrow"></a>
+Class definition
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="k">class</span> <span class="nx">Exec</span> <span class="k">extends</span> <span class="nx">EventEmitter</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Exec</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventEmitter</span></span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="vital%20data">
+          <div class="pilwrap" id="vital-data">
   <h3>
-    <a href="#vital%20data" name="vital%20data" class="pilcrow">&#182;</a>
-    Vital Data
+    <a href="#vital-data" name="vital-data" class="pilcrow"></a>
+Vital Data
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>collection of vital data per host for each interval</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@vital: </span><span class="p">{}</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@vital</span>: {}
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>methods for special commands to calculate start load depending on given args
 array as a hint you may use the sys and usr time which you get then running
 the process but only within a second it may be more than 1.0 if running on
 multi core</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@load:</span>
-    <span class="nv">exiftool: </span><span class="nf">-&gt;</span> <span class="mf">0.008</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@load</span>:
+    <span class="hljs-attribute">exiftool</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-number">0.008</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="queue">
+          <div class="pilwrap" id="queue">
   <h3>
-    <a href="#queue" name="queue" class="pilcrow">&#182;</a>
-    Queue
+    <a href="#queue" name="queue" class="pilcrow"></a>
+Queue
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
-<p>the queue itself jobs are listed under 'host'->'priority' lists and also
+<p>the queue itself jobs are listed under 'host'-&gt;'priority' lists and also
 contains the corresponding callbacks</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@queue: </span><span class="p">{}</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@queue</span>: {}
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
 <p>for statistical information this short summaries will help</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@queueCounter:</span>
-    <span class="nv">total: </span><span class="mi">0</span>
-    <span class="nv">host: </span><span class="p">{}</span>
-    <span class="nv">priority: </span><span class="p">{}</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@queueCounter</span>:
+    <span class="hljs-attribute">total</span>: <span class="hljs-number">0</span>
+    <span class="hljs-attribute">host</span>: {}
+    <span class="hljs-attribute">priority</span>: {}
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="initialization">
+          <div class="pilwrap" id="initialization">
   <h3>
-    <a href="#initialization" name="initialization" class="pilcrow">&#182;</a>
-    Initialization
+    <a href="#initialization" name="initialization" class="pilcrow"></a>
+Initialization
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
 </div>
 <p>set the modules config paths and validation schema</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@setup: </span><span class="nx">async</span><span class="p">.</span><span class="nx">once</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@setup</span>: async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
 </div>
 <p>set module search path</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">fspath</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    config.register <span class="hljs-literal">false</span>, fspath.dirname __dirname
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
 </div>
 <p>add schema for module's configuration</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">config</span><span class="p">.</span><span class="nx">setSchema</span> <span class="s">&#39;/exec&#39;</span><span class="p">,</span> <span class="nx">schema</span><span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    config.setSchema <span class="hljs-string">'/exec'</span>, schema, cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
 </div>
 <p>set the modules config paths, validation schema and initialize the configuration</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@init: </span><span class="nx">async</span><span class="p">.</span><span class="nx">once</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span>
-    <span class="nx">debug</span> <span class="s">&quot;initialize&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@init</span>: async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+    debug <span class="hljs-string">"initialize"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
 </div>
 <p>set module search path</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@setup</span> <span class="nf">(err) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">config</span><span class="p">.</span><span class="nx">init</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@setup</span> (err) -&gt;
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      config.init cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="worker">
+          <div class="pilwrap" id="worker">
   <h3>
-    <a href="#worker" name="worker" class="pilcrow">&#182;</a>
-    Worker
+    <a href="#worker" name="worker" class="pilcrow"></a>
+Worker
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
 </div>
 <p>The worker is a process which is started if a queue exists and work while the
 queue is not done. It will run all the tasks by priority on all hosts.</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
 </div>
 <p>flag if a worker process is already started or running</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@workerRunning: </span><span class="kc">false</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@workerRunning</span>: <span class="hljs-literal">false</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
 </div>
 <p>the worker itself</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@worker: </span><span class="o">=&gt;</span>
-    <span class="k">unless</span> <span class="p">(</span><span class="nv">hosts = </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">@queue</span><span class="p">).</span><span class="nx">length</span>
-      <span class="vi">@workerRunning = </span><span class="kc">false</span>
-      <span class="k">return</span>
-    <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">    worker started: </span><span class="si">#{</span><span class="nx">@queueCounter</span><span class="p">.</span><span class="nx">total</span><span class="si">}</span><span class="s"> total tasks waiting / \</span>
-<span class="s">    hosts: </span><span class="si">#{</span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">@queueCounter</span><span class="p">.</span><span class="nx">host</span><span class="si">}</span><span class="s"> / \</span>
-<span class="s">    priority: </span><span class="si">#{</span><span class="nx">util</span><span class="p">.</span><span class="nx">inspect</span> <span class="nx">@queueCounter</span><span class="p">.</span><span class="nx">priority</span><span class="si">}</span><span class="s"></span>
-<span class="s">    &quot;&quot;&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@worker</span>: <span class="hljs-function">=&gt;</span>
+    <span class="hljs-keyword">unless</span> (hosts = Object.keys <span class="hljs-property">@queue</span>).length
+      <span class="hljs-property">@workerRunning</span> = <span class="hljs-literal">false</span>
+      <span class="hljs-keyword">return</span>
+    debug chalk.grey <span class="hljs-string">"""
+    worker started: <span class="hljs-subst">#{<span class="hljs-property">@queueCounter</span>.total}</span> total tasks waiting / \
+    hosts: <span class="hljs-subst">#{util.inspect <span class="hljs-property">@queueCounter</span>.host}</span> / \
+    priority: <span class="hljs-subst">#{util.inspect <span class="hljs-property">@queueCounter</span>.priority}</span>
+    """</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
 </div>
 <p>#####################################################################
-   util = require 'util'
-   console.log 'WORKER', util.inspect @queue, {depth: null}
-   #####################################################################</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">hosts</span><span class="p">,</span> <span class="nf">(host, cb) =&gt;</span>
-      <span class="nv">prios = </span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="nx">@queue</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span>
-      <span class="nx">prios</span><span class="p">.</span><span class="nx">reverse</span><span class="p">()</span>
+util = require 'util'
+console.log 'WORKER', util.inspect @queue, {depth: null}
+#####################################################################</p>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    async.each hosts, <span class="hljs-function"><span class="hljs-params">(host, cb)</span> =&gt;</span>
+      prios = Object.keys <span class="hljs-property">@queue</span>[host]
+      prios.reverse()
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
 </div>
-
-<div class="highlight"><pre><code> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s1">&#39;HOST&#39;</span><span class="p">,</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">prios</span>
-</code></pre></div>
-
+<pre><code> console.log 'HOST', host, prios
+</code></pre>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">async</span><span class="p">.</span><span class="nx">eachSeries</span> <span class="nx">prios</span><span class="p">,</span> <span class="nf">(prio, cb) =&gt;</span>
-        <span class="nv">list = </span><span class="nx">@queue</span><span class="p">[</span><span class="nx">host</span><span class="p">][</span><span class="nx">prio</span><span class="p">]</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span>
-        <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;worker running jobs for </span><span class="si">#{</span><span class="nx">host</span><span class="si">}</span><span class="s"> with </span><span class="si">#{</span><span class="nx">prio</span><span class="si">}</span><span class="s"> priority&quot;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">      async.eachSeries prios, <span class="hljs-function"><span class="hljs-params">(prio, cb)</span> =&gt;</span>
+        list = <span class="hljs-property">@queue</span>[host][prio]
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> list.length
+        debug chalk.grey <span class="hljs-string">"worker running jobs for <span class="hljs-subst">#{host}</span> with <span class="hljs-subst">#{prio}</span> priority"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
 </div>
-
-<div class="highlight"><pre><code>   <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">list</span><span class="p">,</span> <span class="p">([</span><span class="nx">exec</span><span class="p">,</span> <span class="nx">ocb</span><span class="p">],</span> <span class="nx">cb</span><span class="p">)</span> <span class="o">=&gt;</span>
-</code></pre></div>
-
+<pre><code>   async.each list, ([exec, ocb], cb) =&gt;
+</code></pre>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="nv">mark = </span><span class="p">[]</span>
-        <span class="nx">async</span><span class="p">.</span><span class="nx">forever</span> <span class="nf">(cb) =&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">        mark = []
+        async.forever (cb) =&gt;
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-29" id="section-29"></a>
 </div>
-
-<div class="highlight"><pre><code>     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s1">&#39;?? loop&#39;</span><span class="p">,</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span>
-</code></pre></div>
-
+<pre><code>     console.log '?? loop', list.length
+</code></pre>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="kc">true</span> <span class="k">unless</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">          <span class="hljs-keyword">return</span> cb <span class="hljs-literal">true</span> <span class="hljs-keyword">unless</span> list.length
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-30" id="section-30"></a>
 </div>
 <p>check if next process is already done in this round</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="kc">true</span> <span class="k">if</span> <span class="nx">list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span> <span class="k">in</span> <span class="nx">mark</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">          <span class="hljs-keyword">return</span> cb <span class="hljs-literal">true</span> <span class="hljs-keyword">if</span> list[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].id <span class="hljs-keyword">in</span> mark
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-31" id="section-31"></a>
 </div>
 <p>check</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">@vitalCheck</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">prio</span><span class="p">,</span> <span class="nx">DEFAULT_LOAD</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">          <span class="hljs-property">@vitalCheck</span> host, prio, DEFAULT_LOAD, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-32" id="section-32"></a>
 </div>
 <p>stop if check failed</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-            <span class="k">return</span> <span class="nx">cb</span> <span class="kc">true</span> <span class="k">unless</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span>
-            <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">            <span class="hljs-keyword">return</span> cb <span class="hljs-literal">true</span> <span class="hljs-keyword">unless</span> list.length
+            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-33" id="section-33"></a>
 </div>
 <p>get first entry</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-            <span class="p">[</span><span class="nx">exec</span><span class="p">,</span> <span class="nx">ocb</span><span class="p">]</span> <span class="o">=</span> <span class="nx">list</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">            [exec, ocb] = list.shift()
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34"></a>
 </div>
-
-<div class="highlight"><pre><code>       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s1">&#39;++ loop&#39;</span><span class="p">,</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span>
-</code></pre></div>
-
-
-
+<pre><code>       console.log '++ loop', list.length
+</code></pre>
 <p>reduce counter</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-            <span class="nx">@queueCounter</span><span class="p">.</span><span class="nx">total</span><span class="o">--</span>
-            <span class="nx">@queueCounter</span><span class="p">.</span><span class="nx">host</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span><span class="o">--</span>
-            <span class="nx">@queueCounter</span><span class="p">.</span><span class="nx">priority</span><span class="p">[</span><span class="nx">prio</span><span class="p">]</span><span class="o">--</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">            <span class="hljs-property">@queueCounter</span>.total--
+            <span class="hljs-property">@queueCounter</span>.host[host]--
+            <span class="hljs-property">@queueCounter</span>.priority[prio]--
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-35" id="section-35">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-35" id="section-35"></a>
 </div>
 <p>exec run</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-            <span class="nx">mark</span><span class="p">.</span><span class="nx">push</span> <span class="nx">exec</span><span class="p">.</span><span class="nx">id</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-36" id="section-36">&#182;</a>
-</div>
-
-<div class="highlight"><pre><code>       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s1">&#39;-- exec call&#39;</span><span class="p">,</span> <span class="nx">exec</span><span class="p">.</span><span class="nx">id</span>
-</code></pre></div>
-
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-            <span class="nx">exec</span><span class="p">.</span><span class="nx">run</span> <span class="nx">ocb</span>
-            <span class="nx">setTimeout</span> <span class="nx">cb</span><span class="p">,</span> <span class="mi">100</span>
-        <span class="p">,</span> <span class="nf">(err) =&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">            mark.push exec.id
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-37" id="section-37">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-36" id="section-36"></a>
 </div>
-
-<div class="highlight"><pre><code>     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s1">&#39;-- prio done&#39;</span>
-</code></pre></div>
-
+<pre><code>       console.log '-- exec call', exec.id
+</code></pre>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;worker finished round&quot;</span>
-          <span class="k">delete</span> <span class="nx">@queue</span><span class="p">[</span><span class="nx">host</span><span class="p">][</span><span class="nx">prio</span><span class="p">]</span> <span class="k">unless</span> <span class="nx">list</span><span class="p">.</span><span class="nx">length</span>
-          <span class="nx">cb</span> <span class="nx">err</span>
-      <span class="p">,</span> <span class="nf">(err) =&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">            exec.run ocb
+            setTimeout cb, <span class="hljs-number">100</span>
+        , <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-38" id="section-38">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-37" id="section-37"></a>
 </div>
-
-<div class="highlight"><pre><code>   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s1">&#39;-- host done&#39;</span>
-</code></pre></div>
-
+<pre><code>     console.log '-- prio done'
+</code></pre>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="k">delete</span> <span class="nx">@queue</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span> <span class="k">unless</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">@queue</span><span class="p">[</span><span class="nx">host</span><span class="p">]).</span><span class="nx">length</span>
-        <span class="nx">cb</span> <span class="nx">err</span>
-    <span class="p">,</span> <span class="o">=&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">          debug chalk.grey <span class="hljs-string">"worker finished round"</span>
+          <span class="hljs-keyword">delete</span> <span class="hljs-property">@queue</span>[host][prio] <span class="hljs-keyword">unless</span> list.length
+          cb err
+      , <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-39" id="section-39">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-38" id="section-38"></a>
 </div>
+<pre><code>   console.log '-- host done'
+</code></pre>
 
-<div class="highlight"><pre><code> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s1">&#39;-- all done&#39;</span>
-</code></pre></div>
-
-
-
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        <span class="hljs-keyword">delete</span> <span class="hljs-property">@queue</span>[host] <span class="hljs-keyword">unless</span> Object.keys(<span class="hljs-property">@queue</span>[host]).length
+        cb err
+    , <span class="hljs-function">=&gt;</span>
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-39" id="section-39"></a>
+</div>
+<pre><code> console.log '-- all done'
+</code></pre>
 <p>stop worker if completely done</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">unless</span> <span class="nx">Exec</span><span class="p">.</span><span class="nx">queueCounter</span><span class="p">.</span><span class="nx">total</span>
-        <span class="vi">@workerRunning = </span><span class="kc">false</span>
-        <span class="k">return</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">unless</span> Exec.queueCounter.total
+        <span class="hljs-property">@workerRunning</span> = <span class="hljs-literal">false</span>
+        <span class="hljs-keyword">return</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-40" id="section-40">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-40" id="section-40"></a>
 </div>
 <p>if not rerun it later
-     console.log '>>>>>> recall worker'</p>
+console.log '&gt;&gt;&gt;&gt;&gt;&gt; recall worker'</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">setTimeout</span> <span class="nx">@worker</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;exec/retry/queue/interval&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">      setTimeout <span class="hljs-property">@worker</span>, config.get <span class="hljs-string">'exec/retry/queue/interval'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-41" id="section-41">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-41" id="section-41"></a>
 </div>
 <p>get and check vital data - this will return an error if anything prevents
 from running the process</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="vi">@vitalCheck: </span><span class="nf">(host, priority, load, cb) -&gt;</span>
-    <span class="nv">conf = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/exec&#39;</span>
-    <span class="nv">prio = </span><span class="nx">conf</span><span class="p">.</span><span class="nx">priority</span><span class="p">.</span><span class="nx">level</span><span class="p">[</span><span class="nx">priority</span><span class="p">]</span>
-    <span class="nv">vital = </span><span class="nx">@vital</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span> <span class="o">?=</span> <span class="p">{}</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">maxCpu</span><span class="o">?</span> <span class="o">or</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">minFreemem</span><span class="o">?</span> <span class="o">or</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">maxLoad</span><span class="o">?</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@vitalCheck</span>: <span class="hljs-function"><span class="hljs-params">(host, priority, load, cb)</span> -&gt;</span>
+    conf = config.get <span class="hljs-string">'/exec'</span>
+    prio = conf.priority.level[priority]
+    vital = <span class="hljs-property">@vital</span>[host] ?= {}
+    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> prio.maxCpu? <span class="hljs-keyword">or</span> prio.minFreemem? <span class="hljs-keyword">or</span> prio.maxLoad?
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-42" id="section-42">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-42" id="section-42"></a>
 </div>
 <p>prevent vital check if no restrictions</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">minFreemem</span><span class="o">?</span> <span class="o">or</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">maxCpu</span><span class="o">?</span> <span class="o">or</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">maxLoad</span><span class="o">?</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> prio.minFreemem? <span class="hljs-keyword">or</span> prio.maxCpu? <span class="hljs-keyword">or</span> prio.maxLoad?
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-43" id="section-43">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-43" id="section-43"></a>
 </div>
 <p>get vital data</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">date = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">/</span> <span class="nx">conf</span><span class="p">.</span><span class="nx">retry</span><span class="p">.</span><span class="nx">vital</span><span class="p">.</span><span class="nx">interval</span>
-    <span class="nv">lib = </span><span class="nx">require</span> <span class="k">if</span> <span class="nx">host</span> <span class="o">is</span> <span class="s">&#39;localhost&#39;</span> <span class="k">then</span> <span class="s">&#39;./spawn&#39;</span> <span class="k">else</span> <span class="s">&#39;./ssh&#39;</span>
-    <span class="nx">lib</span><span class="p">.</span><span class="nx">vital</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">vital</span><span class="p">,</span> <span class="nx">date</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    date = Math.floor <span class="hljs-keyword">new</span> Date().getTime() / conf.retry.vital.interval
+    lib = <span class="hljs-built_in">require</span> <span class="hljs-keyword">if</span> host <span class="hljs-keyword">is</span> <span class="hljs-string">'localhost'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'./spawn'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'./ssh'</span>
+    lib.vital host, vital, date, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-44" id="section-44">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-44" id="section-44"></a>
 </div>
 <p>check startload</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">if</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">startload</span> <span class="o">and</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">startload</span> <span class="o">+</span> <span class="nx">load</span> <span class="o">&gt;</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">startmax</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;The maximum load to start per interval would be exceeded</span>
-<span class="s">        with this process at </span><span class="si">#{</span><span class="nx">host</span><span class="si">}</span><span class="s">&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">if</span> vital.startload <span class="hljs-keyword">and</span> vital.startload + load &gt; vital.startmax
+        <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The maximum load to start per interval would be exceeded
+        with this process at <span class="hljs-subst">#{host}</span>"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-45" id="section-45">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-45" id="section-45"></a>
 </div>
 <p>error already detected</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">error</span><span class="p">[</span><span class="nx">priority</span><span class="p">]</span> <span class="k">if</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">error</span><span class="p">[</span><span class="nx">priority</span><span class="p">]</span><span class="o">?</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, vital.error[priority] <span class="hljs-keyword">if</span> vital.error[priority]?
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-46" id="section-46">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-46" id="section-46"></a>
 </div>
 <p>check for new error</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">vital</span><span class="p">.</span><span class="nx">error</span><span class="p">[</span><span class="nx">priority</span><span class="p">]</span> <span class="o">=</span> <span class="k">if</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">maxCpu</span><span class="o">?</span> <span class="o">and</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">cpu</span> <span class="o">&gt;</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">maxCpu</span>
-        <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;The CPU utilization of </span><span class="si">#{</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">cpu</span> <span class="o">*</span> <span class="mi">100</span><span class="si">}</span><span class="s">% is above</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      vital.error[priority] = <span class="hljs-keyword">if</span> prio.maxCpu? <span class="hljs-keyword">and</span> vital.cpu &gt; prio.maxCpu
+        <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The CPU utilization of <span class="hljs-subst">#{Math.round vital.cpu * <span class="hljs-number">100</span>}</span>% is above
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-47" id="section-47">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-47" id="section-47"></a>
 </div>
-<p>{Math.round prio.maxCpu * 100}% allowed for #{priority} priority at #{host}"</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">      else if prio.minFreemem? and vital.freemem &lt; prio.minFreemem</span>
-<span class="s">        new Error &quot;</span><span class="nx">The</span> <span class="nx">free</span> <span class="nx">memory</span> <span class="k">of</span> <span class="c1">#{Math.round vital.freemem * 100}% is below</span>
+<p>{Math.round prio.maxCpu * 100}% allowed for #{priority} priority at #{host}&quot;</p>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> prio.minFreemem? <span class="hljs-keyword">and</span> vital.freemem &lt; prio.minFreemem
+        <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The free memory of <span class="hljs-subst">#{Math.round vital.freemem * <span class="hljs-number">100</span>}</span>% is below
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-48" id="section-48">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-48" id="section-48"></a>
 </div>
-<p>{Math.round prio.minFreemem * 100}% allowed for #{priority} priority at #{host}"</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">else</span> <span class="k">if</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">maxLoad</span><span class="o">?</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">?</span> <span class="o">and</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">load</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">maxLoad</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;The average short load of </span><span class="si">#{</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">load</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="si">}</span><span class="s"> is above</span>
+<p>{Math.round prio.minFreemem * 100}% allowed for #{priority} priority at #{host}&quot;</p>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> prio.maxLoad?[<span class="hljs-number">0</span>]? <span class="hljs-keyword">and</span> vital.load[<span class="hljs-number">0</span>] &gt; prio.maxLoad[<span class="hljs-number">0</span>]
+        <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The average short load of <span class="hljs-subst">#{Math.round vital.load[<span class="hljs-number">0</span>], <span class="hljs-number">2</span>}</span> is above
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-49" id="section-49">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-49" id="section-49"></a>
 </div>
-<p>{Math.round prio.maxLoad[0] * 100}% allowed for #{priority} priority at #{host}"</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">      else if prio.maxLoad?[1]? and vital.load[1] &gt; prio.maxLoad[1]</span>
-<span class="s">        new Error &quot;</span><span class="nx">The</span> <span class="nx">average</span> <span class="nx">medium</span> <span class="nx">load</span> <span class="k">of</span> <span class="c1">#{Math.round vital.load[1], 2} is above</span>
+<p>{Math.round prio.maxLoad[0] * 100}% allowed for #{priority} priority at #{host}&quot;</p>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> prio.maxLoad?[<span class="hljs-number">1</span>]? <span class="hljs-keyword">and</span> vital.load[<span class="hljs-number">1</span>] &gt; prio.maxLoad[<span class="hljs-number">1</span>]
+        <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The average medium load of <span class="hljs-subst">#{Math.round vital.load[<span class="hljs-number">1</span>], <span class="hljs-number">2</span>}</span> is above
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-50" id="section-50">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-50" id="section-50"></a>
 </div>
-<p>{Math.round prio.maxLoad[1] * 100}% allowed for #{priority} priority at #{host}"</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">else</span> <span class="k">if</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">maxLoad</span><span class="o">?</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">?</span> <span class="o">and</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">load</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">maxLoad</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;The average long load of </span><span class="si">#{</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span> <span class="nx">vital</span><span class="p">.</span><span class="nx">load</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="si">}</span><span class="s"> is above</span>
+<p>{Math.round prio.maxLoad[1] * 100}% allowed for #{priority} priority at #{host}&quot;</p>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> prio.maxLoad?[<span class="hljs-number">2</span>]? <span class="hljs-keyword">and</span> vital.load[<span class="hljs-number">2</span>] &gt; prio.maxLoad[<span class="hljs-number">2</span>]
+        <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The average long load of <span class="hljs-subst">#{Math.round vital.load[<span class="hljs-number">2</span>], <span class="hljs-number">2</span>}</span> is above
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-51" id="section-51">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-51" id="section-51"></a>
 </div>
-<p>{Math.round prio.maxLoad[2] * 100}% allowed for #{priority} priority at #{host}"</p>
+<p>{Math.round prio.maxLoad[2] * 100}% allowed for #{priority} priority at #{host}&quot;</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">      else false</span>
-<span class="s">      cb null, vital.error[priority]</span>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>
+      cb <span class="hljs-literal">null</span>, vital.error[priority]
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="start%20execution">
+          <div class="pilwrap" id="start-execution">
   <h3>
-    <a href="#start%20execution" name="start%20execution" class="pilcrow">&#182;</a>
-    Start execution
+    <a href="#start-execution" name="start-execution" class="pilcrow"></a>
+Start execution
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-53" id="section-53">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-53" id="section-53"></a>
 </div>
 <p>easy call to directly run execution in one statement</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">  @run: (setup, cb) -&gt;</span>
-<span class="s">    Exec.init (err) -&gt;</span>
-<span class="s">      return cb err if err</span>
-<span class="s">      proc = new Exec setup</span>
-<span class="s">      proc.run cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@run</span>: <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
+    Exec.init (err) -&gt;
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      proc = <span class="hljs-keyword">new</span> Exec setup
+      proc.run cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="close%20remote%20connections">
+          <div class="pilwrap" id="close-remote-connections">
   <h3>
-    <a href="#close%20remote%20connections" name="close%20remote%20connections" class="pilcrow">&#182;</a>
-    Close remote connections
+    <a href="#close-remote-connections" name="close-remote-connections" class="pilcrow"></a>
+Close remote connections
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">  @close: -&gt;</span>
-<span class="s">    lib = require &#39;./ssh&#39;</span>
-<span class="s">    lib.closeAll()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-property">@close</span>: <span class="hljs-function">-&gt;</span>
+    lib = <span class="hljs-built_in">require</span> <span class="hljs-string">'./ssh'</span>
+    lib.closeAll()
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-55" id="section-55">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-55" id="section-55"></a>
 </div>
 <p>create a new execution object to specify and call later</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">  constructor: (@setup) -&gt;</span>
-<span class="s">    @id = ++objectId</span>
-<span class="s">    host = @setup.remote ? &#39;localhost&#39;</span>
-<span class="s">    @name = chalk.grey &quot;</span><span class="c1">#{host}##{@id}:&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@setup</span>)</span> -&gt;</span>
+    <span class="hljs-property">@id</span> = ++objectId
+    host = <span class="hljs-property">@setup</span>.remote ? <span class="hljs-string">'localhost'</span>
+    <span class="hljs-property">@name</span> = chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{host}</span>#<span class="hljs-subst">#{<span class="hljs-property">@id</span>}</span>:"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-56" id="section-56">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-56" id="section-56"></a>
 </div>
 <p>set priority</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">prio = </span><span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;exec/priority&#39;</span>
-    <span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span> <span class="o">?=</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">default</span>
-    <span class="k">unless</span> <span class="nx">prio</span><span class="p">.</span><span class="nx">level</span><span class="p">[</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span><span class="p">]</span>
-      <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;Undefined priority </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span><span class="si">}</span><span class="s"> - using default&quot;</span>
-      <span class="vi">@setup.priority = </span><span class="nx">prio</span><span class="p">.</span><span class="nx">default</span>
-    <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> created new instance with </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span><span class="si">}</span><span class="s"> priority&quot;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    prio = config.get <span class="hljs-string">'exec/priority'</span>
+    <span class="hljs-property">@setup</span>.priority ?= prio.default
+    <span class="hljs-keyword">unless</span> prio.level[<span class="hljs-property">@setup</span>.priority]
+      debug chalk.red <span class="hljs-string">"Undefined priority <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.priority}</span> - using default"</span>
+      <span class="hljs-property">@setup</span>.priority = prio.default
+    debug <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> created new instance with <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.priority}</span> priority"</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-57" id="section-57">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-57" id="section-57"></a>
 </div>
 <p>start execution</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">run: </span><span class="nf">(cb) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Already running.&quot;</span> <span class="k">if</span> <span class="nx">@result</span><span class="o">?</span><span class="p">.</span><span class="nx">start</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">@result</span><span class="p">.</span><span class="nx">end</span>
-    <span class="nv">host = </span><span class="nx">@setup</span><span class="p">.</span><span class="nx">remote</span> <span class="o">?</span> <span class="s">&#39;localhost&#39;</span>
-    <span class="vi">@name = </span><span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">host</span><span class="si">}</span><span class="err">#</span><span class="si">#{</span><span class="nx">@id</span><span class="si">}</span><span class="s">:&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Already running."</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@result</span>?.start <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@result</span>.end
+    host = <span class="hljs-property">@setup</span>.remote ? <span class="hljs-string">'localhost'</span>
+    <span class="hljs-property">@name</span> = chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{host}</span>#<span class="hljs-subst">#{<span class="hljs-property">@id</span>}</span>:"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-58" id="section-58">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-58" id="section-58"></a>
 </div>
 <p>optimize cmd - extract arguments</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="o">~</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39; &#39;</span>
-      <span class="nv">parts = </span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="p">.</span><span class="nx">match</span> <span class="sr">///</span>
-<span class="sr">      (?:         # non-capturing group</span>
-<span class="sr">        [^\s&quot;]+   # anything that&#39;s not a space or a double-quote</span>
-<span class="sr">        |         # or</span>
-<span class="sr">        &quot;[^&quot;]*&quot;   # zero or more characters in double-quotes</span>
-<span class="sr">        |         # or</span>
-<span class="sr">        &#39;[^&#39;]*&#39;   # zero or more characters in single-quotes</span>
-<span class="sr">      )+          # each match is one or more of the things described in the group</span>
-<span class="sr">      ///g</span>
-      <span class="k">if</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
-        <span class="vi">@setup.cmd = </span><span class="nx">parts</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
-        <span class="vi">@setup.args = </span><span class="nx">parts</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">@setup</span><span class="p">.</span><span class="nx">args</span> <span class="o">?</span> <span class="p">[]</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> ~<span class="hljs-property">@setup</span>.cmd.indexOf <span class="hljs-string">' '</span>
+      parts = <span class="hljs-property">@setup</span>.cmd.match <span class="hljs-regexp">///
+      (?:         <span class="hljs-comment"># non-capturing group</span>
+        [^\s"]+   <span class="hljs-comment"># anything that's not a space or a double-quote</span>
+        |         <span class="hljs-comment"># or</span>
+        "[^"]*"   <span class="hljs-comment"># zero or more characters in double-quotes</span>
+        |         <span class="hljs-comment"># or</span>
+        '[^']*'   <span class="hljs-comment"># zero or more characters in single-quotes</span>
+      )+          <span class="hljs-comment"># each match is one or more of the things described in the group</span>
+      ///</span>g
+      <span class="hljs-keyword">if</span> parts.length &gt; <span class="hljs-number">1</span>
+        <span class="hljs-property">@setup</span>.cmd = parts.shift()
+        <span class="hljs-property">@setup</span>.args = parts.concat <span class="hljs-property">@setup</span>.args ? []
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-59" id="section-59">&#182;</a>
+          <div class="pilwrap" id="if-queue-for-host-exists-add-this">
+  <h1>
+    <a href="#if-queue-for-host-exists-add-this" name="if-queue-for-host-exists-add-this" class="pilcrow"></a>
+if queue for host exists add this
+  </h1>
 </div>
-<p># if queue for host exists add this
-   return @addQueue null, cb if Exec.queueCounter.host[host]
+<p>return @addQueue null, cb if Exec.queueCounter.host[host]
 check existing vital data</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">@conf</span> <span class="o">?=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;/exec&#39;</span>
-    <span class="nv">load = </span><span class="nx">Exec</span><span class="p">.</span><span class="nx">load</span><span class="p">[</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="p">]</span><span class="o">?</span><span class="p">(</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">args</span><span class="p">)</span> <span class="o">?</span> <span class="nx">DEFAULT_LOAD</span>
-    <span class="nx">Exec</span><span class="p">.</span><span class="nx">vitalCheck</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span><span class="p">,</span> <span class="nx">load</span><span class="p">,</span> <span class="nf">(err, res) =&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="k">return</span> <span class="nx">@addQueue</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">res</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-property">@conf</span> ?= config.get <span class="hljs-string">'/exec'</span>
+    load = Exec.load[<span class="hljs-property">@setup</span>.cmd]?(<span class="hljs-property">@setup</span>.args) ? DEFAULT_LOAD
+    Exec.vitalCheck host, <span class="hljs-property">@setup</span>.priority, load, <span class="hljs-function"><span class="hljs-params">(err, res)</span> =&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      <span class="hljs-keyword">return</span> <span class="hljs-property">@addQueue</span> res, cb <span class="hljs-keyword">if</span> res
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-60" id="section-60">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-60" id="section-60"></a>
 </div>
 <p>add load to calculate startlimit</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">Exec</span><span class="p">.</span><span class="nx">vital</span><span class="p">[</span><span class="nx">host</span><span class="p">].</span><span class="nx">startload</span> <span class="o">+=</span> <span class="nx">load</span>
-      <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> with </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span><span class="si">}</span><span class="s"> priority at </span><span class="si">#{</span><span class="nx">host</span><span class="si">}</span><span class="s">&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      Exec.vital[host].startload += load
+      debug <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> with <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.priority}</span> priority at <span class="hljs-subst">#{host}</span>"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-61" id="section-61">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-61" id="section-61"></a>
 </div>
 <p>run locally or remote</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="nv">lib = </span><span class="nx">require</span> <span class="k">if</span> <span class="nx">host</span> <span class="o">is</span> <span class="s">&#39;localhost&#39;</span> <span class="k">then</span> <span class="s">&#39;./spawn&#39;</span> <span class="k">else</span> <span class="s">&#39;./ssh&#39;</span>
-      <span class="nx">lib</span><span class="p">.</span><span class="nx">run</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nf">(err) =&gt;</span>
-        <span class="k">if</span> <span class="nx">err</span>
-          <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> failed with </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s">&quot;</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      lib = <span class="hljs-built_in">require</span> <span class="hljs-keyword">if</span> host <span class="hljs-keyword">is</span> <span class="hljs-string">'localhost'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'./spawn'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'./ssh'</span>
+      lib.run.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
+        <span class="hljs-keyword">if</span> err
+          debug <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> failed with <span class="hljs-subst">#{err}</span>"</span>
+          <span class="hljs-keyword">return</span> cb err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-62" id="section-62">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-62" id="section-62"></a>
 </div>
 <p>success</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-        <span class="nx">@checkResult</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">        <span class="hljs-property">@checkResult</span> cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-63" id="section-63">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-63" id="section-63"></a>
 </div>
 <p>if direct execution is not possible add this task to the queue</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">addQueue: </span><span class="nf">(err, cb) -&gt;</span>
-    <span class="nv">host = </span><span class="nx">@setup</span><span class="p">.</span><span class="nx">remote</span> <span class="o">?</span> <span class="s">&#39;localhost&#39;</span>
-    <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> add to queue because: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">else</span>
-      <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> add to queue because other processes are waiting&quot;</span>
-    <span class="k">unless</span> <span class="nx">Exec</span><span class="p">.</span><span class="nx">workerRunning</span>
-      <span class="nv">Exec.workerRunning = </span><span class="kc">true</span>
-      <span class="nx">setTimeout</span> <span class="nx">Exec</span><span class="p">.</span><span class="nx">worker</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;exec/retry/queue/interval&#39;</span>
-    <span class="nx">Exec</span><span class="p">.</span><span class="nx">queue</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span> <span class="o">?=</span> <span class="p">{}</span>
-    <span class="nx">Exec</span><span class="p">.</span><span class="nx">queue</span><span class="p">[</span><span class="nx">host</span><span class="p">][</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span><span class="p">]</span> <span class="o">?=</span> <span class="p">[]</span>
-    <span class="nx">Exec</span><span class="p">.</span><span class="nx">queue</span><span class="p">[</span><span class="nx">host</span><span class="p">][</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span><span class="p">].</span><span class="nx">push</span> <span class="p">[</span><span class="k">this</span><span class="p">,</span> <span class="nx">cb</span><span class="p">]</span>
-    <span class="nx">Exec</span><span class="p">.</span><span class="nx">queueCounter</span><span class="p">.</span><span class="nx">total</span><span class="o">++</span>
-    <span class="nx">Exec</span><span class="p">.</span><span class="nx">queueCounter</span><span class="p">.</span><span class="nx">host</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span> <span class="o">?=</span> <span class="mi">0</span>
-    <span class="nx">Exec</span><span class="p">.</span><span class="nx">queueCounter</span><span class="p">.</span><span class="nx">host</span><span class="p">[</span><span class="nx">host</span><span class="p">]</span><span class="o">++</span>
-    <span class="nx">Exec</span><span class="p">.</span><span class="nx">queueCounter</span><span class="p">.</span><span class="nx">priority</span><span class="p">[</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span><span class="p">]</span> <span class="o">?=</span> <span class="mi">0</span>
-    <span class="nx">Exec</span><span class="p">.</span><span class="nx">queueCounter</span><span class="p">.</span><span class="nx">priority</span><span class="p">[</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">priority</span><span class="p">]</span><span class="o">++</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">addQueue</span>: <span class="hljs-function"><span class="hljs-params">(err, cb)</span> -&gt;</span>
+    host = <span class="hljs-property">@setup</span>.remote ? <span class="hljs-string">'localhost'</span>
+    <span class="hljs-keyword">if</span> err
+      debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> add to queue because: <span class="hljs-subst">#{err.message}</span>"</span>
+    <span class="hljs-keyword">else</span>
+      debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> add to queue because other processes are waiting"</span>
+    <span class="hljs-keyword">unless</span> Exec.workerRunning
+      Exec.workerRunning = <span class="hljs-literal">true</span>
+      setTimeout Exec.worker, config.get <span class="hljs-string">'exec/retry/queue/interval'</span>
+    Exec.queue[host] ?= {}
+    Exec.queue[host][<span class="hljs-property">@setup</span>.priority] ?= []
+    Exec.queue[host][<span class="hljs-property">@setup</span>.priority].push [<span class="hljs-keyword">this</span>, cb]
+    Exec.queueCounter.total++
+    Exec.queueCounter.host[host] ?= <span class="hljs-number">0</span>
+    Exec.queueCounter.host[host]++
+    Exec.queueCounter.priority[<span class="hljs-property">@setup</span>.priority] ?= <span class="hljs-number">0</span>
+    Exec.queueCounter.priority[<span class="hljs-property">@setup</span>.priority]++
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="result">
+          <div class="pilwrap" id="result">
   <h3>
-    <a href="#result" name="result" class="pilcrow">&#182;</a>
-    Result
+    <a href="#result" name="result" class="pilcrow"></a>
+Result
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-65" id="section-65">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-65" id="section-65"></a>
 </div>
 <p>run defined checks on result</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">checkResult: </span><span class="nf">(cb) -&gt;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">checkResult</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-66" id="section-66">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-66" id="section-66"></a>
 </div>
 <p>find check to use</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">list = </span><span class="nx">@setup</span><span class="p">.</span><span class="nx">check</span> <span class="o">?</span> <span class="p">{</span>
-      <span class="nv">noExitCode:</span>
-        <span class="nv">retry: </span><span class="nx">@setup</span><span class="p">.</span><span class="nx">retry</span><span class="o">?</span><span class="p">.</span><span class="nx">times</span>
-    <span class="p">}</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    list = <span class="hljs-property">@setup</span>.check ? {
+      <span class="hljs-attribute">noExitCode</span>:
+        <span class="hljs-attribute">retry</span>: <span class="hljs-property">@setup</span>.retry?.times
+    }
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-67" id="section-67">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-67" id="section-67"></a>
 </div>
 <p>run checks</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">for</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">list</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Unknown check function </span><span class="si">#{</span><span class="nx">n</span><span class="si">}</span><span class="s"> in Exec&quot;</span> <span class="k">unless</span> <span class="nx">check</span><span class="p">[</span><span class="nx">n</span><span class="p">]</span><span class="o">?</span>
-      <span class="nv">v.args = </span><span class="p">[</span><span class="nx">v</span><span class="p">.</span><span class="nx">args</span><span class="p">]</span> <span class="k">unless</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="nx">v</span><span class="p">.</span><span class="nx">args</span>
-      <span class="nv">err = </span><span class="nx">check</span><span class="p">[</span><span class="nx">n</span><span class="p">].</span><span class="nx">apply</span> <span class="k">this</span><span class="p">,</span> <span class="nx">v</span><span class="p">.</span><span class="nx">args</span> <span class="o">?</span> <span class="kc">null</span>
-      <span class="k">continue</span> <span class="k">unless</span> <span class="nx">err</span>
-      <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">n</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">for</span> n, v <span class="hljs-keyword">of</span> list
+      <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Unknown check function <span class="hljs-subst">#{n}</span> in Exec"</span> <span class="hljs-keyword">unless</span> check[n]?
+      v.args = [v.args] <span class="hljs-keyword">unless</span> Array.isArray v.args
+      err = check[n].apply <span class="hljs-keyword">this</span>, v.args ? <span class="hljs-literal">null</span>
+      <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> err
+      debug chalk.magenta <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> <span class="hljs-subst">#{n}</span>: <span class="hljs-subst">#{err.message}</span>"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-68" id="section-68">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-68" id="section-68"></a>
 </div>
 <p>got an error</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-      <span class="vi">@result.error = </span><span class="nx">err</span>
-      <span class="k">if</span> <span class="nx">v</span><span class="p">.</span><span class="nx">retry</span>
-        <span class="nv">times = </span><span class="nx">@setup</span><span class="p">.</span><span class="nx">retry</span><span class="p">.</span><span class="nx">times</span> <span class="o">?</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">retry</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">times</span>
-        <span class="k">if</span> <span class="nx">@tries</span><span class="o">?</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;=</span> <span class="nx">times</span>
-          <span class="nx">debug</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> reached </span><span class="si">#{</span><span class="nx">times</span><span class="si">}</span><span class="s"> retries - giving up&quot;</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="k">this</span>
-        <span class="k">return</span> <span class="nx">setTimeout</span> <span class="o">=&gt;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-property">@result</span>.error = err
+      <span class="hljs-keyword">if</span> v.retry
+        times = <span class="hljs-property">@setup</span>.retry.times ? <span class="hljs-property">@conf</span>.retry.error.times
+        <span class="hljs-keyword">if</span> <span class="hljs-property">@tries</span>?.length &gt;= times
+          debug chalk.red <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> reached <span class="hljs-subst">#{times}</span> retries - giving up"</span>
+          <span class="hljs-keyword">return</span> cb err, <span class="hljs-keyword">this</span>
+        <span class="hljs-keyword">return</span> setTimeout =&gt;
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-69" id="section-69">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-69" id="section-69"></a>
 </div>
 <p>store last try</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">@tries</span> <span class="o">?=</span> <span class="p">[]</span>
-          <span class="nx">@tries</span><span class="p">.</span><span class="nx">push</span>
-            <span class="nv">process: </span><span class="nx">@process</span>
-            <span class="nv">result: </span><span class="nx">@result</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">          <span class="hljs-property">@tries</span> ?= []
+          <span class="hljs-property">@tries</span>.push
+            <span class="hljs-attribute">process</span>: <span class="hljs-property">@process</span>
+            <span class="hljs-attribute">result</span>: <span class="hljs-property">@result</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-70" id="section-70">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-70" id="section-70"></a>
 </div>
 <p>run again</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="k">this</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
-        <span class="p">,</span> <span class="nx">@setup</span><span class="p">.</span><span class="nx">retry</span><span class="p">.</span><span class="nx">interval</span> <span class="o">?</span> <span class="nx">@conf</span><span class="p">.</span><span class="nx">retry</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">interval</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="k">this</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">          <span class="hljs-keyword">this</span>.run cb
+        , <span class="hljs-property">@setup</span>.retry.interval ? <span class="hljs-property">@conf</span>.retry.error.interval
+      <span class="hljs-keyword">return</span> cb err, <span class="hljs-keyword">this</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-71" id="section-71">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-71" id="section-71"></a>
 </div>
 <p>everything ok, go on</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">debug</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@name</span><span class="si">}</span><span class="s"> succeeded&quot;</span>
-    <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="k">this</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    debug <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> succeeded"</span>
+    cb <span class="hljs-literal">null</span>, <span class="hljs-keyword">this</span>
 
-  <span class="nv">stdout: </span><span class="nf">(data) -&gt;</span>
-    <span class="nx">data</span> <span class="o">?=</span> <span class="nx">@result</span>
-    <span class="k">return</span> <span class="nx">data</span><span class="p">.</span><span class="nx">stdout</span> <span class="k">if</span> <span class="nx">data</span><span class="p">.</span><span class="nx">stdout</span>
-    <span class="nv">stdout = </span><span class="nx">data</span><span class="p">.</span><span class="nx">lines</span>
-    <span class="p">.</span><span class="nx">filter</span> <span class="nf">(e) -&gt;</span> <span class="nx">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="mi">1</span>
-    <span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;\n&#39;</span>
-    <span class="nv">data.stdout = </span><span class="nx">stdout</span> <span class="k">if</span> <span class="nx">data</span><span class="p">.</span><span class="nx">code</span><span class="o">?</span>
-    <span class="nx">stdout</span>
+  <span class="hljs-attribute">stdout</span>: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
+    data ?= <span class="hljs-property">@result</span>
+    <span class="hljs-keyword">return</span> data.stdout <span class="hljs-keyword">if</span> data.stdout
+    stdout = data.lines
+    .filter (e) -&gt; e[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-number">1</span>
+    .map (e) -&gt; e[<span class="hljs-number">1</span>]
+    .join <span class="hljs-string">'\n'</span>
+    data.stdout = stdout <span class="hljs-keyword">if</span> data.code?
+    stdout
 
-  <span class="nv">stderr: </span><span class="nf">(data) -&gt;</span>
-    <span class="nx">data</span> <span class="o">?=</span> <span class="nx">@result</span>
-    <span class="k">return</span> <span class="nx">data</span><span class="p">.</span><span class="nx">stderr</span> <span class="k">if</span> <span class="nx">data</span><span class="p">.</span><span class="nx">stderr</span>
-    <span class="nv">stderr = </span><span class="nx">data</span><span class="p">.</span><span class="nx">lines</span>
-    <span class="p">.</span><span class="nx">filter</span> <span class="nf">(e) -&gt;</span> <span class="nx">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="mi">2</span>
-    <span class="p">.</span><span class="nx">map</span> <span class="nf">(e) -&gt;</span> <span class="nx">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="p">.</span><span class="nx">join</span> <span class="s">&#39;\n&#39;</span>
-    <span class="nv">data.stderr = </span><span class="nx">stderr</span> <span class="k">if</span> <span class="nx">data</span><span class="p">.</span><span class="nx">code</span><span class="o">?</span>
-    <span class="nx">stderr</span>
+  <span class="hljs-attribute">stderr</span>: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
+    data ?= <span class="hljs-property">@result</span>
+    <span class="hljs-keyword">return</span> data.stderr <span class="hljs-keyword">if</span> data.stderr
+    stderr = data.lines
+    .filter (e) -&gt; e[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-number">2</span>
+    .map (e) -&gt; e[<span class="hljs-number">1</span>]
+    .join <span class="hljs-string">'\n'</span>
+    data.stderr = stderr <span class="hljs-keyword">if</span> data.code?
+    stderr
 
-<span class="nv">module.exports = </span><span class="nx">Exec</span>
-</pre></div>
+<span class="hljs-built_in">module</span>.exports = Exec
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

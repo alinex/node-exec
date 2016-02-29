@@ -6,20 +6,31 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-exec/src/checkcoffee", defaultSidebar = true;
+    var relativeDir = "../";
+    var thisFile = "home/alex/github/node-exec/src/check.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,163 +39,178 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#result%20checks">Result checks</a>
+        <a href="#result-checks">Result checks</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node Modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-exec" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-exec" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="result%20checks">
+          <div class="pilwrap" id="result-checks">
   <h1>
-    <a href="#result%20checks" name="result%20checks" class="pilcrow">&#182;</a>
-    Result checks
+    <a href="#result-checks" name="result-checks" class="pilcrow"></a>
+Result checks
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node Modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function">
 
+<span class="hljs-title">abstract</span> = <span class="hljs-params">(text)</span> -&gt;</span>
+  lines = text.split(<span class="hljs-regexp">/\n/</span>)
+  lines = lines[<span class="hljs-number">0.</span><span class="hljs-number">.5</span>].concat <span class="hljs-string">'and more...'</span> <span class="hljs-keyword">if</span> lines.length &gt; <span class="hljs-number">6</span>
+  lines.join <span class="hljs-string">'\n'</span>
 
-<span class="nv">abstract = </span><span class="nf">(text) -&gt;</span>
-  <span class="nv">lines = </span><span class="nx">text</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\n/</span><span class="p">)</span>
-  <span class="nv">lines = </span><span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="mi">5</span><span class="p">].</span><span class="nx">concat</span> <span class="s">&#39;and more...&#39;</span> <span class="k">if</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">6</span>
-  <span class="nx">lines</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;\n&#39;</span>
+<span class="hljs-built_in">module</span>.exports =
 
-<span class="nv">module.exports =</span>
+  <span class="hljs-attribute">nothing</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
 
-  <span class="nv">nothing: </span><span class="nf">-&gt;</span> <span class="k">return</span> <span class="kc">false</span>
+  <span class="hljs-attribute">noExitCode</span>: <span class="hljs-function">-&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@result</span>.code <span class="hljs-keyword">is</span> <span class="hljs-number">0</span>
+    <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Process <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> returned exit code <span class="hljs-subst">#{<span class="hljs-property">@result</span>.code}</span> but should be 0."</span>
 
-  <span class="nv">noExitCode: </span><span class="nf">-&gt;</span>
-    <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">@result</span><span class="p">.</span><span class="nx">code</span> <span class="o">is</span> <span class="mi">0</span>
-    <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Process </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> returned exit code </span><span class="si">#{</span><span class="nx">@result</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s"> but should be 0.&quot;</span>
+  <span class="hljs-attribute">exitCode</span>: <span class="hljs-function"><span class="hljs-params">(args...)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@result</span>.code <span class="hljs-keyword">in</span> args
+    <span class="hljs-keyword">new</span> Error <span class="hljs-string">"""
+    Process <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> returned not allowed exit code <span class="hljs-subst">#{<span class="hljs-property">@result</span>.code}</span>.
+    Only <span class="hljs-subst">#{args.join <span class="hljs-string">', '</span>}</span> <span class="hljs-subst">#{<span class="hljs-keyword">if</span> args.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'is'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'are'</span>}</span> allowed as exit code.
+    """</span>
 
-  <span class="nv">exitCode: </span><span class="nf">(args...) -&gt;</span>
-    <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">@result</span><span class="p">.</span><span class="nx">code</span> <span class="k">in</span> <span class="nx">args</span>
-    <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">    Process </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> returned not allowed exit code </span><span class="si">#{</span><span class="nx">@result</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s">.</span>
-<span class="s">    Only </span><span class="si">#{</span><span class="nx">args</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;, &#39;</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="k">if</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span> <span class="k">then</span> <span class="s">&#39;is&#39;</span> <span class="k">else</span> <span class="s">&#39;are&#39;</span><span class="si">}</span><span class="s"> allowed as exit code.</span>
-<span class="s">    &quot;&quot;&quot;</span>
-
-  <span class="nv">noStderr: </span><span class="nf">-&gt;</span>
-    <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nv">res = </span><span class="nx">@stderr</span><span class="p">()</span>
-    <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">    STDERR of </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> should be empty but got:</span>
-
-</pre></div>
+  <span class="hljs-attribute">noStderr</span>: <span class="hljs-function">-&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> res = <span class="hljs-property">@stderr</span>()
+    <span class="hljs-keyword">new</span> Error <span class="hljs-string">"""
+    STDERR of <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> should be empty but got:
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>{abstract res}</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    &quot;&quot;&quot;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-string">"""
 
-  <span class="nv">noStdout: </span><span class="nf">-&gt;</span>
-    <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nv">res = </span><span class="nx">@stdout</span><span class="p">()</span>
-    <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">    STDOUT of </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> should be empty but got:</span>
-
-</pre></div>
+  noStdout: -&gt;
+    return false unless res = @stdout()
+    new Error """</span>
+    STDOUT <span class="hljs-keyword">of</span> <span class="hljs-comment">#{@setup.cmd} should be empty but got:</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
 <p>{abstract res}</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">    &quot;&quot;&quot;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-string">"""
 
-  <span class="nv">stderr: </span><span class="nf">-&gt;</span>
-    <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">@stderr</span><span class="p">()</span>
-    <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;STDERR of </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> should be set but was empty&quot;</span>
+  stderr: -&gt;
+    return false if @stderr()
+    new Error "STDERR of <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> should be set but was empty"
 
-  <span class="nv">stdout: </span><span class="nf">-&gt;</span>
-    <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">@stdout</span><span class="p">()</span>
-    <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;STDOUT of </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> should be set but was empty&quot;</span>
+  stdout: -&gt;
+    return false if @stdout()
+    new Error "STDOUT of <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> should be set but was empty"
 
-  <span class="nv">matchStdout: </span><span class="nf">(ok, report) -&gt;</span>
-    <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">@stdout</span><span class="p">().</span><span class="nx">match</span> <span class="nx">ok</span>
-    <span class="k">if</span> <span class="nx">report</span><span class="o">?</span>
-      <span class="nv">res = </span><span class="nx">@stdout</span><span class="p">().</span><span class="nx">match</span> <span class="nx">report</span>
-      <span class="k">if</span> <span class="nx">res</span><span class="o">?</span><span class="p">.</span><span class="nx">input</span>
-        <span class="nv">res = </span><span class="k">if</span> <span class="nx">res</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">then</span> <span class="nx">res</span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="p">[</span><span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-    <span class="nv">reason = </span><span class="k">if</span> <span class="nx">res</span><span class="o">?</span>
-      <span class="s">&quot;with: \&quot;</span><span class="si">#{</span><span class="nx">res</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;&quot;, &quot;&#39;</span><span class="si">}</span><span class="s">\&quot;&quot;</span>
-    <span class="k">else</span>
-      <span class="s">&quot;because got:\n</span><span class="si">#{</span><span class="nx">abstract</span> <span class="nx">@stdout</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;STDOUT of </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> should match </span><span class="si">#{</span><span class="nx">ok</span><span class="si">}</span><span class="s"> but failed </span><span class="si">#{</span><span class="nx">reason</span><span class="si">}</span><span class="s">.&quot;</span>
+  matchStdout: (ok, report) -&gt;
+    return false if @stdout().match ok
+    if report?
+      res = @stdout().match report
+      if res?.input
+        res = if res.length &gt; 1 then res[1..-1] else [res[0]]
+    reason = if res?
+      "with: \"<span class="hljs-subst">#{res.join <span class="hljs-string">'", "'</span>}</span>\""
+    else
+      "because got:\n<span class="hljs-subst">#{abstract <span class="hljs-property">@stdout</span>()}</span>"
+    new Error "STDOUT of <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> should match <span class="hljs-subst">#{ok}</span> but failed <span class="hljs-subst">#{reason}</span>."
 
-  <span class="nv">matchStderr: </span><span class="nf">(ok, report) -&gt;</span>
-    <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">@stderr</span><span class="p">().</span><span class="nx">match</span> <span class="nx">ok</span>
-    <span class="k">if</span> <span class="nx">report</span><span class="o">?</span>
-      <span class="nv">res = </span><span class="nx">@stderr</span><span class="p">().</span><span class="nx">match</span> <span class="nx">report</span>
-      <span class="k">if</span> <span class="nx">res</span><span class="o">?</span><span class="p">.</span><span class="nx">input</span>
-        <span class="nv">res = </span><span class="k">if</span> <span class="nx">res</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">then</span> <span class="nx">res</span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="p">[</span><span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-    <span class="nv">reason = </span><span class="k">if</span> <span class="nx">res</span><span class="o">?</span>
-      <span class="s">&quot;with: \&quot;</span><span class="si">#{</span><span class="nx">res</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;&quot;, &quot;&#39;</span><span class="si">}</span><span class="s">\&quot;&quot;</span>
-    <span class="k">else</span>
-      <span class="s">&quot;because got:\n</span><span class="si">#{</span><span class="nx">abstract</span> <span class="nx">@stderr</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;STDERR of </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> should match </span><span class="si">#{</span><span class="nx">ok</span><span class="si">}</span><span class="s"> but failed </span><span class="si">#{</span><span class="nx">reason</span><span class="si">}</span><span class="s">.&quot;</span>
+  matchStderr: (ok, report) -&gt;
+    return false if @stderr().match ok
+    if report?
+      res = @stderr().match report
+      if res?.input
+        res = if res.length &gt; 1 then res[1..-1] else [res[0]]
+    reason = if res?
+      "with: \"<span class="hljs-subst">#{res.join <span class="hljs-string">'", "'</span>}</span>\""
+    else
+      "because got:\n<span class="hljs-subst">#{abstract <span class="hljs-property">@stderr</span>()}</span>"
+    new Error "STDERR of <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> should match <span class="hljs-subst">#{ok}</span> but failed <span class="hljs-subst">#{reason}</span>."
 
-  <span class="nv">notMatchStderr: </span><span class="nf">(fail) -&gt;</span>
-    <span class="k">return</span> <span class="kc">false</span> <span class="k">unless</span> <span class="nv">res = </span><span class="nx">@stderr</span><span class="p">().</span><span class="nx">match</span> <span class="nx">fail</span>
-    <span class="k">if</span> <span class="nx">res</span><span class="p">.</span><span class="nx">input</span>
-      <span class="nv">res = </span><span class="k">if</span> <span class="nx">res</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">then</span> <span class="nx">res</span><span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="p">[</span><span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-    <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Process </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> failed with: \&quot;</span><span class="si">#{</span><span class="nx">res</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;\&quot;, \&quot;&#39;</span><span class="si">}</span><span class="s">\&quot;&quot;</span>
+  notMatchStderr: (fail) -&gt;
+    return false unless res = @stderr().match fail
+    if res.input
+      res = if res.length &gt; 1 then res[1..-1] else [res[0]]
+    new Error "Process <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> failed with: \"<span class="hljs-subst">#{res.join <span class="hljs-string">'\", \"'</span>}</span>\""
 
-  <span class="nv">stdoutLines: </span><span class="nf">(min, max) -&gt;</span>
-    <span class="nv">lines = </span><span class="k">if</span> <span class="nx">@stdout</span><span class="p">()</span> <span class="k">then</span> <span class="nx">@stdout</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span> <span class="k">else</span> <span class="p">[]</span>
-    <span class="nx">min</span> <span class="o">?=</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span>
-    <span class="nx">max</span> <span class="o">?=</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span>
-    <span class="k">return</span> <span class="kc">false</span> <span class="k">if</span> <span class="nx">min</span> <span class="o">&lt;=</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;=</span> <span class="nx">max</span>
-    <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Process </span><span class="si">#{</span><span class="nx">@setup</span><span class="p">.</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> should have </span><span class="si">#{</span><span class="nx">min</span><span class="si">}</span><span class="s">..</span><span class="si">#{</span><span class="nx">max</span><span class="si">}</span><span class="s"> number of lines</span>
-<span class="s">    but has </span><span class="si">#{</span><span class="nx">lines</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="s">&quot;</span>
-</pre></div>
+  stdoutLines: (min, max) -&gt;
+    lines = if @stdout() then @stdout().split /\n/ else []
+    min ?= lines.length
+    max ?= lines.length
+    return false if min &lt;= lines.length &lt;= max
+    new Error "Process <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> should have <span class="hljs-subst">#{min}</span>..<span class="hljs-subst">#{max}</span> number of lines
+    but has <span class="hljs-subst">#{lines.length}</span>"
+
+</span></pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>
