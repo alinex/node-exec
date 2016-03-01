@@ -151,8 +151,7 @@ debugErr = <span class="hljs-built_in">require</span>(<span class="hljs-string">
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
 util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
 carrier = <span class="hljs-built_in">require</span> <span class="hljs-string">'carrier'</span>
-ssh = <span class="hljs-built_in">require</span> <span class="hljs-string">'ssh2'</span>
-</pre>
+ssh = <span class="hljs-built_in">require</span> <span class="hljs-string">'ssh2'</span></pre>
         </td>
       </tr>
     
@@ -167,8 +166,7 @@ ssh = <span class="hljs-built_in">require</span> <span class="hljs-string">'ssh2
         <td class="code highlight">
           <pre class="coffeescript">{object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
 async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
-</pre>
+config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span></pre>
         </td>
       </tr>
     
@@ -181,9 +179,7 @@ config = <span class="hljs-built_in">require</span> <span class="hljs-string">'a
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">helper = <span class="hljs-built_in">require</span> <span class="hljs-string">'./helper'</span>
-
-</pre>
+          <pre class="coffeescript">helper = <span class="hljs-built_in">require</span> <span class="hljs-string">'./helper'</span></pre>
         </td>
       </tr>
     
@@ -198,9 +194,7 @@ Connection pool
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">pool = {}
-
-</pre>
+          <pre class="coffeescript">pool = {}</pre>
         </td>
       </tr>
     
@@ -216,8 +210,7 @@ Run local command
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">run</span> = <span class="hljs-params">(cb)</span> -&gt;</span>
-  host = <span class="hljs-property">@setup</span>.remote
-</pre>
+  host = <span class="hljs-property">@setup</span>.remote</pre>
         </td>
       </tr>
     
@@ -232,8 +225,7 @@ Run local command
         <td class="code highlight">
           <pre class="coffeescript">  connect host, <span class="hljs-function"><span class="hljs-params">(err, conn)</span> =&gt;</span>
     cmdline = helper.cmdline <span class="hljs-property">@setup</span>
-    debugCmd chalk.yellow <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> <span class="hljs-subst">#{cmdline}</span>"</span>
-</pre>
+    debugCmd chalk.yellow <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> <span class="hljs-subst">#{cmdline}</span>"</span></pre>
         </td>
       </tr>
     
@@ -248,8 +240,7 @@ Run local command
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-property">@process</span> =
       <span class="hljs-attribute">host</span>: host
-      <span class="hljs-attribute">start</span>: <span class="hljs-keyword">new</span> Date()
-</pre>
+      <span class="hljs-attribute">start</span>: <span class="hljs-keyword">new</span> Date()</pre>
         </td>
       </tr>
     
@@ -263,8 +254,7 @@ Run local command
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-property">@result</span> = {}
-    <span class="hljs-property">@result</span>.lines = []
-</pre>
+    <span class="hljs-property">@result</span>.lines = []</pre>
         </td>
       </tr>
     
@@ -277,8 +267,7 @@ Run local command
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    conn.exec cmdline, <span class="hljs-function"><span class="hljs-params">(err, stream)</span> =&gt;</span>
-</pre>
+          <pre class="coffeescript">    conn.exec cmdline, <span class="hljs-function"><span class="hljs-params">(err, stream)</span> =&gt;</span></pre>
         </td>
       </tr>
     
@@ -327,8 +316,7 @@ Run local command
         <span class="hljs-property">@result</span>.lines.push [<span class="hljs-number">2</span>, line]
         <span class="hljs-property">@emit</span> <span class="hljs-string">'stderr'</span>, line <span class="hljs-comment"># send through</span>
         debugErr <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> <span class="hljs-subst">#{line}</span>"</span>
-      , <span class="hljs-string">'utf-8'</span>, <span class="hljs-regexp">/\r?\n|\r(?!\n)/</span> <span class="hljs-comment"># match also single \r</span>
-</pre>
+      , <span class="hljs-string">'utf-8'</span>, <span class="hljs-regexp">/\r?\n|\r(?!\n)/</span> <span class="hljs-comment"># match also single \r</span></pre>
         </td>
       </tr>
     
@@ -357,9 +345,7 @@ Run local command
           <span class="hljs-keyword">if</span> <span class="hljs-property">@process</span>.error?
             debugCmd <span class="hljs-property">@process</span>.error.message
           <span class="hljs-property">@emit</span> <span class="hljs-string">'done'</span>, <span class="hljs-property">@result</span>.code
-          cb <span class="hljs-literal">null</span>, <span class="hljs-keyword">this</span> <span class="hljs-keyword">if</span> cb
-
-</pre>
+          cb <span class="hljs-literal">null</span>, <span class="hljs-keyword">this</span> <span class="hljs-keyword">if</span> cb</pre>
         </td>
       </tr>
     
@@ -376,8 +362,7 @@ Check vital signs
         <td class="code highlight">
           <pre class="coffeescript">vital = async.onceTime (host, vital, date, cb) -&gt;
   <span class="hljs-keyword">return</span> cb vital.failed <span class="hljs-keyword">if</span> vital.date <span class="hljs-keyword">is</span> date <span class="hljs-keyword">and</span> vital.failed
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> vital.date <span class="hljs-keyword">is</span> date
-</pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> vital.date <span class="hljs-keyword">is</span> date</pre>
         </td>
       </tr>
     
@@ -392,8 +377,7 @@ Check vital signs
         <td class="code highlight">
           <pre class="coffeescript">  vital.date = date
   vital.error = {}
-  vital.startload = <span class="hljs-number">0</span>
-</pre>
+  vital.startload = <span class="hljs-number">0</span></pre>
         </td>
       </tr>
     
@@ -415,9 +399,7 @@ Check vital signs
     ], <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
       debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> vital signs: <span class="hljs-subst">#{util.inspect(vital).replace <span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">' '</span>}</span>"</span>
-      cb()
-
-</pre>
+      cb()</pre>
         </td>
       </tr>
     
@@ -440,9 +422,7 @@ get the starmax value
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     vital.startmax = (conf.remote.server[host].startload ? conf.retry.vital.startload) *
     conf.retry.vital.interval / <span class="hljs-number">1000</span> * cpus
-    cb()
-
-</pre>
+    cb()</pre>
         </td>
       </tr>
     
@@ -467,9 +447,7 @@ get load, cpu usage and free mem
     vital.cpu = <span class="hljs-number">1</span> - parseFloat(lines[<span class="hljs-number">2</span>].match(<span class="hljs-regexp">/([0-9.]+) id/</span>)[<span class="hljs-number">1</span>]) / <span class="hljs-number">100</span>
     mem = lines[<span class="hljs-number">3</span>].match <span class="hljs-regexp">/(\d+)\D*\d+\D*(\d+)/</span>
     vital.freemem = parseInt(mem[<span class="hljs-number">2</span>]) / parseInt(mem[<span class="hljs-number">1</span>])
-    cb()
-
-</pre>
+    cb()</pre>
         </td>
       </tr>
     
@@ -525,9 +503,7 @@ close all connections
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">closeAll</span> = -&gt;</span>
   <span class="hljs-keyword">for</span> host, conn <span class="hljs-keyword">of</span> pool
     debug <span class="hljs-string">"close connection to <span class="hljs-subst">#{host}</span>"</span>
-    conn.end()
-
-</pre>
+    conn.end()</pre>
         </td>
       </tr>
     
@@ -545,10 +521,7 @@ Export public methods
           <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports =
   <span class="hljs-attribute">run</span>: run
   <span class="hljs-attribute">vital</span>: vital
-  <span class="hljs-attribute">closeAll</span>: closeAll
-
-
-</pre>
+  <span class="hljs-attribute">closeAll</span>: closeAll</pre>
         </td>
       </tr>
     
@@ -579,8 +552,7 @@ Connect to remote server
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">connect</span> = <span class="hljs-params">(host, cb)</span> -&gt;</span>
-  conf = config.get <span class="hljs-string">'exec'</span>
-</pre>
+  conf = config.get <span class="hljs-string">'exec'</span></pre>
         </td>
       </tr>
     
@@ -594,8 +566,7 @@ Connect to remote server
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">unless</span> server = conf.remote?.server?[host]
-    <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The remote server '<span class="hljs-subst">#{host}</span>' is not configured."</span>
-</pre>
+    <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The remote server '<span class="hljs-subst">#{host}</span>' is not configured."</span></pre>
         </td>
       </tr>
     
@@ -626,8 +597,7 @@ Connect to remote server
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      pool[host].emit <span class="hljs-string">'wait'</span>
-      <span class="hljs-keyword">return</span> setTimeout (<span class="hljs-function">-&gt;</span> connect host, cb), interval
-</pre>
+      <span class="hljs-keyword">return</span> setTimeout (<span class="hljs-function">-&gt;</span> connect host, cb), interval</pre>
         </td>
       </tr>
     
@@ -642,8 +612,7 @@ Connect to remote server
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> pool[host]
     pool[host].sessions++
-    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, pool[host]
-</pre>
+    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, pool[host]</pre>
         </td>
       </tr>
     
@@ -662,8 +631,7 @@ Connect to remote server
     conn.sessions++
     cb <span class="hljs-literal">null</span>, conn
 <span class="hljs-function">
-<span class="hljs-title">disconnect</span> = <span class="hljs-params">(conn)</span> -&gt;</span>
-</pre>
+<span class="hljs-title">disconnect</span> = <span class="hljs-params">(conn)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -676,9 +644,7 @@ Connect to remote server
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  conn.sessions--
-
-</pre>
+          <pre class="coffeescript">  conn.sessions--</pre>
         </td>
       </tr>
     
@@ -696,8 +662,7 @@ Open a new connection
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">open</span> = <span class="hljs-params">(host, cb)</span> -&gt;</span>
   done = async.onceSkip (err, conn, cb) -&gt;
     cb err, conn
-  conf = config.get <span class="hljs-string">'exec/remote/server/'</span> + host
-</pre>
+  conf = config.get <span class="hljs-string">'exec/remote/server/'</span> + host</pre>
         </td>
       </tr>
     
@@ -728,9 +693,7 @@ Open a new connection
     close host, conn
   .connect object.extend {}, conf,
     <span class="hljs-attribute">debug</span>: <span class="hljs-keyword">unless</span> conf.debug <span class="hljs-keyword">then</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">else</span> (msg) -&gt;
-      debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> <span class="hljs-subst">#{msg}</span>"</span>
-
-</pre>
+      debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> <span class="hljs-subst">#{msg}</span>"</span></pre>
         </td>
       </tr>
     
@@ -747,9 +710,7 @@ Close the connection
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">close</span> = <span class="hljs-params">(host, conn)</span> -&gt;</span>
   <span class="hljs-keyword">delete</span> pool[host]
-  conn.end()
-
-</pre>
+  conn.end()</pre>
         </td>
       </tr>
     

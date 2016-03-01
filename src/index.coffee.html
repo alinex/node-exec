@@ -142,8 +142,7 @@ Node Modules
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
 fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
 util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
-EventEmitter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>).EventEmitter
-</pre>
+EventEmitter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>).EventEmitter</pre>
         </td>
       </tr>
     
@@ -157,8 +156,7 @@ EventEmitter = <span class="hljs-built_in">require</span>(<span class="hljs-stri
         </td>
         <td class="code highlight">
           <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-</pre>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span></pre>
         </td>
       </tr>
     
@@ -172,9 +170,7 @@ async = <span class="hljs-built_in">require</span> <span class="hljs-string">'al
         </td>
         <td class="code highlight">
           <pre class="coffeescript">schema = <span class="hljs-built_in">require</span> <span class="hljs-string">'./configSchema'</span>
-check = <span class="hljs-built_in">require</span> <span class="hljs-string">'./check'</span>
-
-</pre>
+check = <span class="hljs-built_in">require</span> <span class="hljs-string">'./check'</span></pre>
         </td>
       </tr>
     
@@ -202,9 +198,7 @@ General setup
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">DEFAULT_LOAD = <span class="hljs-number">0.001</span>
-
-</pre>
+          <pre class="coffeescript">DEFAULT_LOAD = <span class="hljs-number">0.001</span></pre>
         </td>
       </tr>
     
@@ -217,9 +211,7 @@ General setup
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">objectId = <span class="hljs-number">0</span>
-
-</pre>
+          <pre class="coffeescript">objectId = <span class="hljs-number">0</span></pre>
         </td>
       </tr>
     
@@ -234,9 +226,7 @@ Class definition
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Exec</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventEmitter</span></span>
-
-</pre>
+          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Exec</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventEmitter</span></span></pre>
         </td>
       </tr>
     
@@ -264,9 +254,7 @@ Vital Data
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@vital</span>: {}
-
-</pre>
+          <pre class="coffeescript">  <span class="hljs-property">@vital</span>: {}</pre>
         </td>
       </tr>
     
@@ -283,9 +271,7 @@ multi core</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-property">@load</span>:
-    <span class="hljs-attribute">exiftool</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-number">0.008</span>
-
-</pre>
+    <span class="hljs-attribute">exiftool</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-number">0.008</span></pre>
         </td>
       </tr>
     
@@ -314,9 +300,7 @@ contains the corresponding callbacks</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@queue</span>: {}
-
-</pre>
+          <pre class="coffeescript">  <span class="hljs-property">@queue</span>: {}</pre>
         </td>
       </tr>
     
@@ -332,9 +316,7 @@ contains the corresponding callbacks</p>
           <pre class="coffeescript">  <span class="hljs-property">@queueCounter</span>:
     <span class="hljs-attribute">total</span>: <span class="hljs-number">0</span>
     <span class="hljs-attribute">host</span>: {}
-    <span class="hljs-attribute">priority</span>: {}
-
-</pre>
+    <span class="hljs-attribute">priority</span>: {}</pre>
         </td>
       </tr>
     
@@ -362,8 +344,7 @@ Initialization
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@setup</span>: async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">  <span class="hljs-property">@setup</span>: async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -376,8 +357,7 @@ Initialization
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    config.register <span class="hljs-literal">false</span>, fspath.dirname __dirname
-</pre>
+          <pre class="coffeescript">    config.register <span class="hljs-literal">false</span>, fspath.dirname __dirname</pre>
         </td>
       </tr>
     
@@ -390,9 +370,7 @@ Initialization
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    config.setSchema <span class="hljs-string">'/exec'</span>, schema, cb
-
-</pre>
+          <pre class="coffeescript">    config.setSchema <span class="hljs-string">'/exec'</span>, schema, cb</pre>
         </td>
       </tr>
     
@@ -406,8 +384,7 @@ Initialization
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-property">@init</span>: async.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-    debug <span class="hljs-string">"initialize"</span>
-</pre>
+    debug <span class="hljs-string">"initialize"</span></pre>
         </td>
       </tr>
     
@@ -422,9 +399,7 @@ Initialization
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-property">@setup</span> (err) -&gt;
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-      config.init cb
-
-</pre>
+      config.init cb</pre>
         </td>
       </tr>
     
@@ -466,9 +441,7 @@ queue is not done. It will run all the tasks by priority on all hosts.</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-property">@workerRunning</span>: <span class="hljs-literal">false</span>
-
-</pre>
+          <pre class="coffeescript">  <span class="hljs-property">@workerRunning</span>: <span class="hljs-literal">false</span></pre>
         </td>
       </tr>
     
@@ -489,8 +462,7 @@ queue is not done. It will run all the tasks by priority on all hosts.</p>
     worker started: <span class="hljs-subst">#{<span class="hljs-property">@queueCounter</span>.total}</span> total tasks waiting / \
     hosts: <span class="hljs-subst">#{util.inspect <span class="hljs-property">@queueCounter</span>.host}</span> / \
     priority: <span class="hljs-subst">#{util.inspect <span class="hljs-property">@queueCounter</span>.priority}</span>
-    """</span>
-</pre>
+    """</span></pre>
         </td>
       </tr>
     
@@ -508,8 +480,7 @@ console.log 'WORKER', util.inspect @queue, {depth: null}
         <td class="code highlight">
           <pre class="coffeescript">    async.each hosts, <span class="hljs-function"><span class="hljs-params">(host, cb)</span> =&gt;</span>
       prios = Object.keys <span class="hljs-property">@queue</span>[host]
-      prios.reverse()
-</pre>
+      prios.reverse()</pre>
         </td>
       </tr>
     
@@ -526,8 +497,7 @@ console.log 'WORKER', util.inspect @queue, {depth: null}
           <pre class="coffeescript">      async.eachSeries prios, <span class="hljs-function"><span class="hljs-params">(prio, cb)</span> =&gt;</span>
         list = <span class="hljs-property">@queue</span>[host][prio]
         <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> list.length
-        debug chalk.grey <span class="hljs-string">"worker running jobs for <span class="hljs-subst">#{host}</span> with <span class="hljs-subst">#{prio}</span> priority"</span>
-</pre>
+        debug chalk.grey <span class="hljs-string">"worker running jobs for <span class="hljs-subst">#{host}</span> with <span class="hljs-subst">#{prio}</span> priority"</span></pre>
         </td>
       </tr>
     
@@ -542,8 +512,7 @@ console.log 'WORKER', util.inspect @queue, {depth: null}
         </td>
         <td class="code highlight">
           <pre class="coffeescript">        mark = []
-        async.forever (cb) =&gt;
-</pre>
+        async.forever (cb) =&gt;</pre>
         </td>
       </tr>
     
@@ -557,8 +526,7 @@ console.log 'WORKER', util.inspect @queue, {depth: null}
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">          <span class="hljs-keyword">return</span> cb <span class="hljs-literal">true</span> <span class="hljs-keyword">unless</span> list.length
-</pre>
+          <pre class="coffeescript">          <span class="hljs-keyword">return</span> cb <span class="hljs-literal">true</span> <span class="hljs-keyword">unless</span> list.length</pre>
         </td>
       </tr>
     
@@ -571,8 +539,7 @@ console.log 'WORKER', util.inspect @queue, {depth: null}
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">          <span class="hljs-keyword">return</span> cb <span class="hljs-literal">true</span> <span class="hljs-keyword">if</span> list[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].id <span class="hljs-keyword">in</span> mark
-</pre>
+          <pre class="coffeescript">          <span class="hljs-keyword">return</span> cb <span class="hljs-literal">true</span> <span class="hljs-keyword">if</span> list[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].id <span class="hljs-keyword">in</span> mark</pre>
         </td>
       </tr>
     
@@ -585,8 +552,7 @@ console.log 'WORKER', util.inspect @queue, {depth: null}
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">          <span class="hljs-property">@vitalCheck</span> host, prio, DEFAULT_LOAD, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
-</pre>
+          <pre class="coffeescript">          <span class="hljs-property">@vitalCheck</span> host, prio, DEFAULT_LOAD, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span></pre>
         </td>
       </tr>
     
@@ -600,8 +566,7 @@ console.log 'WORKER', util.inspect @queue, {depth: null}
         </td>
         <td class="code highlight">
           <pre class="coffeescript">            <span class="hljs-keyword">return</span> cb <span class="hljs-literal">true</span> <span class="hljs-keyword">unless</span> list.length
-            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -614,8 +579,7 @@ console.log 'WORKER', util.inspect @queue, {depth: null}
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">            [exec, ocb] = list.shift()
-</pre>
+          <pre class="coffeescript">            [exec, ocb] = list.shift()</pre>
         </td>
       </tr>
     
@@ -632,8 +596,7 @@ console.log 'WORKER', util.inspect @queue, {depth: null}
         <td class="code highlight">
           <pre class="coffeescript">            <span class="hljs-property">@queueCounter</span>.total--
             <span class="hljs-property">@queueCounter</span>.host[host]--
-            <span class="hljs-property">@queueCounter</span>.priority[prio]--
-</pre>
+            <span class="hljs-property">@queueCounter</span>.priority[prio]--</pre>
         </td>
       </tr>
     
@@ -646,8 +609,7 @@ console.log 'WORKER', util.inspect @queue, {depth: null}
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">            mark.push exec.id
-</pre>
+          <pre class="coffeescript">            mark.push exec.id</pre>
         </td>
       </tr>
     
@@ -663,8 +625,7 @@ console.log 'WORKER', util.inspect @queue, {depth: null}
         <td class="code highlight">
           <pre class="coffeescript">            exec.run ocb
             setTimeout cb, <span class="hljs-number">100</span>
-        , <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
-</pre>
+        , <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span></pre>
         </td>
       </tr>
     
@@ -681,8 +642,7 @@ console.log 'WORKER', util.inspect @queue, {depth: null}
           <pre class="coffeescript">          debug chalk.grey <span class="hljs-string">"worker finished round"</span>
           <span class="hljs-keyword">delete</span> <span class="hljs-property">@queue</span>[host][prio] <span class="hljs-keyword">unless</span> list.length
           cb err
-      , <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
-</pre>
+      , <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span></pre>
         </td>
       </tr>
     
@@ -698,8 +658,7 @@ console.log 'WORKER', util.inspect @queue, {depth: null}
         <td class="code highlight">
           <pre class="coffeescript">        <span class="hljs-keyword">delete</span> <span class="hljs-property">@queue</span>[host] <span class="hljs-keyword">unless</span> Object.keys(<span class="hljs-property">@queue</span>[host]).length
         cb err
-    , <span class="hljs-function">=&gt;</span>
-</pre>
+    , <span class="hljs-function">=&gt;</span></pre>
         </td>
       </tr>
     
@@ -716,8 +675,7 @@ console.log 'WORKER', util.inspect @queue, {depth: null}
         <td class="code highlight">
           <pre class="coffeescript">      <span class="hljs-keyword">unless</span> Exec.queueCounter.total
         <span class="hljs-property">@workerRunning</span> = <span class="hljs-literal">false</span>
-        <span class="hljs-keyword">return</span>
-</pre>
+        <span class="hljs-keyword">return</span></pre>
         </td>
       </tr>
     
@@ -731,9 +689,7 @@ console.log '&gt;&gt;&gt;&gt;&gt;&gt; recall worker'</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      setTimeout <span class="hljs-property">@worker</span>, config.get <span class="hljs-string">'exec/retry/queue/interval'</span>
-
-</pre>
+          <pre class="coffeescript">      setTimeout <span class="hljs-property">@worker</span>, config.get <span class="hljs-string">'exec/retry/queue/interval'</span></pre>
         </td>
       </tr>
     
@@ -751,8 +707,7 @@ from running the process</p>
     conf = config.get <span class="hljs-string">'/exec'</span>
     prio = conf.priority.level[priority]
     vital = <span class="hljs-property">@vital</span>[host] ?= {}
-    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> prio.maxCpu? <span class="hljs-keyword">or</span> prio.minFreemem? <span class="hljs-keyword">or</span> prio.maxLoad?
-</pre>
+    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> prio.maxCpu? <span class="hljs-keyword">or</span> prio.minFreemem? <span class="hljs-keyword">or</span> prio.maxLoad?</pre>
         </td>
       </tr>
     
@@ -765,8 +720,7 @@ from running the process</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> prio.minFreemem? <span class="hljs-keyword">or</span> prio.maxCpu? <span class="hljs-keyword">or</span> prio.maxLoad?
-</pre>
+          <pre class="coffeescript">    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> prio.minFreemem? <span class="hljs-keyword">or</span> prio.maxCpu? <span class="hljs-keyword">or</span> prio.maxLoad?</pre>
         </td>
       </tr>
     
@@ -782,8 +736,7 @@ from running the process</p>
           <pre class="coffeescript">    date = Math.floor <span class="hljs-keyword">new</span> Date().getTime() / conf.retry.vital.interval
     lib = <span class="hljs-built_in">require</span> <span class="hljs-keyword">if</span> host <span class="hljs-keyword">is</span> <span class="hljs-string">'localhost'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'./spawn'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'./ssh'</span>
     lib.vital host, vital, date, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</pre>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -798,8 +751,7 @@ from running the process</p>
         <td class="code highlight">
           <pre class="coffeescript">      <span class="hljs-keyword">if</span> vital.startload <span class="hljs-keyword">and</span> vital.startload + load &gt; vital.startmax
         <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The maximum load to start per interval would be exceeded
-        with this process at <span class="hljs-subst">#{host}</span>"</span>
-</pre>
+        with this process at <span class="hljs-subst">#{host}</span>"</span></pre>
         </td>
       </tr>
     
@@ -812,8 +764,7 @@ from running the process</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, vital.error[priority] <span class="hljs-keyword">if</span> vital.error[priority]?
-</pre>
+          <pre class="coffeescript">      <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, vital.error[priority] <span class="hljs-keyword">if</span> vital.error[priority]?</pre>
         </td>
       </tr>
     
@@ -902,9 +853,7 @@ from running the process</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>
-      cb <span class="hljs-literal">null</span>, vital.error[priority]
-
-</pre>
+      cb <span class="hljs-literal">null</span>, vital.error[priority]</pre>
         </td>
       </tr>
     
@@ -936,9 +885,7 @@ Start execution
     Exec.init (err) -&gt;
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
       proc = <span class="hljs-keyword">new</span> Exec setup
-      proc.run cb
-
-</pre>
+      proc.run cb</pre>
         </td>
       </tr>
     
@@ -955,9 +902,7 @@ Close remote connections
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-property">@close</span>: <span class="hljs-function">-&gt;</span>
     lib = <span class="hljs-built_in">require</span> <span class="hljs-string">'./ssh'</span>
-    lib.closeAll()
-
-</pre>
+    lib.closeAll()</pre>
         </td>
       </tr>
     
@@ -973,8 +918,7 @@ Close remote connections
           <pre class="coffeescript">  <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@setup</span>)</span> -&gt;</span>
     <span class="hljs-property">@id</span> = ++objectId
     host = <span class="hljs-property">@setup</span>.remote ? <span class="hljs-string">'localhost'</span>
-    <span class="hljs-property">@name</span> = chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{host}</span>#<span class="hljs-subst">#{<span class="hljs-property">@id</span>}</span>:"</span>
-</pre>
+    <span class="hljs-property">@name</span> = chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{host}</span>#<span class="hljs-subst">#{<span class="hljs-property">@id</span>}</span>:"</span></pre>
         </td>
       </tr>
     
@@ -992,9 +936,7 @@ Close remote connections
     <span class="hljs-keyword">unless</span> prio.level[<span class="hljs-property">@setup</span>.priority]
       debug chalk.red <span class="hljs-string">"Undefined priority <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.priority}</span> - using default"</span>
       <span class="hljs-property">@setup</span>.priority = prio.default
-    debug <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> created new instance with <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.priority}</span> priority"</span>
-
-</pre>
+    debug <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> created new instance with <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.priority}</span> priority"</span></pre>
         </td>
       </tr>
     
@@ -1010,8 +952,7 @@ Close remote connections
           <pre class="coffeescript">  <span class="hljs-attribute">run</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Already running."</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@result</span>?.start <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@result</span>.end
     host = <span class="hljs-property">@setup</span>.remote ? <span class="hljs-string">'localhost'</span>
-    <span class="hljs-property">@name</span> = chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{host}</span>#<span class="hljs-subst">#{<span class="hljs-property">@id</span>}</span>:"</span>
-</pre>
+    <span class="hljs-property">@name</span> = chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{host}</span>#<span class="hljs-subst">#{<span class="hljs-property">@id</span>}</span>:"</span></pre>
         </td>
       </tr>
     
@@ -1036,8 +977,7 @@ Close remote connections
       ///</span>g
       <span class="hljs-keyword">if</span> parts.length &gt; <span class="hljs-number">1</span>
         <span class="hljs-property">@setup</span>.cmd = parts.shift()
-        <span class="hljs-property">@setup</span>.args = parts.concat <span class="hljs-property">@setup</span>.args ? []
-</pre>
+        <span class="hljs-property">@setup</span>.args = parts.concat <span class="hljs-property">@setup</span>.args ? []</pre>
         </td>
       </tr>
     
@@ -1058,8 +998,7 @@ check existing vital data</p>
     load = Exec.load[<span class="hljs-property">@setup</span>.cmd]?(<span class="hljs-property">@setup</span>.args) ? DEFAULT_LOAD
     Exec.vitalCheck host, <span class="hljs-property">@setup</span>.priority, load, <span class="hljs-function"><span class="hljs-params">(err, res)</span> =&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-      <span class="hljs-keyword">return</span> <span class="hljs-property">@addQueue</span> res, cb <span class="hljs-keyword">if</span> res
-</pre>
+      <span class="hljs-keyword">return</span> <span class="hljs-property">@addQueue</span> res, cb <span class="hljs-keyword">if</span> res</pre>
         </td>
       </tr>
     
@@ -1073,8 +1012,7 @@ check existing vital data</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      Exec.vital[host].startload += load
-      debug <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> with <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.priority}</span> priority at <span class="hljs-subst">#{host}</span>"</span>
-</pre>
+      debug <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> with <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.priority}</span> priority at <span class="hljs-subst">#{host}</span>"</span></pre>
         </td>
       </tr>
     
@@ -1091,8 +1029,7 @@ check existing vital data</p>
       lib.run.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
         <span class="hljs-keyword">if</span> err
           debug <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> failed with <span class="hljs-subst">#{err}</span>"</span>
-          <span class="hljs-keyword">return</span> cb err
-</pre>
+          <span class="hljs-keyword">return</span> cb err</pre>
         </td>
       </tr>
     
@@ -1105,9 +1042,7 @@ check existing vital data</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">        <span class="hljs-property">@checkResult</span> cb
-
-</pre>
+          <pre class="coffeescript">        <span class="hljs-property">@checkResult</span> cb</pre>
         </td>
       </tr>
     
@@ -1136,9 +1071,7 @@ check existing vital data</p>
     Exec.queueCounter.host[host] ?= <span class="hljs-number">0</span>
     Exec.queueCounter.host[host]++
     Exec.queueCounter.priority[<span class="hljs-property">@setup</span>.priority] ?= <span class="hljs-number">0</span>
-    Exec.queueCounter.priority[<span class="hljs-property">@setup</span>.priority]++
-
-</pre>
+    Exec.queueCounter.priority[<span class="hljs-property">@setup</span>.priority]++</pre>
         </td>
       </tr>
     
@@ -1166,8 +1099,7 @@ Result
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-attribute">checkResult</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-</pre>
+          <pre class="coffeescript">  <span class="hljs-attribute">checkResult</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -1183,8 +1115,7 @@ Result
           <pre class="coffeescript">    list = <span class="hljs-property">@setup</span>.check ? {
       <span class="hljs-attribute">noExitCode</span>:
         <span class="hljs-attribute">retry</span>: <span class="hljs-property">@setup</span>.retry?.times
-    }
-</pre>
+    }</pre>
         </td>
       </tr>
     
@@ -1202,8 +1133,7 @@ Result
       v.args = [v.args] <span class="hljs-keyword">unless</span> Array.isArray v.args
       err = check[n].apply <span class="hljs-keyword">this</span>, v.args ? <span class="hljs-literal">null</span>
       <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> err
-      debug chalk.magenta <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> <span class="hljs-subst">#{n}</span>: <span class="hljs-subst">#{err.message}</span>"</span>
-</pre>
+      debug chalk.magenta <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> <span class="hljs-subst">#{n}</span>: <span class="hljs-subst">#{err.message}</span>"</span></pre>
         </td>
       </tr>
     
@@ -1222,8 +1152,7 @@ Result
         <span class="hljs-keyword">if</span> <span class="hljs-property">@tries</span>?.length &gt;= times
           debug chalk.red <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> reached <span class="hljs-subst">#{times}</span> retries - giving up"</span>
           <span class="hljs-keyword">return</span> cb err, <span class="hljs-keyword">this</span>
-        <span class="hljs-keyword">return</span> setTimeout =&gt;
-</pre>
+        <span class="hljs-keyword">return</span> setTimeout =&gt;</pre>
         </td>
       </tr>
     
@@ -1239,8 +1168,7 @@ Result
           <pre class="coffeescript">          <span class="hljs-property">@tries</span> ?= []
           <span class="hljs-property">@tries</span>.push
             <span class="hljs-attribute">process</span>: <span class="hljs-property">@process</span>
-            <span class="hljs-attribute">result</span>: <span class="hljs-property">@result</span>
-</pre>
+            <span class="hljs-attribute">result</span>: <span class="hljs-property">@result</span></pre>
         </td>
       </tr>
     
@@ -1255,8 +1183,7 @@ Result
         <td class="code highlight">
           <pre class="coffeescript">          <span class="hljs-keyword">this</span>.run cb
         , <span class="hljs-property">@setup</span>.retry.interval ? <span class="hljs-property">@conf</span>.retry.error.interval
-      <span class="hljs-keyword">return</span> cb err, <span class="hljs-keyword">this</span>
-</pre>
+      <span class="hljs-keyword">return</span> cb err, <span class="hljs-keyword">this</span></pre>
         </td>
       </tr>
     
@@ -1292,9 +1219,7 @@ Result
     data.stderr = stderr <span class="hljs-keyword">if</span> data.code?
     stderr
 
-<span class="hljs-built_in">module</span>.exports = Exec
-
-</pre>
+<span class="hljs-built_in">module</span>.exports = Exec</pre>
         </td>
       </tr>
     

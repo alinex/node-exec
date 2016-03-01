@@ -101,9 +101,7 @@ include alinex modules</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
-
-</pre>
+          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span></pre>
         </td>
       </tr>
     
@@ -122,8 +120,7 @@ Get cmdline out of command setup
   conf = config.get <span class="hljs-string">'exec'</span>
   cmdline = [setup.cmd]
   <span class="hljs-keyword">if</span> setup.args
-    cmdline = cmdline.concat setup.args.map escape
-</pre>
+    cmdline = cmdline.concat setup.args.map escape</pre>
         </td>
       </tr>
     
@@ -141,8 +138,7 @@ Get cmdline out of command setup
     cmdline.unshift <span class="hljs-string">'-g'</span>, <span class="hljs-string">"\\#<span class="hljs-subst">#{setup.gid}</span>"</span> <span class="hljs-keyword">if</span> setup.gid?
     cmdline.unshift <span class="hljs-string">'sudo'</span>
   <span class="hljs-keyword">if</span> setup.timeout
-    cmdline.unshift <span class="hljs-string">'timeout'</span>, setup.timeout / <span class="hljs-number">1000</span>
-</pre>
+    cmdline.unshift <span class="hljs-string">'timeout'</span>, setup.timeout / <span class="hljs-number">1000</span></pre>
         </td>
       </tr>
     
@@ -158,8 +154,7 @@ Get cmdline out of command setup
           <pre class="coffeescript">  prio = conf.priority.level[setup.priority]
   <span class="hljs-keyword">if</span> prio.nice
     <span class="hljs-keyword">if</span> prio.nice &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> conf.remote?.server?[host]?.username <span class="hljs-keyword">is</span> <span class="hljs-string">'root'</span> <span class="hljs-keyword">or</span>
-    setup.uid <span class="hljs-keyword">is</span> <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> (<span class="hljs-keyword">not</span> setup.uid? <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> process.getuid())
-</pre>
+    setup.uid <span class="hljs-keyword">is</span> <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> (<span class="hljs-keyword">not</span> setup.uid? <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> process.getuid())</pre>
         </td>
       </tr>
     
@@ -172,8 +167,7 @@ Get cmdline out of command setup
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      cmdline.unshift <span class="hljs-string">'nice'</span>, <span class="hljs-string">'-n'</span>, prio.nice
-</pre>
+          <pre class="coffeescript">      cmdline.unshift <span class="hljs-string">'nice'</span>, <span class="hljs-string">'-n'</span>, prio.nice</pre>
         </td>
       </tr>
     
@@ -187,8 +181,7 @@ Get cmdline out of command setup
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> setup.timeout
-    cmdline.unshift <span class="hljs-string">'timeout'</span>, setup.timeout/<span class="hljs-number">1000</span>
-</pre>
+    cmdline.unshift <span class="hljs-string">'timeout'</span>, setup.timeout/<span class="hljs-number">1000</span></pre>
         </td>
       </tr>
     
@@ -202,8 +195,7 @@ Get cmdline out of command setup
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-keyword">if</span> setup.cwd
-    cmdline.unshift <span class="hljs-string">'cd'</span>, escape(setup.cwd), <span class="hljs-string">'&amp;&amp;'</span>
-</pre>
+    cmdline.unshift <span class="hljs-string">'cd'</span>, escape(setup.cwd), <span class="hljs-string">'&amp;&amp;'</span></pre>
         </td>
       </tr>
     
@@ -222,8 +214,7 @@ Get cmdline out of command setup
 <span class="hljs-function">
 <span class="hljs-title">escape</span> = <span class="hljs-params">(arg)</span> -&gt;</span>
   <span class="hljs-keyword">if</span> <span class="hljs-regexp">/[^A-Za-z0-9_\/:=-]/</span>.test arg
-    arg = <span class="hljs-string">"'<span class="hljs-subst">#{arg.replace <span class="hljs-regexp">/'/g</span>, <span class="hljs-string">"'\\''"</span>}</span>'"</span>
-</pre>
+    arg = <span class="hljs-string">"'<span class="hljs-subst">#{arg.replace <span class="hljs-regexp">/'/g</span>, <span class="hljs-string">"'\\''"</span>}</span>'"</span></pre>
         </td>
       </tr>
     
@@ -236,8 +227,7 @@ Get cmdline out of command setup
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    .replace <span class="hljs-regexp">/^(?:'')+/g</span>, <span class="hljs-string">''</span>
-</pre>
+          <pre class="coffeescript">    .replace <span class="hljs-regexp">/^(?:'')+/g</span>, <span class="hljs-string">''</span></pre>
         </td>
       </tr>
     
@@ -251,9 +241,7 @@ Get cmdline out of command setup
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    .replace <span class="hljs-regexp">/\\'''/g</span>, <span class="hljs-string">"\\'"</span>
-  arg
-
-</pre>
+  arg</pre>
         </td>
       </tr>
     
