@@ -16,7 +16,7 @@ wrapper arround the core `process.spawn` command. It's benefits are:
 - detachable execution (comes later)
 
 > It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
-> following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
+> following the code standards defined in the [General Docs](http://alinex.github.io/develop).
 
 
 Install
