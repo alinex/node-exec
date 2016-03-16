@@ -29,6 +29,15 @@ describe "Remote", ->
         expect(exec.result, "result").to.not.exist
         cb()
 
+    it "should fail for wrong remote", (cb) ->
+      Exec.run
+        remote: 'notexisting'
+        cmd: 'date'
+      , (err) ->
+        console.log err
+        expect(err, 'error').to.exist
+        cb()
+
   describe "command", ->
 
     it "should run date", (cb) ->
