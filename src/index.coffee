@@ -11,9 +11,9 @@ debug = require('debug')('exec')
 chalk = require 'chalk'
 async = require 'async'
 fspath = require 'path'
-util = require 'util'
 EventEmitter = require('events').EventEmitter
 # include alinex modules
+util = require 'alinex-util'
 config = require 'alinex-config'
 # internal helpers
 schema = require './configSchema'
