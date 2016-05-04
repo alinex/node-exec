@@ -10,12 +10,11 @@ debugCmd = require('debug')('exec:cmd')
 debugOut = require('debug')('exec:out')
 debugErr = require('debug')('exec:err')
 chalk = require 'chalk'
-util = require 'util'
+async = require 'async'
 carrier = require 'carrier'
 ssh = require 'ssh2'
 # include alinex modules
-{object} = require 'alinex-util'
-async = require 'alinex-async'
+util = require 'alinex-util'
 config = require 'alinex-config'
 # include helper classes
 helper = require './helper'
@@ -88,7 +87,7 @@ run = (cb) ->
 
 # Check vital signs
 # -------------------------------------------------
-vital = async.onceTime (host, vital, date, cb) ->
+vital = util.function.onceTime (host, vital, date, cb) ->
   return cb vital.failed if vital.date is date and vital.failed
   return cb() if vital.date is date
   # reinit
@@ -192,7 +191,7 @@ disconnect = (conn) ->
 
 # ### Open a new connection
 open = (host, cb) ->
-  done = async.onceSkip (err, conn, cb) ->
+  done = util.function.onceSkip (err, conn, cb) ->
     cb err, conn
   conf = config.get 'exec/remote/server/' + host
   # make new connection
@@ -212,7 +211,7 @@ open = (host, cb) ->
   .on 'end', ->
     debug chalk.grey "#{conn.name} connection closed"
     close host, conn
-  .connect object.extend {}, conf,
+  .connect util.extend 'MODE CLONE', conf,
     debug: unless conf.debug then null else (msg) ->
       debug chalk.grey "#{conn.name} #{msg}"
 

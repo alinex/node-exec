@@ -32,9 +32,9 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-async": "^1.0.1",
     "alinex-config": "^1.1.2",
     "alinex-util": "^2.1.0",
+    "async": "^2.0.0-rc.3",
     "carrier": "^0.3.0",
     "chalk": "^1.1.3",
     "debug": "^2.2.0",

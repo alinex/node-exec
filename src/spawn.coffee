@@ -13,12 +13,10 @@ debugOut = require('debug')('exec:out')
 debugErr = require('debug')('exec:err')
 chalk = require 'chalk'
 {spawn} = require 'child_process'
-util = require 'util'
 os = require 'os'
 carrier = require 'carrier'
 # include alinex modules
-{object} = require 'alinex-util'
-async = require 'alinex-async'
+util = require 'alinex-util'
 config = require 'alinex-config'
 # include helper classes
 helper = require './helper'
@@ -41,7 +39,7 @@ run = (cb) ->
       args.unshift '-n', prio.nice, cmd # nice setting, command
       cmd = 'nice'
   # set environment to english language
-  env = @setup.env ? object.extend process.env,
+  env = @setup.env ? util.extend 'MODE CLONE', process.env,
     LANG: 'C'
     LC_ALL: 'C'
   # store process information
@@ -110,7 +108,7 @@ run = (cb) ->
 
 # Check vital signs
 # -------------------------------------------------
-vital = async.onceTime (host, vital, date, cb) ->
+vital = util.function.onceTime (host, vital, date, cb) ->
   return cb() if vital.date is date
   # init startmax
   conf = config.get 'exec/retry/vital'

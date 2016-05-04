@@ -9,12 +9,12 @@
 # include base modules
 debug = require('debug')('exec')
 chalk = require 'chalk'
+async = require 'async'
 fspath = require 'path'
 util = require 'util'
 EventEmitter = require('events').EventEmitter
 # include alinex modules
 config = require 'alinex-config'
-async = require 'alinex-async'
 # internal helpers
 schema = require './configSchema'
 check = require './check'
@@ -59,14 +59,14 @@ class Exec extends EventEmitter
   # ### Initialization
 
   # set the modules config paths and validation schema
-  @setup: async.once this, (cb) ->
+  @setup: util.function.once this, (cb) ->
     # set module search path
     config.register false, fspath.dirname __dirname
     # add schema for module's configuration
     config.setSchema '/exec', schema, cb
 
   # set the modules config paths, validation schema and initialize the configuration
-  @init: async.once this, (cb) ->
+  @init: util.function.once this, (cb) ->
     debug "initialize"
     # set module search path
     @setup (err) ->
