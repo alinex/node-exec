@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.2 (2016-05-04)
+-------------------------------------------------
+- Fixed alinex-util include.
+- Update util and async calls.
+- Upgraded async, config, util, carrier, chalk, ssh2, validator and builder packages.
+- Added v6 for travis but didn't activate, yet.
+- Add test for missing remote.
+- Fixed general link in README.
+
 Version 1.1.1 (2016-02-05)
 -------------------------------------------------
 - Updated alinex packages.
