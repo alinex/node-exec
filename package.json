@@ -25,24 +25,24 @@
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "scripts": {
-    "prepublish": "node_modules/.bin/builder -c compile --uglify",
-    "test": "node_modules/.bin/builder -c test"
+    "prepublish": "node_modules/.bin/builder compile --uglify",
+    "test": "node_modules/.bin/builder test"
   },
   "directories": {
     "lib": "./lib"
   },
   "dependencies": {
-    "alinex-async": "^1.0.0",
-    "alinex-config": "^1.0.11",
-    "alinex-util": "^0.3.15",
-    "carrier": "^0.2.1",
-    "chalk": "^1.1.0",
+    "alinex-async": "^1.0.1",
+    "alinex-config": "^1.1.2",
+    "alinex-util": "^2.1.0",
+    "carrier": "^0.3.0",
+    "chalk": "^1.1.3",
     "debug": "^2.2.0",
-    "ssh2": "^0.4.10"
+    "ssh2": "^0.5.0"
   },
   "devDependencies": {
-    "alinex-builder": "^1.2.0",
-    "alinex-validator": "^1.2.4",
+    "alinex-builder": "^2.0.4",
+    "alinex-validator": "^1.6.2",
     "chai": "^3.5.0"
   },
   "optionalDependencies": {},
