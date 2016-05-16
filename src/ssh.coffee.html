@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-exec/src/ssh.coffee";
+    var thisFile = "src/ssh.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -149,7 +149,7 @@ debugCmd = <span class="hljs-built_in">require</span>(<span class="hljs-string">
 debugOut = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'exec:out'</span>)
 debugErr = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'exec:err'</span>)
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
 carrier = <span class="hljs-built_in">require</span> <span class="hljs-string">'carrier'</span>
 ssh = <span class="hljs-built_in">require</span> <span class="hljs-string">'ssh2'</span></pre>
         </td>
@@ -164,8 +164,7 @@ ssh = <span class="hljs-built_in">require</span> <span class="hljs-string">'ssh2
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">{object} = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
+          <pre class="coffeescript">util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
 config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span></pre>
         </td>
       </tr>
@@ -210,7 +209,7 @@ Run local command
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">run</span> = <span class="hljs-params">(cb)</span> -&gt;</span>
-  host = <span class="hljs-property">@setup</span>.remote</pre>
+  host = @setup.remote</pre>
         </td>
       </tr>
     
@@ -224,8 +223,8 @@ Run local command
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  connect host, <span class="hljs-function"><span class="hljs-params">(err, conn)</span> =&gt;</span>
-    cmdline = helper.cmdline <span class="hljs-property">@setup</span>
-    debugCmd chalk.yellow <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> <span class="hljs-subst">#{cmdline}</span>"</span></pre>
+    cmdline = helper.cmdline @setup
+    debugCmd chalk.yellow <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> <span class="hljs-subst">#{cmdline}</span>"</span></pre>
         </td>
       </tr>
     
@@ -238,9 +237,9 @@ Run local command
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-property">@process</span> =
-      <span class="hljs-attribute">host</span>: host
-      <span class="hljs-attribute">start</span>: <span class="hljs-keyword">new</span> Date()</pre>
+          <pre class="coffeescript">    @process =
+      host: host
+      start: <span class="hljs-keyword">new</span> Date()</pre>
         </td>
       </tr>
     
@@ -253,8 +252,8 @@ Run local command
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-property">@result</span> = {}
-    <span class="hljs-property">@result</span>.lines = []</pre>
+          <pre class="coffeescript">    @result = {}
+    @result.lines = []</pre>
         </td>
       </tr>
     
@@ -282,10 +281,10 @@ Run local command
         <td class="code highlight">
           <pre class="coffeescript">      <span class="hljs-keyword">if</span> err
         disconnect conn
-        <span class="hljs-property">@process</span>.error = err
+        @process.error = err
         <span class="hljs-keyword">if</span> err.message.match <span class="hljs-regexp">/open failed/</span>
-          interval = <span class="hljs-property">@conf</span>.retry.ulimit.interval
-          debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> ssh open failed, waiting
+          interval = @conf.retry.ulimit.interval
+          debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> ssh open failed, waiting
 </span></pre>
         </td>
       </tr>
@@ -299,23 +298,23 @@ Run local command
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">          <span class="hljs-property">@emit</span> <span class="hljs-string">'wait'</span>, interval
+          <pre class="coffeescript">          @emit <span class="hljs-string">'wait'</span>, interval
           <span class="hljs-keyword">return</span> setTimeout (<span class="hljs-function">=&gt;</span> run.call <span class="hljs-keyword">this</span>, cb), interval
         <span class="hljs-keyword">return</span> cb err
-      <span class="hljs-keyword">if</span> <span class="hljs-property">@setup</span>.timeout
-        <span class="hljs-property">@timer</span> = setTimeout -&gt;
-          debugCmd chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> close stream because timeout exceeded"</span>
-          stream.emit <span class="hljs-string">'close'</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">15</span>
-        , <span class="hljs-property">@setup</span>.timeout + <span class="hljs-number">1000</span>
+      <span class="hljs-keyword">if</span> @setup.timeout
+        @timer = setTimeout -&gt;
+          debugCmd chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> close stream because timeout exceeded"</span>
+          stream.emit <span class="hljs-string">'close'</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">15</span>
+        , @setup.timeout + <span class="hljs-number">1000</span>
       carrier.carry stream, <span class="hljs-function"><span class="hljs-params">(line)</span> =&gt;</span>
-        <span class="hljs-property">@result</span>.lines.push [<span class="hljs-number">1</span>, line]
-        <span class="hljs-property">@emit</span> <span class="hljs-string">'stdout'</span>, line <span class="hljs-comment"># send through</span>
-        debugOut <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> <span class="hljs-subst">#{line}</span>"</span>
+        @result.lines.push [<span class="hljs-number">1</span>, line]
+        @emit <span class="hljs-string">'stdout'</span>, line <span class="hljs-comment"># send through</span>
+        debugOut <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> <span class="hljs-subst">#{line}</span>"</span>
       , <span class="hljs-string">'utf-8'</span>, <span class="hljs-regexp">/\r?\n|\r(?!\n)/</span> <span class="hljs-comment"># match also single \r</span>
       carrier.carry stream.stderr, <span class="hljs-function"><span class="hljs-params">(line)</span> =&gt;</span>
-        <span class="hljs-property">@result</span>.lines.push [<span class="hljs-number">2</span>, line]
-        <span class="hljs-property">@emit</span> <span class="hljs-string">'stderr'</span>, line <span class="hljs-comment"># send through</span>
-        debugErr <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> <span class="hljs-subst">#{line}</span>"</span>
+        @result.lines.push [<span class="hljs-number">2</span>, line]
+        @emit <span class="hljs-string">'stderr'</span>, line <span class="hljs-comment"># send through</span>
+        debugErr <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> <span class="hljs-subst">#{line}</span>"</span>
       , <span class="hljs-string">'utf-8'</span>, <span class="hljs-regexp">/\r?\n|\r(?!\n)/</span> <span class="hljs-comment"># match also single \r</span></pre>
         </td>
       </tr>
@@ -331,20 +330,20 @@ Run local command
         <td class="code highlight">
           <pre class="coffeescript">      stream.<span class="hljs-literal">on</span> <span class="hljs-string">'close'</span>, <span class="hljs-function"><span class="hljs-params">(code, signal)</span> =&gt;</span>
         disconnect conn
-        clearTimeout <span class="hljs-property">@timer</span>
-        <span class="hljs-property">@result</span>.code = code
+        clearTimeout @timer
+        @result.code = code
         process.nextTick =&gt;
-          <span class="hljs-property">@process</span>.end = <span class="hljs-keyword">new</span> Date()
+          @process.end = <span class="hljs-keyword">new</span> Date()
           <span class="hljs-keyword">if</span> signal?
-            <span class="hljs-property">@process</span>.error = <span class="hljs-keyword">new</span> Error <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> exit: signal <span class="hljs-subst">#{signal}</span>
-            after <span class="hljs-subst">#{<span class="hljs-property">@process</span>.end-<span class="hljs-property">@process</span>.start}</span> ms"</span>
-            <span class="hljs-property">@code</span> ?= -<span class="hljs-number">1</span>
+            @process.error = <span class="hljs-keyword">new</span> Error <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> exit: signal <span class="hljs-subst">#{signal}</span>
+            after <span class="hljs-subst">#{@process.end-@process.start}</span> ms"</span>
+            @code ?= <span class="hljs-number">-1</span>
           <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> code
-            <span class="hljs-property">@process</span>.error = <span class="hljs-keyword">new</span> Error <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@name</span>}</span> exit: code <span class="hljs-subst">#{<span class="hljs-property">@result</span>.code}</span>
-            after <span class="hljs-subst">#{<span class="hljs-property">@process</span>.end-<span class="hljs-property">@process</span>.start}</span> ms"</span>
-          <span class="hljs-keyword">if</span> <span class="hljs-property">@process</span>.error?
-            debugCmd <span class="hljs-property">@process</span>.error.message
-          <span class="hljs-property">@emit</span> <span class="hljs-string">'done'</span>, <span class="hljs-property">@result</span>.code
+            @process.error = <span class="hljs-keyword">new</span> Error <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> exit: code <span class="hljs-subst">#{@result.code}</span>
+            after <span class="hljs-subst">#{@process.end-@process.start}</span> ms"</span>
+          <span class="hljs-keyword">if</span> @process.error?
+            debugCmd @process.error.message
+          @emit <span class="hljs-string">'done'</span>, @result.code
           cb <span class="hljs-literal">null</span>, <span class="hljs-keyword">this</span> <span class="hljs-keyword">if</span> cb</pre>
         </td>
       </tr>
@@ -360,7 +359,7 @@ Check vital signs
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">vital = async.onceTime (host, vital, date, cb) -&gt;
+          <pre class="coffeescript">vital = util.function.onceTime (host, vital, date, cb) -&gt;
   <span class="hljs-keyword">return</span> cb vital.failed <span class="hljs-keyword">if</span> vital.date <span class="hljs-keyword">is</span> date <span class="hljs-keyword">and</span> vital.failed
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> vital.date <span class="hljs-keyword">is</span> date</pre>
         </td>
@@ -519,9 +518,9 @@ Export public methods
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports =
-  <span class="hljs-attribute">run</span>: run
-  <span class="hljs-attribute">vital</span>: vital
-  <span class="hljs-attribute">closeAll</span>: closeAll</pre>
+  run: run
+  vital: vital
+  closeAll: closeAll</pre>
         </td>
       </tr>
     
@@ -660,7 +659,7 @@ Open a new connection
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">open</span> = <span class="hljs-params">(host, cb)</span> -&gt;</span>
-  done = async.onceSkip (err, conn, cb) -&gt;
+  done = util.function.onceSkip (err, conn, cb) -&gt;
     cb err, conn
   conf = config.get <span class="hljs-string">'exec/remote/server/'</span> + host</pre>
         </td>
@@ -691,8 +690,8 @@ Open a new connection
   .<span class="hljs-literal">on</span> <span class="hljs-string">'end'</span>, <span class="hljs-function">-&gt;</span>
     debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> connection closed"</span>
     close host, conn
-  .connect object.extend {}, conf,
-    <span class="hljs-attribute">debug</span>: <span class="hljs-keyword">unless</span> conf.debug <span class="hljs-keyword">then</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">else</span> (msg) -&gt;
+  .connect util.extend <span class="hljs-string">'MODE CLONE'</span>, conf,
+    debug: <span class="hljs-keyword">unless</span> conf.debug <span class="hljs-keyword">then</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">else</span> (msg) -&gt;
       debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{conn.name}</span> <span class="hljs-subst">#{msg}</span>"</span></pre>
         </td>
       </tr>

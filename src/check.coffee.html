@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-exec/src/check.coffee";
+    var thisFile = "src/check.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -105,23 +105,23 @@ Node Modules
 
 <span class="hljs-built_in">module</span>.exports =
 
-  <span class="hljs-attribute">nothing</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+  nothing: <span class="hljs-function">-&gt;</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
 
-  <span class="hljs-attribute">noExitCode</span>: <span class="hljs-function">-&gt;</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@result</span>.code <span class="hljs-keyword">is</span> <span class="hljs-number">0</span>
-    <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Process <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> returned exit code <span class="hljs-subst">#{<span class="hljs-property">@result</span>.code}</span> but should be 0."</span>
+  noExitCode: <span class="hljs-function">-&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> @result.code <span class="hljs-keyword">is</span> <span class="hljs-number">0</span>
+    <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Process <span class="hljs-subst">#{@setup.cmd}</span> returned exit code <span class="hljs-subst">#{@result.code}</span> but should be 0."</span>
 
-  <span class="hljs-attribute">exitCode</span>: <span class="hljs-function"><span class="hljs-params">(args...)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> <span class="hljs-property">@result</span>.code <span class="hljs-keyword">in</span> args
+  exitCode: <span class="hljs-function"><span class="hljs-params">(args...)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> @result.code <span class="hljs-keyword">in</span> args
     <span class="hljs-keyword">new</span> Error <span class="hljs-string">"""
-    Process <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> returned not allowed exit code <span class="hljs-subst">#{<span class="hljs-property">@result</span>.code}</span>.
+    Process <span class="hljs-subst">#{@setup.cmd}</span> returned not allowed exit code <span class="hljs-subst">#{@result.code}</span>.
     Only <span class="hljs-subst">#{args.join <span class="hljs-string">', '</span>}</span> <span class="hljs-subst">#{<span class="hljs-keyword">if</span> args.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'is'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'are'</span>}</span> allowed as exit code.
     """</span>
 
-  <span class="hljs-attribute">noStderr</span>: <span class="hljs-function">-&gt;</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> res = <span class="hljs-property">@stderr</span>()
+  noStderr: <span class="hljs-function">-&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> res = @stderr()
     <span class="hljs-keyword">new</span> Error <span class="hljs-string">"""
-    STDERR of <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> should be empty but got:
+    STDERR of <span class="hljs-subst">#{@setup.cmd}</span> should be empty but got:
 </span></pre>
         </td>
       </tr>
@@ -157,11 +157,11 @@ Node Modules
 
   stderr: -&gt;
     return false if @stderr()
-    new Error "STDERR of <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> should be set but was empty"
+    new Error "STDERR of <span class="hljs-subst">#{@setup.cmd}</span> should be set but was empty"
 
   stdout: -&gt;
     return false if @stdout()
-    new Error "STDOUT of <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> should be set but was empty"
+    new Error "STDOUT of <span class="hljs-subst">#{@setup.cmd}</span> should be set but was empty"
 
   matchStdout: (ok, report) -&gt;
     return false if @stdout().match ok
@@ -172,8 +172,8 @@ Node Modules
     reason = if res?
       "with: \"<span class="hljs-subst">#{res.join <span class="hljs-string">'", "'</span>}</span>\""
     else
-      "because got:\n<span class="hljs-subst">#{abstract <span class="hljs-property">@stdout</span>()}</span>"
-    new Error "STDOUT of <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> should match <span class="hljs-subst">#{ok}</span> but failed <span class="hljs-subst">#{reason}</span>."
+      "because got:\n<span class="hljs-subst">#{abstract @stdout()}</span>"
+    new Error "STDOUT of <span class="hljs-subst">#{@setup.cmd}</span> should match <span class="hljs-subst">#{ok}</span> but failed <span class="hljs-subst">#{reason}</span>."
 
   matchStderr: (ok, report) -&gt;
     return false if @stderr().match ok
@@ -184,21 +184,21 @@ Node Modules
     reason = if res?
       "with: \"<span class="hljs-subst">#{res.join <span class="hljs-string">'", "'</span>}</span>\""
     else
-      "because got:\n<span class="hljs-subst">#{abstract <span class="hljs-property">@stderr</span>()}</span>"
-    new Error "STDERR of <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> should match <span class="hljs-subst">#{ok}</span> but failed <span class="hljs-subst">#{reason}</span>."
+      "because got:\n<span class="hljs-subst">#{abstract @stderr()}</span>"
+    new Error "STDERR of <span class="hljs-subst">#{@setup.cmd}</span> should match <span class="hljs-subst">#{ok}</span> but failed <span class="hljs-subst">#{reason}</span>."
 
   notMatchStderr: (fail) -&gt;
     return false unless res = @stderr().match fail
     if res.input
       res = if res.length &gt; 1 then res[1..-1] else [res[0]]
-    new Error "Process <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> failed with: \"<span class="hljs-subst">#{res.join <span class="hljs-string">'\", \"'</span>}</span>\""
+    new Error "Process <span class="hljs-subst">#{@setup.cmd}</span> failed with: \"<span class="hljs-subst">#{res.join <span class="hljs-string">'\", \"'</span>}</span>\""
 
   stdoutLines: (min, max) -&gt;
     lines = if @stdout() then @stdout().split /\n/ else []
     min ?= lines.length
     max ?= lines.length
     return false if min &lt;= lines.length &lt;= max
-    new Error "Process <span class="hljs-subst">#{<span class="hljs-property">@setup</span>.cmd}</span> should have <span class="hljs-subst">#{min}</span>..<span class="hljs-subst">#{max}</span> number of lines
+    new Error "Process <span class="hljs-subst">#{@setup.cmd}</span> should have <span class="hljs-subst">#{min}</span>..<span class="hljs-subst">#{max}</span> number of lines
     but has <span class="hljs-subst">#{lines.length}</span>"
 
 </span></pre>

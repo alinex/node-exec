@@ -7,7 +7,7 @@
   <script src="doc-filelist.js"></script>
   <script>
     var relativeDir = "";
-    var thisFile = "home/alex/github/node-exec/README.md";
+    var thisFile = "README.md";
     var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
@@ -105,7 +105,11 @@
       </div>
 
       <div class="heading h3">
-        <a href="#streams">Streams</a>
+        <a href="#events">Events</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#stremas">Stremas</a>
       </div>
 
       <div class="heading h2">
@@ -153,7 +157,7 @@ wrapper arround the core <code>process.spawn</code> command. It's benefits are:<
 </ul>
 <blockquote>
 <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
-following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
+following the code standards defined in the <a href="http://alinex.github.io/develop">General Docs</a>.</p>
 </blockquote>
 <div class="pilwrap" id="install">
   <h2>
@@ -171,7 +175,7 @@ Install
 <p>And update it to the latest version later:</p>
 <pre><code class="sh">npm update alinex-exec --save
 </code></pre>
-<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
 <div class="pilwrap" id="usage">
   <h2>
     <a href="#usage" name="usage" class="pilcrow"></a>
@@ -192,7 +196,7 @@ Run an external command
 </div>
 <p>Now you may setup an external process like:</p>
 <pre><code class="coffee">proc = <span class="hljs-keyword">new</span> Exec
-  <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'date'</span>
+  cmd: <span class="hljs-string">'date'</span>
 </code></pre>
 <p>You may also change the configuration afterwards like:</p>
 <pre><code class="coffee">proc.setup.cmd = <span class="hljs-string">'date'</span>
@@ -213,7 +217,7 @@ Simplified run
 </div>
 <p>You may call all of this directly using:</p>
 <pre><code class="coffee">Exec.run
-  <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'date'</span>
+  cmd: <span class="hljs-string">'date'</span>
 , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
   <span class="hljs-comment"># work with the results within the process instance</span>
 </code></pre>
@@ -248,27 +252,27 @@ Retry if failed
 </div>
 <p>In this part you define the number of retries and timeouts used for rechecking in
 all parts which prevent the execution to start or run successfully.</p>
-<pre><code class="yaml">retry:
-  # check for host vital signs
-  vital:
-    # time to recheck host vital signs
-    interval: 5s
-    # maximum load% per CPU core per second in usage to start
-    startload: 80%
-  # too much processes opened on system
-  ulimit:
-    # time to sleep till next try
-    interval: 1s
-  # a queue will be created if host is overloaded
-  queue:
-    # specify the time after that a retry for queued executions should run
-    interval: 3s
-  # process failed retry check
-  error:
-    # number of attempts
-    times: 3
-    # time to sleep till next try
-    interval: 3s
+<pre><code class="yaml"><span class="hljs-attr">retry:</span>
+  <span class="hljs-comment"># check for host vital signs</span>
+<span class="hljs-attr">  vital:</span>
+    <span class="hljs-comment"># time to recheck host vital signs</span>
+<span class="hljs-attr">    interval:</span> <span class="hljs-number">5</span>s
+    <span class="hljs-comment"># maximum load% per CPU core per second in usage to start</span>
+<span class="hljs-attr">    startload:</span> <span class="hljs-number">80</span>%
+  <span class="hljs-comment"># too much processes opened on system</span>
+<span class="hljs-attr">  ulimit:</span>
+    <span class="hljs-comment"># time to sleep till next try</span>
+<span class="hljs-attr">    interval:</span> <span class="hljs-number">1</span>s
+  <span class="hljs-comment"># a queue will be created if host is overloaded</span>
+<span class="hljs-attr">  queue:</span>
+    <span class="hljs-comment"># specify the time after that a retry for queued executions should run</span>
+<span class="hljs-attr">    interval:</span> <span class="hljs-number">3</span>s
+  <span class="hljs-comment"># process failed retry check</span>
+<span class="hljs-attr">  error:</span>
+    <span class="hljs-comment"># number of attempts</span>
+<span class="hljs-attr">    times:</span> <span class="hljs-number">3</span>
+    <span class="hljs-comment"># time to sleep till next try</span>
+<span class="hljs-attr">    interval:</span> <span class="hljs-number">3</span>s
 </code></pre>
 <p>All <code>interval</code> settings can be set as a time range in milliseconds or with the
 unit appended. Use something like '1.5s' (possible units: ms, s, m, h, d).</p>
@@ -280,48 +284,48 @@ Priority Levels
 </div>
 <p>This defines the possible priority levels to be used. The following configuration
 shows the default.</p>
-<pre><code class="yaml">priority:
-  # specify the default priority
-  default: medium
-  # specify the possible priorities with their checks
-  level:
-    anytime:
-      maxCpu: 20%
-      maxLoad: 20%
-      nice: 19
-    low:
-      maxCpu: 40%
-      maxLoad: 60%
-      nice: 10
-    medium:
-      maxCpu: 60%
-      maxLoad: 100%
-      nice: 5
-    high:
-      maxCpu: 90%
-      maxLoad: 150%
-    immediately:
-      nice: -20
+<pre><code class="yaml"><span class="hljs-attr">priority:</span>
+  <span class="hljs-comment"># specify the default priority</span>
+<span class="hljs-attr">  default:</span> medium
+  <span class="hljs-comment"># specify the possible priorities with their checks</span>
+<span class="hljs-attr">  level:</span>
+<span class="hljs-attr">    anytime:</span>
+<span class="hljs-attr">      maxCpu:</span> <span class="hljs-number">20</span>%
+<span class="hljs-attr">      maxLoad:</span> <span class="hljs-number">20</span>%
+<span class="hljs-attr">      nice:</span> <span class="hljs-number">19</span>
+<span class="hljs-attr">    low:</span>
+<span class="hljs-attr">      maxCpu:</span> <span class="hljs-number">40</span>%
+<span class="hljs-attr">      maxLoad:</span> <span class="hljs-number">60</span>%
+<span class="hljs-attr">      nice:</span> <span class="hljs-number">10</span>
+<span class="hljs-attr">    medium:</span>
+<span class="hljs-attr">      maxCpu:</span> <span class="hljs-number">60</span>%
+<span class="hljs-attr">      maxLoad:</span> <span class="hljs-number">100</span>%
+<span class="hljs-attr">      nice:</span> <span class="hljs-number">5</span>
+<span class="hljs-attr">    high:</span>
+<span class="hljs-attr">      maxCpu:</span> <span class="hljs-number">90</span>%
+<span class="hljs-attr">      maxLoad:</span> <span class="hljs-number">150</span>%
+<span class="hljs-attr">    immediately:</span>
+<span class="hljs-attr">      nice:</span> <span class="hljs-bullet">-20</span>
 </code></pre>
 <p>You may add other values or remove some of them to get your very own set of priorities:</p>
-<pre><code class="yaml">priority:
-  # specify the possible priorities with their checks
-  level:
-    low: null
-    medium: null
-    high: null
-    1:
-      maxCpu: 40%
-      maxLoad: 100%
-      nice: 15
-    2:
-      maxCpu: 50%
-      maxLoad: 120%
-      nice: 5
-    3:
-      maxCpu: 60%
-      maxLoad: 140%
-      nice: 0
+<pre><code class="yaml"><span class="hljs-attr">priority:</span>
+  <span class="hljs-comment"># specify the possible priorities with their checks</span>
+<span class="hljs-attr">  level:</span>
+<span class="hljs-attr">    low:</span> <span class="hljs-literal">null</span>
+<span class="hljs-attr">    medium:</span> <span class="hljs-literal">null</span>
+<span class="hljs-attr">    high:</span> <span class="hljs-literal">null</span>
+    <span class="hljs-number">1</span>:
+<span class="hljs-attr">      maxCpu:</span> <span class="hljs-number">40</span>%
+<span class="hljs-attr">      maxLoad:</span> <span class="hljs-number">100</span>%
+<span class="hljs-attr">      nice:</span> <span class="hljs-number">15</span>
+    <span class="hljs-number">2</span>:
+<span class="hljs-attr">      maxCpu:</span> <span class="hljs-number">50</span>%
+<span class="hljs-attr">      maxLoad:</span> <span class="hljs-number">120</span>%
+<span class="hljs-attr">      nice:</span> <span class="hljs-number">5</span>
+    <span class="hljs-number">3</span>:
+<span class="hljs-attr">      maxCpu:</span> <span class="hljs-number">60</span>%
+<span class="hljs-attr">      maxLoad:</span> <span class="hljs-number">140</span>%
+<span class="hljs-attr">      nice:</span> <span class="hljs-number">0</span>
 </code></pre>
 <div class="pilwrap" id="remote-servers">
   <h3>
@@ -330,21 +334,21 @@ Remote Servers
   </h3>
 </div>
 <p>This section shows you how to setup remote servers:</p>
-<pre><code class="yaml"># Define remote hosts or host pools to be used through ssh.
-remote:
-  server:
-    # virtual name for server
-    server1:
-      # hostname or ip to connect to
-      host: localhost
-      # connection port
-      port:  ssh
-      # user to login as
-      username: alex
-      # (optionally) login using password
-      #password: 'geheim'
-      # (optionally) private key for login
-      privateKey: &lt;&lt;&lt;file:///home/alex/.ssh/id_rsa&gt;&gt;&gt;
+<pre><code class="yaml"><span class="hljs-comment"># Define remote hosts or host pools to be used through ssh.</span>
+<span class="hljs-attr">remote:</span>
+<span class="hljs-attr">  server:</span>
+    <span class="hljs-comment"># virtual name for server</span>
+<span class="hljs-attr">    server1:</span>
+      <span class="hljs-comment"># hostname or ip to connect to</span>
+<span class="hljs-attr">      host:</span> localhost
+      <span class="hljs-comment"># connection port</span>
+<span class="hljs-attr">      port:</span>  ssh
+      <span class="hljs-comment"># user to login as</span>
+<span class="hljs-attr">      username:</span> alex
+      <span class="hljs-comment"># (optionally) login using password</span>
+      <span class="hljs-comment">#password: 'geheim'</span>
+      <span class="hljs-comment"># (optionally) private key for login</span>
+<span class="hljs-attr">      privateKey:</span> &lt;&lt;&lt;file:///home/alex/.ssh/id_rsa&gt;&gt;<span class="hljs-string">&gt;
       # the passphrase for the key (if necessary)
       #passphrase: '.....'
       # the host used for hostbased authentication
@@ -352,27 +356,27 @@ remote:
       # the username for host based authentcation
       #localUsername: '...'
       # time for sending keepalive packets
-      keepaliveIntervall: 1s
-      # the maximum time for the ssh handshake
-      readyTimeout: 20s
-      # maximum load to start here per each cpu
-      startload: 2.4
-      # maximum number of parallel sessions on this connection
-      #maxSessions: 4
-      # debug also server communication
-      debug: false
-    server2:
-      host: 127.0.0.1
-      port:  ssh
-      username: alex
-      password: dontknow
-      maxConnections: 5
-  group:
-    testpool:
-      - host: server1
-        weight: 0.4
-      - host: server2
-        weight: 0.6
+</span><span class="hljs-attr">      keepaliveIntervall:</span> <span class="hljs-number">1</span>s
+      <span class="hljs-comment"># the maximum time for the ssh handshake</span>
+<span class="hljs-attr">      readyTimeout:</span> <span class="hljs-number">20</span>s
+      <span class="hljs-comment"># maximum load to start here per each cpu</span>
+<span class="hljs-attr">      startload:</span> <span class="hljs-number">2.4</span>
+      <span class="hljs-comment"># maximum number of parallel sessions on this connection</span>
+      <span class="hljs-comment">#maxSessions: 4</span>
+      <span class="hljs-comment"># debug also server communication</span>
+<span class="hljs-attr">      debug:</span> <span class="hljs-literal">false</span>
+<span class="hljs-attr">    server2:</span>
+<span class="hljs-attr">      host:</span> <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
+<span class="hljs-attr">      port:</span>  ssh
+<span class="hljs-attr">      username:</span> alex
+<span class="hljs-attr">      password:</span> dontknow
+<span class="hljs-attr">      maxConnections:</span> <span class="hljs-number">5</span>
+<span class="hljs-attr">  group:</span>
+<span class="hljs-attr">    testpool:</span>
+<span class="hljs-attr">      - host:</span> server1
+<span class="hljs-attr">        weight:</span> <span class="hljs-number">0.4</span>
+<span class="hljs-attr">      - host:</span> server2
+<span class="hljs-attr">        weight:</span> <span class="hljs-number">0.6</span>
 </code></pre>
 <p>As seen above there are two servers defined to access as <code>server1</code> and <code>server2</code>
 both are the localhost for test purpose.</p>
@@ -389,7 +393,7 @@ schema = <span class="hljs-built_in">require</span> <span class="hljs-string">'.
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span></span>
 
-  <span class="hljs-property">@setup</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  @setup: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
     <span class="hljs-comment"># setup module configs first</span>
     async.each [Exec], <span class="hljs-function"><span class="hljs-params">(mod, cb)</span> -&gt;</span>
       mod.setup cb
@@ -401,10 +405,10 @@ schema = <span class="hljs-built_in">require</span> <span class="hljs-string">'.
       config.register <span class="hljs-string">'app'</span>, fspath.dirname __dirname
       cb()
 
-  <span class="hljs-property">@init</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  @init: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
     config.init (err) =&gt;
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-      <span class="hljs-property">@conf</span> = config.get <span class="hljs-string">'/app'</span>
+      @conf = config.get <span class="hljs-string">'/app'</span>
       cb()
 </code></pre>
 <div class="pilwrap" id="setup-execution">
@@ -507,18 +511,31 @@ if not output the result of the report RegExp</li>
 which you may use.</p>
 <p>As an example you may use:</p>
 <pre><code class="coffee">Exec.run
-  <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'ffmpeg'</span>
-  <span class="hljs-attribute">args</span>: [<span class="hljs-string">'001.wma'</span>, <span class="hljs-string">'001.mp3'</span>]
-  <span class="hljs-attribute">priority</span>: medium
-  <span class="hljs-attribute">check</span>:
-    <span class="hljs-attribute">noExitCode</span>: <span class="hljs-literal">true</span>
-    <span class="hljs-attribute">matchStdErr</span>:
-      <span class="hljs-attribute">args</span>: [<span class="hljs-regexp">/Succeeded/</span>, <span class="hljs-regexp">/Failed: (\w+)/</span>]
+  cmd: <span class="hljs-string">'ffmpeg'</span>
+  args: [<span class="hljs-string">'001.wma'</span>, <span class="hljs-string">'001.mp3'</span>]
+  priority: medium
+  check:
+    noExitCode: <span class="hljs-literal">true</span>
+    matchStdErr:
+      args: [<span class="hljs-regexp">/Succeeded/</span>, <span class="hljs-regexp">/Failed: (\w+)/</span>]
 </code></pre>
-<div class="pilwrap" id="streams">
+<div class="pilwrap" id="events">
   <h3>
-    <a href="#streams" name="streams" class="pilcrow"></a>
-Streams
+    <a href="#events" name="events" class="pilcrow"></a>
+Events
+  </h3>
+</div>
+<p>The following events are possible to use:</p>
+<ul>
+<li><code>wait</code> - (ms) wait some milliseconds before checking again</li>
+<li><code>stdout</code> - (line) output lines</li>
+<li><code>stderr</code> - (line) error output lines</li>
+<li><code>end</code>- (exitCode) if execution stopped</li>
+</ul>
+<div class="pilwrap" id="stremas">
+  <h3>
+    <a href="#stremas" name="stremas" class="pilcrow"></a>
+Stremas
   </h3>
 </div>
 <p>To concat execution with other exec instances  or other objects you may concat
