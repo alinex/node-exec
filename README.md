@@ -375,7 +375,16 @@ Exec.run
       args: [/Succeeded/, /Failed: (\w+)/]
 ```
 
-### Streams
+### Events
+
+The following events are possible to use:
+
+- `wait` - (ms) wait some milliseconds before checking again
+- `stdout` - (line) output lines
+- `stderr` - (line) error output lines
+- `end`- (exitCode) if execution stopped
+
+### Stremas
 
 To concat execution with other exec instances  or other objects you may concat
 the following streams;
