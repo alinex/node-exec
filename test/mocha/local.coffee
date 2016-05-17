@@ -88,7 +88,7 @@ describe "Local", ->
     # set gid not testable
 
     it "should use priorities", (cb) ->
-      @timeout 50000
+      @timeout 80000
       config = require 'alinex-config'
       level = Object.keys config.get 'exec/priority/level'
       async.map level, (prio, cb) ->

@@ -9,7 +9,7 @@ describe "Retry", ->
   Exec = require '../../src/index'
 
   before (cb) ->
-    @timeout 5000
+    @timeout 15000
     Exec.setup ->
       config.pushOrigin
         uri: "#{__dirname}/../data/config/exec.yml"
