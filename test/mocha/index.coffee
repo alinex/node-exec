@@ -8,7 +8,7 @@ describe "Base", ->
   config = require 'alinex-config'
 
   before (cb) ->
-    @timeout 5000
+    @timeout 15000
     Exec.setup ->
       config.pushOrigin
         uri: "#{__dirname}/../data/config/exec.yml"
@@ -17,12 +17,13 @@ describe "Base", ->
   describe "config", ->
 
     it "should run the selfcheck on the schema", (cb) ->
+      @timeout 5000
       validator = require 'alinex-validator'
       schema = require '../../src/configSchema'
       validator.selfcheck schema, cb
 
     it "should initialize config", (cb) ->
-      @timeout 4000
+      @timeout 10000
       Exec.init (err) ->
         expect(err, 'init error').to.not.exist
         config = require 'alinex-config'
