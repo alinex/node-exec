@@ -58,12 +58,12 @@ run = (cb) ->
         , @setup.timeout + 1000
       carrier.carry stream, (line) =>
         @result.lines.push [1, line]
-        @emit 'stdout', line # send through
+        @emit 'stdout', line if line # send through
         debugOut "#{@name} #{line}"
       , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
       carrier.carry stream.stderr, (line) =>
         @result.lines.push [2, line]
-        @emit 'stderr', line # send through
+        @emit 'stderr', line if line # send through
         debugErr "#{@name} #{line}"
       , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
       # process finished

@@ -384,6 +384,29 @@ The following events are possible to use:
 - `stderr` - (line) error output lines
 - `end`- (exitCode) if execution stopped
 
+To use events to immediately see what goes on you will call the execution like:
+
+``` coffee
+Exec.init (err) ->
+  return cb err if err
+  proc = new Exec
+    cmd: 'ffmpeg'
+    args: ['001.wma', '001.mp3']
+    priority: medium
+    check:
+      noExitCode: true
+      matchStdErr:
+        args: [/Succeeded/, /Failed: (\w+)/]
+  proc.on 'stdout', (line) -> console.log line
+  proc.on 'stderr', (line) -> console.error line
+  proc.on 'done', (code) -> console.log "Exit with code #{code}"
+  proc.run (err) ->
+    return cb err if err
+```
+
+This will always printout a line immediately if a full line comes from the
+command. Empty lines will be ignored. 
+
 ### Stremas
 
 To concat execution with other exec instances  or other objects you may concat
