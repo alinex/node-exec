@@ -4,6 +4,16 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.3 (2016-05-18)
+-------------------------------------------------
+Better event support.
+
+- Enhance test timeouts.
+- Upgraded config, util and builder package.
+- Upgraded config, util and builder package.
+- Optimize event support to get process output.
+- Add events to documentation.
+
 Version 1.1.2 (2016-05-04)
 -------------------------------------------------
 - Fixed alinex-util include.

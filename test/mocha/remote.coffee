@@ -5,13 +5,13 @@ async = require 'async'
 fs = require 'fs'
 
 describe "Remote", ->
-  @timeout 15000
+  @timeout 20000
 
   config = require 'alinex-config'
   Exec = require '../../src/index'
 
   before (cb) ->
-    @timeout 20000
+    @timeout 50000
     Exec.setup ->
       config.pushOrigin
         uri: "#{__dirname}/../data/config/exec.yml"
@@ -119,13 +119,13 @@ describe "Remote", ->
             expect(err, 'error').to.not.exist
             cb()
             expect(exec.result.code, "code").equal 0
-        , (err) ->
+        , ->
           cb()
 
     it "should use priorities", (cb) ->
       return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
       # not really showing a change but worḱing
-      @timeout 50000
+      @timeout 120000
       config = require 'alinex-config'
       level = Object.keys config.get 'exec/priority/level'
       async.map level, (prio, cb) ->
@@ -140,6 +140,7 @@ describe "Remote", ->
         cb()
 
     it "should support timeout", (cb) ->
+      @timeout 25000
       return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
       exec = new Exec
         remote: 'server1'

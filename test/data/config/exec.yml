@@ -35,8 +35,8 @@ priority:
   # specify the possible priorities with their checks
   level:
     anytime:
-      maxCpu: 20%
-      maxLoad: 20%
+      maxCpu: 30%
+      maxLoad: 40%
       nice: 19
     low:
       maxCpu: 40%
