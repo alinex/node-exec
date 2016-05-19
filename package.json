@@ -41,7 +41,7 @@
     "ssh2": "^0.5.0"
   },
   "devDependencies": {
-    "alinex-builder": "^2.0.8",
+    "alinex-builder": "^2.1.0",
     "alinex-validator": "^1.6.2",
     "chai": "^3.5.0"
   },
