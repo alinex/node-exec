@@ -8,7 +8,7 @@ describe "Base", ->
   config = require 'alinex-config'
 
   before (cb) ->
-    @timeout 15000
+    @timeout 20000
     Exec.setup ->
       config.pushOrigin
         uri: "#{__dirname}/../data/config/exec.yml"
@@ -17,10 +17,10 @@ describe "Base", ->
   describe "config", ->
 
     it "should run the selfcheck on the schema", (cb) ->
-      @timeout 5000
       validator = require 'alinex-validator'
       schema = require '../../src/configSchema'
       validator.selfcheck schema, cb
+      @timeout 5000
 
     it "should initialize config", (cb) ->
       @timeout 10000
@@ -35,6 +35,7 @@ describe "Base", ->
           cb()
 
   describe "command", ->
+    @timeout 5000
 
     it "should run with extra arguments", (cb) ->
       now = (new Date()).toISOString()
