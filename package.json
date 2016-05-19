@@ -26,7 +26,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "prepublish": "node_modules/.bin/builder compile --uglify",
-    "test": "DEBUG=exec* node_modules/.bin/builder test -vvvv"
+    "test": "/home/travis/build/alinex/node-exec/node_modules/alinex-builder/node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c --recursive test/mocha"
   },
   "directories": {
     "lib": "./lib"
