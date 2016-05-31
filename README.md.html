@@ -532,6 +532,25 @@ Events
 <li><code>stderr</code> - (line) error output lines</li>
 <li><code>end</code>- (exitCode) if execution stopped</li>
 </ul>
+<p>To use events to immediately see what goes on you will call the execution like:</p>
+<pre><code class="coffee">Exec.init (err) -&gt;
+  <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+  proc = <span class="hljs-keyword">new</span> Exec
+    cmd: <span class="hljs-string">'ffmpeg'</span>
+    args: [<span class="hljs-string">'001.wma'</span>, <span class="hljs-string">'001.mp3'</span>]
+    priority: medium
+    check:
+      noExitCode: <span class="hljs-literal">true</span>
+      matchStdErr:
+        args: [<span class="hljs-regexp">/Succeeded/</span>, <span class="hljs-regexp">/Failed: (\w+)/</span>]
+  proc.<span class="hljs-literal">on</span> <span class="hljs-string">'stdout'</span>, <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span> <span class="hljs-built_in">console</span>.log line
+  proc.<span class="hljs-literal">on</span> <span class="hljs-string">'stderr'</span>, <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span> <span class="hljs-built_in">console</span>.error line
+  proc.<span class="hljs-literal">on</span> <span class="hljs-string">'done'</span>, <span class="hljs-function"><span class="hljs-params">(code)</span> -&gt;</span> <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Exit with code <span class="hljs-subst">#{code}</span>"</span>
+  proc.run (err) -&gt;
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</code></pre>
+<p>This will always printout a line immediately if a full line comes from the
+command. Empty lines will be ignored.</p>
 <div class="pilwrap" id="stremas">
   <h3>
     <a href="#stremas" name="stremas" class="pilcrow"></a>

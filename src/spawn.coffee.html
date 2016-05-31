@@ -339,12 +339,12 @@ Run local command
   @result.lines = []
   carrier.carry @proc.stdout, <span class="hljs-function"><span class="hljs-params">(line)</span> =&gt;</span>
     @result.lines.push [<span class="hljs-number">1</span>, line]
-    @emit <span class="hljs-string">'stdout'</span>, line <span class="hljs-comment"># send through</span>
+    @emit <span class="hljs-string">'stdout'</span>, line <span class="hljs-keyword">if</span> line <span class="hljs-comment"># send through</span>
     debugOut <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> <span class="hljs-subst">#{line}</span>"</span>
   , <span class="hljs-string">'utf-8'</span>, <span class="hljs-regexp">/\r?\n|\r(?!\n)/</span> <span class="hljs-comment"># match also single \r</span>
   carrier.carry @proc.stderr, <span class="hljs-function"><span class="hljs-params">(line)</span> =&gt;</span>
     @result.lines.push [<span class="hljs-number">2</span>, line]
-    @emit <span class="hljs-string">'stderr'</span>, line <span class="hljs-comment"># send through</span>
+    @emit <span class="hljs-string">'stderr'</span>, line <span class="hljs-keyword">if</span> line <span class="hljs-comment"># send through</span>
     debugErr <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> <span class="hljs-subst">#{line}</span>"</span>
   , <span class="hljs-string">'utf-8'</span>, <span class="hljs-regexp">/\r?\n|\r(?!\n)/</span> <span class="hljs-comment"># match also single \r</span></pre>
         </td>
