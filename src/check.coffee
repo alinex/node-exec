@@ -18,7 +18,14 @@ module.exports =
 
   noExitCode: ->
     return false if @result.code is 0
-    new Error "Process #{@setup.cmd} returned exit code #{@result.code} but should be 0."
+    err = new Error "Process #{@setup.cmd} returned exit code #{@result.code} but should be 0."
+    # add last five lines of error output
+    err.description = (
+      @sresult.data.lines
+      .filter (e) -> e[0] is 2
+      .map (e) -> e[1]
+    )[-5..].join '\n'
+    err
 
   exitCode: (args...) ->
     return false if @result.code in args
