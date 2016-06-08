@@ -37,7 +37,8 @@ module.exports.cmdline = (setup, host) ->
     cmdline.unshift 'cd', escape(setup.cwd), '&&'
   # set environment to english language
   env = setup.env ? {LANG: 'C', LC_ALL: 'C'}
-  cmdline.unshift "#{k}=#{v}" for k, v of env
+  for k, v of env
+    cmdline.unshift "#{k}=#{if v.match /\s/ then '"' + v + '"' else v}"
   cmdline.join(' ').trim()
 
 escape = (arg) ->
