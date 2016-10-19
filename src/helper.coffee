@@ -38,6 +38,7 @@ module.exports.cmdline = (setup, host) ->
   # set environment to english language
   env = setup.env ? {LANG: 'C', LC_ALL: 'C'}
   for k, v of env
+    continue unless v?
     cmdline.unshift "#{k}=#{if v.match /\s/ then '"' + v + '"' else v}"
   cmdline.join(' ').trim()
 

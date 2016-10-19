@@ -201,6 +201,7 @@ class Exec extends EventEmitter
 
   # create a new execution object to specify and call later
   constructor: (@setup) ->
+    console.log '----------------------->', @setup
     @id = ++objectId
     host = @setup.remote ? 'localhost'
     @name = chalk.grey "#{host}##{@id}:"
