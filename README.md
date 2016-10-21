@@ -1,9 +1,40 @@
-Package: alinex-exec
+Alinex Exec: Readme
 =================================================
 
-[![Build Status](https://travis-ci.org/alinex/node-exec.svg?branch=master)](https://travis-ci.org/alinex/node-exec)
-[![Coverage Status](https://coveralls.io/repos/alinex/node-exec/badge.png?branch=master)](https://coveralls.io/r/alinex/node-exec?branch=master)
-[![Dependency Status](https://gemnasium.com/alinex/node-exec.png)](https://gemnasium.com/alinex/node-exec)
+[![GitHub watchers](
+  https://img.shields.io/github/watchers/alinex/node-exec.svg?style=social&label=Watch&maxAge=2592000)](
+  https://github.com/alinex/node-exec/subscription)
+<!-- {.hidden-small} -->
+[![GitHub stars](
+  https://img.shields.io/github/stars/alinex/node-exec.svg?style=social&label=Star&maxAge=2592000)](
+  https://github.com/alinex/node-exec)
+[![GitHub forks](
+  https://img.shields.io/github/forks/alinex/node-exec.svg?style=social&label=Fork&maxAge=2592000)](
+  https://github.com/alinex/node-exec)
+<!-- {.hidden-small} -->
+<!-- {p:.right} -->
+
+[![npm package](
+  https://img.shields.io/npm/v/alinex-exec.svg?maxAge=2592000&label=latest%20version)](
+  https://www.npmjs.com/package/alinex-exec)
+[![latest version](
+  https://img.shields.io/npm/l/alinex-exec.svg?maxAge=2592000)](
+  #license)
+<!-- {.hidden-small} -->
+[![Travis status](
+  https://img.shields.io/travis/alinex/node-exec.svg?maxAge=2592000&label=develop)](
+  https://travis-ci.org/alinex/node-exec)
+[![Coveralls status](
+  https://img.shields.io/coveralls/alinex/node-exec.svg?maxAge=2592000)](
+  https://coveralls.io/r/alinex/node-exec?branch=master)
+[![Gemnasium status](
+  https://img.shields.io/gemnasium/alinex/node-exec.svg?maxAge=2592000)](
+  https://gemnasium.com/alinex/node-exec)
+[![GitHub issues](
+  https://img.shields.io/github/issues/alinex/node-exec.svg?maxAge=2592000)](
+  https://github.com/alinex/node-exec/issues)
+<!-- {.hidden-small} -->
+
 
 This module should be used to call external commands. It is an extended
 wrapper arround the core `process.spawn` command. It's benefits are:
@@ -15,8 +46,12 @@ wrapper arround the core `process.spawn` command. It's benefits are:
 - pipes between processes (comes later)
 - detachable execution (comes later)
 
-> It is one of the modules of the [Alinex Namespace](http://alinex.github.io/code.html)
-> following the code standards defined in the [General Docs](http://alinex.github.io/develop).
+> It is one of the modules of the [Alinex Namespace](https://alinex.github.io/code.html)
+> following the code standards defined in the [General Docs](https://alinex.github.io/develop).
+
+__Read the complete documentation under
+[https://alinex.github.io/node-exec](https://alinex.github.io/node-exec).__
+<!-- {p: .hidden} -->
 
 
 Install
@@ -30,7 +65,7 @@ The easiest way is to let npm add the module directly to your modules
 (from within you node modules directory):
 
 ``` sh
-npm install alinexexec --save
+npm install alinex-exec --save
 ```
 
 And update it to the latest version later:
@@ -405,7 +440,7 @@ Exec.init (err) ->
 ```
 
 This will always printout a line immediately if a full line comes from the
-command. Empty lines will be ignored. 
+command. Empty lines will be ignored.
 
 ### Stremas
 
