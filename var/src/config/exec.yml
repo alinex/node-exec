@@ -31,7 +31,7 @@ retry:
 # This defines the possible priority levels to be used.
 priority:
   # specify the default priority
-  default: medium
+  default: immediately
   # specify the possible priorities with their checks
   level:
     anytime:
