@@ -3,10 +3,9 @@
 # This is an object oriented implementation around the core `process.spawn`
 # command and alternatively ssh connections.
 
+
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
 debug = require('debug')('exec')
 chalk = require 'chalk'
 async = require 'async'
@@ -23,49 +22,69 @@ check = require './check'
 # -------------------------------------------------
 
 # The load should be near the sys and usr time the process needs.
+#
+# @type {Float} as fraction of what a command will add as load
 DEFAULT_LOAD = 0.001
 
-# counter for unique object IDs
+# Counter for unique object IDs which is used as internal identifier for each
+# execution.
+#
+# @type {Integer} with the last used id
 objectId = 0
 
-# Class definition
-# -------------------------------------------------
+
 class Exec extends EventEmitter
 
-  # ### Vital Data
+  # Class Properties
+  # -------------------------------------------------
 
-  # collection of vital data per host for each interval
+  # Collection of vital data per host for each interval.
+  #
+  # @type {Object} vital signs
   @vital: {}
 
-  # methods for special commands to calculate start load depending on given args
+  # Methods for special commands to calculate start load depending on given args
   # array as a hint you may use the sys and usr time which you get then running
   # the process but only within a second it may be more than 1.0 if running on
   # multi core
+  #
+  # @type {Object<Float>} other weight as the {@link DEFAULT_LOAD}
   @load:
     exiftool: -> 0.008
 
-  # ### Queue
-
-  # the queue itself jobs are listed under 'host'->'priority' lists and also
+  # The queue of jobs which are listed under 'host'->'priority' lists and it also
   # contains the corresponding callbacks
+  #
+  # @type {Object} deep list of jobs
   @queue: {}
 
-  # for statistical information this short summaries will help
+  # Current queue size to help analyze the load.
+  #
+  # @type {Object} containing the information:
+  # - `total` - `Integer` number of all jobs in queue
+  # - `host` - `Object<Integer>` number of jobs waiting on each host
+  # - `priority` - `Object<Integer>` number of jobs waiting in each priority
   @queueCounter:
     total: 0
     host: {}
     priority: {}
 
-  # ### Initialization
 
-  # set the modules config paths and validation schema
+  # Class Initialization
+  # -------------------------------------------------------------
+
+  # Set the modules config paths and validation schema.
+  #
+  # @param {Function(<Error>)} cb callback with possible error
   @setup: util.function.once this, (cb) ->
     # set module search path
     config.register false, fspath.dirname __dirname
     # add schema for module's configuration
     config.setSchema '/exec', schema, cb
 
-  # set the modules config paths, validation schema and initialize the configuration
+  # Set the modules config paths, validation schema and initialize the configuration.
+  #
+  # @param {Function(<Error>)} cb callback with possible error
   @init: util.function.once this, (cb) ->
     debug "initialize"
     # set module search path
@@ -73,15 +92,20 @@ class Exec extends EventEmitter
       return cb err if err
       config.init cb
 
-  # ### Worker
 
+  # Worker process
+  # ---------------------------------------------------------
   # The worker is a process which is started if a queue exists and work while the
   # queue is not done. It will run all the tasks by priority on all hosts.
 
-  # flag if a worker process is already started or running
+  # Flag if a worker process is already started or running.
+  #
+  # @type {Boolean} flag if an worker already exists
   @workerRunning: false
 
-  # the worker itself
+  # The worker itself.
+  #
+  # @type {Function}
   @worker: =>
     unless (hosts = Object.keys @queue).length
       @workerRunning = false
@@ -146,8 +170,15 @@ class Exec extends EventEmitter
 #      console.log '>>>>>> recall worker'
       setTimeout @worker, config.get 'exec/retry/queue/interval'
 
-  # get and check vital data - this will return an error if anything prevents
-  # from running the process
+
+  # Vital Data Analysis
+  # --------------------------------------------------------------
+
+  # @param {String} host name of server to check
+  # @return {String} priority named level of priority
+  # @return {Float} load of the questioning process which will be added
+  # @param {Function(<Error>)} cb callback with possible error
+  # if anything prevents the process from running
   @vitalCheck: (host, priority, load, cb) ->
     conf = config.get '/exec'
     prio = conf.priority.level[priority]
@@ -185,23 +216,30 @@ class Exec extends EventEmitter
       else false
       cb null, vital.error[priority]
 
-  # ### Start execution
+  # Run Execution
+  # --------------------------------------------------
 
-  # easy call to directly run execution in one statement
+  # Easy call to directly run execution in one statement.
+  #
+  # @param {Object} setup the job definition
+  # @param {Function(<Error>, <Exec>)} cb callback with possible error
+  # and the execution job which was used
   @run: (setup, cb) ->
     Exec.init (err) ->
       return cb err if err
       proc = new Exec setup
       proc.run cb
 
-  # ### Close remote connections
+  # Close remote connections
+  #
   @close: ->
     lib = require './ssh'
     lib.closeAll()
 
-  # create a new execution object to specify and call later
+  # Create a new execution object to specify and call later.
+  #
+  # @param {Object} setup the job definition
   constructor: (@setup) ->
-    console.log '----------------------->', @setup
     @id = ++objectId
     host = @setup.remote ? 'localhost'
     @name = chalk.grey "#{host}##{@id}:"
@@ -213,7 +251,9 @@ class Exec extends EventEmitter
       @setup.priority = prio.default
     debug "#{@name} created new instance with #{@setup.priority} priority"
 
-  # start execution
+  # Start execution
+  #
+  # @param {Function(<Error>)} cb callback with possible error
   run: (cb) ->
     return cb new Error "Already running." if @result?.start and not @result.end
     host = @setup.remote ? 'localhost'
@@ -232,8 +272,6 @@ class Exec extends EventEmitter
       if parts.length > 1
         @setup.cmd = parts.shift()
         @setup.args = parts.concat @setup.args ? []
-#    # if queue for host exists add this
-#    return @addQueue null, cb if Exec.queueCounter.host[host]
     # check existing vital data
     @conf ?= config.get '/exec'
     load = Exec.load[@setup.cmd]?(@setup.args) ? DEFAULT_LOAD
@@ -252,7 +290,10 @@ class Exec extends EventEmitter
         # success
         @checkResult cb
 
-  # if direct execution is not possible add this task to the queue
+  # If direct execution is not possible add this task to the queue
+  #
+  # @param {Error} err explaining why it is not possible to run
+  # @param {Function} cb which is called after execution is finally done
   addQueue: (err, cb) ->
     host = @setup.remote ? 'localhost'
     if err
@@ -271,9 +312,13 @@ class Exec extends EventEmitter
     Exec.queueCounter.priority[@setup.priority] ?= 0
     Exec.queueCounter.priority[@setup.priority]++
 
-  # ### Result
 
-  # run defined checks on result
+  # Result Analyzation
+  # ------------------------------------------------
+
+  # Run defined checks on result.
+  #
+  # @param {Function(<Error>, <Exec>)} cb with possible error and the object itself
   checkResult: (cb) ->
     # find check to use
     list = @setup.check ? {
@@ -308,6 +353,8 @@ class Exec extends EventEmitter
     debug "#{@name} succeeded"
     cb null, this
 
+  # @param {Object} data the result data from the process
+  # @return {String} whole output on the STDOUT console of the process
   stdout: (data) ->
     data ?= @result
     return data.stdout if data.stdout
@@ -318,6 +365,8 @@ class Exec extends EventEmitter
     data.stdout = stdout if data.code?
     stdout
 
+  # @param {Object} data the result data from the process
+  # @return {String} whole output on the STDERR console of the process
   stderr: (data) ->
     data ?= @result
     return data.stderr if data.stderr
@@ -327,5 +376,6 @@ class Exec extends EventEmitter
     .join '\n'
     data.stderr = stderr if data.code?
     stderr
+
 
 module.exports = Exec

@@ -1,5 +1,29 @@
-# Check definitions
-# =================================================
+###
+Configuration
+===================================================
+To configure this module to your needs, please make a new configuration file for `/exec`
+context. To do so you may copy the base settings from `src/config/exec.yml` into
+`var/local/config/exec.yml` and change it's values or put it into your applications
+configuration directory.
+
+Like supported by {@link alinex-config} you only have to
+write the settings which differ from the defaults.
+
+The configuration contains the following three parts:
+- retry handling
+- priorities
+- remote connections
+
+
+Specification
+------------------------------------------------------
+{@schema #}
+###
+
+
+# Node Modules
+# --------------------------------------
+sshtunnelSchema = require 'alinex-sshtunnel/lib/configSchema'
 
 module.exports =
   title: "Exec configuration"
@@ -129,105 +153,4 @@ module.exports =
                 min: -20
                 max: 19
           ]
-    remote:
-      title: "Remote Servers"
-      description: "the setup of remote execution servers"
-      type: 'object'
-      keys:
-        server:
-          type: 'object'
-          entries: [
-            title: "Remote Server"
-            description: "a remote server ssh connection setup"
-            type: 'object'
-            allowedKeys: true
-            mandatoryKeys: ['host', 'port', 'username']
-            keys:
-              host:
-                title: "Hostname or IP Address"
-                description: "the hostname or IP address to connect to"
-                type: 'or'
-                or: [
-                  type: 'hostname'
-                ,
-                  type: 'ipaddr'
-                ]
-              port:
-                title: "Port NUmber"
-                description: "the port on which to connect using ssh protocol"
-                type: 'port'
-                default: 22
-              username:
-                title: "Username"
-                description: "the username to use for the connection"
-                type: 'string'
-              password:
-                title: "Password"
-                description: "the password to use for connecting"
-                type: 'string'
-                optional: true
-              privateKey:
-                title: "Private Key"
-                description: "the private key file to use for OpenSSH authentication"
-                type: 'string'
-              passphrase:
-                title: "Passphrase"
-                description: "the passphrase used to decrypt an encrypted private key"
-                type: 'string'
-              localHostname:
-                title: "Local Hostname"
-                description: "the host used for hostbased user authentication"
-                type: 'string'
-              localUsername:
-                title: "Local User"
-                description: "the username used for hostbased user authentication"
-                type: 'string'
-              keepaliveInterval:
-                title: "Keepalive"
-                description: "the interval for the keepalive packets to be send"
-                type: 'interval'
-                unit: 'ms'
-                default: 1000
-              readyTimeout:
-                title: "Ready TImeout"
-                description: "the time to wait for the ssh handshake to succeed"
-                type: 'interval'
-                unit: 'ms'
-                default: 20000
-              startload:
-                title: "Start Limit"
-                description: "the maximum load for each CPUs per second in usage to start"
-                type: 'percent'
-                min: 0.01
-              maxSessions:
-                title: "Max. Parallel Sessions"
-                description: "the number of max. parallel sessions on the connection"
-                type: 'integer'
-                min: 1
-              debug:
-                title: "Extended Debug"
-                description: "the DEBUG=exec:ssh messages are extended with server communication"
-                type: 'boolean'
-          ]
-        group:
-          type: 'object'
-          entries: [
-            title: "Remote Server Pool"
-            description: "a pool of remote servers which one of them may be used"
-            type: 'array'
-            entries:
-              title: ""
-              description: ""
-              type: 'object'
-              keys:
-                host:
-                  title: "Reference to host entry"
-                  description: "an host entry becomming member of this pool"
-                  type: 'string'
-                  values: '<<<remote/server>>>'
-                weight:
-                  title: "Weight"
-                  description: "the weight for this host in balancing"
-                  type: 'percent'
-                  default: 0.5
-          ]
+    remote: sshtunnelSchema.ssh
