@@ -3,10 +3,9 @@
 # This is an object oriented implementation around the core `process.spawn`
 # command and alternatively ssh connections.
 
+
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
 debug = require('debug')('exec:spawn')
 debugCmd = require('debug')('exec:cmd')
 debugOut = require('debug')('exec:out')
@@ -21,13 +20,20 @@ config = require 'alinex-config'
 # include helper classes
 helper = require './helper'
 
+
 # Configuration
 # -------------------------------------------------
+
+# @type {Integer} milliseconds to measure vital signs
 MEASURE_TIME = 1000
 
-# Run local command
+
+# Exported methods
 # -------------------------------------------------
-run = (cb) ->
+
+# @param {Function(Error, Exec)} cb callback to be caalled after done with `Error`
+# or the `Exec` object itself
+module.exports.run = run = (cb) ->
   # set command
   cmd = @setup.cmd
   args = if @setup.args then @setup.args[0..] else []
@@ -51,8 +57,6 @@ run = (cb) ->
     @proc = spawn cmd, args,
       env: env
       cwd: @setup.cwd
-#      uid: @setup.uid
-#      gid: @setup.gid
       timeout: @setup.timeout
       killSignal: 'SIGKILL'
   catch error
@@ -105,10 +109,14 @@ run = (cb) ->
       @proc.kill()
     , @setup.timeout + 1000
 
-
 # Check vital signs
-# -------------------------------------------------
-vital = util.function.onceTime (host, vital, date, cb) ->
+#
+# @param {String} host
+# @param {Object} vital
+# @param {Date} date
+# @param {Function(Error, Exec)} cb callback to be caalled after done with `Error`
+# or the `Exec` object itself
+module.exports.vital = util.function.onceTime (host, vital, date, cb) ->
   return cb() if vital.date is date
   # init startmax
   conf = config.get 'exec/retry/vital'
@@ -129,7 +137,13 @@ vital = util.function.onceTime (host, vital, date, cb) ->
   vital.freemem = os.freemem() / os.totalmem()
   vital.load = os.loadavg().map (v) -> v / os.cpus().length
 
-# ### Measure CPU usage
+
+# Helper Methods
+# ------------------------------------------------------------
+
+# Measure CPU usage
+#
+# @return {[<Integer>, <Integer>]} total time and idle time in milliseconds
 cpuMeasure = ->
   cpus = os.cpus()
   total = 0
@@ -138,9 +152,3 @@ cpuMeasure = ->
     total += v for k, v of core.times
     idle += core.times.idle
   [total, idle]
-
-# Export public methods
-# -------------------------------------------------
-module.exports =
-  run: run
-  vital: vital
