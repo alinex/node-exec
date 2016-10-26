@@ -7,14 +7,11 @@
 config = require 'alinex-config'
 
 
-# Helper Methods
-# -------------------------------------------------
-
 # Get cmdline out of command setup.
 #
-# @param {Object} setup of execution job
-# @param {String} host to work on
-# @return {String} equivalent command line call
+# @param {Object} setup job configuration
+# @param {String} host name of host where to execute
+# @return {String} command line which will do the same
 module.exports.cmdline = (setup, host) ->
   conf = config.get 'exec'
   cmdline = [setup.cmd]
@@ -47,7 +44,9 @@ module.exports.cmdline = (setup, host) ->
     cmdline.unshift "#{k}=#{if v.match /\s/ then '"' + v + '"' else v}"
   cmdline.join(' ').trim()
 
-# @param {String} arg argument to be escaped
+# Escape special characters for command line.
+#
+# @param {String} arg argument for cli call
 # @return {String} escaped argument
 escape = (arg) ->
   if /[^A-Za-z0-9_\/:=-]/.test arg

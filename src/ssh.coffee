@@ -1,10 +1,9 @@
 # Remote execution using ssh
 # =================================================
 
+
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
 debug = require('debug')('exec:ssh')
 debugCmd = require('debug')('exec:cmd')
 debugOut = require('debug')('exec:out')
@@ -19,13 +18,17 @@ config = require 'alinex-config'
 # include helper classes
 helper = require './helper'
 
+
 # Connection pool
 # -------------------------------------------------
 pool = {}
 
-# Run local command
+# Exported methods
 # -------------------------------------------------
-run = (cb) ->
+
+# @param {Function(Error, Exec)} cb callback to be caalled after done with `Error`
+# or the `Exec` object itself
+module.exports.run = run = (cb) ->
   host = @setup.remote
   # set command
   connect host, (err, conn) =>
@@ -86,8 +89,13 @@ run = (cb) ->
           cb null, this if cb
 
 # Check vital signs
-# -------------------------------------------------
-vital = util.function.onceTime (host, vital, date, cb) ->
+#
+# @param {String} host
+# @param {Object} vital
+# @param {Date} date
+# @param {Function(Error, Exec)} cb callback to be caalled after done with `Error`
+# or the `Exec` object itself
+module.exports.vital = util.function.onceTime (host, vital, date, cb) ->
   return cb vital.failed if vital.date is date and vital.failed
   return cb() if vital.date is date
   # reinit
@@ -106,8 +114,20 @@ vital = util.function.onceTime (host, vital, date, cb) ->
       debug chalk.grey "#{conn.name} vital signs: #{util.inspect(vital).replace /\s+/g, ' '}"
       cb()
 
-# ### get the starmax value
-# THis is based on the number of cpus and the configuration value
+# close all connections
+#
+module.exports.closeAll = ->
+  for host, conn of pool
+    debug "close connection to #{host}"
+    conn.end()
+
+
+# Helper Methods
+# ------------------------------------------------------------
+
+# This is based on the number of cpus and the configuration value
+#
+# @param 
 startmax = (conn, vital, host, cb) ->
   return cb() if vital.startmax?
   conf = config.get 'exec'
@@ -142,19 +162,6 @@ exec = (conn, cmdline, cb) ->
     .on 'data', (data) -> stdout += data
     .stderr.on 'data', (data) -> debug "#{conn.name} Command #{cmdline} got error:
       #{data}"
-
-# ### close all connections
-closeAll = ->
-  for host, conn of pool
-    debug "close connection to #{host}"
-    conn.end()
-
-# Export public methods
-# -------------------------------------------------
-module.exports =
-  run: run
-  vital: vital
-  closeAll: closeAll
 
 
 # Helper Methods
