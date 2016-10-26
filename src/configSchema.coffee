@@ -111,7 +111,7 @@ module.exports =
           title: "Default Priority"
           description: "the default priority as reference to one of the defined list entries"
           type: 'string'
-          list: '<<< level >>>'
+          list: '<<<data:level>>>'
         level:
           title: "Priority Levels"
           description: "the definition of all possible priorities"
@@ -153,4 +153,37 @@ module.exports =
                 min: -20
                 max: 19
           ]
-    remote: sshtunnelSchema.ssh
+    remote:
+      title: ""
+      description: ""
+      type: 'object'
+      keys:
+        server:
+          title: ""
+          description: ""
+          type: 'object'
+          entries: [sshtunnelSchema.ssh]
+        group:
+          title: ""
+          description: ""
+          type: 'object'
+          entries: [
+            title: "Remote Balanced Pool"
+            description: "a pool of remote servers to use for balancing"
+            type: 'array'
+            entries:
+              title: ""
+              description: ""
+              type: 'object'
+              keys:
+                host:
+                  title: "Reference to host entry"
+                  description: "an host entry becomming member of this pool"
+                  type: 'string'
+                  values: '<<<remote/server>>>'
+                weight:
+                  title: "Weight"
+                  description: "the weight for this host in balancing"
+                  type: 'percent'
+                  default: 0.5
+          ]

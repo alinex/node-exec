@@ -1,15 +1,20 @@
 # Helper class
 # =================================================
 
+
 # Node Modules
 # -------------------------------------------------
-
-# include base modules
-# include alinex modules
 config = require 'alinex-config'
 
-# Get cmdline out of command setup
+
+# Helper Methods
 # -------------------------------------------------
+
+# Get cmdline out of command setup.
+#
+# @param {Object} setup of execution job
+# @param {String} host to work on
+# @return {String} equivalent command line call
 module.exports.cmdline = (setup, host) ->
   conf = config.get 'exec'
   cmdline = [setup.cmd]
@@ -42,6 +47,8 @@ module.exports.cmdline = (setup, host) ->
     cmdline.unshift "#{k}=#{if v.match /\s/ then '"' + v + '"' else v}"
   cmdline.join(' ').trim()
 
+# @param {String} arg argument to be escaped
+# @return {String} escaped argument
 escape = (arg) ->
   if /[^A-Za-z0-9_\/:=-]/.test arg
     arg = "'#{arg.replace /'/g, "'\\''"}'"
