@@ -111,7 +111,7 @@ module.exports =
           title: "Default Priority"
           description: "the default priority as reference to one of the defined list entries"
           type: 'string'
-          list: '<<<data:level>>>'
+          list: '<<<data:///level>>>'
         level:
           title: "Priority Levels"
           description: "the definition of all possible priorities"
