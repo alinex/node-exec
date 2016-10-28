@@ -127,7 +127,7 @@ module.exports.closeAll = ->
 
 # This is based on the number of cpus and the configuration value
 #
-# @param 
+# @param
 startmax = (conn, vital, host, cb) ->
   return cb() if vital.startmax?
   conf = config.get 'exec'
@@ -171,36 +171,37 @@ exec = (conn, cmdline, cb) ->
 connect = (host, cb) ->
   conf = config.get 'exec'
   # check if host is configured
-  unless server = conf.remote?.server?[host]
+  unless servers = conf.remote?.server?[host]
     return cb new Error "The remote server '#{host}' is not configured."
   # check active sessions and wait if too high
-  if server.maxSessions and pool[host]?
-    unless server.maxSessions > pool[host].sessions
-      interval = conf.retry.ulimit.interval
-      debug chalk.grey "#{pool[host].name} session limit reached, waiting
-      #{interval} ms..."
-      pool[host].emit 'wait'
-      return setTimeout (-> connect host, cb), interval
-  # return connection if already present
-  if pool[host]
-    pool[host].sessions++
-    return cb null, pool[host]
-  # open new connection
-  open host, (err, conn) ->
-    return cb err, conn if err
-    pool[host] = conn
-    conn.sessions++
-    cb null, conn
+  for server in servers
+    if server.maxSessions and pool[host]?
+      unless server.maxSessions > pool[host].sessions
+        continue
+    # return connection if already present
+    if pool[host]
+      pool[host].sessions++
+      return cb null, pool[host]
+    # open new connection
+    return open host, server, (err, conn) ->
+      return cb err, conn if err
+      pool[host] = conn
+      conn.sessions++
+      cb null, conn
+  interval = conf.retry.ulimit.interval
+  debug chalk.grey "#{pool[host].name} session limit reached, waiting
+  #{interval} ms..."
+  pool[host].emit 'wait'
+  setTimeout (-> connect host, cb), interval
 
 disconnect = (conn) ->
   # decrease connection count
   conn.sessions--
 
 # ### Open a new connection
-open = (host, cb) ->
+open = (host, conf, cb) ->
   done = util.function.onceSkip (err, conn, cb) ->
     cb err, conn
-  conf = config.get 'exec/remote/server/' + host
   # make new connection
   conn = new ssh.Client()
   conn.name = chalk.grey "ssh://#{conf.username}@#{conf.host}:#{conf.port}"

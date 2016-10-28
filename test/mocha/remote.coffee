@@ -4,7 +4,7 @@ expect = chai.expect
 async = require 'async'
 fs = require 'fs'
 
-describe "Remote", ->
+describe.only "Remote", ->
   @timeout 20000
 
   config = require 'alinex-config'
@@ -19,7 +19,7 @@ describe "Remote", ->
 
   describe "connection", ->
 
-    it "should fail if connection impossible", (cb) ->
+    it "should fail if connection is impossible", (cb) ->
       return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
       exec = new Exec
         remote: 'server2'
