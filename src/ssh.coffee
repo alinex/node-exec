@@ -11,8 +11,8 @@ debugErr = require('debug')('exec:err')
 chalk = require 'chalk'
 async = require 'async'
 carrier = require 'carrier'
-ssh = require 'ssh2'
 # include alinex modules
+ssh = require 'alinex-ssh'
 util = require 'alinex-util'
 config = require 'alinex-config'
 # include helper classes

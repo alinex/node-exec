@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "alinex-config": "^1.1.4",
-    "alinex-sshtunnel": "^1.3.0",
+    "alinex-ssh": "^1.3.0",
     "alinex-util": "^2.5.0",
     "async": "^2.0.0-rc.3",
     "carrier": "^0.3.0",
