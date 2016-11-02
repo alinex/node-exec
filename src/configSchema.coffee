@@ -23,7 +23,7 @@ Specification
 
 # Node Modules
 # --------------------------------------
-sshtunnelSchema = require 'alinex-sshtunnel/lib/configSchema'
+sshtunnelSchema = require 'alinex-ssh/lib/configSchema'
 
 module.exports =
   title: "Exec configuration"
