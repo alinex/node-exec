@@ -23,7 +23,7 @@ Specification
 
 # Node Modules
 # --------------------------------------
-sshtunnelSchema = require 'alinex-ssh/lib/configSchema'
+sshSchema = require 'alinex-ssh/lib/configSchema'
 
 module.exports =
   title: "Exec configuration"
@@ -39,6 +39,7 @@ module.exports =
       allowedKeys: true
       mandatoryKeys: true
       keys:
+        connect: sshSchema.keys.retry
         vital:
           title: "Vital Sign Check"
           description: "the check for host vital data"
@@ -152,38 +153,4 @@ module.exports =
                 type: 'integer'
                 min: -20
                 max: 19
-          ]
-    remote:
-      title: ""
-      description: ""
-      type: 'object'
-      keys:
-        server:
-          title: ""
-          description: ""
-          type: 'object'
-          entries: sshtunnelSchema.ssh.entries
-        group:
-          title: ""
-          description: ""
-          type: 'object'
-          entries: [
-            title: "Remote Balanced Pool"
-            description: "a pool of remote servers to use for balancing"
-            type: 'array'
-            entries:
-              title: ""
-              description: ""
-              type: 'object'
-              keys:
-                host:
-                  title: "Reference to host entry"
-                  description: "an host entry becomming member of this pool"
-                  type: 'string'
-                  values: '<<<data://remote/server>>>'
-                weight:
-                  title: "Weight"
-                  description: "the weight for this host in balancing"
-                  type: 'percent'
-                  default: 0.5
           ]

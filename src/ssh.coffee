@@ -19,19 +19,21 @@ config = require 'alinex-config'
 helper = require './helper'
 
 
-# Connection pool
-# -------------------------------------------------
-pool = {}
-
 # Exported methods
 # -------------------------------------------------
 
 # @param {Function(Error, Exec)} cb callback to be caalled after done with `Error`
 # or the `Exec` object itself
 module.exports.run = run = (cb) ->
-  host = @setup.remote
   # set command
-  connect host, (err, conn) =>
+  ssh.connect
+    server: server
+    retry: config.get '/exec/retry/connect'
+  , (err, conn) =>
+    return cb err if err
+    # correct name (maybe different with alternatives)
+    @name = "#{conn.name}##{@id}"
+    # create command line as newliner
     cmdline = helper.cmdline @setup
     debugCmd chalk.yellow "#{@name} #{cmdline}"
     # store process information
@@ -103,8 +105,13 @@ module.exports.vital = util.function.onceTime (host, vital, date, cb) ->
   vital.error = {}
   vital.startload = 0
   # connect to host and get data
-  connect host, (err, conn) ->
+  ssh.connect
+    server: server
+    retry: config.get '/exec/retry/connect'
+  , (err, conn) =>
     return cb err if err
+    # correct name (maybe different with alternatives)
+    @name = "#{conn.name}##{@id}"
     debug chalk.grey "#{conn.name} detect vital signs"
     async.parallel [
       (cb) -> startmax conn, vital, host, cb
@@ -119,7 +126,7 @@ module.exports.vital = util.function.onceTime (host, vital, date, cb) ->
 module.exports.closeAll = ->
   for host, conn of pool
     debug "close connection to #{host}"
-    conn.end()
+    conn.close()
 
 
 # Helper Methods
@@ -162,68 +169,3 @@ exec = (conn, cmdline, cb) ->
     .on 'data', (data) -> stdout += data
     .stderr.on 'data', (data) -> debug "#{conn.name} Command #{cmdline} got error:
       #{data}"
-
-
-# Helper Methods
-# -------------------------------------------------
-
-# ### Connect to remote server
-connect = (host, cb) ->
-  conf = config.get 'exec'
-  # check if host is configured
-  unless servers = conf.remote?.server?[host]
-    return cb new Error "The remote server '#{host}' is not configured."
-  # check active sessions and wait if too high
-  for server in servers
-    if server.maxSessions and pool[host]?
-      unless server.maxSessions > pool[host].sessions
-        continue
-    # return connection if already present
-    if pool[host]
-      pool[host].sessions++
-      return cb null, pool[host]
-    # open new connection
-    return open host, server, (err, conn) ->
-      return cb err, conn if err
-      pool[host] = conn
-      conn.sessions++
-      cb null, conn
-  interval = conf.retry.ulimit.interval
-  debug chalk.grey "#{pool[host].name} session limit reached, waiting
-  #{interval} ms..."
-  pool[host].emit 'wait'
-  setTimeout (-> connect host, cb), interval
-
-disconnect = (conn) ->
-  # decrease connection count
-  conn.sessions--
-
-# ### Open a new connection
-open = (host, conf, cb) ->
-  done = util.function.onceSkip (err, conn, cb) ->
-    cb err, conn
-  # make new connection
-  conn = new ssh.Client()
-  conn.name = chalk.grey "ssh://#{conf.username}@#{conf.host}:#{conf.port}"
-  conn.sessions = 0
-  debug "#{conn.name} open ssh connection for #{host}"
-  conn.on 'ready', ->
-    debug chalk.grey "#{conn.name} connection established"
-    done null, conn, cb
-  .on 'banner', (msg) ->
-    debug chalk.yellow "#{conn.name} #{msg}"
-  .on 'error', (err) ->
-    err = new Error "#{err.message} on #{conn.name}"
-    debug chalk.magenta "#{conn.name} error: #{err.message}"
-    done err, conn, cb
-  .on 'end', ->
-    debug chalk.grey "#{conn.name} connection closed"
-    close host, conn
-  .connect util.extend 'MODE CLONE', conf,
-    debug: unless conf.debug then null else (msg) ->
-      debug chalk.grey "#{conn.name} #{msg}"
-
-# ### Close the connection
-close = (host, conn) ->
-  delete pool[host]
-  conn.end()

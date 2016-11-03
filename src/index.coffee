@@ -48,7 +48,8 @@ class Exec extends EventEmitter
   # the process but only within a second it may be more than 1.0 if running on
   # multi core
   #
-  # @type {Object<Float>} other weight as the {@link DEFAULT_LOAD}
+  # @param {Array} [args] arguments for command
+  # @return {Float} other weight as the {@link DEFAULT_LOAD}
   @load:
     exiftool: -> 0.008
 
@@ -115,10 +116,6 @@ class Exec extends EventEmitter
     hosts: #{util.inspect @queueCounter.host} / \
     priority: #{util.inspect @queueCounter.priority}
     """
-#    #####################################################################
-#    util = require 'util'
-#    console.log 'WORKER', util.inspect @queue, {depth: null}
-#    #####################################################################
     async.each hosts, (host, cb) =>
       prios = Object.keys @queue[host]
       prios.reverse()
@@ -167,7 +164,6 @@ class Exec extends EventEmitter
         @workerRunning = false
         return
       # if not rerun it later
-#      console.log '>>>>>> recall worker'
       setTimeout @worker, config.get 'exec/retry/queue/interval'
 
 
@@ -221,7 +217,7 @@ class Exec extends EventEmitter
 
   # Easy call to directly run execution in one statement.
   #
-  # @param {Object} setup the job definition
+  # @param {Object} setup the job definition like in the constructor
   # @param {Function(<Error>, <Exec>)} cb callback with possible error
   # and the execution job which was used
   @run: (setup, cb) ->
@@ -239,14 +235,28 @@ class Exec extends EventEmitter
   # Create a new execution object to specify and call later.
   #
   # @param {Object} setup the job definition
+  # @return {Exec} object containing the following properties:
+  # - `id` - `Integer` unique id of element
+  # - `setup` - `Object` configuration of job
+  #   - `remote` - `String|Object|Array<Object>` ssh connection
+  #   - `cmd` - `String` command to execute (with optional parameters)
+  #   - `args` - `Array<String>` list of command arguments
+  #   - `priority` - `String` priority to use
+  # - `name` - `String` connection URI for debug messages
+  # - `result` - `Object`
+  #   - `start` - `Date` of execution start
+  #   - `end` - `Date` of execution end
   constructor: (@setup) ->
+    # get identifiers
     @id = ++objectId
     host = @setup.remote ? 'localhost'
-    @name = chalk.grey "#{host}##{@id}:"
+    host = host[0] if Array.isArray host
+    host = host.host if typeof host is 'object'
+    @name = chalk.grey "#{host}##{@id}"
     # set priority
-    prio = config.get 'exec/priority'
-    @setup.priority ?= prio.default
-    unless prio.level[@setup.priority]
+    conf = config.get '/exec/priority'
+    @setup.priority ?= conf.default
+    unless conf.level[@setup.priority]
       debug chalk.red "Undefined priority #{@setup.priority} - using default"
       @setup.priority = prio.default
     debug "#{@name} created new instance with #{@setup.priority} priority"
@@ -256,8 +266,6 @@ class Exec extends EventEmitter
   # @param {Function(<Error>)} cb callback with possible error
   run: (cb) ->
     return cb new Error "Already running." if @result?.start and not @result.end
-    host = @setup.remote ? 'localhost'
-    @name = chalk.grey "#{host}##{@id}:"
     # optimize cmd - extract arguments
     if ~@setup.cmd.indexOf ' '
       parts = @setup.cmd.match ///
@@ -273,7 +281,6 @@ class Exec extends EventEmitter
         @setup.cmd = parts.shift()
         @setup.args = parts.concat @setup.args ? []
     # check existing vital data
-    @conf ?= config.get '/exec'
     load = Exec.load[@setup.cmd]?(@setup.args) ? DEFAULT_LOAD
     Exec.vitalCheck host, @setup.priority, load, (err, res) =>
       return cb err if err
