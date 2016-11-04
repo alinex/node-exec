@@ -36,15 +36,15 @@ Alinex Exec: Readme
 <!-- {.hidden-small} -->
 
 
-This module should be used to call external commands. It is an extended
-wrapper arround the core `process.spawn` command. It's benefits are:
+This module may be used to call external commands. It is an extended
+wrapper arround the core `process.spawn` command or runs them on a remote machine
+through SSH. It's benefits are:
 
+- fully configurable
 - automatic error control
 - automatic retry in case of error
-- completely adjustable
+- prioritized calls with load control
 - supports remote execution
-- pipes between processes (comes later)
-- detachable execution (comes later)
 
 > It is one of the modules of the [Alinex Namespace](https://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](https://alinex.github.io/develop).
@@ -123,11 +123,14 @@ You may call all of this directly using:
 ``` coffee
 Exec.run
   cmd: 'date'
+  args: ['--iso-8601']
 , (err, proc) ->
   # work with the results within the process instance
 ```
 
-### Closeup
+### Remote Execution
+
+
 
 If you used remote executions, there may be some open server connections in the pool
 which prevent your program from ending. To end them call:
@@ -135,6 +138,16 @@ which prevent your program from ending. To end them call:
 ``` coffee
 Exec.close()
 ```
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -12,12 +12,16 @@ write the settings which differ from the defaults.
 The configuration contains the following three parts:
 - retry handling
 - priorities
-- remote connections
 
 
-Specification
+/exec/retry
 ------------------------------------------------------
-{@schema #}
+{@schema #keys/retry}
+
+
+/exec/priority
+------------------------------------------------------
+{@schema #keys/priority}
 ###
 
 

@@ -1,7 +1,9 @@
-# Execution class
-# =================================================
-# This is an object oriented implementation around the core `process.spawn`
-# command and alternatively ssh connections.
+###
+Execution class - API Usage
+=================================================
+This is an object oriented implementation around the core `process.spawn`
+command and alternatively ssh connections.
+###
 
 
 # Node Modules
@@ -17,6 +19,7 @@ config = require 'alinex-config'
 # internal helpers
 schema = require './configSchema'
 check = require './check'
+
 
 # General setup
 # -------------------------------------------------
@@ -71,21 +74,27 @@ class Exec extends EventEmitter
     priority: {}
 
 
-  # Class Initialization
-  # -------------------------------------------------------------
+  ###
+  Class Initialization
+  -------------------------------------------------------------
+  ###
 
-  # Set the modules config paths and validation schema.
-  #
-  # @param {Function(<Error>)} cb callback with possible error
+  ###
+  Set the modules config paths and validation schema.
+
+  @param {Function(<Error>)} cb callback with possible error
+  ###
   @setup: util.function.once this, (cb) ->
     # set module search path
     config.register false, fspath.dirname __dirname
     # add schema for module's configuration
     config.setSchema '/exec', schema, cb
 
-  # Set the modules config paths, validation schema and initialize the configuration.
-  #
-  # @param {Function(<Error>)} cb callback with possible error
+  ###
+  Set the modules config paths, validation schema and initialize the configuration.
+
+  @param {Function(<Error>)} cb callback with possible error
+  ###
   @init: util.function.once this, (cb) ->
     debug "initialize"
     # set module search path
@@ -119,15 +128,12 @@ class Exec extends EventEmitter
     async.each hosts, (host, cb) =>
       prios = Object.keys @queue[host]
       prios.reverse()
-#      console.log 'HOST', host, prios
       async.eachSeries prios, (prio, cb) =>
         list = @queue[host][prio]
         return cb() unless list.length
         debug chalk.grey "worker running jobs for #{host} with #{prio} priority"
-#        async.each list, ([exec, ocb], cb) =>
         mark = []
         async.forever (cb) =>
-#          console.log '?? loop', list.length
           return cb true unless list.length
           # check if next process is already done in this round
           return cb true if list[0][0].id in mark
@@ -138,27 +144,22 @@ class Exec extends EventEmitter
             return cb err if err
             # get first entry
             [exec, ocb] = list.shift()
-#            console.log '++ loop', list.length
             # reduce counter
             @queueCounter.total--
             @queueCounter.host[host]--
             @queueCounter.priority[prio]--
             # exec run
             mark.push exec.id
-#            console.log '-- exec call', exec.id
             exec.run ocb
             setTimeout cb, 100
         , (err) =>
-#          console.log '-- prio done'
           debug chalk.grey "worker finished round"
           delete @queue[host][prio] unless list.length
           cb err
       , (err) =>
-#        console.log '-- host done'
         delete @queue[host] unless Object.keys(@queue[host]).length
         cb err
     , =>
-#      console.log '-- all done'
       # stop worker if completely done
       unless Exec.queueCounter.total
         @workerRunning = false
@@ -212,47 +213,56 @@ class Exec extends EventEmitter
       else false
       cb null, vital.error[priority]
 
-  # Run Execution
-  # --------------------------------------------------
+  ###
+  Easy call to directly run execution in one statement.
 
-  # Easy call to directly run execution in one statement.
-  #
-  # @param {Object} setup the job definition like in the constructor
-  # @param {Function(<Error>, <Exec>)} cb callback with possible error
-  # and the execution job which was used
+  @param {Object} setup the job definition like in the constructor
+  @param {Function(<Error>, <Exec>)} cb callback with possible error
+  and the execution job which was used
+  ###
   @run: (setup, cb) ->
     Exec.init (err) ->
       return cb err if err
       proc = new Exec setup
       proc.run cb
 
-  # Close remote connections
-  #
+  ###
+  Close remote connections
+  ###
   @close: ->
     lib = require './ssh'
     lib.closeAll()
 
-  # Create a new execution object to specify and call later.
-  #
-  # @param {Object} setup the job definition
-  # @return {Exec} object containing the following properties:
-  # - `id` - `Integer` unique id of element
-  # - `setup` - `Object` configuration of job
-  #   - `remote` - `String|Object|Array<Object>` ssh connection
-  #   - `cmd` - `String` command to execute (with optional parameters)
-  #   - `args` - `Array<String>` list of command arguments
-  #   - `priority` - `String` priority to use
-  # - `name` - `String` connection URI for debug messages
-  # - `result` - `Object`
-  #   - `start` - `Date` of execution start
-  #   - `end` - `Date` of execution end
+
+  ###
+  Instance Methods
+  --------------------------------------------------
+  ###
+
+  ###
+  Create a new execution object to specify and call later.
+
+  @param {Object} setup the job definition
+  @return {Exec} object containing the following properties:
+  - `id` - `Integer` unique id of element
+  - `setup` - `Object` configuration of job
+    - `remote` - `String|Object|Array<Object>` ssh connection
+    - `cmd` - `String` command to execute (with optional parameters)
+    - `args` - `Array<String>` list of command arguments
+    - `priority` - `String` priority to use
+  - `host` - `String` name of host
+  - `name` - `String` connection URI for debug messages
+  - `result` - `Object`
+    - `start` - `Date` of execution start
+    - `end` - `Date` of execution end
+  ###
   constructor: (@setup) ->
     # get identifiers
     @id = ++objectId
-    host = @setup.remote ? 'localhost'
-    host = host[0] if Array.isArray host
-    host = host.host if typeof host is 'object'
-    @name = chalk.grey "#{host}##{@id}"
+    @host = @setup.remote ? 'localhost'
+    @host = @host[0] if Array.isArray @host
+    @host = @host.host if typeof @host is 'object'
+    @name = chalk.grey "#{@host}##{@id}"
     # set priority
     conf = config.get '/exec/priority'
     @setup.priority ?= conf.default
@@ -261,9 +271,11 @@ class Exec extends EventEmitter
       @setup.priority = prio.default
     debug "#{@name} created new instance with #{@setup.priority} priority"
 
-  # Start execution
-  #
-  # @param {Function(<Error>)} cb callback with possible error
+  ###
+  Start execution
+
+  @param {Function(<Error>)} cb callback with possible error
+  ###
   run: (cb) ->
     return cb new Error "Already running." if @result?.start and not @result.end
     # optimize cmd - extract arguments
@@ -282,14 +294,13 @@ class Exec extends EventEmitter
         @setup.args = parts.concat @setup.args ? []
     # check existing vital data
     load = Exec.load[@setup.cmd]?(@setup.args) ? DEFAULT_LOAD
-    Exec.vitalCheck host, @setup.priority, load, (err, res) =>
+    Exec.vitalCheck @host, @setup.priority, load, (err, res) =>
       return cb err if err
       return @addQueue res, cb if res
       # add load to calculate startlimit
-      Exec.vital[host].startload += load
-      debug "#{@name} with #{@setup.priority} priority at #{host}"
+      Exec.vital[@host].startload += load
       # run locally or remote
-      lib = require if host is 'localhost' then './spawn' else './ssh'
+      lib = require if @host is 'localhost' then './spawn' else './ssh'
       lib.run.call this, (err) =>
         if err
           debug "#{@name} failed with #{err}"

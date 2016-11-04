@@ -5,6 +5,12 @@
 # Retry if failed
 # -------------------------------------------------
 retry:
+  # connection retries
+  connect:
+    # number of attempts
+    times: 3
+    # time to sleep till next try
+    interval: 1s
   # check for host vital signs
   vital:
    # time to recheck host vital signs
@@ -26,12 +32,13 @@ retry:
     # time to sleep till next try
     interval: 3s
 
+
 # Priority Levels
 # -------------------------------------------------
 # This defines the possible priority levels to be used.
 priority:
   # specify the default priority
-  default: medium
+  default: immediately
   # specify the possible priorities with their checks
   level:
     anytime:
@@ -51,36 +58,3 @@ priority:
       maxLoad: 150%
     immediately:
       nice: -20
-
-# Remote Server
-# -------------------------------------------------
-# Define remote hosts or host pools to be used through ssh.
-remote:
-  server:
-    # virtual name for server
-    server1:
-      # hostname or ip to connect to
-      host: localhost
-      # connection port
-      port:  ssh
-      # user to login as
-      username: alex
-      # (optionally) private key for login
-      privateKey: <<<file:///home/alex/.ssh/id_rsa>>>
-      # time for sending keepalive packets
-      keepaliveInterval: 1s
-      # maximum number of parallel sessions on this connection
-      #maxSessions: 4
-      # debug also server communication
-      debug: false
-    server2:
-      host: localhost
-      port:  ssh
-      username: alex
-      password: dontknow
-  group:
-    testpool:
-      - host: server1
-        weight: 0.4
-      - host: server2
-        weight: 0.6

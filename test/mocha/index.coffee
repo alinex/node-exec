@@ -37,6 +37,17 @@ describe "Base", ->
   describe "command", ->
     @timeout 5000
 
+    it "should run simple command", (cb) ->
+      now = (new Date()).toISOString()
+      Exec.run
+        cmd: 'uname'
+      , (err, exec) ->
+        expect(exec.setup.cmd, 'cmd').to.equal 'uname'
+        expect(err, 'error').to.not.exist
+        expect(exec.result.lines[0][1], "result stdout").to.equal "Linux"
+        expect(exec.result.code, "code").equal 0
+        cb()
+
     it "should run with extra arguments", (cb) ->
       now = (new Date()).toISOString()
       Exec.run

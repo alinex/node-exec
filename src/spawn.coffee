@@ -38,7 +38,8 @@ module.exports.run = run = (cb) ->
   cmd = @setup.cmd
   args = if @setup.args then @setup.args[0..] else []
   # support priority based nice values
-  prio = @conf.priority.level[@setup.priority]
+  conf = config.get '/exec'
+  prio = conf.priority.level[@setup.priority]
   if prio.nice and process.platform is 'linux'
     if prio.nice > 0 or (@setup.uid is 0 or (not @setup.uid? and not process.getuid()))
       # add support for nice call
@@ -61,7 +62,7 @@ module.exports.run = run = (cb) ->
       killSignal: 'SIGKILL'
   catch error
     if error.message is 'spawn EMFILE'
-      interval = @conf.retry.ulimit.interval
+      interval = conf.retry.ulimit.interval
       debug chalk.grey "#{@name} too much processes are opened, waiting
       #{interval} ms..."
       @emit 'wait', interval
