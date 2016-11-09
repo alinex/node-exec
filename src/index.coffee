@@ -16,6 +16,7 @@ EventEmitter = require('events').EventEmitter
 # include alinex modules
 util = require 'alinex-util'
 config = require 'alinex-config'
+ssh = require 'alinex-ssh'
 # internal helpers
 schema = require './configSchema'
 check = require './check'
@@ -88,7 +89,8 @@ class Exec extends EventEmitter
     # set module search path
     config.register false, fspath.dirname __dirname
     # add schema for module's configuration
-    config.setSchema '/exec', schema, cb
+    config.setSchema '/exec', schema, ->
+      ssh.setup cb
 
   ###
   Set the modules config paths, validation schema and initialize the configuration.
@@ -268,7 +270,7 @@ class Exec extends EventEmitter
     @setup.priority ?= conf.default
     unless conf.level[@setup.priority]
       debug chalk.red "Undefined priority #{@setup.priority} - using default"
-      @setup.priority = prio.default
+      @setup.priority = conf.default
     debug "#{@name} created new instance with #{@setup.priority} priority"
 
   ###

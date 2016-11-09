@@ -4,7 +4,7 @@ expect = chai.expect
 async = require 'async'
 fs = require 'fs'
 
-describe "Remote", ->
+describe.only "Remote", ->
   @timeout 20000
 
   config = require 'alinex-config'

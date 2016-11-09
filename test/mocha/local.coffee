@@ -15,7 +15,7 @@ describe "Local", ->
         uri: "#{__dirname}/../data/config/exec.yml"
     Exec.init cb
 
-  describe.only "command", ->
+  describe "command", ->
 
     it "should run date", (cb) ->
       exec = new Exec

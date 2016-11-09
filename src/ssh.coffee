@@ -27,7 +27,7 @@ helper = require './helper'
 module.exports.run = run = (cb) ->
   # set command
   ssh.connect
-    server: server
+    server: @setup.remote
     retry: config.get '/exec/retry/connect'
   , (err, conn) =>
     return cb err if err
@@ -38,7 +38,7 @@ module.exports.run = run = (cb) ->
     debugCmd chalk.yellow "#{@name} #{cmdline}"
     # store process information
     @process =
-      host: host
+      host: @host
       start: new Date()
     # collect output
     @result = {}
@@ -47,7 +47,7 @@ module.exports.run = run = (cb) ->
     conn.exec cmdline, (err, stream) =>
       # error management
       if err
-        disconnect conn
+        conn.close()
         @process.error = err
         if err.message.match /open failed/
           interval = @conf.retry.ulimit.interval
@@ -73,7 +73,7 @@ module.exports.run = run = (cb) ->
       , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
       # process finished
       stream.on 'close', (code, signal) =>
-        disconnect conn
+        conn.close()
         clearTimeout @timer
         @result.code = code
         process.nextTick =>
@@ -106,7 +106,7 @@ module.exports.vital = util.function.onceTime (host, vital, date, cb) ->
   vital.startload = 0
   # connect to host and get data
   ssh.connect
-    server: server
+    server: @setup.remote
     retry: config.get '/exec/retry/connect'
   , (err, conn) =>
     return cb err if err
@@ -120,13 +120,6 @@ module.exports.vital = util.function.onceTime (host, vital, date, cb) ->
       return cb err if err
       debug chalk.grey "#{conn.name} vital signs: #{util.inspect(vital).replace /\s+/g, ' '}"
       cb()
-
-# close all connections
-#
-module.exports.closeAll = ->
-  for host, conn of pool
-    debug "close connection to #{host}"
-    conn.close()
 
 
 # Helper Methods
