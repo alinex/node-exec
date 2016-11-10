@@ -27,7 +27,6 @@ module.exports =
     return false if @result.code is 0
     err = new Error "Process #{@setup.cmd} returned exit code #{@result.code} but should be 0."
     # add last five lines of error output
-    console.log @result
     err.description = (
       @result.lines
       .filter (e) -> e[0] is 2
