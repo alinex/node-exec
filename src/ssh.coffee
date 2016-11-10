@@ -105,6 +105,7 @@ module.exports.vital = util.function.onceTime (host, vital, date, cb) ->
   vital.error = {}
   vital.startload = 0
   # connect to host and get data
+  console.log @setup
   ssh.connect
     server: @setup.remote
     retry: config.get '/exec/retry/connect'

@@ -81,13 +81,14 @@ describe "Response check", ->
 
     it "should fail", (cb) ->
       Exec.run
-        cmd: 'cartoon-date'
+        cmd: 'ls'
+        args: ['/path-is-not-existing-on-this-system']
         check:
           noStderr: true
       , (err, exec) ->
         expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
-        expect(exec.result.code, "code").to.equal 127
+        expect(exec.result.code, "code").to.equal 2
         expect(exec.result.error, "result error").to.exist
         cb()
 
@@ -121,13 +122,14 @@ describe "Response check", ->
 
     it "should succeed", (cb) ->
       Exec.run
-        cmd: 'cartoon-date'
+        cmd: 'ls'
+        args: ['/path-is-not-existing-on-this-system']
         check:
           stderr: true
       , (err, exec) ->
         expect(err, 'error').to.not.exist
         expect(exec.result, "result").to.exist
-        expect(exec.result.code, "code").to.equal 127
+        expect(exec.result.code, "code").to.equal 2
         expect(exec.result.error, "result error").to.not.exist
         cb()
 
@@ -201,27 +203,29 @@ describe "Response check", ->
 
     it "should succeed", (cb) ->
       Exec.run
-        cmd: 'cartoon-date'
+        cmd: 'ls'
+        args: ['/path-is-not-existing-on-this-system']
         check:
           matchStderr:
             args: [/No such file or directory/]
       , (err, exec) ->
         expect(err, 'error').to.not.exist
         expect(exec.result, "result").to.exist
-        expect(exec.result.code, "code").to.equal 127
+        expect(exec.result.code, "code").to.equal 2
         expect(exec.result.error, "result error").to.not.exist
         cb()
 
     it "should fail", (cb) ->
       Exec.run
-        cmd: 'date'
+        cmd: 'ls'
+        args: ['/path-is-not-existing-on-this-system']
         check:
           matchStderr:
-            args: [/No such file or directory/]
+            args: [/Heap Memory/]
       , (err, exec) ->
         expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
-        expect(exec.result.code, "code").to.equal 0
+        expect(exec.result.code, "code").to.equal 2
         expect(exec.result.error, "result error").to.exist
         cb()
 
@@ -229,10 +233,11 @@ describe "Response check", ->
 
     it "should succeed", (cb) ->
       Exec.run
-        cmd: 'date'
+        cmd: 'ls'
+        args: ['/path-is-not-existing-on-this-system']
         check:
           notMatchStderr:
-            args: [/No such file or directory/]
+            args: [/Heap Memory/]
       , (err, exec) ->
         expect(err, 'error').to.not.exist
         expect(exec.result, "result").to.exist
@@ -241,7 +246,8 @@ describe "Response check", ->
 
     it "should fail", (cb) ->
       Exec.run
-        cmd: 'cartoon-date'
+        cmd: 'ls'
+        args: ['/path-is-not-existing-on-this-system']
         check:
           notMatchStderr:
             args: [/No such file or directory/]
@@ -281,15 +287,16 @@ describe "Response check", ->
 
     it "should fail on second", (cb) ->
       Exec.run
-        cmd: 'cartoon-date'
+        cmd: 'ls'
+        args: ['/path-is-not-existing-on-this-system']
         check:
           exitCode:
-            args: [0, 127]
+            args: [0, 2]
           noStderr: true
       , (err, exec) ->
         expect(err, 'error').to.exist
         expect(exec.result, "result").to.exist
-        expect(exec.result.code, "code").to.equal 127
+        expect(exec.result.code, "code").to.equal 2
         expect(exec.result.error, "result error").to.exist
         cb()
 

@@ -58,3 +58,15 @@ priority:
       maxLoad: 150%
     immediately:
       nice: -20
+
+
+# Alternative Groups
+# -------------------------------------------------
+# This groups contain list of alternative remote hosts to be used as remote reference
+# within the job configuration.
+group:
+  # specify name to be used as remote reference
+  test:
+    # list of servers from which one or the best will be used
+    - server2
+    - server1

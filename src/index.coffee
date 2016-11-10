@@ -83,6 +83,7 @@ class Exec extends EventEmitter
   ###
   Set the modules config paths and validation schema.
 
+  @name Exec.setup
   @param {Function(<Error>)} cb callback with possible error
   ###
   @setup: util.function.once this, (cb) ->
@@ -95,6 +96,7 @@ class Exec extends EventEmitter
   ###
   Set the modules config paths, validation schema and initialize the configuration.
 
+  @name Exec.init
   @param {Function(<Error>)} cb callback with possible error
   ###
   @init: util.function.once this, (cb) ->
@@ -117,6 +119,7 @@ class Exec extends EventEmitter
 
   # The worker itself.
   #
+  # @name Exec.worker
   # @type {Function}
   @worker: =>
     unless (hosts = Object.keys @queue).length
@@ -173,6 +176,7 @@ class Exec extends EventEmitter
   # Vital Data Analysis
   # --------------------------------------------------------------
 
+  # @name Exec.vitalCheck
   # @param {String} host name of server to check
   # @return {String} priority named level of priority
   # @return {Float} load of the questioning process which will be added
@@ -218,6 +222,7 @@ class Exec extends EventEmitter
   ###
   Easy call to directly run execution in one statement.
 
+  @name Exec.run
   @param {Object} setup the job definition like in the constructor
   @param {Function(<Error>, <Exec>)} cb callback with possible error
   and the execution job which was used
@@ -230,6 +235,8 @@ class Exec extends EventEmitter
 
   ###
   Close remote connections
+
+  @name Exec.close
   ###
   @close: ->
     lib = require './ssh'
@@ -244,6 +251,7 @@ class Exec extends EventEmitter
   ###
   Create a new execution object to specify and call later.
 
+  @name Exec
   @param {Object} setup the job definition
   @return {Exec} object containing the following properties:
   - `id` - `Integer` unique id of element
@@ -276,6 +284,7 @@ class Exec extends EventEmitter
   ###
   Start execution
 
+  @name exec.run
   @param {Function(<Error>)} cb callback with possible error
   ###
   run: (cb) ->

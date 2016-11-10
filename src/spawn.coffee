@@ -91,6 +91,7 @@ module.exports.run = run = (cb) ->
   # process finished
   @proc.on 'close', (code, signal) =>
     clearTimeout @timer if @prockill?
+    code = 127 if code is -2 # fix code for not found command
     @result.code = code
     @process.end = new Date()
     if signal?

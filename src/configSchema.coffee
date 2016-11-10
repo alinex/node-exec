@@ -12,6 +12,10 @@ write the settings which differ from the defaults.
 The configuration contains the following three parts:
 - retry handling
 - priorities
+- groups
+
+But you additionaly may write the ssh connection details within the `/ssh/server`
+section described under {@link alinex-ssh/src/configSchema.coffee}.
 
 
 /exec/retry
@@ -22,6 +26,16 @@ The configuration contains the following three parts:
 /exec/priority
 ------------------------------------------------------
 {@schema #keys/priority}
+
+
+/exec/group
+------------------------------------------------------
+{@schema #keys/group}
+
+
+/ssh/server
+------------------------------------------------------
+See description under {@link alinex-ssh/src/configSchema.coffee}.
 ###
 
 
@@ -158,3 +172,14 @@ module.exports =
                 min: -20
                 max: 19
           ]
+    group:
+      title: "Groups"
+      description: "the setup of alternative server groups"
+      type: 'object'
+      entries: [
+        title: "Group"
+        description: "the setup of an alternative server group"
+        type: 'array'
+        minLength: 1
+        entries: sshSchema.keys.tunnel.entries[0].keys.remote
+      ]
