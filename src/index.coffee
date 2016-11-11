@@ -173,52 +173,6 @@ class Exec extends EventEmitter
       setTimeout @worker, config.get 'exec/retry/queue/interval'
 
 
-  # Vital Data Analysis
-  # --------------------------------------------------------------
-
-  # @name Exec.vitalCheck
-  # @param {String} host name of server to check
-  # @return {String} priority named level of priority
-  # @return {Float} load of the questioning process which will be added
-  # @param {Function(<Error>)} cb callback with possible error
-  # if anything prevents the process from running
-  @vitalCheck: (host, priority, load, cb) ->
-    conf = config.get '/exec'
-    prio = conf.priority.level[priority]
-    vital = @vital[host] ?= {}
-    return cb null, false unless prio.maxCpu? or prio.minFreemem? or prio.maxLoad?
-    # prevent vital check if no restrictions
-    return cb null, false unless prio.minFreemem? or prio.maxCpu? or prio.maxLoad?
-    # get vital data
-    date = Math.floor new Date().getTime() / conf.retry.vital.interval
-    lib = require if host is 'localhost' then './spawn' else './ssh'
-    lib.vital host, vital, date, (err) ->
-      return cb err if err
-      # check startload
-      if vital.startload and vital.startload + load > vital.startmax
-        return cb null, new Error "The maximum load to start per interval would be exceeded
-        with this process at #{host}"
-      # error already detected
-      return cb null, vital.error[priority] if vital.error[priority]?
-      # check for new error
-      vital.error[priority] = if prio.maxCpu? and vital.cpu > prio.maxCpu
-        new Error "The CPU utilization of #{Math.round vital.cpu * 100}% is above
-        #{Math.round prio.maxCpu * 100}% allowed for #{priority} priority at #{host}"
-      else if prio.minFreemem? and vital.freemem < prio.minFreemem
-        new Error "The free memory of #{Math.round vital.freemem * 100}% is below
-        #{Math.round prio.minFreemem * 100}% allowed for #{priority} priority at #{host}"
-      else if prio.maxLoad?[0]? and vital.load[0] > prio.maxLoad[0]
-        new Error "The average short load of #{Math.round vital.load[0], 2} is above
-        #{Math.round prio.maxLoad[0] * 100}% allowed for #{priority} priority at #{host}"
-      else if prio.maxLoad?[1]? and vital.load[1] > prio.maxLoad[1]
-        new Error "The average medium load of #{Math.round vital.load[1], 2} is above
-        #{Math.round prio.maxLoad[1] * 100}% allowed for #{priority} priority at #{host}"
-      else if prio.maxLoad?[2]? and vital.load[2] > prio.maxLoad[2]
-        new Error "The average long load of #{Math.round vital.load[2], 2} is above
-        #{Math.round prio.maxLoad[2] * 100}% allowed for #{priority} priority at #{host}"
-      else false
-      cb null, vital.error[priority]
-
   ###
   Easy call to directly run execution in one statement.
 
@@ -260,19 +214,19 @@ class Exec extends EventEmitter
     - `cmd` - `String` command to execute (with optional parameters)
     - `args` - `Array<String>` list of command arguments
     - `priority` - `String` priority to use
-  - `host` - `String` name of host
+  - `server` - `Object` server to run on
   - `name` - `String` connection URI for debug messages
   - `result` - `Object`
     - `start` - `Date` of execution start
     - `end` - `Date` of execution end
   ###
   constructor: (@setup) ->
-    # get identifiers
+    # ge
+    t identifiers
     @id = ++objectId
-    @host = @setup.remote ? 'localhost'
-    @host = @host[0] if Array.isArray @host
-    @host = @host.host if typeof @host is 'object'
-    @name = chalk.grey "#{@host}##{@id}"
+    @server = @setup.remote ? {host: 'localhost'}
+    @server = @server[0] if Array.isArray @server
+    @name = chalk.grey "#{@server.host}##{@id}"
     # set priority
     conf = config.get '/exec/priority'
     @setup.priority ?= conf.default
@@ -304,20 +258,94 @@ class Exec extends EventEmitter
         @setup.cmd = parts.shift()
         @setup.args = parts.concat @setup.args ? []
     # check existing vital data
-    load = Exec.load[@setup.cmd]?(@setup.args) ? DEFAULT_LOAD
-    Exec.vitalCheck @host, @setup.priority, load, (err, res) =>
+    Exec.vitalCheck.call this, (err, res) =>
+#    Exec.vitalCheck @host, @setup.priority, load, (err, res) =>
       return cb err if err
       return @addQueue res, cb if res
       # add load to calculate startlimit
-      Exec.vital[@host].startload += load
+      Exec.vital[@server.host].startload += load
       # run locally or remote
-      lib = require if @host is 'localhost' then './spawn' else './ssh'
+      lib = require if @server.host is 'localhost' then './spawn' else './ssh'
       lib.run.call this, (err) =>
         if err
           debug "#{@name} failed with #{err}"
           return cb err
         # success
         @checkResult cb
+
+  # This will not only check the vital data but also select the server to use
+  # if a group is given.
+  #
+  # @name exec.vitalCheck
+  # @param {Function(<Error>)} cb callback with possible error
+  # if anything prevents the process from running
+  vitalCheck: (cb) ->
+    # get information
+    load = Exec.load[@setup.cmd]?(@setup.args) ? DEFAULT_LOAD
+    conf = config.get '/exec'
+    prio = conf.priority.level[@setup.priority]
+    # prevent vital check if no restrictions
+    unless prio.maxCpu? or prio.minFreemem? or prio.maxLoad?
+      # shuffle and use first
+      if Array.isArray @setup.remote
+        util.array.shuffle @setup.remote
+        @server = @setup.remote[0]
+      # but only on local run
+      return cb null, false if @server.host is 'localhost'
+    # resolve server list
+    serverlist = if typeof setup is 'string'
+      return [@server] if @server.host is 'localhost'
+      list = config.get "/exec/group/#{setup.remote}"
+      if list
+        return list.map (e) -> config.get "/ssh/server/#{e}"
+      else
+        return [config.get "/ssh/server/#{setup.remote}"]
+    else if Array.isArray @setup.remote
+      @setup.remote
+    else
+      [@setup.remote]
+    # really check the load of the list
+    date = Math.floor new Date().getTime() / conf.retry.vital.interval
+    lib = require if @server.host is 'localhost' then './spawn' else './ssh'
+    # collect vital data
+    async.each serverlist, (server, cb) =>
+#    lib.vital host, vital, date, (err) ->
+      lib.vital exec, date, (err, vital) =>
+        return cb() if err
+        @vital[@server.host] = vital
+        @server.vital = vital
+        cb()
+    , (err) ->
+      # sort list by load (asc)
+      serverlist = serverlist.filter (e) => @vital[e.host]
+      serverlist = util.array.sortBy serverlist, 'vital'
+      # select connection to use
+      @server = serverlist[0]
+      vital = @vital[@server.host] ?= {}
+      # check startload
+      if vital.startload and vital.startload + load > vital.startmax
+        return cb null, new Error "The maximum load to start per interval would be exceeded
+        with this process at #{@server.host}"
+      # error already detected
+      return cb null, vital.error[@setup.priority] if vital.error[@setup.priority]?
+      # check for new error
+      vital.error[@setup.priority] = if prio.maxCpu? and vital.cpu > prio.maxCpu
+        new Error "The CPU utilization of #{Math.round vital.cpu * 100}% is above
+        #{Math.round prio.maxCpu * 100}% allowed for #{@setup.priority} priority at #{@server.host}"
+      else if prio.minFreemem? and vital.freemem < prio.minFreemem
+        new Error "The free memory of #{Math.round vital.freemem * 100}% is below
+        #{Math.round prio.minFreemem * 100}% allowed for #{@setup.priority} priority at #{@server.host}"
+      else if prio.maxLoad?[0]? and vital.load[0] > prio.maxLoad[0]
+        new Error "The average short load of #{Math.round vital.load[0], 2} is above
+        #{Math.round prio.maxLoad[0] * 100}% allowed for #{@setup.priority} priority at #{@server.host}"
+      else if prio.maxLoad?[1]? and vital.load[1] > prio.maxLoad[1]
+        new Error "The average medium load of #{Math.round vital.load[1], 2} is above
+        #{Math.round prio.maxLoad[1] * 100}% allowed for #{@setup.priority} priority at #{@server.host}"
+      else if prio.maxLoad?[2]? and vital.load[2] > prio.maxLoad[2]
+        new Error "The average long load of #{Math.round vital.load[2], 2} is above
+        #{Math.round prio.maxLoad[2] * 100}% allowed for #{@setup.priority} priority at #{@server.host}"
+      else false
+      cb null, vital.error[priority]
 
   # If direct execution is not possible add this task to the queue
   #

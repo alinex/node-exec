@@ -130,7 +130,41 @@ Exec.run
 
 ### Remote Execution
 
+To execute the command on a remote machine you only have to specify the remote machine:
 
+``` coffee
+Exec.run
+  remote:
+    host: '65.25.98.25'
+    port:  22
+    username: 'root'
+    #passphrase: 'mypass'
+    privateKey: require('fs').readFileSync '/home/alex/.ssh/id_rsa'
+    #localHostname: "Localost"
+    #localUsername: "LocalUser"
+    #readyTimeout: 20000
+    keepaliveInterval: 1000
+    #debug: true    
+  cmd: 'date'
+, (err, proc) ->
+  # work with the results within the process instance
+```
+
+But to make it easier you can use a reference to the server configuration under
+`/ssh/server` in your {@link alinex-config}.
+
+``` coffee
+Exec.run
+  remote: 'server2'
+  cmd: 'date'
+, (err, proc) ->
+  # work with the results within the process instance
+```
+
+You can also reference a group of servers defined under `/exec/group` in your
+{@link alinex-config}. If you do so the command will be execute on one of them only
+randomely or the one with the lowest load if load based executing through priority
+is set.
 
 If you used remote executions, there may be some open server connections in the pool
 which prevent your program from ending. To end them call:
@@ -139,24 +173,36 @@ which prevent your program from ending. To end them call:
 Exec.close()
 ```
 
+### Best Practice in Module
 
+If you use this module in your app call the `Exec.setup()` method before initialization
+of the config module:
 
+``` coffee
+config = require 'alinex-config'
+Exec = require 'alinex-exec'
+schema = require './configSchema'
 
+class App
 
+  @setup: (cb) ->
+    # setup module configs first
+    async.each [Exec], (mod, cb) ->
+      mod.setup cb
+    , (err) ->
+      return cb err if err
+      # add schema for app's configuration
+      config.setSchema '/app', schema
+      # extend module search path
+      config.register 'app', fspath.dirname __dirname
+      cb()
 
-
-
-
-
-
-
-
-Priority Levels
-Vital Data
-Load of processes
-
-
-
+  @init: (cb) ->
+    config.init (err) =>
+      return cb err if err
+      @conf = config.get '/app'
+      cb()
+```
 
 
 Configuration
@@ -178,27 +224,34 @@ In this part you define the number of retries and timeouts used for rechecking i
 all parts which prevent the execution to start or run successfully.
 
 ``` yaml
-retry:
-  # check for host vital signs
-  vital:
-    # time to recheck host vital signs
-    interval: 5s
-    # maximum load% per CPU core per second in usage to start
-    startload: 80%
-  # too much processes opened on system
-  ulimit:
-    # time to sleep till next try
-    interval: 1s
-  # a queue will be created if host is overloaded
-  queue:
-    # specify the time after that a retry for queued executions should run
-    interval: 3s
-  # process failed retry check
-  error:
-    # number of attempts
-    times: 3
-    # time to sleep till next try
-    interval: 3s
+exec:
+  retry:
+    # connection retries
+    connect:
+      # number of attempts
+      times: 3
+      # time to sleep till next try
+      interval: 1s
+    # check for host vital signs
+    vital:
+      # time to recheck host vital signs
+      interval: 5s
+      # maximum load% per CPU core per second in usage to start
+      startload: 80%
+    # too much processes opened on system
+    ulimit:
+      # time to sleep till next try
+      interval: 1s
+    # a queue will be created if host is overloaded
+    queue:
+      # specify the time after that a retry for queued executions should run
+      interval: 3s
+    # process failed retry check
+    error:
+      # number of attempts
+      times: 3
+      # time to sleep till next try
+      interval: 3s
 ```
 
 All `interval` settings can be set as a time range in milliseconds or with the
@@ -210,51 +263,53 @@ This defines the possible priority levels to be used. The following configuratio
 shows the default.
 
 ``` yaml
-priority:
-  # specify the default priority
-  default: medium
-  # specify the possible priorities with their checks
-  level:
-    anytime:
-      maxCpu: 20%
-      maxLoad: 20%
-      nice: 19
-    low:
-      maxCpu: 40%
-      maxLoad: 60%
-      nice: 10
-    medium:
-      maxCpu: 60%
-      maxLoad: 100%
-      nice: 5
-    high:
-      maxCpu: 90%
-      maxLoad: 150%
-    immediately:
-      nice: -20
+exec:
+  priority:
+    # specify the default priority
+    default: medium
+    # specify the possible priorities with their checks
+    level:
+      anytime:
+        maxCpu: 20%
+        maxLoad: 20%
+        nice: 19
+      low:
+        maxCpu: 40%
+        maxLoad: 60%
+        nice: 10
+      medium:
+        maxCpu: 60%
+        maxLoad: 100%
+        nice: 5
+      high:
+        maxCpu: 90%
+        maxLoad: 150%
+      immediately:
+        nice: -20
 ```
 
 You may add other values or remove some of them to get your very own set of priorities:
 
 ``` yaml
-priority:
-  # specify the possible priorities with their checks
-  level:
-    low: null
-    medium: null
-    high: null
-    1:
-      maxCpu: 40%
-      maxLoad: 100%
-      nice: 15
-    2:
-      maxCpu: 50%
-      maxLoad: 120%
-      nice: 5
-    3:
-      maxCpu: 60%
-      maxLoad: 140%
-      nice: 0
+exec:
+  priority:
+    # specify the possible priorities with their checks
+    level:
+      low: null
+      medium: null
+      high: null
+      1:
+        maxCpu: 40%
+        maxLoad: 100%
+        nice: 15
+      2:
+        maxCpu: 50%
+        maxLoad: 120%
+        nice: 5
+      3:
+        maxCpu: 60%
+        maxLoad: 140%
+        nice: 0
 ```
 
 ### Remote Servers
@@ -263,7 +318,7 @@ This section shows you how to setup remote servers:
 
 ``` yaml
 # Define remote hosts or host pools to be used through ssh.
-remote:
+ssh:
   server:
     # virtual name for server
     server1:
@@ -299,52 +354,16 @@ remote:
       username: alex
       password: dontknow
       maxConnections: 5
+
+exec:
   group:
     testpool:
-      - host: server1
-        weight: 0.4
-      - host: server2
-        weight: 0.6
+      - server1
+      - server2
 ```
 
 As seen above there are two servers defined to access as `server1` and `server2`
 both are the localhost for test purpose.
-
-The `group` area can be used to define some server groups. commands which should
-be executed in a group will be run on one server of the group. Which one will
-be decided based on load balancing.
-
-To use one of these send it's name (key) or that of an group as `remote` parameter
-in the constructor.
-
-If you use this module in your app call the `Exec.setup()` method before initialization
-of the config module:
-
-``` coffee
-config = require 'alinex-config'
-Exec = require 'alinex-exec'
-schema = require './configSchema'
-
-class App
-
-  @setup: (cb) ->
-    # setup module configs first
-    async.each [Exec], (mod, cb) ->
-      mod.setup cb
-    , (err) ->
-      return cb err if err
-      # add schema for app's configuration
-      config.setSchema '/app', schema
-      # extend module search path
-      config.register 'app', fspath.dirname __dirname
-      cb()
-
-  @init: (cb) ->
-    config.init (err) =>
-      return cb err if err
-      @conf = config.get '/app'
-      cb()
-```
 
 
 Setup Execution
@@ -464,17 +483,6 @@ Exec.init (err) ->
 This will always printout a line immediately if a full line comes from the
 command. Empty lines will be ignored.
 
-### Stremas
-
-To concat execution with other exec instances  or other objects you may concat
-the following streams;
-
-- input
-- output
-- error
-
-> But this is not implemented, yet.
-
 
 Access Results
 -------------------------------------------------
@@ -522,8 +530,6 @@ You may also use the above methods on previous tries:
 
 - exec.stdout(exec.tries[0].result)
 - exec.stderr(exec.tries[0].result)
-
-
 
 
 License
