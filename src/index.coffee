@@ -293,17 +293,18 @@ class Exec extends EventEmitter
       # but only on local run
       return cb null, false if @server.host is 'localhost'
     # resolve server list
-    serverlist = if typeof setup is 'string'
-      return [@server] if @server.host is 'localhost'
-      list = config.get "/exec/group/#{setup.remote}"
-      if list
-        return list.map (e) -> config.get "/ssh/server/#{e}"
-      else
-        return [config.get "/ssh/server/#{setup.remote}"]
-    else if Array.isArray @setup.remote
-      @setup.remote
-    else
-      [@setup.remote]
+#    serverlist = if typeof setup is 'string'
+#      if @server.host is 'localhost'
+#        return null #[@server]
+#      list = config.get "/exec/group/#{setup.remote}"
+#      if list
+#        return list.map (e) -> config.get "/ssh/server/#{e}"
+#      else
+#        return [config.get "/ssh/server/#{setup.remote}"]
+#    else if Array.isArray @setup.remote
+#      @setup.remote
+#    else
+#      [@setup.remote]
     # really check the load of the list
     date = Math.floor new Date().getTime() / conf.retry.vital.interval
     lib = require if @server.host is 'localhost' then './spawn' else './ssh'
