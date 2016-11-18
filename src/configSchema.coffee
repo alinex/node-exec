@@ -41,8 +41,6 @@ See description under {@link alinex-ssh/src/configSchema.coffee}.
 
 # Node Modules
 # --------------------------------------
-sshSchema = require 'alinex-ssh/lib/configSchema'
-
 module.exports =
   title: "Exec configuration"
   description: "the configuration for the external command calls"
@@ -57,7 +55,6 @@ module.exports =
       allowedKeys: true
       mandatoryKeys: true
       keys:
-        connect: sshSchema.keys.retry
         vital:
           title: "Vital Sign Check"
           description: "the check for host vital data"
@@ -172,14 +169,3 @@ module.exports =
                 min: -20
                 max: 19
           ]
-    group:
-      title: "Groups"
-      description: "the setup of alternative server groups"
-      type: 'object'
-      entries: [
-        title: "Group"
-        description: "the setup of an alternative server group"
-        type: 'array'
-        minLength: 1
-        entries: sshSchema.keys.tunnel.entries[0].keys.remote
-      ]

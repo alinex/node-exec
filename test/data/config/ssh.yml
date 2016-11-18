@@ -23,3 +23,9 @@ server:
     port:  ssh
     username: alex
     password: dontknow
+
+group:
+  cluster:
+    - server1
+    - server2
+    

@@ -26,10 +26,7 @@ helper = require './helper'
 # or the `Exec` object itself
 module.exports.run = run = (cb) ->
   # set command
-  ssh.connect
-    server: @setup.remote
-    retry: config.get '/exec/retry/connect'
-  , (err, conn) =>
+  ssh.connect @setup.remote, (err, conn) =>
     return cb err if err
     # correct name (maybe different with alternatives)
     @name = "#{conn.name}##{@id}"

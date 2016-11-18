@@ -221,8 +221,7 @@ class Exec extends EventEmitter
     - `end` - `Date` of execution end
   ###
   constructor: (@setup) ->
-    # ge
-    t identifiers
+    # get identifiers
     @id = ++objectId
     @server = @setup.remote ? {host: 'localhost'}
     @server = @server[0] if Array.isArray @server
@@ -258,12 +257,13 @@ class Exec extends EventEmitter
         @setup.cmd = parts.shift()
         @setup.args = parts.concat @setup.args ? []
     # check existing vital data
-    Exec.vitalCheck.call this, (err, res) =>
+    console.log module.exports
+    @vitalCheck (err, res) =>
 #    Exec.vitalCheck @host, @setup.priority, load, (err, res) =>
       return cb err if err
       return @addQueue res, cb if res
       # add load to calculate startlimit
-      Exec.vital[@server.host].startload += load
+      exports.vital[@server.host].startload += load
       # run locally or remote
       lib = require if @server.host is 'localhost' then './spawn' else './ssh'
       lib.run.call this, (err) =>
@@ -335,16 +335,20 @@ class Exec extends EventEmitter
         #{Math.round prio.maxCpu * 100}% allowed for #{@setup.priority} priority at #{@server.host}"
       else if prio.minFreemem? and vital.freemem < prio.minFreemem
         new Error "The free memory of #{Math.round vital.freemem * 100}% is below
-        #{Math.round prio.minFreemem * 100}% allowed for #{@setup.priority} priority at #{@server.host}"
+        #{Math.round prio.minFreemem * 100}% allowed for #{@setup.priority}
+        priority at #{@server.host}"
       else if prio.maxLoad?[0]? and vital.load[0] > prio.maxLoad[0]
         new Error "The average short load of #{Math.round vital.load[0], 2} is above
-        #{Math.round prio.maxLoad[0] * 100}% allowed for #{@setup.priority} priority at #{@server.host}"
+        #{Math.round prio.maxLoad[0] * 100}% allowed for #{@setup.priority}
+        priority at #{@server.host}"
       else if prio.maxLoad?[1]? and vital.load[1] > prio.maxLoad[1]
         new Error "The average medium load of #{Math.round vital.load[1], 2} is above
-        #{Math.round prio.maxLoad[1] * 100}% allowed for #{@setup.priority} priority at #{@server.host}"
+        #{Math.round prio.maxLoad[1] * 100}% allowed for #{@setup.priority}
+        priority at #{@server.host}"
       else if prio.maxLoad?[2]? and vital.load[2] > prio.maxLoad[2]
         new Error "The average long load of #{Math.round vital.load[2], 2} is above
-        #{Math.round prio.maxLoad[2] * 100}% allowed for #{@setup.priority} priority at #{@server.host}"
+        #{Math.round prio.maxLoad[2] * 100}% allowed for #{@setup.priority}
+        priority at #{@server.host}"
       else false
       cb null, vital.error[priority]
 

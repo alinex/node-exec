@@ -130,41 +130,92 @@ Exec.run
 
 ### Remote Execution
 
-To execute the command on a remote machine you only have to specify the remote machine:
+To execute the command on a remote machine you only have to specify the remote machine.
+This can be done in various ways like also described in {@link alinex-ssh}.
 
 ``` coffee
 Exec.run
   remote:
-    host: '65.25.98.25'
-    port:  22
-    username: 'root'
-    #passphrase: 'mypass'
-    privateKey: require('fs').readFileSync '/home/alex/.ssh/id_rsa'
-    #localHostname: "Localost"
-    #localUsername: "LocalUser"
-    #readyTimeout: 20000
-    keepaliveInterval: 1000
-    #debug: true    
+    server:
+      host: '65.25.98.25'
+      port:  22
+      username: 'root'
+      #passphrase: 'mypass'
+      privateKey: require('fs').readFileSync '/home/alex/.ssh/id_rsa'
+      #localHostname: "Localost"
+      #localUsername: "LocalUser"
+      #readyTimeout: 20000
+      keepaliveInterval: 1000
+      #debug: true    
+    retry:
+      times: 3
+      intervall: 200
   cmd: 'date'
 , (err, proc) ->
   # work with the results within the process instance
 ```
+
+This may also be called with a list of alternative `server` connections.
+
+#### Configured
 
 But to make it easier you can use a reference to the server configuration under
 `/ssh/server` in your {@link alinex-config}.
 
 ``` coffee
 Exec.run
-  remote: 'server2'
+  remote:
+    server: 'server2'
+    retry:
+      times: 3
+      intervall: 200
   cmd: 'date'
 , (err, proc) ->
   # work with the results within the process instance
 ```
 
-You can also reference a group of servers defined under `/exec/group` in your
-{@link alinex-config}. If you do so the command will be execute on one of them only
-randomely or the one with the lowest load if load based executing through priority
-is set.
+The retry part can also be kept away to use the defaults (from config).
+
+The following is a short form, only possible if no special retry times are used:
+
+``` coffee
+Exec.run
+  remote:
+    group: 'appcluster'
+  cmd: 'date'
+, (err, proc) ->
+  # work with the results within the process instance
+```
+
+Alternatively you can give the group as an array of server names or configurations:
+
+``` coffee
+Exec.run
+  remote:
+    group: ['node1', 'node2', 'node3']
+  cmd: 'date'
+, (err, proc) ->
+  # work with the results within the process instance
+```
+
+And also the short version is possible which will first try to use the given name
+as group else as server:
+
+``` coffee
+Exec.run
+  remote: 'appcluster'
+  cmd: 'date'
+, (err, proc) ->
+  # work with the results within the process instance
+```
+
+#### Cluster/Group
+
+You can also reference a group of servers defined under `/ssh/group` in your
+{@link alinex-config}. If you do so the command will be execute on the host with
+the lowest load if load based executing through priority is set.
+
+#### Ending
 
 If you used remote executions, there may be some open server connections in the pool
 which prevent your program from ending. To end them call:
