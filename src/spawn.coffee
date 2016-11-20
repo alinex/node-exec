@@ -34,6 +34,7 @@ MEASURE_TIME = 1000
 # @param {Function(Error, Exec)} cb callback to be caalled after done with `Error`
 # or the `Exec` object itself
 module.exports.run = run = (cb) ->
+  @host = 'local'
   # set command
   cmd = @setup.cmd
   args = if @setup.args then @setup.args[0..] else []
@@ -118,7 +119,10 @@ module.exports.run = run = (cb) ->
 # @param {Date} date
 # @param {Function(Error, Exec)} cb callback to be caalled after done with `Error`
 # or the `Exec` object itself
-module.exports.vital = util.function.onceTime (host, vital, date, cb) ->
+module.exports.vital = (vital, date, cb) ->
+  @host = 'local'
+  vital[@host] ?= {}
+  vital = vital[@host]
   return cb() if vital.date is date
   # init startmax
   conf = config.get 'exec/retry/vital'
