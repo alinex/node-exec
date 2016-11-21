@@ -142,13 +142,16 @@ class Exec extends EventEmitter
           return cb true unless list.length
           # check if next process is already done in this round
           return cb true if list[0][0].id in mark
+          return cb true unless list.length
           # check
-          @vitalCheck host, prio, DEFAULT_LOAD, (err) =>
-          # stop if check failed
-            return cb true unless list.length
-            return cb err if err
+          [exec, ocb] = list.shift()
+          load = Exec.load[exec.setup.cmd]?(exec.setup.args) ? DEFAULT_LOAD
+          exec.vitalCheck load, (err) =>
+            # stop if check failed
+            if err
+              list.unshift [exec, ocb]
+              return cb err
             # get first entry
-            [exec, ocb] = list.shift()
             # reduce counter
             @queueCounter.total--
             @queueCounter.host[host]--
@@ -260,7 +263,6 @@ class Exec extends EventEmitter
       return cb err if err
       return @addQueue res, cb if res
       # add load to calculate startlimit
-      console.log Exec.vital
       Exec.vital[@host]?.startload += load
       # run locally or remote
       lib = require if @remote then './ssh' else './spawn'
