@@ -96,6 +96,7 @@ describe "Retry", ->
       , cb
 
     it "should support timeout", (cb) ->
+      @timeout 5000
       exec = new Exec
         remote: 'server1'
         cmd: 'sleep'
