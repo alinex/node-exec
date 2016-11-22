@@ -226,7 +226,7 @@ class Exec extends EventEmitter
   constructor: (@setup) ->
     # get identifiers
     @id = ++objectId
-    @name = chalk.grey "#{if @remote then 'remote' else 'local'}##{@id}"
+    @name = chalk.grey "#{if @setup.remote then 'remote' else 'local'}##{@id}"
     # set priority
     conf = config.get '/exec/priority'
     @setup.priority ?= conf.default
@@ -265,7 +265,7 @@ class Exec extends EventEmitter
       # add load to calculate startlimit
       Exec.vital[@host]?.startload += load
       # run locally or remote
-      lib = require if @remote then './ssh' else './spawn'
+      lib = require if @setup.remote then './ssh' else './spawn'
       lib.run.call this, (err) =>
         if err
           debug "#{@name} failed with #{err}"
@@ -287,7 +287,7 @@ class Exec extends EventEmitter
     return cb null, false unless prio.minFreemem? or prio.maxCpu? or prio.maxLoad?
     # get vital data
     date = Math.floor new Date().getTime() / conf.retry.vital.interval
-    lib = require if @remote then './ssh' else './spawn'
+    lib = require if @setup.remote then './ssh' else './spawn'
     lib.vital.call this, Exec.vital, date, (err) =>
       vital = Exec.vital[@host]
       return cb err if err

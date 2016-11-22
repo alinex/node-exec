@@ -27,7 +27,8 @@ helper = require './helper'
 module.exports.run = run = (cb) ->
   # set command
   ssh.connect @setup.remote, (err, conn) =>
-    @host = 'local'
+    console.log err, conn
+    @host = conn.name
     return cb err if err
     # correct name (maybe different with alternatives)
     @name = "#{conn.name}##{@id}"

@@ -4,7 +4,7 @@ expect = chai.expect
 async = require 'async'
 fs = require 'fs'
 
-describe.skip "Remote", ->
+describe "Remote", ->
   @timeout 20000
 
   config = require 'alinex-config'
@@ -14,10 +14,10 @@ describe.skip "Remote", ->
     @timeout 50000
     Exec.setup ->
       config.pushOrigin
-        uri: "#{__dirname}/../data/config/exec.yml"
+        uri: "#{__dirname}/../data/config/*.yml"
     Exec.init cb
 
-  describe "connection", ->
+  describe.only "connection", ->
 
     it "should fail if connection is impossible", (cb) ->
       return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
