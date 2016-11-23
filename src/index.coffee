@@ -288,9 +288,10 @@ class Exec extends EventEmitter
     # get vital data
     date = Math.floor new Date().getTime() / conf.retry.vital.interval
     lib = require if @setup.remote then './ssh' else './spawn'
+
     lib.vital.call this, Exec.vital, date, (err) =>
-      vital = Exec.vital[@host]
       return cb err if err
+      vital = Exec.vital[@host]
       # check startload
       if vital.startload and vital.startload + load > vital.startmax
         return cb null, new Error "The maximum load to start per interval would be exceeded
@@ -306,15 +307,15 @@ class Exec extends EventEmitter
         #{Math.round prio.minFreemem * 100}% allowed for #{@setup.priority}
         priority at #{@host}"
       else if prio.maxLoad?[0]? and vital.load[0] > prio.maxLoad[0]
-        new Error "The average short load of #{Math.round vital.load[0], 2} is above
+        new Error "The average short load of #{Math.round vital.load[0] * 100}% is above
         #{Math.round prio.maxLoad[0] * 100}% allowed for #{@setup.priority}
         priority at #{@host}"
       else if prio.maxLoad?[1]? and vital.load[1] > prio.maxLoad[1]
-        new Error "The average medium load of #{Math.round vital.load[1], 2} is above
+        new Error "The average medium load of #{Math.round vital.load[1] * 100}% is above
         #{Math.round prio.maxLoad[1] * 100}% allowed for #{@setup.priority}
         priority at #{@host}"
       else if prio.maxLoad?[2]? and vital.load[2] > prio.maxLoad[2]
-        new Error "The average long load of #{Math.round vital.load[2], 2} is above
+        new Error "The average long load of #{Math.round vital.load[2] * 100}% is above
         #{Math.round prio.maxLoad[2] * 100}% allowed for #{@setup.priority}
         priority at #{@host}"
       else false

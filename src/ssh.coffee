@@ -25,6 +25,7 @@ helper = require './helper'
 # @param {Function(Error, Exec)} cb callback to be caalled after done with `Error`
 # or the `Exec` object itself
 module.exports.run = run = (cb) ->
+  conf = config.get '/exec'
   # set command
   ssh.connect @setup.remote, (err, conn) =>
     return cb err if err
@@ -48,7 +49,7 @@ module.exports.run = run = (cb) ->
         conn.close()
         @process.error = err
         if err.message.match /open failed/
-          interval = @conf.retry.ulimit.interval
+          interval = conf.retry.ulimit.interval
           debug chalk.grey "#{@name} ssh open failed, waiting
           #{interval} ms..."
           @emit 'wait', interval
@@ -95,29 +96,33 @@ module.exports.run = run = (cb) ->
 # @param {Date} date
 # @param {Function(Error, Exec)} cb callback to be caalled after done with `Error`
 # or the `Exec` object itself
-module.exports.vital = util.function.onceTime (host, vital, date, cb) ->
-  return cb vital.failed if vital.date is date and vital.failed
-  return cb() if vital.date is date
-  # reinit
-  vital.date = date
-  vital.error = {}
-  vital.startload = 0
+#module.exports.vital = util.function.onceTime (host, vital, date, cb) ->
+module.exports.vital = (vital, date, cb) ->
   # connect to host and get data
-  console.log @setup
   ssh.connect
     server: @setup.remote
     retry: config.get '/exec/retry/connect'
   , (err, conn) =>
     return cb err if err
+    @host = conn.name
+    @name = "#{conn.name}##{@id}"
+    vital[@host] ?= {}
+    vital = vital[@host]
+    return cb vital.failed if vital.date is date and vital.failed
+    return cb() if vital.date is date
+    # reinit
+    vital.date = date
+    vital.error = {}
+    vital.startload = 0
     # correct name (maybe different with alternatives)
     @name = "#{conn.name}##{@id}"
-    debug chalk.grey "#{conn.name} detect vital signs"
+    debug chalk.grey "#{@name} detect vital signs"
     async.parallel [
-      (cb) -> startmax conn, vital, host, cb
+      (cb) -> startmax conn, vital, @host, cb
       (cb) -> top conn, vital, cb
-    ], (err) ->
+    ], (err) =>
       return cb err if err
-      debug chalk.grey "#{conn.name} vital signs: #{util.inspect(vital).replace /\s+/g, ' '}"
+      debug chalk.grey "#{@name} vital signs #{util.inspect(vital).replace /\s+/g, ' '}"
       cb()
 
 
@@ -129,11 +134,10 @@ module.exports.vital = util.function.onceTime (host, vital, date, cb) ->
 # @param
 startmax = (conn, vital, host, cb) ->
   return cb() if vital.startmax?
-  conf = config.get 'exec'
-  exec conn, "cat /proc/cpuinfo | awk '/^processor/{print $3}' | tail -1", (err, cpus) ->
+  conf = config.get '/exec'
+  exec conn, "nproc", (err, cpus) ->
     return cb err if err
-    vital.startmax = (conf.remote.server[host].startload ? conf.retry.vital.startload) *
-    conf.retry.vital.interval / 1000 * cpus
+    vital.startmax = conf.retry.vital.startload * conf.retry.vital.interval / 1000 * cpus
     cb()
 
 # ### get load, cpu usage and free mem
@@ -159,5 +163,5 @@ exec = (conn, cmdline, cb) ->
         return cb new Error "Got return code #{code} (signal #{signal}) from: #{cmdline}"
       return cb null, stdout.trim()
     .on 'data', (data) -> stdout += data
-    .stderr.on 'data', (data) -> debug "#{conn.name} Command #{cmdline} got error:
+    .stderr.on 'data', (data) -> debug "#{@name} Command #{cmdline} got error:
       #{data}"

@@ -17,7 +17,7 @@ describe "Remote", ->
         uri: "#{__dirname}/../data/config/*.yml"
     Exec.init cb
 
-  describe.only "connection", ->
+  describe "connection", ->
 
     it "should fail if connection is impossible", (cb) ->
       return @skip() unless fs.existsSync '/home/alex/.ssh/id_rsa'
@@ -34,7 +34,6 @@ describe "Remote", ->
         remote: 'notexisting'
         cmd: 'date'
       , (err) ->
-        console.log err
         expect(err, 'error').to.exist
         cb()
 
