@@ -27,9 +27,8 @@ helper = require './helper'
 module.exports.run = run = (cb) ->
   # set command
   ssh.connect @setup.remote, (err, conn) =>
-    console.log err, conn
-    @host = conn.name
     return cb err if err
+    @host = conn.name
     # correct name (maybe different with alternatives)
     @name = "#{conn.name}##{@id}"
     # create command line as newliner
