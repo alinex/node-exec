@@ -32,6 +32,7 @@ module.exports.run = run = (cb) ->
     @host = conn.name
     # correct name (maybe different with alternatives)
     @name = "#{conn.name}##{@id}"
+    conn.process[@name] = this
     # create command line as newliner
     cmdline = helper.cmdline @setup
     debugCmd chalk.yellow "#{@name} #{cmdline}"
@@ -72,7 +73,9 @@ module.exports.run = run = (cb) ->
       , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
       # process finished
       stream.on 'close', (code, signal) =>
-        conn.close()
+        debug chalk.grey "#{@name} command execution done"
+        delete conn.process[@name]
+        conn.done()
         clearTimeout @timer
         @result.code = code
         process.nextTick =>
