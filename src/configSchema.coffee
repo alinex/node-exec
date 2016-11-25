@@ -28,12 +28,7 @@ section described under {@link alinex-ssh/src/configSchema.coffee}.
 {@schema #keys/priority}
 
 
-/exec/group
-------------------------------------------------------
-{@schema #keys/group}
-
-
-/ssh/server
+/ssh/group and /ssh/server
 ------------------------------------------------------
 See description under {@link alinex-ssh/src/configSchema.coffee}.
 ###

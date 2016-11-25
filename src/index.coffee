@@ -17,8 +17,10 @@ EventEmitter = require('events').EventEmitter
 util = require 'alinex-util'
 config = require 'alinex-config'
 ssh = require 'alinex-ssh'
+validator = null # loaded on demand
 # internal helpers
 schema = require './configSchema'
+sshSchema = null
 check = require './check'
 
 
@@ -226,6 +228,44 @@ class Exec extends EventEmitter
     - `end` - `Date` of execution end
   ###
   constructor: (@setup) ->
+    # check the setup
+    if debug.enabled
+      validator ?= require 'alinex-validator'
+      sshSchema ?= require 'alinex-ssh/lib/configSchema'
+      try
+        validator.checkSync
+          name: 'execCall'
+          title: "Exec Setup"
+          value: @setup
+          schema:
+            type: 'object'
+            allowedKeys: true
+            keys:
+              remote: sshSchema.keys.group.entries[0].entries
+              cmd:
+                type: 'string'
+              args:
+                type: 'array'
+              cwd:
+                type: 'string'
+              uid:
+                type: 'any'
+              gid:
+                type: 'any'
+              env:
+                type: 'object'
+              priority:
+                type: 'string'
+                list: Object.keys config.get '/exec/priority/level'
+              timeout:
+                type: 'integer'
+              check:
+                type: 'object'
+              retry:
+                type: 'object'
+      catch error
+        debug "called with " + util.inspect @setup, {depth: null}
+        throw error
     # get identifiers
     @id = ++objectId
     @name = chalk.grey "#{if @setup.remote then 'remote' else 'local'}##{@id}"
