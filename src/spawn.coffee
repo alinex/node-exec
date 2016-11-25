@@ -64,27 +64,28 @@ module.exports.run = run = (cb) ->
   catch error
     if error.message is 'spawn EMFILE'
       interval = conf.retry.ulimit.interval
-      debug chalk.grey "#{@name} too much processes are opened, waiting
-      #{interval} ms..."
+      if debug.enabled
+        debug chalk.grey "#{@name} too much processes are opened, waiting
+        #{interval} ms..."
       @emit 'wait', interval
       return setTimeout (=> run.call this, cb), interval
     throw error
   # output debug lines
-  debug "#{@name} start using spawn under pid #{@proc.pid}"
+  debug "#{@name} start using spawn under pid #{@proc.pid}" if debug.enabled
   @process.pid = @proc.pid
-  debugCmd chalk.yellow "#{@name} #{helper.cmdline @setup}"
+  debugCmd chalk.yellow "#{@name} #{helper.cmdline @setup}" if debugCmd.enabled
   # collect output
   @result = {}
   @result.lines = []
   carrier.carry @proc.stdout, (line) =>
     @result.lines.push [1, line]
     @emit 'stdout', line if line # send through
-    debugOut "#{@name} #{line}"
+    debugOut "#{@name} #{line}" if debugOut.enabled
   , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
   carrier.carry @proc.stderr, (line) =>
     @result.lines.push [2, line]
     @emit 'stderr', line if line # send through
-    debugErr "#{@name} #{line}"
+    debugErr "#{@name} #{line}" if debugErr.enabled
   , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
   # error management
   @proc.on 'error', (err) =>
@@ -108,7 +109,7 @@ module.exports.run = run = (cb) ->
     cb null, this if cb
   if @setup.timeout
     @timer = setTimeout =>
-      debugCmd chalk.grey "#{@name} send KILL because timeout exceeded"
+      debugCmd chalk.grey "#{@name} send KILL because timeout exceeded" if debugCmd.enabled
       @proc.kill()
     , @setup.timeout + 1000
 
@@ -132,7 +133,8 @@ module.exports.vital = (vital, date, cb) ->
   setTimeout ->
     end = cpuMeasure()
     vital.cpu = 1 - (end[1] - start[1]) / (end[0] - start[0])
-    debug chalk.grey "vital signs: #{util.inspect(vital).replace /\s+/g, ' '}"
+    if debug.enabled
+      debug chalk.grey "vital signs: #{util.inspect(vital).replace /\s+/g, ' '}"
     cb()
   , MEASURE_TIME
   # set the other values

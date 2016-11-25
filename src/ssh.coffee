@@ -35,7 +35,7 @@ module.exports.run = run = (cb) ->
     conn.process[@name] = this
     # create command line as newliner
     cmdline = helper.cmdline @setup
-    debugCmd chalk.yellow "#{@name} #{cmdline}"
+    debugCmd chalk.yellow "#{@name} #{cmdline}" if debugCmd.enabled
     # store process information
     @process =
       host: @host
@@ -51,29 +51,31 @@ module.exports.run = run = (cb) ->
         @process.error = err
         if err.message.match /open failed/
           interval = conf.retry.ulimit.interval
-          debug chalk.grey "#{@name} ssh open failed, waiting
-          #{interval} ms..."
+          if debug.enabled
+            debug chalk.grey "#{@name} ssh open failed, waiting
+            #{interval} ms..."
           @emit 'wait', interval
           return setTimeout (=> run.call this, cb), interval
         return cb err
       if @setup.timeout
         @timer = setTimeout ->
-          debugCmd chalk.grey "#{@name} close stream because timeout exceeded"
+          if debugCmd.enabled
+            debugCmd chalk.grey "#{@name} close stream because timeout exceeded"
           stream.emit 'close', -1, 15
         , @setup.timeout + 1000
       carrier.carry stream, (line) =>
         @result.lines.push [1, line]
         @emit 'stdout', line if line # send through
-        debugOut "#{@name} #{line}"
+        debugOut "#{@name} #{line}" if debugOut.enabled
       , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
       carrier.carry stream.stderr, (line) =>
         @result.lines.push [2, line]
         @emit 'stderr', line if line # send through
-        debugErr "#{@name} #{line}"
+        debugErr "#{@name} #{line}" if debugErr.enabled
       , 'utf-8', /\r?\n|\r(?!\n)/ # match also single \r
       # process finished
       stream.on 'close', (code, signal) =>
-        debug chalk.grey "#{@name} command execution done"
+        debug chalk.grey "#{@name} command execution done" if debug.enabled
         delete conn.process[@name]
         conn.done()
         clearTimeout @timer
@@ -119,13 +121,14 @@ module.exports.vital = (vital, date, cb) ->
     vital.startload = 0
     # correct name (maybe different with alternatives)
     @name = "#{conn.name}##{@id}"
-    debug chalk.grey "#{@name} detect vital signs"
+    debug chalk.grey "#{@name} detect vital signs" if debug.enabled
     async.parallel [
       (cb) -> startmax conn, vital, @host, cb
       (cb) -> top conn, vital, cb
     ], (err) =>
       return cb err if err
-      debug chalk.grey "#{@name} vital signs #{util.inspect(vital).replace /\s+/g, ' '}"
+      if debug.enabled
+        debug chalk.grey "#{@name} vital signs #{util.inspect(vital).replace /\s+/g, ' '}"
       cb()
 
 
@@ -166,5 +169,6 @@ exec = (conn, cmdline, cb) ->
         return cb new Error "Got return code #{code} (signal #{signal}) from: #{cmdline}"
       return cb null, stdout.trim()
     .on 'data', (data) -> stdout += data
-    .stderr.on 'data', (data) -> debug "#{@name} Command #{cmdline} got error:
-      #{data}"
+    .stderr.on 'data', (data) ->
+      if debug.enabled
+        debug "#{@name} Command #{cmdline} got error: #{data}"

@@ -310,8 +310,12 @@ unit appended. Use something like '1.5s' (possible units: ms, s, m, h, d).
 
 ### Priority Levels
 
-This defines the possible priority levels to be used. The following configuration
-shows the default.
+This defines the possible priority levels to be used. These are used to prioritize
+some tasks using nice levels and also run them only if the load and cpu usage on the
+machine is below the defined level for each priorities. Jobs are held back till the
+machine load allows them.
+
+The following configuration shows the default.
 
 ``` yaml
 exec:

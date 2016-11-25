@@ -125,18 +125,20 @@ class Exec extends EventEmitter
     unless (hosts = Object.keys @queue).length
       @workerRunning = false
       return
-    debug chalk.grey """
-    worker started: #{@queueCounter.total} total tasks waiting / \
-    hosts: #{util.inspect @queueCounter.host} / \
-    priority: #{util.inspect @queueCounter.priority}
-    """
+    if debug.enabled
+      debug chalk.grey """
+      worker started: #{@queueCounter.total} total tasks waiting / \
+      hosts: #{util.inspect @queueCounter.host} / \
+      priority: #{util.inspect @queueCounter.priority}
+      """
     async.each hosts, (host, cb) =>
       prios = Object.keys @queue[host]
       prios.reverse()
       async.eachSeries prios, (prio, cb) =>
         list = @queue[host][prio]
         return cb() unless list.length
-        debug chalk.grey "worker running jobs for #{host} with #{prio} priority"
+        if debug.enabled
+          debug chalk.grey "worker running jobs for #{host} with #{prio} priority"
         mark = []
         async.forever (cb) =>
           return cb true unless list.length
@@ -161,7 +163,7 @@ class Exec extends EventEmitter
             exec.run ocb
             setTimeout cb, 100
         , (err) =>
-          debug chalk.grey "worker finished round"
+          debug chalk.grey "worker finished round" if debug.enabled
           delete @queue[host][prio] unless list.length
           cb err
       , (err) =>
@@ -231,7 +233,8 @@ class Exec extends EventEmitter
     conf = config.get '/exec/priority'
     @setup.priority ?= conf.default
     unless conf.level[@setup.priority]
-      debug chalk.red "Undefined priority #{@setup.priority} - using default"
+      if debug.enabled
+        debug chalk.red "Undefined priority #{@setup.priority} - using default"
       @setup.priority = conf.default
     # optimize cmd - extract arguments
     if ~@setup.cmd.indexOf ' '
@@ -247,7 +250,8 @@ class Exec extends EventEmitter
       if parts.length > 1
         @setup.cmd = parts.shift()
         @setup.args = parts.concat @setup.args ? []
-    debug "#{@name} created new instance with #{@setup.priority} priority"
+    if debug.enabled
+      debug "#{@name} created new instance with #{@setup.priority} priority"
 
   ###
   Start execution
@@ -268,7 +272,7 @@ class Exec extends EventEmitter
       lib = require if @setup.remote then './ssh' else './spawn'
       lib.run.call this, (err) =>
         if err
-          debug "#{@name} failed with #{err}"
+          debug "#{@name} failed with #{err}" if debug.enabled
           return cb err
         # success
         @checkResult cb
@@ -327,10 +331,11 @@ class Exec extends EventEmitter
   # @param {Function} cb which is called after execution is finally done
   addQueue: (err, cb) ->
     host = @setup.remote ? 'localhost'
-    if err
-      debug chalk.grey "#{@name} add to queue because: #{err.message}"
-    else
-      debug chalk.grey "#{@name} add to queue because other processes are waiting"
+    if debug.enabled
+      if err
+        debug chalk.grey "#{@name} add to queue because: #{err.message}"
+      else
+        debug chalk.grey "#{@name} add to queue because other processes are waiting"
     unless Exec.workerRunning
       Exec.workerRunning = true
       setTimeout Exec.worker, config.get 'exec/retry/queue/interval'
@@ -362,13 +367,14 @@ class Exec extends EventEmitter
       v.args = [v.args] unless Array.isArray v.args
       err = check[n].apply this, v.args ? null
       continue unless err
-      debug chalk.magenta "#{@name} #{n}: #{err.message}"
+      debug chalk.magenta "#{@name} #{n}: #{err.message}" if debug.enabled
       # got an error
       @result.error = err
       if v.retry
         times = @setup.retry.times ? @conf.retry.error.times
         if @tries?.length >= times
-          debug chalk.red "#{@name} reached #{times} retries - giving up"
+          if debug.enabled
+            debug chalk.red "#{@name} reached #{times} retries - giving up"
           return cb err, this
         return setTimeout =>
           # store last try
@@ -381,7 +387,7 @@ class Exec extends EventEmitter
         , @setup.retry.interval ? @conf.retry.error.interval
       return cb err, this
     # everything ok, go on
-    debug "#{@name} succeeded"
+    debug "#{@name} succeeded" if debug.enabled
     cb null, this
 
   # @param {Object} data the result data from the process
