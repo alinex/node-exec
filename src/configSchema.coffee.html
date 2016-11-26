@@ -1,306 +1,263 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>configSchema.coffee</title>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" media="all" href="../doc-style.css" />
-  <script src="../doc-filelist.js"></script>
-  <script>
-    var relativeDir = "../";
-    var thisFile = "src/configSchema.coffee";
-    var defaultSidebar = true;
-  </script>
-  <script src="../doc-script.js"></script>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configuration</title>
+    <meta name="HandheldFriendly" content="true" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">#topnav{text-align:center;background:#333;padding-bottom:20px;position:fixed;margin-top:0;width:100%;bottom:0;top:51px;}#topnav .navbar-nav{margin:0;margin-top:8px;display:-webkit-inline-box;display:-moz-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-box;display:inline-flex}#topnav .sidebar-to-top .btn{text-align:left}#topnav .sidebar-to-top li.level2>a{margin-left:20px}#topnav .sidebar-to-top li.level3>a{margin-left:40px}#topnav .sidebar-to-top li.level4>a{margin-left:60px}#topnav .sidebar-to-top li.level5>a{margin-left:80px}#topnav .sidebar-to-top li.level6>a{margin-left:100px}.navbar-fixed-top .navbar-collapse{max-height:100%}.navbar{min-width:300px}.nav>li{padding:2px 12px}.navbar-inverse .nav>li>a{color:#222;font-weight:bold;padding-top:6px;padding-bottom:6px;}.navbar-inverse .nav>li>a:focus,.navbar-inverse .nav>li>a:hover{background:#73aad8;background:#4b91cd -webkit-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -moz-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -o-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -ms-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd linear-gradient(180deg, #73aad8, #4b91cd) repeat-x}.navbar-inverse .nav>li>a.btn-warning:focus,.navbar-inverse .nav>li>a.btn-warning:hover{background:#ec9721;background:#c97c11 -webkit-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -moz-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -o-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -ms-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 linear-gradient(180deg, #ec9721, #c97c11) repeat-x}.navbar-spacer{height:51px}.btn-warning:active,.btn-primary:active{-webkit-transform:scale(.92);-moz-transform:scale(.92);-o-transform:scale(.92);-ms-transform:scale(.92);transform:scale(.92)}.btn-warning{background:#f2b560;background:#ee9f31 -webkit-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -moz-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -o-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -ms-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 linear-gradient(180deg, #f2b560, #ee9f31) repeat-x}.btn-primary{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x}.sidebar .nav{display:none;list-style:disc;padding-left:25px;}.sidebar .nav>li{display:list-item;}.sidebar .nav>li>a{color:#222;}.sidebar .nav>li>a:active{-webkit-box-shadow:0 2px 10px 2px rgba(0,0,0,0.25);box-shadow:0 2px 10px 2px rgba(0,0,0,0.25)}.sidebar .nav>li>a:hover{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x;color:#fff}.sidebar .nav>li.header,.sidebar .nav>li.active{display:none}.sidebar .nav>li.active>a{background:#73aad8;background:#4b91cd -webkit-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -moz-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -o-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -ms-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd linear-gradient(180deg, #73aad8, #4b91cd) repeat-x;}.sidebar .nav>li.active>a:hover{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x;color:#fff}.sidebar .nav>li.header>a{font-weight:bold;background:#f2b560;background:#ee9f31 -webkit-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -moz-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -o-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -ms-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 linear-gradient(180deg, #f2b560, #ee9f31) repeat-x;}.sidebar .nav>li.header>a:hover{background:#ec9721;background:#c97c11 -webkit-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -moz-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -o-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -ms-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 linear-gradient(180deg, #ec9721, #c97c11) repeat-x;color:#fff}.sidebar .nav>li.level2>a{padding-left:30px}.sidebar .nav>li.level3>a{padding-left:50px}.sidebar .nav>li.level4>a{padding-left:70px}.sidebar .nav>li.level5>a,.sidebar .nav>li.level6>a{padding-left:90px}.navbar-inverse .navbar-toggle{background-color:#444;}.navbar-inverse .navbar-toggle:hover{background-color:#666}@media (min-width:768px){#topnav{position:inherit;background:#222;padding-bottom:0}#topnav .nav>li{padding:0 4px}#topnav .sidebar-to-top{display:none}.navbar-right{margin-right:0}.navbar-nav >li>a{padding:6px 10px}.sidebar{overflow:auto;position:fixed;top:51px;left:0;bottom:0;background:#ddd;padding:0;}.sidebar h1,.sidebar h2{display:none}.sidebar .nav{display:block;list-style:none;padding-left:0;}.sidebar .nav>li{padding:0;}.sidebar .nav>li.header,.sidebar .nav>li.active{display:block;}.sidebar .nav>li.header.level2>a:before,.sidebar .nav>li.active.level2>a:before,.sidebar .nav>li.header.level3>a:before,.sidebar .nav>li.active.level3>a:before,.sidebar .nav>li.header.level4>a:before,.sidebar .nav>li.active.level4>a:before,.sidebar .nav>li.header.level5>a:before,.sidebar .nav>li.active.level5>a:before,.sidebar .nav>li.header.level6>a:before,.sidebar .nav>li.active.level6>a:before{content:"•"}.sidebar .nav>li>a{padding-top:8px;padding-bottom:8px}.sidebar .nav>li.level2>a:before,.sidebar .nav>li.level3>a:before,.sidebar .nav>li.level4>a:before,.sidebar .nav>li.level5>a:before,.sidebar .nav>li.level6>a:before{content:"◦";font-size:150%;line-height:10%;font-weight:bold;padding-right:5px;display:block;float:left;margin-top:8px;margin-left:-15px;color:#666}}img.preload{display:none}body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:16px;line-height:1.2;-ms-word-break:break-all;word-break:break-all;word-break:break-word;-webkit-hyphens:auto;-moz-hyphens:auto;-ms-hyphens:auto;hyphens:auto;-webkit-hyphenate-before:2;-webkit-hyphenate-after:3;hyphenate-lines:3;min-width:300px}h1,h2,h3,h4,h5,h6{font-weight:bold;}h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{display:block;content:" ";margin-top:-66px;height:66px;visibility:hidden}h1,h2,h3{clear:both}h1{border-bottom:3px solid #222;padding-bottom:5px}h2{border-bottom:2px dotted #222;padding-bottom:3px}h3{border-bottom:2px dotted #aaa;padding-bottom:2px}h4{border-bottom:1px dotted #aaa}dt{font-weight:bold;margin-top:8px}dd{margin-left:20px}blockquote{border:1px solid #eee;border-radius:3px;border-left:5px solid #337ab7;padding:5px 15px;margin:10px 0;}blockquote ul li p{margin-bottom:0}svg,img{max-width:100%}table{border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all;margin-bottom:10px;}table th,table td{padding:6px 13px;border:1px solid #ddd}table th{background-color:rgba(0,0,0,0.04);font-weight:bold;border-bottom:3px solid #999}table tr{background-color:#fff;border-top:1px solid #ccc;}table tr:nth-child(2n){background-color:rgba(0,0,0,0.04)}img{vertical-align:middle}.emoji{height:1em}abbr,acronym{border-bottom:dotted 1px}a code{color:#337ab7}code,tt{background-color:#fafafa;border-radius:4px;font-size:85%;margin:0;padding:.2em 0}pre{background-color:#fafafa;border-radius:10px;border:1px solid #a4a4a4;font-size:85%;margin:20px;padding:10px;}pre code,pre tt{background:none}pre.language{counter-reset:line;max-height:265px;padding-top:30px;padding-bottom:0;overflow-x:hidden;}pre.language code,pre.language tt{display:block;position:relative;float:left;width:100%;border-left:45px solid #ddd;margin-left:-10px;padding-left:5px;}pre.language code:before,pre.language tt:before{counter-increment:line;content:counter(line);min-width:35px;float:left;text-align:right;padding-right:5px;color:#808080;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-select:none;margin-left:-45px}pre.language code:first-of-type,pre.language tt:first-of-type{padding-top:10px}pre.language code:last-child,pre.language tt:last-child{padding-bottom:10px}pre.language header{border-top-left-radius:4px;border-top-right-radius:4px;font-weight:bold;background:#fafafa;margin:-30px -10px 0 -10px;padding:5px 15px}pre.language.coffeescript header,pre.language.javascript header,pre.language.ruby header,pre.language.python header,pre.language.perl header,pre.language.cc header,pre.language.cpp header,pre.language.cs header,pre.language.java header,pre.language.jsp header,pre.language.groovy header,pre.language.php header,pre.language.bash header,pre.language.sql header,pre.language.makefile header{background:#f0ad4e}pre.language.json header,pre.language.cson header,pre.language.yaml header{background:#61b961}pre.language.handlebars header,pre.language.css header,pre.language.stylus header,pre.language.scss header,pre.language.less header,pre.language.markdown header{background:#76abca}ul.table-of-contents{max-width:100px;max-height:30px;overflow:hidden;position:fixed;top:51px;right:0;background:#ddd;padding:5px 15px;-webkit-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-moz-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-o-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-ms-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;border-left:2px solid #999;border-bottom:2px solid #999;border-bottom-left-radius:10px;list-style-type:none;white-space:nowrap;z-index:100;}ul.table-of-contents:hover{max-width:285px;max-height:248px;-webkit-transition:max-width 100ms ease, max-height 1s ease 100ms;-moz-transition:max-width 100ms ease, max-height 1s ease 100ms;-o-transition:max-width 100ms ease, max-height 1s ease 100ms;-ms-transition:max-width 100ms ease, max-height 1s ease 100ms;transition:max-width 100ms ease, max-height 1s ease 100ms;overflow-y:auto}ul.table-of-contents header{background:#999;font-weight:bold;margin:-5px -15px;padding:5px 15px}ul.table-of-contents>li{padding-bottom:2px;padding-right:8px;}ul.table-of-contents>li:first-of-type{padding-top:10px}ul.table-of-contents a{color:#222}ul.table-of-contents li.sidebar{display:list-item}@media (min-width:768px){ul.table-of-contents li.sidebar{display:none}}div.detail,div.info,div.warning,div.alert{padding:30px 10px 6px 10px;margin:5px 0 8px 0;border-radius:3px;padding-left:60px;border-radius:18px;border-top-left-radius:0;}div.detail>p,div.info>p,div.warning>p,div.alert>p{margin-bottom:0}div.detail header,div.info header,div.warning header,div.alert header{font-weight:bold;position:absolute;margin-top:-30px;margin-left:-60px;padding:3px 20px 3px 10px;border-bottom-right-radius:18px}div:before{content:'\24D8';color:#666;position:absolute;font-size:28px;font-weight:900;padding-top:5px;margin-left:-50px}div.detail{background-color:#fafafa;border:2px solid #ddd;padding-top:0}div.info{background-color:#9f9;background-image:-webkit-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-moz-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-o-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-ms-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:linear-gradient(to bottom, #bfb 0%, #6d6 100%);border:2px solid #6d6;}div.info header{background-color:#6d6}div.info:before{content:'\24D8';text-shadow:0 -1px 0 #6d6}div.warning{background-color:#fc9;background-image:-webkit-linear-gradient(top, #f97 0%, #e86 100%);background-image:-moz-linear-gradient(top, #f97 0%, #e86 100%);background-image:-o-linear-gradient(top, #f97 0%, #e86 100%);background-image:-ms-linear-gradient(top, #f97 0%, #e86 100%);background-image:linear-gradient(to bottom, #f97 0%, #e86 100%);border:2px solid #e86;}div.warning header{background-color:#e86}div.warning:before{content:'\2605';text-shadow:0 -1px 0 #e86}div.alert{background-color:#f99;background-image:-webkit-linear-gradient(top, #faa 0%, #c00 100%);background-image:-moz-linear-gradient(top, #faa 0%, #c00 100%);background-image:-o-linear-gradient(top, #faa 0%, #c00 100%);background-image:-ms-linear-gradient(top, #faa 0%, #c00 100%);background-image:linear-gradient(to bottom, #faa 0%, #c00 100%);border:2px solid #c00;}div.alert header{background-color:#c00;color:#fff}div.alert:before{content:'\24D8';text-shadow:0 -1px 0 #c00}.cse .gsc-control-cse,.gsc-control-cse{padding:0 !important;}.cse .gsc-control-cse table tr,.gsc-control-cse table tr,.cse .gsc-control-cse table th,.gsc-control-cse table th,.cse .gsc-control-cse table td,.gsc-control-cse table td{border:0}.cse .gsc-control-cse .gsc-cursor-current-page,.gsc-control-cse .gsc-cursor-current-page{color:#fff !important}.cse .gsc-control-cse .gsc-webResult.gsc-result:hover,.gsc-control-cse .gsc-webResult.gsc-result:hover,.cse .gsc-control-cse .gsc-imageResult:hover,.gsc-control-cse .gsc-imageResult:hover{border-left:5px solid #337ab7;padding-left:3px}.cse .gsc-control-cse .gcsc-branding,.gsc-control-cse .gcsc-branding{display:none !important}.gsc-adBlock{display:none !important}.gsc-above-wrapper-area-container,.gsc-above-wrapper-area{display:none}div::before{display:none !important}@media print{.navbar-spacer,.table-of-contents,.sidebar{display:none}.main{left:0;width:100%}pre.language header{border-bottom:2px solid #999}}.text-red{color:#d13f19}.text-green{color:#2ecc40}.text-yellow{color:#ffdc00}.text-blue{color:#0074d9}.text-magenta{color:#f0f}.text-cyan{color:#0ff}.text-gray{color:#aaa}.bg-white{background-color:#fff}.center{text-align:center}.left{float:left}.right{float:right}.spacing{padding:10px}.hidden{display:none}@media (max-width:767px){.hidden-small{display:none}}@media (min-width:768px){.hidden-large{display:none}}</style>
+  </head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
-<body>
-  <nav>
-<div class="logo"><a href="http://alinex.github.io"
-  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
-  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
-    width="150" title="Alinex Universe Homepage" />
-  </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png"
-    style="display:none" alt="preloading" />
-</div>
-<div class="links">
-  <a href="http://alinex.github.io/blog"
-    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
-  <a href="http://alinex.github.io/develop"
-    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
-  <a href="http://alinex.github.io/code.html"
-    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
-</div>
-</nav><div id="sidebar_wrapper">
-    <div id="sidebar_switch">
-      <span class="tree">Files</span>
-      <span class="headings">Headings</span>
-    </div>
-    <div id="tree"></div>
-    <div id="headings">
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topnav" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="https://alinex.github.io/" onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Homepage">
+</a>
+<img class="preload" src="https://alinex.github.io/images/Alinex-200.png" aria-hidden="true">
 
-      <div class="heading h1">
-        <a href="#check-definitions">Check definitions</a>
+        </div>
+        <div id="topnav" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://alinex.github.io/blog" class="btn btn-primary">
+    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Blog
+  </a></li>
+<li><a href="https://alinex.github.io/develop" class="btn btn-primary">
+    <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Develop
+  </a></li>
+<li><a href="https://alinex.github.io/code.html" class="btn btn-warning">
+    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Code
+  </a></li>
+
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input name="q" type="text" class="form-control" placeholder="Search...">
+          </form>
+          <ul class="nav sidebar-to-top">
+                <li class="level0">
+                  <a href="../README.md.html" title="Alinex Exec: Readme (/README.md)" class="btn btn-primary">Readme</a>
+                </li>
+                <li class="level0">
+                  <a href="index.coffee.html" title="Execution class - API Usage (/src/index.coffee)" class="btn btn-primary">API Usage</a>
+                </li>
+                <li class="level1">
+                  <a href="check.coffee.html" title="Result checks (/src/check.coffee)" class="btn btn-primary">Result checks</a>
+                </li>
+                <li class="active level1">
+                  <a href="configSchema.coffee.html" title="Configuration (/src/configSchema.coffee)" class="btn btn-warning">Configuration <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="level0">
+                  <a href="../Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-primary">Version changes</a>
+                </li>
+          </ul>
+        </div>
       </div>
+    </nav>
 
+    <div class="navbar-spacer"></div>
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-sm-9 col-sm-push-3 main">
+          <script>
+  (function() {
+    var cx = '010539487162786288372:chxqbheanxc';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:searchresults-only></gcse:searchresults-only>
+
+          <main><p><ul class="table-of-contents" aria-hidden="true"><header>Index</header>
+<li><a href="#execretry">/exec/retry</a></li>
+<li><a href="#execpriority">/exec/priority</a></li>
+<li><a href="#sshgroup-and-sshserver">/ssh/group and /ssh/server</a></li>
+</ul>
+</p>
+<h1 id="configuration">Configuration</h1>
+<blockquote>
+<p>Path: <code>/src/configSchema.coffee</code> compiled to <code>/lib/configSchema.js</code></p>
+</blockquote>
+<p>To configure this module to your needs, please make a new configuration file for <code>/exec</code>
+context. To do so you may copy the base settings from <code>src/config/exec.yml</code> into
+<code>var/local/config/exec.yml</code> and change it’s values or put it into your applications
+configuration directory.</p>
+<p>Like supported by<a href="https://alinex.github.io/node-config">alinex-config</a> you only have to
+write the settings which differ from the defaults.</p>
+<p>The configuration contains the following three parts:</p>
+<ul>
+<li>retry handling</li>
+<li>priorities</li>
+<li>groups</li>
+</ul>
+<p>But you additionaly may write the ssh connection details within the <code>/ssh/server</code>
+section described under<a href="https://alinex.github.io/node-ssh/src/configSchema.coffee">alinex-ssh/src/configSchema.coffee</a>.</p>
+<h2 id="execretry">/exec/retry</h2>
+<p><strong>Retry</strong> is the retry of the process.</p>
+<p>An  object with the following keys have to be present: <code>vital</code>, <code>queue</code>, <code>ulimit</code>, <code>error</code>. The following entries have a specific format:</p>
+<dl>
+<dt><code>vital</code></dt>
+<dd>
+<p><strong>Vital Sign Check</strong> is the check for host vital data.</p>
+<p>An  object with the following keys have to be present: <code>interval</code>, <code>startload</code>. The following entries have a specific format:</p>
+<dl>
+<dt><code>interval</code></dt>
+<dd>
+<p><strong>Time before Recheck</strong> is the time to wait before rechecking the host vital signs.</p>
+<p>A time interval as float, in time format or as text which may use a combination of values with the units: ms, s, m, h, d. The result will be given as the number of ms. A numeric floating point number. The value should be greater than 0.</p>
+</dd>
+<dt><code>startload</code></dt>
+<dd>
+<p><strong>Start Limit</strong> is the maximum load% per CPU core per second in usage to start.</p>
+<p>A percentage value as decimal like 0.3 but it may be given as percent or per mille value text like 30% or 30‰, too. A numeric floating point number. The value should be greater than 0.01.</p>
+</dd>
+</dl>
+</dd>
+<dt><code>queue</code></dt>
+<dd>
+<p><strong>Work Queue</strong> is the handling of the queue if load is too high.</p>
+<p>An  object with the following keys have to be present: <code>interval</code>. The following entries have a specific format:</p>
+<dl>
+<dt><code>interval</code></dt>
+<dd>
+<p><strong>Recheck Time</strong> is the time after that the worker will retry to start queued executions.</p>
+<p>A time interval as float, in time format or as text which may use a combination of values with the units: ms, s, m, h, d. A numeric floating point number. The value should be greater than 0.</p>
+</dd>
+</dl>
+</dd>
+<dt><code>ulimit</code></dt>
+<dd>
+<p><strong>Retry if ULimit</strong> is the retry if the process limit is reached.</p>
+<p>An  object with the following keys have to be present: <code>interval</code>. The following entries have a specific format:</p>
+<dl>
+<dt><code>interval</code></dt>
+<dd>
+<p><strong>Time to Wait</strong> is the time to wait before retrying a failed attempt.</p>
+<p>A time interval as float, in time format or as text which may use a combination of values with the units: ms, s, m, h, d. The result will be given as the number of ms. A numeric floating point number. The value should be greater than 0.</p>
+</dd>
+</dl>
+</dd>
+<dt><code>error</code></dt>
+<dd>
+<p><strong>Retry if Failed</strong> is the retry after failed retry checks.</p>
+<p>An  object with the following keys have to be present: <code>times</code>, <code>interval</code>. The following entries have a specific format:</p>
+<dl>
+<dt><code>times</code></dt>
+<dd>
+<p><strong>Number of Attempts</strong> are the number of maximal attempts to run successfully.</p>
+<p>An integer value. The value should be greater than 0.</p>
+</dd>
+<dt><code>interval</code></dt>
+<dd>
+<p><strong>Time to Wait</strong> is the time to wait before retrying a failed attempt.</p>
+<p>A time interval as float, in time format or as text which may use a combination of values with the units: ms, s, m, h, d. The result will be given as the number of ms. A numeric floating point number. The value should be greater than 0.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<h2 id="execpriority">/exec/priority</h2>
+<p><strong>Priorities</strong> are the setup of priorities.</p>
+<p>An  object with the following keys have to be present: <code>default</code>, <code>level</code>. The following entries have a specific format:</p>
+<dl>
+<dt><code>default</code></dt>
+<dd>
+<p><strong>Default Priority</strong> is the default priority as reference to one of the defined list entries.</p>
+<p>A text entry in which all control characters will be removed.</p>
+</dd>
+<dt><code>level</code></dt>
+<dd>
+<p><strong>Priority Levels</strong> are the definition of all possible priorities.</p>
+<p>An object. The entries are:</p>
+<ul>
+<li>
+<p>any key: <strong>Priority Level</strong> is the definition of one priority level.</p>
+<p>An object which is optional. The following keys are allowed: <code>maxCpu</code>, <code>maxLoad</code>, <code>minFreemem</code>, <code>nice</code>. The following entries have a specific format:</p>
+<dl>
+<dt><code>maxCpu</code></dt>
+<dd>
+<p><strong>Max CPU</strong> is the maximum cpu usage, till that execution may be started.</p>
+<p>A percentage value as decimal like 0.3 but it may be given as percent or per mille value text like 30% or 30‰, too. A numeric floating point number. The value should be between 0 and 1.</p>
+</dd>
+<dt><code>maxLoad</code></dt>
+<dd>
+<p><strong>Max Load</strong> is the maximum system load, till that execution may be started.</p>
+<p>A list. You may also give a text or RegExp using ‘/\s/’ as separator for the individual entries. The number of entries have to be between 1 and 3 elements. Each entry has to be of type percent:</p>
+<blockquote>
+<p><strong>Max Load</strong> is the maximum system load for period.</p>
+<p>A percentage value as decimal like 0.3 but it may be given as percent or per mille value text like 30% or 30‰, too. A numeric floating point number. The value should be greater than 0.</p>
+</blockquote>
+</dd>
+<dt><code>minFreemem</code></dt>
+<dd>
+<p><strong>Min free Mem</strong> is the minimum free memory needed to execute.</p>
+<p>A percentage value as decimal like 0.3 but it may be given as percent or per mille value text like 30% or 30‰, too. A numeric floating point number. The value should be greater than 0.</p>
+</dd>
+<dt><code>nice</code></dt>
+<dd>
+<p><strong>Nice</strong> is the niceness of the process.</p>
+<p>An integer value. The value should be between -20 and 19.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<h2 id="sshgroup-and-sshserver">/ssh/group and /ssh/server</h2>
+<p>See description under<a href="https://alinex.github.io/node-ssh/src/configSchema.coffee">alinex-ssh/src/configSchema.coffee</a>.</p>
+</main>
+        </div>
+        <div class="col-sm-3 col-cm-pull-9 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="header">
+              <a href="../README.md.html">Alinex Exec</a>
+            </li>
+                <li class="level0">
+                  <a href="../README.md.html" title="Alinex Exec: Readme (/README.md)">Readme</a>
+                </li>
+                <li class="level0">
+                  <a href="index.coffee.html" title="Execution class - API Usage (/src/index.coffee)">API Usage</a>
+                </li>
+                <li class="level1">
+                  <a href="check.coffee.html" title="Result checks (/src/check.coffee)">Result checks</a>
+                </li>
+                <li class="active level1">
+                  <a href="configSchema.coffee.html" title="Configuration (/src/configSchema.coffee)">Configuration <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="level0">
+                  <a href="../Changelog.md.html" title="Version changes (/Changelog.md)">Version changes</a>
+                </li>
+          </ul>
+        </div>
+
+      </div>
     </div>
-  </div>
-  <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-exec" title="Fork me on GitHub"></a>
-    <div class="background highlight"></div>
-<table cellpadding="0" cellspacing="0">
-  <tbody>
-    
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="check-definitions">
-  <h1>
-    <a href="#check-definitions" name="check-definitions" class="pilcrow"></a>
-Check definitions
-  </h1>
-</div>
 
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">
-<span class="hljs-built_in">module</span>.exports =
-  title: <span class="hljs-string">"Exec configuration"</span>
-  description: <span class="hljs-string">"the configuration for the external command calls"</span>
-  type: <span class="hljs-string">'object'</span>
-  allowedKeys: <span class="hljs-literal">true</span>
-  mandatoryKeys: [<span class="hljs-string">'retry'</span>, <span class="hljs-string">'priority'</span>]
-  keys:
-    retry:
-      title: <span class="hljs-string">"Retry"</span>
-      description: <span class="hljs-string">"the retry of the process"</span>
-      type: <span class="hljs-string">'object'</span>
-      allowedKeys: <span class="hljs-literal">true</span>
-      mandatoryKeys: <span class="hljs-literal">true</span>
-      keys:
-        vital:
-          title: <span class="hljs-string">"Vital Sign Check"</span>
-          description: <span class="hljs-string">"the check for host vital data"</span>
-          type: <span class="hljs-string">'object'</span>
-          allowedKeys: <span class="hljs-literal">true</span>
-          mandatoryKeys: <span class="hljs-literal">true</span>
-          keys:
-            interval:
-              title: <span class="hljs-string">"Time before Recheck"</span>
-              description: <span class="hljs-string">"the time to wait before rechecking the host vital signs"</span>
-              type: <span class="hljs-string">'interval'</span>
-              unit: <span class="hljs-string">'ms'</span>
-              min: <span class="hljs-number">0</span>
-            startload:
-              title: <span class="hljs-string">"Start Limit"</span>
-              description: <span class="hljs-string">"the maximum load% per CPU core per second in usage to start"</span>
-              type: <span class="hljs-string">'percent'</span>
-              min: <span class="hljs-number">0.01</span>
-        queue:
-          title: <span class="hljs-string">"Work Queue"</span>
-          description: <span class="hljs-string">"the handling of the queue if load is too high"</span>
-          type: <span class="hljs-string">'object'</span>
-          allowedKeys: <span class="hljs-literal">true</span>
-          mandatoryKeys: <span class="hljs-literal">true</span>
-          keys:
-            interval:
-              title: <span class="hljs-string">"Recheck Time"</span>
-              description: <span class="hljs-string">"the time after that the worker will retry to start queued executions"</span>
-              type: <span class="hljs-string">'interval'</span>
-              min: <span class="hljs-number">0</span>
-        ulimit:
-          title: <span class="hljs-string">"Retry if ULimit"</span>
-          description: <span class="hljs-string">"the retry if the process limit is reached"</span>
-          type: <span class="hljs-string">'object'</span>
-          allowedKeys: <span class="hljs-literal">true</span>
-          mandatoryKeys: <span class="hljs-literal">true</span>
-          keys:
-            interval:
-              title: <span class="hljs-string">"Time to Wait"</span>
-              description: <span class="hljs-string">"the time to wait before retrying a failed attempt"</span>
-              type: <span class="hljs-string">'interval'</span>
-              unit: <span class="hljs-string">'ms'</span>
-              min: <span class="hljs-number">0</span>
-        error:
-          title: <span class="hljs-string">"Retry if Failed"</span>
-          description: <span class="hljs-string">"the retry after failed retry checks"</span>
-          type: <span class="hljs-string">'object'</span>
-          allowedKeys: <span class="hljs-literal">true</span>
-          mandatoryKeys: <span class="hljs-literal">true</span>
-          keys:
-            times:
-              title: <span class="hljs-string">"Number of Attempts"</span>
-              description: <span class="hljs-string">"the number of maximal attempts to run successfully"</span>
-              type: <span class="hljs-string">'integer'</span>
-              min: <span class="hljs-number">0</span>
-            interval:
-              title: <span class="hljs-string">"Time to Wait"</span>
-              description: <span class="hljs-string">"the time to wait before retrying a failed attempt"</span>
-              type: <span class="hljs-string">'interval'</span>
-              unit: <span class="hljs-string">'ms'</span>
-              min: <span class="hljs-number">0</span>
-    priority:
-      title: <span class="hljs-string">"Priorities"</span>
-      description: <span class="hljs-string">"the setup of priorities"</span>
-      type: <span class="hljs-string">'object'</span>
-      allowedKeys: <span class="hljs-literal">true</span>
-      mandatoryKeys: <span class="hljs-literal">true</span>
-      keys:
-        default:
-          title: <span class="hljs-string">"Default Priority"</span>
-          description: <span class="hljs-string">"the default priority as reference to one of the defined list entries"</span>
-          type: <span class="hljs-string">'string'</span>
-          list: <span class="hljs-string">'&lt;&lt;&lt; level &gt;&gt;&gt;'</span>
-        level:
-          title: <span class="hljs-string">"Priority Levels"</span>
-          description: <span class="hljs-string">"the definition of all possible priorities"</span>
-          type: <span class="hljs-string">'object'</span>
-          entries: [
-            title: <span class="hljs-string">"Priority Level"</span>
-            description: <span class="hljs-string">"the definition of one priority level"</span>
-            type: <span class="hljs-string">'object'</span>
-            allowedKeys: <span class="hljs-literal">true</span>
-            optional: <span class="hljs-literal">true</span>
-            keys:
-              maxCpu:
-                title: <span class="hljs-string">"Max CPU"</span>
-                description: <span class="hljs-string">"the maximum cpu usage, till that execution may be started"</span>
-                type: <span class="hljs-string">'percent'</span>
-                min: <span class="hljs-number">0</span>
-                max: <span class="hljs-number">1</span>
-              maxLoad:
-                title: <span class="hljs-string">"Max Load"</span>
-                description: <span class="hljs-string">"the maximum system load, till that execution may be started"</span>
-                type: <span class="hljs-string">'array'</span>
-                delimiter: <span class="hljs-regexp">/\s/</span>
-                minLength: <span class="hljs-number">1</span>
-                maxLength: <span class="hljs-number">3</span>
-                entries:
-                  title: <span class="hljs-string">"Max Load"</span>
-                  description: <span class="hljs-string">"the maximum system load for period"</span>
-                  type: <span class="hljs-string">'percent'</span>
-                  min: <span class="hljs-number">0</span>
-              minFreemem:
-                title: <span class="hljs-string">"Min free Mem"</span>
-                description: <span class="hljs-string">"the minimum free memory needed to execute"</span>
-                type: <span class="hljs-string">'percent'</span>
-                min: <span class="hljs-number">0</span>
-              nice:
-                title: <span class="hljs-string">"Nice"</span>
-                description: <span class="hljs-string">"the niceness of the process"</span>
-                type: <span class="hljs-string">'integer'</span>
-                min: <span class="hljs-number">-20</span>
-                max: <span class="hljs-number">19</span>
-          ]
-    remote:
-      title: <span class="hljs-string">"Remote Servers"</span>
-      description: <span class="hljs-string">"the setup of remote execution servers"</span>
-      type: <span class="hljs-string">'object'</span>
-      keys:
-        server:
-          type: <span class="hljs-string">'object'</span>
-          entries: [
-            title: <span class="hljs-string">"Remote Server"</span>
-            description: <span class="hljs-string">"a remote server ssh connection setup"</span>
-            type: <span class="hljs-string">'object'</span>
-            allowedKeys: <span class="hljs-literal">true</span>
-            mandatoryKeys: [<span class="hljs-string">'host'</span>, <span class="hljs-string">'port'</span>, <span class="hljs-string">'username'</span>]
-            keys:
-              host:
-                title: <span class="hljs-string">"Hostname or IP Address"</span>
-                description: <span class="hljs-string">"the hostname or IP address to connect to"</span>
-                type: <span class="hljs-string">'or'</span>
-                or: [
-                  type: <span class="hljs-string">'hostname'</span>
-                ,
-                  type: <span class="hljs-string">'ipaddr'</span>
-                ]
-              port:
-                title: <span class="hljs-string">"Port NUmber"</span>
-                description: <span class="hljs-string">"the port on which to connect using ssh protocol"</span>
-                type: <span class="hljs-string">'port'</span>
-                default: <span class="hljs-number">22</span>
-              username:
-                title: <span class="hljs-string">"Username"</span>
-                description: <span class="hljs-string">"the username to use for the connection"</span>
-                type: <span class="hljs-string">'string'</span>
-              password:
-                title: <span class="hljs-string">"Password"</span>
-                description: <span class="hljs-string">"the password to use for connecting"</span>
-                type: <span class="hljs-string">'string'</span>
-                optional: <span class="hljs-literal">true</span>
-              privateKey:
-                title: <span class="hljs-string">"Private Key"</span>
-                description: <span class="hljs-string">"the private key file to use for OpenSSH authentication"</span>
-                type: <span class="hljs-string">'string'</span>
-              passphrase:
-                title: <span class="hljs-string">"Passphrase"</span>
-                description: <span class="hljs-string">"the passphrase used to decrypt an encrypted private key"</span>
-                type: <span class="hljs-string">'string'</span>
-              localHostname:
-                title: <span class="hljs-string">"Local Hostname"</span>
-                description: <span class="hljs-string">"the host used for hostbased user authentication"</span>
-                type: <span class="hljs-string">'string'</span>
-              localUsername:
-                title: <span class="hljs-string">"Local User"</span>
-                description: <span class="hljs-string">"the username used for hostbased user authentication"</span>
-                type: <span class="hljs-string">'string'</span>
-              keepaliveInterval:
-                title: <span class="hljs-string">"Keepalive"</span>
-                description: <span class="hljs-string">"the interval for the keepalive packets to be send"</span>
-                type: <span class="hljs-string">'interval'</span>
-                unit: <span class="hljs-string">'ms'</span>
-                default: <span class="hljs-number">1000</span>
-              readyTimeout:
-                title: <span class="hljs-string">"Ready TImeout"</span>
-                description: <span class="hljs-string">"the time to wait for the ssh handshake to succeed"</span>
-                type: <span class="hljs-string">'interval'</span>
-                unit: <span class="hljs-string">'ms'</span>
-                default: <span class="hljs-number">20000</span>
-              startload:
-                title: <span class="hljs-string">"Start Limit"</span>
-                description: <span class="hljs-string">"the maximum load for each CPUs per second in usage to start"</span>
-                type: <span class="hljs-string">'percent'</span>
-                min: <span class="hljs-number">0.01</span>
-              maxSessions:
-                title: <span class="hljs-string">"Max. Parallel Sessions"</span>
-                description: <span class="hljs-string">"the number of max. parallel sessions on the connection"</span>
-                type: <span class="hljs-string">'integer'</span>
-                min: <span class="hljs-number">1</span>
-              debug:
-                title: <span class="hljs-string">"Extended Debug"</span>
-                description: <span class="hljs-string">"the DEBUG=exec:ssh messages are extended with server communication"</span>
-                type: <span class="hljs-string">'boolean'</span>
-          ]
-        group:
-          type: <span class="hljs-string">'object'</span>
-          entries: [
-            title: <span class="hljs-string">"Remote Server Pool"</span>
-            description: <span class="hljs-string">"a pool of remote servers which one of them may be used"</span>
-            type: <span class="hljs-string">'array'</span>
-            entries:
-              title: <span class="hljs-string">""</span>
-              description: <span class="hljs-string">""</span>
-              type: <span class="hljs-string">'object'</span>
-              keys:
-                host:
-                  title: <span class="hljs-string">"Reference to host entry"</span>
-                  description: <span class="hljs-string">"an host entry becomming member of this pool"</span>
-                  type: <span class="hljs-string">'string'</span>
-                  values: <span class="hljs-string">'&lt;&lt;&lt;remote/server&gt;&gt;&gt;'</span>
-                weight:
-                  title: <span class="hljs-string">"Weight"</span>
-                  description: <span class="hljs-string">"the weight for this host in balancing"</span>
-                  type: <span class="hljs-string">'percent'</span>
-                  default: <span class="hljs-number">0.5</span>
-          ]</pre>
-        </td>
-      </tr>
-    
-  </tbody>
-</table>
-
-  </div>
-</body>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript"><!--
+    $(".table-of-contents").bind("mouseleave", function(event) { $(".table-of-contents").scrollTop(0); });
+    //--></script>
+  </body>
 </html>

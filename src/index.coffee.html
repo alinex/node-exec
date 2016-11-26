@@ -1,1231 +1,436 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>index.coffee</title>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" media="all" href="../doc-style.css" />
-  <script src="../doc-filelist.js"></script>
-  <script>
-    var relativeDir = "../";
-    var thisFile = "src/index.coffee";
-    var defaultSidebar = true;
-  </script>
-  <script src="../doc-script.js"></script>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Execution class - API Usage</title>
+    <meta name="HandheldFriendly" content="true" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">#topnav{text-align:center;background:#333;padding-bottom:20px;position:fixed;margin-top:0;width:100%;bottom:0;top:51px;}#topnav .navbar-nav{margin:0;margin-top:8px;display:-webkit-inline-box;display:-moz-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-box;display:inline-flex}#topnav .sidebar-to-top .btn{text-align:left}#topnav .sidebar-to-top li.level2>a{margin-left:20px}#topnav .sidebar-to-top li.level3>a{margin-left:40px}#topnav .sidebar-to-top li.level4>a{margin-left:60px}#topnav .sidebar-to-top li.level5>a{margin-left:80px}#topnav .sidebar-to-top li.level6>a{margin-left:100px}.navbar-fixed-top .navbar-collapse{max-height:100%}.navbar{min-width:300px}.nav>li{padding:2px 12px}.navbar-inverse .nav>li>a{color:#222;font-weight:bold;padding-top:6px;padding-bottom:6px;}.navbar-inverse .nav>li>a:focus,.navbar-inverse .nav>li>a:hover{background:#73aad8;background:#4b91cd -webkit-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -moz-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -o-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -ms-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd linear-gradient(180deg, #73aad8, #4b91cd) repeat-x}.navbar-inverse .nav>li>a.btn-warning:focus,.navbar-inverse .nav>li>a.btn-warning:hover{background:#ec9721;background:#c97c11 -webkit-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -moz-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -o-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -ms-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 linear-gradient(180deg, #ec9721, #c97c11) repeat-x}.navbar-spacer{height:51px}.btn-warning:active,.btn-primary:active{-webkit-transform:scale(.92);-moz-transform:scale(.92);-o-transform:scale(.92);-ms-transform:scale(.92);transform:scale(.92)}.btn-warning{background:#f2b560;background:#ee9f31 -webkit-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -moz-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -o-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -ms-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 linear-gradient(180deg, #f2b560, #ee9f31) repeat-x}.btn-primary{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x}.sidebar .nav{display:none;list-style:disc;padding-left:25px;}.sidebar .nav>li{display:list-item;}.sidebar .nav>li>a{color:#222;}.sidebar .nav>li>a:active{-webkit-box-shadow:0 2px 10px 2px rgba(0,0,0,0.25);box-shadow:0 2px 10px 2px rgba(0,0,0,0.25)}.sidebar .nav>li>a:hover{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x;color:#fff}.sidebar .nav>li.header,.sidebar .nav>li.active{display:none}.sidebar .nav>li.active>a{background:#73aad8;background:#4b91cd -webkit-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -moz-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -o-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -ms-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd linear-gradient(180deg, #73aad8, #4b91cd) repeat-x;}.sidebar .nav>li.active>a:hover{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x;color:#fff}.sidebar .nav>li.header>a{font-weight:bold;background:#f2b560;background:#ee9f31 -webkit-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -moz-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -o-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -ms-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 linear-gradient(180deg, #f2b560, #ee9f31) repeat-x;}.sidebar .nav>li.header>a:hover{background:#ec9721;background:#c97c11 -webkit-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -moz-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -o-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -ms-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 linear-gradient(180deg, #ec9721, #c97c11) repeat-x;color:#fff}.sidebar .nav>li.level2>a{padding-left:30px}.sidebar .nav>li.level3>a{padding-left:50px}.sidebar .nav>li.level4>a{padding-left:70px}.sidebar .nav>li.level5>a,.sidebar .nav>li.level6>a{padding-left:90px}.navbar-inverse .navbar-toggle{background-color:#444;}.navbar-inverse .navbar-toggle:hover{background-color:#666}@media (min-width:768px){#topnav{position:inherit;background:#222;padding-bottom:0}#topnav .nav>li{padding:0 4px}#topnav .sidebar-to-top{display:none}.navbar-right{margin-right:0}.navbar-nav >li>a{padding:6px 10px}.sidebar{overflow:auto;position:fixed;top:51px;left:0;bottom:0;background:#ddd;padding:0;}.sidebar h1,.sidebar h2{display:none}.sidebar .nav{display:block;list-style:none;padding-left:0;}.sidebar .nav>li{padding:0;}.sidebar .nav>li.header,.sidebar .nav>li.active{display:block;}.sidebar .nav>li.header.level2>a:before,.sidebar .nav>li.active.level2>a:before,.sidebar .nav>li.header.level3>a:before,.sidebar .nav>li.active.level3>a:before,.sidebar .nav>li.header.level4>a:before,.sidebar .nav>li.active.level4>a:before,.sidebar .nav>li.header.level5>a:before,.sidebar .nav>li.active.level5>a:before,.sidebar .nav>li.header.level6>a:before,.sidebar .nav>li.active.level6>a:before{content:"•"}.sidebar .nav>li>a{padding-top:8px;padding-bottom:8px}.sidebar .nav>li.level2>a:before,.sidebar .nav>li.level3>a:before,.sidebar .nav>li.level4>a:before,.sidebar .nav>li.level5>a:before,.sidebar .nav>li.level6>a:before{content:"◦";font-size:150%;line-height:10%;font-weight:bold;padding-right:5px;display:block;float:left;margin-top:8px;margin-left:-15px;color:#666}}img.preload{display:none}body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:16px;line-height:1.2;-ms-word-break:break-all;word-break:break-all;word-break:break-word;-webkit-hyphens:auto;-moz-hyphens:auto;-ms-hyphens:auto;hyphens:auto;-webkit-hyphenate-before:2;-webkit-hyphenate-after:3;hyphenate-lines:3;min-width:300px}h1,h2,h3,h4,h5,h6{font-weight:bold;}h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{display:block;content:" ";margin-top:-66px;height:66px;visibility:hidden}h1,h2,h3{clear:both}h1{border-bottom:3px solid #222;padding-bottom:5px}h2{border-bottom:2px dotted #222;padding-bottom:3px}h3{border-bottom:2px dotted #aaa;padding-bottom:2px}h4{border-bottom:1px dotted #aaa}dt{font-weight:bold;margin-top:8px}dd{margin-left:20px}blockquote{border:1px solid #eee;border-radius:3px;border-left:5px solid #337ab7;padding:5px 15px;margin:10px 0;}blockquote ul li p{margin-bottom:0}svg,img{max-width:100%}table{border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all;margin-bottom:10px;}table th,table td{padding:6px 13px;border:1px solid #ddd}table th{background-color:rgba(0,0,0,0.04);font-weight:bold;border-bottom:3px solid #999}table tr{background-color:#fff;border-top:1px solid #ccc;}table tr:nth-child(2n){background-color:rgba(0,0,0,0.04)}img{vertical-align:middle}.emoji{height:1em}abbr,acronym{border-bottom:dotted 1px}a code{color:#337ab7}code,tt{background-color:#fafafa;border-radius:4px;font-size:85%;margin:0;padding:.2em 0}pre{background-color:#fafafa;border-radius:10px;border:1px solid #a4a4a4;font-size:85%;margin:20px;padding:10px;}pre code,pre tt{background:none}pre.language{counter-reset:line;max-height:265px;padding-top:30px;padding-bottom:0;overflow-x:hidden;}pre.language code,pre.language tt{display:block;position:relative;float:left;width:100%;border-left:45px solid #ddd;margin-left:-10px;padding-left:5px;}pre.language code:before,pre.language tt:before{counter-increment:line;content:counter(line);min-width:35px;float:left;text-align:right;padding-right:5px;color:#808080;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-select:none;margin-left:-45px}pre.language code:first-of-type,pre.language tt:first-of-type{padding-top:10px}pre.language code:last-child,pre.language tt:last-child{padding-bottom:10px}pre.language header{border-top-left-radius:4px;border-top-right-radius:4px;font-weight:bold;background:#fafafa;margin:-30px -10px 0 -10px;padding:5px 15px}pre.language.coffeescript header,pre.language.javascript header,pre.language.ruby header,pre.language.python header,pre.language.perl header,pre.language.cc header,pre.language.cpp header,pre.language.cs header,pre.language.java header,pre.language.jsp header,pre.language.groovy header,pre.language.php header,pre.language.bash header,pre.language.sql header,pre.language.makefile header{background:#f0ad4e}pre.language.json header,pre.language.cson header,pre.language.yaml header{background:#61b961}pre.language.handlebars header,pre.language.css header,pre.language.stylus header,pre.language.scss header,pre.language.less header,pre.language.markdown header{background:#76abca}ul.table-of-contents{max-width:100px;max-height:30px;overflow:hidden;position:fixed;top:51px;right:0;background:#ddd;padding:5px 15px;-webkit-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-moz-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-o-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-ms-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;border-left:2px solid #999;border-bottom:2px solid #999;border-bottom-left-radius:10px;list-style-type:none;white-space:nowrap;z-index:100;}ul.table-of-contents:hover{max-width:285px;max-height:248px;-webkit-transition:max-width 100ms ease, max-height 1s ease 100ms;-moz-transition:max-width 100ms ease, max-height 1s ease 100ms;-o-transition:max-width 100ms ease, max-height 1s ease 100ms;-ms-transition:max-width 100ms ease, max-height 1s ease 100ms;transition:max-width 100ms ease, max-height 1s ease 100ms;overflow-y:auto}ul.table-of-contents header{background:#999;font-weight:bold;margin:-5px -15px;padding:5px 15px}ul.table-of-contents>li{padding-bottom:2px;padding-right:8px;}ul.table-of-contents>li:first-of-type{padding-top:10px}ul.table-of-contents a{color:#222}ul.table-of-contents li.sidebar{display:list-item}@media (min-width:768px){ul.table-of-contents li.sidebar{display:none}}div.detail,div.info,div.warning,div.alert{padding:30px 10px 6px 10px;margin:5px 0 8px 0;border-radius:3px;padding-left:60px;border-radius:18px;border-top-left-radius:0;}div.detail>p,div.info>p,div.warning>p,div.alert>p{margin-bottom:0}div.detail header,div.info header,div.warning header,div.alert header{font-weight:bold;position:absolute;margin-top:-30px;margin-left:-60px;padding:3px 20px 3px 10px;border-bottom-right-radius:18px}div:before{content:'\24D8';color:#666;position:absolute;font-size:28px;font-weight:900;padding-top:5px;margin-left:-50px}div.detail{background-color:#fafafa;border:2px solid #ddd;padding-top:0}div.info{background-color:#9f9;background-image:-webkit-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-moz-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-o-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-ms-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:linear-gradient(to bottom, #bfb 0%, #6d6 100%);border:2px solid #6d6;}div.info header{background-color:#6d6}div.info:before{content:'\24D8';text-shadow:0 -1px 0 #6d6}div.warning{background-color:#fc9;background-image:-webkit-linear-gradient(top, #f97 0%, #e86 100%);background-image:-moz-linear-gradient(top, #f97 0%, #e86 100%);background-image:-o-linear-gradient(top, #f97 0%, #e86 100%);background-image:-ms-linear-gradient(top, #f97 0%, #e86 100%);background-image:linear-gradient(to bottom, #f97 0%, #e86 100%);border:2px solid #e86;}div.warning header{background-color:#e86}div.warning:before{content:'\2605';text-shadow:0 -1px 0 #e86}div.alert{background-color:#f99;background-image:-webkit-linear-gradient(top, #faa 0%, #c00 100%);background-image:-moz-linear-gradient(top, #faa 0%, #c00 100%);background-image:-o-linear-gradient(top, #faa 0%, #c00 100%);background-image:-ms-linear-gradient(top, #faa 0%, #c00 100%);background-image:linear-gradient(to bottom, #faa 0%, #c00 100%);border:2px solid #c00;}div.alert header{background-color:#c00;color:#fff}div.alert:before{content:'\24D8';text-shadow:0 -1px 0 #c00}.cse .gsc-control-cse,.gsc-control-cse{padding:0 !important;}.cse .gsc-control-cse table tr,.gsc-control-cse table tr,.cse .gsc-control-cse table th,.gsc-control-cse table th,.cse .gsc-control-cse table td,.gsc-control-cse table td{border:0}.cse .gsc-control-cse .gsc-cursor-current-page,.gsc-control-cse .gsc-cursor-current-page{color:#fff !important}.cse .gsc-control-cse .gsc-webResult.gsc-result:hover,.gsc-control-cse .gsc-webResult.gsc-result:hover,.cse .gsc-control-cse .gsc-imageResult:hover,.gsc-control-cse .gsc-imageResult:hover{border-left:5px solid #337ab7;padding-left:3px}.cse .gsc-control-cse .gcsc-branding,.gsc-control-cse .gcsc-branding{display:none !important}.gsc-adBlock{display:none !important}.gsc-above-wrapper-area-container,.gsc-above-wrapper-area{display:none}div::before{display:none !important}@media print{.navbar-spacer,.table-of-contents,.sidebar{display:none}.main{left:0;width:100%}pre.language header{border-bottom:2px solid #999}}.text-red{color:#d13f19}.text-green{color:#2ecc40}.text-yellow{color:#ffdc00}.text-blue{color:#0074d9}.text-magenta{color:#f0f}.text-cyan{color:#0ff}.text-gray{color:#aaa}.bg-white{background-color:#fff}.center{text-align:center}.left{float:left}.right{float:right}.spacing{padding:10px}.hidden{display:none}@media (max-width:767px){.hidden-small{display:none}}@media (min-width:768px){.hidden-large{display:none}}</style>
+  </head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
-<body>
-  <nav>
-<div class="logo"><a href="http://alinex.github.io"
-  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
-  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
-    width="150" title="Alinex Universe Homepage" />
-  </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png"
-    style="display:none" alt="preloading" />
-</div>
-<div class="links">
-  <a href="http://alinex.github.io/blog"
-    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
-  <a href="http://alinex.github.io/develop"
-    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
-  <a href="http://alinex.github.io/code.html"
-    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
-</div>
-</nav><div id="sidebar_wrapper">
-    <div id="sidebar_switch">
-      <span class="tree">Files</span>
-      <span class="headings">Headings</span>
-    </div>
-    <div id="tree"></div>
-    <div id="headings">
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topnav" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="https://alinex.github.io/" onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Homepage">
+</a>
+<img class="preload" src="https://alinex.github.io/images/Alinex-200.png" aria-hidden="true">
 
-      <div class="heading h1">
-        <a href="#execution-class">Execution class</a>
+        </div>
+        <div id="topnav" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://alinex.github.io/blog" class="btn btn-primary">
+    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Blog
+  </a></li>
+<li><a href="https://alinex.github.io/develop" class="btn btn-primary">
+    <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Develop
+  </a></li>
+<li><a href="https://alinex.github.io/code.html" class="btn btn-warning">
+    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Code
+  </a></li>
+
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input name="q" type="text" class="form-control" placeholder="Search...">
+          </form>
+          <ul class="nav sidebar-to-top">
+                <li class="level0">
+                  <a href="../README.md.html" title="Alinex Exec: Readme (/README.md)" class="btn btn-primary">Readme</a>
+                </li>
+                <li class="active level0">
+                  <a href="index.coffee.html" title="Execution class - API Usage (/src/index.coffee)" class="btn btn-warning">API Usage <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="level1">
+                  <a href="check.coffee.html" title="Result checks (/src/check.coffee)" class="btn btn-primary">Result checks</a>
+                </li>
+                <li class="level1">
+                  <a href="configSchema.coffee.html" title="Configuration (/src/configSchema.coffee)" class="btn btn-primary">Configuration</a>
+                </li>
+                <li class="level0">
+                  <a href="../Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-primary">Version changes</a>
+                </li>
+          </ul>
+        </div>
       </div>
+    </nav>
 
-      <div class="heading h2">
-        <a href="#node-modules">Node Modules</a>
-      </div>
+    <div class="navbar-spacer"></div>
 
-      <div class="heading h2">
-        <a href="#general-setup">General setup</a>
-      </div>
+    <div class="container-fluid">
+      <div class="row">
 
-      <div class="heading h2">
-        <a href="#class-definition">Class definition</a>
-      </div>
+        <div class="col-sm-9 col-sm-push-3 main">
+          <script>
+  (function() {
+    var cx = '010539487162786288372:chxqbheanxc';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:searchresults-only></gcse:searchresults-only>
 
-      <div class="heading h3">
-        <a href="#vital-data">Vital Data</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#queue">Queue</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#initialization">Initialization</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#worker">Worker</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#start-execution">Start execution</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#close-remote-connections">Close remote connections</a>
-      </div>
-
-      <div class="heading h1">
-        <a href="#if-queue-for-host-exists-add-this">if queue for host exists add this</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#result">Result</a>
-      </div>
-
-    </div>
-  </div>
-  <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-exec" title="Fork me on GitHub"></a>
-    <div class="background highlight"></div>
-<table cellpadding="0" cellspacing="0">
-  <tbody>
-    
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="execution-class">
-  <h1>
-    <a href="#execution-class" name="execution-class" class="pilcrow"></a>
-Execution class
-  </h1>
-</div>
+          <main><p><ul class="table-of-contents" aria-hidden="true"><header>Index</header>
+<li><a href="#class-initialization">Class Initialization</a>
+<ul>
+<li><a href="#execsetup">Exec.setup</a></li>
+<li><a href="#execinit">Exec.init</a></li>
+<li><a href="#execrun">Exec.run</a></li>
+<li><a href="#execclose">Exec.close</a></li>
+</ul>
+</li>
+<li><a href="#instance-methods">Instance Methods</a>
+<ul>
+<li><a href="#exec">Exec</a></li>
+<li><a href="#execrun-2">exec.run</a></li>
+</ul>
+</li>
+</ul>
+</p>
+<h1 id="execution-class-api-usage">Execution class - API Usage</h1>
+<blockquote>
+<p>Path: <code>/src/index.coffee</code> compiled to <code>/lib/index.js</code></p>
+</blockquote>
 <p>This is an object oriented implementation around the core <code>process.spawn</code>
 command and alternatively ssh connections.</p>
-
-        </td>
-        <td class="code highlight">
-          
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="node-modules">
-  <h2>
-    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
-Node Modules
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight">
-          
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3"></a>
-</div>
-<p>include base modules</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'exec'</span>)
-chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
-fspath = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
-EventEmitter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'events'</span>).EventEmitter</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4"></a>
-</div>
-<p>include alinex modules</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span>
-config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5"></a>
-</div>
-<p>internal helpers</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">schema = <span class="hljs-built_in">require</span> <span class="hljs-string">'./configSchema'</span>
-check = <span class="hljs-built_in">require</span> <span class="hljs-string">'./check'</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="general-setup">
-  <h2>
-    <a href="#general-setup" name="general-setup" class="pilcrow"></a>
-General setup
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight">
-          
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7"></a>
-</div>
-<p>The load should be near the sys and usr time the process needs.</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">DEFAULT_LOAD = <span class="hljs-number">0.001</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8"></a>
-</div>
-<p>counter for unique object IDs</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">objectId = <span class="hljs-number">0</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="class-definition">
-  <h2>
-    <a href="#class-definition" name="class-definition" class="pilcrow"></a>
-Class definition
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Exec</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventEmitter</span></span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="vital-data">
-  <h3>
-    <a href="#vital-data" name="vital-data" class="pilcrow"></a>
-Vital Data
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight">
-          
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11"></a>
-</div>
-<p>collection of vital data per host for each interval</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  @vital: {}</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12"></a>
-</div>
-<p>methods for special commands to calculate start load depending on given args
-array as a hint you may use the sys and usr time which you get then running
-the process but only within a second it may be more than 1.0 if running on
-multi core</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  @load:
-    exiftool: <span class="hljs-function">-&gt;</span> <span class="hljs-number">0.008</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="queue">
-  <h3>
-    <a href="#queue" name="queue" class="pilcrow"></a>
-Queue
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight">
-          
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14"></a>
-</div>
-<p>the queue itself jobs are listed under 'host'-&gt;'priority' lists and also
-contains the corresponding callbacks</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  @queue: {}</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15"></a>
-</div>
-<p>for statistical information this short summaries will help</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  @queueCounter:
-    total: <span class="hljs-number">0</span>
-    host: {}
-    priority: {}</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="initialization">
-  <h3>
-    <a href="#initialization" name="initialization" class="pilcrow"></a>
-Initialization
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight">
-          
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17"></a>
-</div>
-<p>set the modules config paths and validation schema</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  @setup: util.function.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18"></a>
-</div>
-<p>set module search path</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    config.register <span class="hljs-literal">false</span>, fspath.dirname __dirname</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19"></a>
-</div>
-<p>add schema for module's configuration</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    config.setSchema <span class="hljs-string">'/exec'</span>, schema, cb</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20"></a>
-</div>
-<p>set the modules config paths, validation schema and initialize the configuration</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  @init: util.function.once <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-    debug <span class="hljs-string">"initialize"</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21"></a>
-</div>
-<p>set module search path</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    @setup (err) -&gt;
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-      config.init cb</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="worker">
-  <h3>
-    <a href="#worker" name="worker" class="pilcrow"></a>
-Worker
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight">
-          
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23"></a>
-</div>
-<p>The worker is a process which is started if a queue exists and work while the
-queue is not done. It will run all the tasks by priority on all hosts.</p>
-
-        </td>
-        <td class="code highlight">
-          
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24"></a>
-</div>
-<p>flag if a worker process is already started or running</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  @workerRunning: <span class="hljs-literal">false</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25"></a>
-</div>
-<p>the worker itself</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  @worker: <span class="hljs-function">=&gt;</span>
-    <span class="hljs-keyword">unless</span> (hosts = Object.keys @queue).length
-      @workerRunning = <span class="hljs-literal">false</span>
-      <span class="hljs-keyword">return</span>
-    debug chalk.grey <span class="hljs-string">"""
-    worker started: <span class="hljs-subst">#{@queueCounter.total}</span> total tasks waiting / \
-    hosts: <span class="hljs-subst">#{util.inspect @queueCounter.host}</span> / \
-    priority: <span class="hljs-subst">#{util.inspect @queueCounter.priority}</span>
-    """</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26"></a>
-</div>
-<p>#####################################################################
-util = require 'util'
-console.log 'WORKER', util.inspect @queue, {depth: null}
-#####################################################################</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    async.each hosts, <span class="hljs-function"><span class="hljs-params">(host, cb)</span> =&gt;</span>
-      prios = Object.keys @queue[host]
-      prios.reverse()</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27"></a>
-</div>
-<pre><code> console.log 'HOST', host, prios
-</code></pre>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      async.eachSeries prios, <span class="hljs-function"><span class="hljs-params">(prio, cb)</span> =&gt;</span>
-        list = @queue[host][prio]
-        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> list.length
-        debug chalk.grey <span class="hljs-string">"worker running jobs for <span class="hljs-subst">#{host}</span> with <span class="hljs-subst">#{prio}</span> priority"</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28"></a>
-</div>
-<pre><code>   async.each list, ([exec, ocb], cb) =&gt;
-</code></pre>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">        mark = []
-        async.forever (cb) =&gt;</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-29" id="section-29"></a>
-</div>
-<pre><code>     console.log '?? loop', list.length
-</code></pre>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">          <span class="hljs-keyword">return</span> cb <span class="hljs-literal">true</span> <span class="hljs-keyword">unless</span> list.length</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-30" id="section-30"></a>
-</div>
-<p>check if next process is already done in this round</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">          <span class="hljs-keyword">return</span> cb <span class="hljs-literal">true</span> <span class="hljs-keyword">if</span> list[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].id <span class="hljs-keyword">in</span> mark</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-31" id="section-31"></a>
-</div>
-<p>check</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">          @vitalCheck host, prio, DEFAULT_LOAD, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-32" id="section-32"></a>
-</div>
-<p>stop if check failed</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">            <span class="hljs-keyword">return</span> cb <span class="hljs-literal">true</span> <span class="hljs-keyword">unless</span> list.length
-            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-33" id="section-33"></a>
-</div>
-<p>get first entry</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">            [exec, ocb] = list.shift()</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-34" id="section-34"></a>
-</div>
-<pre><code>       console.log '++ loop', list.length
-</code></pre>
-<p>reduce counter</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">            @queueCounter.total--
-            @queueCounter.host[host]--
-            @queueCounter.priority[prio]--</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-35" id="section-35"></a>
-</div>
-<p>exec run</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">            mark.push exec.id</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-36" id="section-36"></a>
-</div>
-<pre><code>       console.log '-- exec call', exec.id
-</code></pre>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">            exec.run ocb
-            setTimeout cb, <span class="hljs-number">100</span>
-        , <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-37" id="section-37"></a>
-</div>
-<pre><code>     console.log '-- prio done'
-</code></pre>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">          debug chalk.grey <span class="hljs-string">"worker finished round"</span>
-          <span class="hljs-keyword">delete</span> @queue[host][prio] <span class="hljs-keyword">unless</span> list.length
-          cb err
-      , <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-38" id="section-38"></a>
-</div>
-<pre><code>   console.log '-- host done'
-</code></pre>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">        <span class="hljs-keyword">delete</span> @queue[host] <span class="hljs-keyword">unless</span> Object.keys(@queue[host]).length
-        cb err
-    , <span class="hljs-function">=&gt;</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-39" id="section-39"></a>
-</div>
-<pre><code> console.log '-- all done'
-</code></pre>
-<p>stop worker if completely done</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      <span class="hljs-keyword">unless</span> Exec.queueCounter.total
-        @workerRunning = <span class="hljs-literal">false</span>
-        <span class="hljs-keyword">return</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-40" id="section-40"></a>
-</div>
-<p>if not rerun it later
-console.log '&gt;&gt;&gt;&gt;&gt;&gt; recall worker'</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      setTimeout @worker, config.get <span class="hljs-string">'exec/retry/queue/interval'</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-41" id="section-41"></a>
-</div>
-<p>get and check vital data - this will return an error if anything prevents
-from running the process</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  @vitalCheck: <span class="hljs-function"><span class="hljs-params">(host, priority, load, cb)</span> -&gt;</span>
-    conf = config.get <span class="hljs-string">'/exec'</span>
-    prio = conf.priority.level[priority]
-    vital = @vital[host] ?= {}
-    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> prio.maxCpu? <span class="hljs-keyword">or</span> prio.minFreemem? <span class="hljs-keyword">or</span> prio.maxLoad?</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-42" id="section-42"></a>
-</div>
-<p>prevent vital check if no restrictions</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-literal">false</span> <span class="hljs-keyword">unless</span> prio.minFreemem? <span class="hljs-keyword">or</span> prio.maxCpu? <span class="hljs-keyword">or</span> prio.maxLoad?</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-43" id="section-43"></a>
-</div>
-<p>get vital data</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    date = Math.floor <span class="hljs-keyword">new</span> Date().getTime() / conf.retry.vital.interval
-    lib = <span class="hljs-built_in">require</span> <span class="hljs-keyword">if</span> host <span class="hljs-keyword">is</span> <span class="hljs-string">'localhost'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'./spawn'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'./ssh'</span>
-    lib.vital host, vital, date, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-44" id="section-44"></a>
-</div>
-<p>check startload</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      <span class="hljs-keyword">if</span> vital.startload <span class="hljs-keyword">and</span> vital.startload + load &gt; vital.startmax
-        <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The maximum load to start per interval would be exceeded
-        with this process at <span class="hljs-subst">#{host}</span>"</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-45" id="section-45"></a>
-</div>
-<p>error already detected</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, vital.error[priority] <span class="hljs-keyword">if</span> vital.error[priority]?</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-46" id="section-46"></a>
-</div>
-<p>check for new error</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      vital.error[priority] = <span class="hljs-keyword">if</span> prio.maxCpu? <span class="hljs-keyword">and</span> vital.cpu &gt; prio.maxCpu
-        <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The CPU utilization of <span class="hljs-subst">#{Math.round vital.cpu * <span class="hljs-number">100</span>}</span>% is above
-</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-47" id="section-47"></a>
-</div>
-<p>{Math.round prio.maxCpu * 100}% allowed for #{priority} priority at #{host}&quot;</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> prio.minFreemem? <span class="hljs-keyword">and</span> vital.freemem &lt; prio.minFreemem
-        <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The free memory of <span class="hljs-subst">#{Math.round vital.freemem * <span class="hljs-number">100</span>}</span>% is below
-</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-48" id="section-48"></a>
-</div>
-<p>{Math.round prio.minFreemem * 100}% allowed for #{priority} priority at #{host}&quot;</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> prio.maxLoad?[<span class="hljs-number">0</span>]? <span class="hljs-keyword">and</span> vital.load[<span class="hljs-number">0</span>] &gt; prio.maxLoad[<span class="hljs-number">0</span>]
-        <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The average short load of <span class="hljs-subst">#{Math.round vital.load[<span class="hljs-number">0</span>], <span class="hljs-number">2</span>}</span> is above
-</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-49" id="section-49"></a>
-</div>
-<p>{Math.round prio.maxLoad[0] * 100}% allowed for #{priority} priority at #{host}&quot;</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> prio.maxLoad?[<span class="hljs-number">1</span>]? <span class="hljs-keyword">and</span> vital.load[<span class="hljs-number">1</span>] &gt; prio.maxLoad[<span class="hljs-number">1</span>]
-        <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The average medium load of <span class="hljs-subst">#{Math.round vital.load[<span class="hljs-number">1</span>], <span class="hljs-number">2</span>}</span> is above
-</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-50" id="section-50"></a>
-</div>
-<p>{Math.round prio.maxLoad[1] * 100}% allowed for #{priority} priority at #{host}&quot;</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> prio.maxLoad?[<span class="hljs-number">2</span>]? <span class="hljs-keyword">and</span> vital.load[<span class="hljs-number">2</span>] &gt; prio.maxLoad[<span class="hljs-number">2</span>]
-        <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The average long load of <span class="hljs-subst">#{Math.round vital.load[<span class="hljs-number">2</span>], <span class="hljs-number">2</span>}</span> is above
-</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-51" id="section-51"></a>
-</div>
-<p>{Math.round prio.maxLoad[2] * 100}% allowed for #{priority} priority at #{host}&quot;</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      <span class="hljs-keyword">else</span> <span class="hljs-literal">false</span>
-      cb <span class="hljs-literal">null</span>, vital.error[priority]</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="start-execution">
-  <h3>
-    <a href="#start-execution" name="start-execution" class="pilcrow"></a>
-Start execution
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight">
-          
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-53" id="section-53"></a>
-</div>
-<p>easy call to directly run execution in one statement</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  @run: <span class="hljs-function"><span class="hljs-params">(setup, cb)</span> -&gt;</span>
-    Exec.init (err) -&gt;
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-      proc = <span class="hljs-keyword">new</span> Exec setup
-      proc.run cb</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="close-remote-connections">
-  <h3>
-    <a href="#close-remote-connections" name="close-remote-connections" class="pilcrow"></a>
-Close remote connections
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  @close: <span class="hljs-function">-&gt;</span>
-    lib = <span class="hljs-built_in">require</span> <span class="hljs-string">'./ssh'</span>
-    lib.closeAll()</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-55" id="section-55"></a>
-</div>
-<p>create a new execution object to specify and call later</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  constructor: <span class="hljs-function"><span class="hljs-params">(@setup)</span> -&gt;</span>
-    @id = ++objectId
-    host = @setup.remote ? <span class="hljs-string">'localhost'</span>
-    @name = chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{host}</span>#<span class="hljs-subst">#{@id}</span>:"</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-56" id="section-56"></a>
-</div>
-<p>set priority</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    prio = config.get <span class="hljs-string">'exec/priority'</span>
-    @setup.priority ?= prio.default
-    <span class="hljs-keyword">unless</span> prio.level[@setup.priority]
-      debug chalk.red <span class="hljs-string">"Undefined priority <span class="hljs-subst">#{@setup.priority}</span> - using default"</span>
-      @setup.priority = prio.default
-    debug <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> created new instance with <span class="hljs-subst">#{@setup.priority}</span> priority"</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-57" id="section-57"></a>
-</div>
-<p>start execution</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  run: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Already running."</span> <span class="hljs-keyword">if</span> @result?.start <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> @result.end
-    host = @setup.remote ? <span class="hljs-string">'localhost'</span>
-    @name = chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{host}</span>#<span class="hljs-subst">#{@id}</span>:"</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-58" id="section-58"></a>
-</div>
-<p>optimize cmd - extract arguments</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">if</span> ~@setup.cmd.indexOf <span class="hljs-string">' '</span>
-      parts = @setup.cmd.match <span class="hljs-regexp">///
-      (?:         <span class="hljs-comment"># non-capturing group</span>
-        [^\s"]+   <span class="hljs-comment"># anything that's not a space or a double-quote</span>
-        |         <span class="hljs-comment"># or</span>
-        "[^"]*"   <span class="hljs-comment"># zero or more characters in double-quotes</span>
-        |         <span class="hljs-comment"># or</span>
-        '[^']*'   <span class="hljs-comment"># zero or more characters in single-quotes</span>
-      )+          <span class="hljs-comment"># each match is one or more of the things described in the group</span>
-      ///</span>g
-      <span class="hljs-keyword">if</span> parts.length &gt; <span class="hljs-number">1</span>
-        @setup.cmd = parts.shift()
-        @setup.args = parts.concat @setup.args ? []</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="if-queue-for-host-exists-add-this">
-  <h1>
-    <a href="#if-queue-for-host-exists-add-this" name="if-queue-for-host-exists-add-this" class="pilcrow"></a>
-if queue for host exists add this
-  </h1>
-</div>
-<p>return @addQueue null, cb if Exec.queueCounter.host[host]
-check existing vital data</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    @conf ?= config.get <span class="hljs-string">'/exec'</span>
-    load = Exec.load[@setup.cmd]?(@setup.args) ? DEFAULT_LOAD
-    Exec.vitalCheck host, @setup.priority, load, <span class="hljs-function"><span class="hljs-params">(err, res)</span> =&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-      <span class="hljs-keyword">return</span> @addQueue res, cb <span class="hljs-keyword">if</span> res</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-60" id="section-60"></a>
-</div>
-<p>add load to calculate startlimit</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      Exec.vital[host].startload += load
-      debug <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> with <span class="hljs-subst">#{@setup.priority}</span> priority at <span class="hljs-subst">#{host}</span>"</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-61" id="section-61"></a>
-</div>
-<p>run locally or remote</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      lib = <span class="hljs-built_in">require</span> <span class="hljs-keyword">if</span> host <span class="hljs-keyword">is</span> <span class="hljs-string">'localhost'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'./spawn'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'./ssh'</span>
-      lib.run.call <span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> =&gt;</span>
-        <span class="hljs-keyword">if</span> err
-          debug <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> failed with <span class="hljs-subst">#{err}</span>"</span>
-          <span class="hljs-keyword">return</span> cb err</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-62" id="section-62"></a>
-</div>
-<p>success</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">        @checkResult cb</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-63" id="section-63"></a>
-</div>
-<p>if direct execution is not possible add this task to the queue</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  addQueue: <span class="hljs-function"><span class="hljs-params">(err, cb)</span> -&gt;</span>
-    host = @setup.remote ? <span class="hljs-string">'localhost'</span>
-    <span class="hljs-keyword">if</span> err
-      debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> add to queue because: <span class="hljs-subst">#{err.message}</span>"</span>
-    <span class="hljs-keyword">else</span>
-      debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> add to queue because other processes are waiting"</span>
-    <span class="hljs-keyword">unless</span> Exec.workerRunning
-      Exec.workerRunning = <span class="hljs-literal">true</span>
-      setTimeout Exec.worker, config.get <span class="hljs-string">'exec/retry/queue/interval'</span>
-    Exec.queue[host] ?= {}
-    Exec.queue[host][@setup.priority] ?= []
-    Exec.queue[host][@setup.priority].push [<span class="hljs-keyword">this</span>, cb]
-    Exec.queueCounter.total++
-    Exec.queueCounter.host[host] ?= <span class="hljs-number">0</span>
-    Exec.queueCounter.host[host]++
-    Exec.queueCounter.priority[@setup.priority] ?= <span class="hljs-number">0</span>
-    Exec.queueCounter.priority[@setup.priority]++</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="result">
-  <h3>
-    <a href="#result" name="result" class="pilcrow"></a>
-Result
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight">
-          
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-65" id="section-65"></a>
-</div>
-<p>run defined checks on result</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">  checkResult: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-66" id="section-66"></a>
-</div>
-<p>find check to use</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    list = @setup.check ? {
-      noExitCode:
-        retry: @setup.retry?.times
-    }</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-67" id="section-67"></a>
-</div>
-<p>run checks</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">for</span> n, v <span class="hljs-keyword">of</span> list
-      <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Unknown check function <span class="hljs-subst">#{n}</span> in Exec"</span> <span class="hljs-keyword">unless</span> check[n]?
-      v.args = [v.args] <span class="hljs-keyword">unless</span> Array.isArray v.args
-      err = check[n].apply <span class="hljs-keyword">this</span>, v.args ? <span class="hljs-literal">null</span>
-      <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> err
-      debug chalk.magenta <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> <span class="hljs-subst">#{n}</span>: <span class="hljs-subst">#{err.message}</span>"</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-68" id="section-68"></a>
-</div>
-<p>got an error</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      @result.error = err
-      <span class="hljs-keyword">if</span> v.retry
-        times = @setup.retry.times ? @conf.retry.error.times
-        <span class="hljs-keyword">if</span> @tries?.length &gt;= times
-          debug chalk.red <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> reached <span class="hljs-subst">#{times}</span> retries - giving up"</span>
-          <span class="hljs-keyword">return</span> cb err, <span class="hljs-keyword">this</span>
-        <span class="hljs-keyword">return</span> setTimeout =&gt;</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-69" id="section-69"></a>
-</div>
-<p>store last try</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">          @tries ?= []
-          @tries.push
-            process: @process
-            result: @result</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-70" id="section-70"></a>
-</div>
-<p>run again</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">          <span class="hljs-keyword">this</span>.run cb
-        , @setup.retry.interval ? @conf.retry.error.interval
-      <span class="hljs-keyword">return</span> cb err, <span class="hljs-keyword">this</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-71" id="section-71"></a>
-</div>
-<p>everything ok, go on</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    debug <span class="hljs-string">"<span class="hljs-subst">#{@name}</span> succeeded"</span>
-    cb <span class="hljs-literal">null</span>, <span class="hljs-keyword">this</span>
-
-  stdout: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
-    data ?= @result
-    <span class="hljs-keyword">return</span> data.stdout <span class="hljs-keyword">if</span> data.stdout
-    stdout = data.lines
-    .filter (e) -&gt; e[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-number">1</span>
-    .map (e) -&gt; e[<span class="hljs-number">1</span>]
-    .join <span class="hljs-string">'\n'</span>
-    data.stdout = stdout <span class="hljs-keyword">if</span> data.code?
-    stdout
-
-  stderr: <span class="hljs-function"><span class="hljs-params">(data)</span> -&gt;</span>
-    data ?= @result
-    <span class="hljs-keyword">return</span> data.stderr <span class="hljs-keyword">if</span> data.stderr
-    stderr = data.lines
-    .filter (e) -&gt; e[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-number">2</span>
-    .map (e) -&gt; e[<span class="hljs-number">1</span>]
-    .join <span class="hljs-string">'\n'</span>
-    data.stderr = stderr <span class="hljs-keyword">if</span> data.code?
-    stderr
-
-<span class="hljs-built_in">module</span>.exports = Exec</pre>
-        </td>
-      </tr>
-    
-  </tbody>
-</table>
-
-  </div>
-</body>
+<h2 id="class-initialization">Class Initialization</h2>
+<h3 id="execsetup">Exec.setup</h3>
+<p>Set the modules config paths and validation schema.</p>
+<blockquote>
+<p class="api-usage"><strong>Usage:</strong> static<code>Exec.setup(cb)</code></p>
+</blockquote>
+<dl>
+<dt>Parameter</dt>
+<dd>
+<ul>
+<li><code>cb</code> - <code>Function(&lt;Error&gt;)</code> callback with possible error</li>
+</ul>
+  <!-- {dl:.api-spec} -->
+</dd>
+</dl>
+<h3 id="execinit">Exec.init</h3>
+<p>Set the modules config paths, validation schema and initialize the configuration.</p>
+<blockquote>
+<p class="api-usage"><strong>Usage:</strong> static<code>Exec.init(cb)</code></p>
+</blockquote>
+<dl>
+<dt>Parameter</dt>
+<dd>
+<ul>
+<li><code>cb</code> - <code>Function(&lt;Error&gt;)</code> callback with possible error</li>
+</ul>
+  <!-- {dl:.api-spec} -->
+</dd>
+</dl>
+<h3 id="execrun">Exec.run</h3>
+<p>Easy call to directly run execution in one statement.</p>
+<blockquote>
+<p class="api-usage"><strong>Usage:</strong> static<code>Exec.run(setup, cb)</code></p>
+</blockquote>
+<dl>
+<dt>Parameter</dt>
+<dd>
+<ul>
+<li><code>setup</code> - <code>Object</code> the job definition like in the constructor</li>
+<li><code>cb</code> - <code>Function(&lt;Error&gt;, &lt;Exec&gt;)</code> callback with possible error
+and the execution job which was used</li>
+</ul>
+  <!-- {dl:.api-spec} -->
+</dd>
+</dl>
+<h3 id="execclose">Exec.close</h3>
+<p>Close remote connections</p>
+<blockquote>
+<p class="api-usage"><strong>Usage:</strong> static<code>Exec.close</code></p>
+</blockquote>
+<h2 id="instance-methods">Instance Methods</h2>
+<h3 id="exec">Exec</h3>
+<p>Create a new execution object to specify and call later.</p>
+<blockquote>
+<p class="api-usage"><strong>Usage:</strong><code>new Exec(setup)</code></p>
+</blockquote>
+<dl>
+<dt>Parameter</dt>
+<dd>
+<ul>
+<li><code>setup</code> - <code>Object</code> the job definition</li>
+</ul>
+</dd>
+<dt>Return</dt>
+<dd>
+<p><code>Exec</code> object containing the following properties:</p>
+<div class="detail"><header>setup - Schema Definition</header>
+<ul>
+<li>
+<p><code>id</code> - <code>Integer</code> unique id of element</p>
+</li>
+<li>
+<p><code>setup</code> - <code>Object</code> configuration of job
+<strong>Index.coffee.schema Data</strong></p>
+<p>An  object with the following keys allowed: <code>remote</code>, <code>cmd</code>, <code>args</code>, <code>cwd</code>, <code>uid</code>, <code>gid</code>, <code>env</code>, <code>priority</code>, <code>timeout</code>, <code>check</code>, <code>retry</code>. The following entries have a specific format:</p>
+<dl>
+<dt><code>remote</code></dt>
+<dd>
+<p><strong>SSH Connection</strong> is the ssh connection to use.</p>
+<p>It has to be <strong>one of</strong> the following types:</p>
+<ul>
+<li>
+<p><strong>SSH Connection Reference</strong> is the reference name for an defined ssh connection under config ‘/ssh/NAME’.</p>
+<p>A text entry in which all control characters will be removed.</p>
+</li>
+<li>
+<p><strong>SSH Connections</strong> are a list of ssh connection alternatives.</p>
+<p>A list. Each entry has to be of type object:</p>
+<blockquote>
+<p><strong>SSH Connection</strong> is a ssh connection setting.</p>
+<p>An  object with the following keys have to be present: <code>host</code>, <code>port</code>. The following keys are allowed: <code>forceIPv4</code>, <code>forceIPv6</code>, <code>username</code>, <code>password</code>, <code>privateKey</code>, <code>passphrase</code>, <code>localHostname</code>, <code>localUsername</code>, <code>keepaliveInterval</code>, <code>keepaliveCountMax</code>, <code>readyTimeout</code>, <code>strictVendor</code>, <code>algorithms</code>, <code>compress</code>, <code>debug</code>. The following entries have a specific format:</p>
+<dl>
+<dt><code>host</code></dt>
+<dd>
+<p><strong>Hostname or IP Address</strong> is the hostname or IP address to connect to.</p>
+<p>It has to be <strong>one of</strong> the following types:</p>
+<ul>
+<li>
+<p><strong>Hostname</strong> is the hostname to connect to.</p>
+<p>A valid hostname. This has to be a valid name according to <a href="http://tools.ietf.org/html/rfc1123">RFC 1123</a></p>
+</li>
+<li>
+<p><strong>IP Address</strong> is the IP address to connect to.</p>
+<p>A valid IP address as string.</p>
+</li>
+</ul>
+</dd>
+<dt><code>port</code></dt>
+<dd>
+<p><strong>Port Number</strong> is the port on which to connect using ssh protocol.</p>
+<p>A TCP/UDP port number or name which is optional and will be set to <code>22</code> if not specified. It has to be <strong>one of</strong> the following types:</p>
+<ul>
+<li>An integer value. The value should be between 0 and 65535.</li>
+<li>A text entry in which all control characters will be removed. Only the values: ‘rtmp’, ‘acr-nema’, ‘afbackup’, ‘afmbackup’, ‘afpovertcp’, ‘afs3-bos’, ‘afs3-callback’, ‘afs3-errors’, ‘afs3-fileserver’, ‘afs3-kaserver’, ‘afs3-prserver’, ‘afs3-rmtsys’, ‘afs3-update’, ‘afs3-vlserver’, ‘afs3-volser’, ‘amanda’, ‘amandaidx’, ‘amidxtape’, ‘amqp’, ‘aol’, ‘asf-rmcp’, ‘asp’, ‘at-echo’, ‘at-nbp’, ‘at-rtmp’, ‘at-zis’, ‘auth’, ‘bacula-dir’, ‘bacula-fd’, ‘bacula-sd’, ‘bgp’, ‘bgpd’, ‘bgpsim’, ‘biff’, ‘binkp’, ‘bootpc’, ‘bootps’, ‘bpcd’, ‘bpdbm’, ‘bpjava-msvc’, ‘bprd’, ‘canna’, ‘cfengine’, ‘cfinger’, ‘chargen’, ‘cisco-sccp’, ‘clc-build-daemon’, ‘clearcase’, ‘cmip-agent’, ‘cmip-man’, ‘codaauth2’, ‘codasrv’, ‘codasrv-se’, ‘conference’, ‘courier’, ‘csnet-ns’, ‘csync2’, ‘customs’, ‘cvspserver’, ‘daap’, ‘datametrics’, ‘daytime’, ‘db-lsp’, ‘dcap’, ‘dhcpv6-client’, ‘dhcpv6-server’, ‘dicom’, ‘dict’, ‘dircproxy’, ‘discard’, ‘distcc’, ‘distmp3’, ‘domain’, ‘echo’, ‘eklogin’, ‘enbd-cstatd’, ‘enbd-sstatd’, ‘epmd’, ‘exec’, ‘f5-globalsite’, ‘f5-iquery’, ‘fatserv’, ‘fax’, ‘fido’, ‘finger’, ‘font-service’, ‘freeciv’, ‘frox’, ‘fsp’, ‘ftp’, ‘ftp-data’, ‘ftps’, ‘ftps-data’, ‘gdomap’, ‘gds-db’, ‘ggz’, ‘git’, ‘gnunet’, ‘gnutella-rtr’, ‘gnutella-svc’, ‘gopher’, ‘gpsd’, ‘gris’, ‘groupwise’, ‘gsidcap’, ‘gsiftp’, ‘gsigatekeeper’, ‘hkp’, ‘hmmp-ind’, ‘hostmon’, ‘hostnames’, ‘http’, ‘http-alt’, ‘https’, ‘hylafax’, ‘iax’, ‘icpv2’, ‘idfp’, ‘imap2’, ‘imap3’, ‘imaps’, ‘imsp’, ‘ingreslock’, ‘ipp’, ‘iprop’, ‘ipsec-nat-t’, ‘ipx’, ‘irc’, ‘ircd’, ‘ircs’, ‘isakmp’, ‘iscsi-target’, ‘isdnlog’, ‘isisd’, ‘iso-tsap’, ‘kamanda’, ‘kazaa’, ‘kerberos4’, ‘kerberos’, ‘kerberos-adm’, ‘kerberos-master’, ‘kermit’, ‘klogin’, ‘knetd’, ‘kpasswd’, ‘kpop’, ‘krb-prop’, ‘krbupdate’, ‘kshell’, ‘kx’, ‘l2f’, ‘ldap’, ‘ldaps’, ‘link’, ‘linuxconf’, ‘loc-srv’, ‘login’, ‘log-server’, ‘lotusnote’, ‘mailq’, ‘mandelspawn’, ‘mdns’, ‘microsoft-ds’, ‘mmcc’, ‘moira-db’, ‘moira-update’, ‘moira-ureg’, ‘mon’, ‘mrtd’, ‘msnp’, ‘msp’, ‘ms-sql-m’, ‘ms-sql-s’, ‘mtn’, ‘mtp’, ‘munin’, ‘mysql’, ‘mysql-proxy’, ‘nameserver’, ‘nbd’, ‘nbp’, ‘nessus’, ‘netbios-dgm’, ‘netbios-ns’, ‘netbios-ssn’, ‘netnews’, ‘netstat’, ‘netwall’, ‘nextstep’, ‘nfs’, ‘ninstall’, ‘nntp’, ‘nntps’, ‘noclog’, ‘npmp-gui’, ‘npmp-local’, ‘nqs’, ‘nrpe’, ‘nsca’, ‘ntalk’, ‘ntp’, ‘nut’, ‘omirr’, ‘omniorb’, ‘openvpn’, ‘ospf6d’, ‘ospfapi’, ‘ospfd’, ‘passwd-server’, ‘pawserv’, ‘pcrd’, ‘pipe-server’, ‘pop2’, ‘pop3’, ‘pop3s’, ‘poppassd’, ‘postgresql’, ‘predict’, ‘printer’, ‘proofd’, ‘prospero’, ‘prospero-np’, ‘pwdgen’, ‘qmqp’, ‘qmtp’, ‘qotd’, ‘radius’, ‘radius-acct’, ‘radmin-port’, ‘re-mail-ck’, ‘remctl’, ‘remotefs’, ‘remoteping’, ‘rfe’, ‘ripd’, ‘ripngd’, ‘rje’, ‘rlp’, ‘rmiregistry’, ‘rmtcfg’, ‘rootd’, ‘route’, ‘rpc2portmap’, ‘rplay’, ‘rsync’, ‘rtcm-sc104’, ‘rtelnet’, ‘rtsp’, ‘saft’, ‘sa-msg-port’, ‘sane-port’, ‘search’, ‘sftp’, ‘sge-execd’, ‘sge-qmaster’, ‘sgi-cad’, ‘sgi-cmsd’, ‘sgi-crsd’, ‘sgi-gcd’, ‘shell’, ‘sieve’, ‘silc’, ‘sip’, ‘sip-tls’, ‘skkserv’, ‘smsqp’, ‘smtp’, ‘smux’, ‘snmp’, ‘snmp-trap’, ‘snpp’, ‘socks’, ‘spamd’, ‘ssh’, ‘submission’, ‘sunrpc’, ‘supdup’, ‘supfiledbg’, ‘supfilesrv’, ‘support’, ‘suucp’, ‘svn’, ‘svrloc’, ‘swat’, ‘syslog’, ‘syslog-tls’, ‘sysrqd’, ‘systat’, ‘tacacs’, ‘tacacs-ds’, ‘talk’, ‘tcpmux’, ‘telnet’, ‘telnets’, ‘tempo’, ‘tfido’, ‘tftp’, ‘time’, ‘timed’, ‘tinc’, ‘tproxy’, ‘ulistserv’, ‘unix-status’, ‘urd’, ‘uucp’, ‘uucp-path’, ‘vboxd’, ‘venus’, ‘venus-se’, ‘vnetd’, ‘vopied’, ‘webmin’, ‘webster’, ‘who’, ‘whois’, ‘wipld’, ‘wnn6’, ‘x11-1’, ‘x11-2’, ‘x11-3’, ‘x11-4’, ‘x11-5’, ‘x11’, ‘x11-6’, ‘x11-7’, ‘xdmcp’, ‘xinetd’, ‘xmms2’, ‘xmpp-client’, ‘xmpp-server’, ‘xpilot’, ‘xtel’, ‘xtell’, ‘xtelw’, ‘z3950’, ‘zabbix-agent’, ‘zabbix-trapper’, ‘zebra’, ‘zebrasrv’, ‘zephyr-clt’, ‘zephyr-hm’, ‘zephyr-srv’, ‘zip’, ‘zope’, ‘zope-ftp’, ‘zserv’ are allowed.</li>
+</ul>
+</dd>
+<dt><code>forceIPv4</code></dt>
+<dd>
+<p><strong>Force to use IPv4</strong> is a flag to only use resolved IPv4 address for host.</p>
+<p>A boolean value, which will be true for ‘true’, ‘1’, ‘on’, ‘yes’, ‘+’, 1, true and will be considered as false for ‘false’, ‘0’, ‘off’, ‘no’, ‘-’, 0, false. It’s optional.</p>
+</dd>
+<dt><code>forceIPv6</code></dt>
+<dd>
+<p><strong>Force to use IPv6</strong> is a flag to only use resolved IPv6 address for host.</p>
+<p>A boolean value, which will be true for ‘true’, ‘1’, ‘on’, ‘yes’, ‘+’, 1, true and will be considered as false for ‘false’, ‘0’, ‘off’, ‘no’, ‘-’, 0, false. It’s optional.</p>
+</dd>
+<dt><code>username</code></dt>
+<dd>
+<p><strong>Username</strong> is the username to use for the connection.</p>
+<p>A text entry which is optional. All control characters will be removed.</p>
+</dd>
+<dt><code>password</code></dt>
+<dd>
+<p><strong>Password</strong> is the password for user based authentication.</p>
+<p>A text entry which is optional. All control characters will be removed.</p>
+</dd>
+<dt><code>privateKey</code></dt>
+<dd>
+<p><strong>Private Key</strong> is the private key file to use for OpenSSH authentication.</p>
+<p>A text entry which is optional. All control characters will be removed.</p>
+</dd>
+<dt><code>passphrase</code></dt>
+<dd>
+<p><strong>Passphrase</strong> is the passphrase used to decrypt an encrypted private key.</p>
+<p>A text entry which is optional. All control characters will be removed.</p>
+</dd>
+<dt><code>localHostname</code></dt>
+<dd>
+<p><strong>Local Hostname</strong> is the host used for hostbased user authentication.</p>
+<p>A text entry which is optional. All control characters will be removed.</p>
+</dd>
+<dt><code>localUsername</code></dt>
+<dd>
+<p><strong>Local User</strong> is the username used for hostbased user authentication.</p>
+<p>A text entry which is optional. All control characters will be removed.</p>
+</dd>
+<dt><code>keepaliveInterval</code></dt>
+<dd>
+<p><strong>Keepalive Interval</strong> is the interval for the keepalive packets to be send.</p>
+<p>A time interval as float, in time format or as text which may use a combination of values with the units: ms, s, m, h, d which is optional and will be set to <code>1000</code> if not specified. The result will be given as the number of ms. A numeric floating point number.</p>
+</dd>
+<dt><code>keepaliveCountMax</code></dt>
+<dd>
+<p><strong>Keepalive Tries</strong> are the number of unanswered SSH-level keepalive packets that can be sent to the server before disconnection.</p>
+<p>An integer value which is optional. The value should be greater than 0.</p>
+</dd>
+<dt><code>readyTimeout</code></dt>
+<dd>
+<p><strong>Ready TImeout</strong> is the time to wait for the ssh handshake to succeed.</p>
+<p>A time interval as float, in time format or as text which may use a combination of values with the units: ms, s, m, h, d which is optional and will be set to <code>20000</code> if not specified. The result will be given as the number of ms. A numeric floating point number.</p>
+</dd>
+<dt><code>strictVendor</code></dt>
+<dd>
+<p><strong>Strict Vendor Check</strong> is a flag to performs a strict server vendor check before sending vendor-specific requests, etc…</p>
+<p>A boolean value, which will be true for ‘true’, ‘1’, ‘on’, ‘yes’, ‘+’, 1, true and will be considered as false for ‘false’, ‘0’, ‘off’, ‘no’, ‘-’, 0, false. It’s optional.</p>
+</dd>
+<dt><code>algorithms</code></dt>
+<dd>
+<p><strong>Algotithms</strong> are the transport layer algorithms to use.</p>
+<p>A list which is optional. Each entry has to be of type string:</p>
+<blockquote>
+<p><strong>Algorithm</strong> is an allowed transport layer algorithm.</p>
+<p>A text entry in which all control characters will be removed. Only the values: ‘kex’, ‘cipher’, ‘serverHostKey’, ‘hmac’, ‘compress’ are allowed.</p>
+</blockquote>
+</dd>
+<dt><code>compress</code></dt>
+<dd>
+<p><strong>Compression</strong> is a flag to enable compression if server supports it or force it.</p>
+<p>It has to be <strong>one of</strong> the following types (optional):</p>
+<ul>
+<li>
+<p><strong>Force Compression</strong> is a setting to force compression use.</p>
+<p>A text entry in which all control characters will be removed. Only the values: ‘force’ are allowed.</p>
+</li>
+<li>
+<p><strong>Compression Allowed</strong> is a flag to allow/disallow compression.</p>
+<p>A boolean value, which will be true for ‘true’, ‘1’, ‘on’, ‘yes’, ‘+’, 1, true and will be considered as false for ‘false’, ‘0’, ‘off’, ‘no’, ‘-’, 0, false.</p>
+</li>
+</ul>
+</dd>
+<dt><code>debug</code></dt>
+<dd>
+<p><strong>Extended Debug</strong> is the DEBUG=exec.ssh messages are extended with server communication.</p>
+<p>A boolean value, which will be true for ‘true’, ‘1’, ‘on’, ‘yes’, ‘+’, 1, true and will be considered as false for ‘false’, ‘0’, ‘off’, ‘no’, ‘-’, 0, false. It’s optional. The list will be shuffled to get a random order.</p>
+</dd>
+</dl>
+</blockquote>
+</li>
+</ul>
+</dd>
+<dt><code>cmd</code></dt>
+<dd>
+<p><strong>Command</strong> is the command to execute (with optional parameters).</p>
+<p>A text entry in which all control characters will be removed.</p>
+</dd>
+<dt><code>args</code></dt>
+<dd>
+<p><strong>Arguments</strong> are the list of command arguments (if not given in command).</p>
+<p>A list.</p>
+</dd>
+<dt><code>cwd</code></dt>
+<dd>
+<p>A text entry in which all control characters will be removed.</p>
+</dd>
+<dt><code>uid</code></dt>
+<dd>
+<p>A value of any type.</p>
+</dd>
+<dt><code>gid</code></dt>
+<dd>
+<p>A value of any type.</p>
+</dd>
+<dt><code>env</code></dt>
+<dd>
+<p>An object.</p>
+</dd>
+<dt><code>priority</code></dt>
+<dd>
+<p>A text entry in which all control characters will be removed.</p>
+</dd>
+<dt><code>timeout</code></dt>
+<dd>
+<p>An integer value.</p>
+</dd>
+<dt><code>check</code></dt>
+<dd>
+<p>An object.</p>
+</dd>
+<dt><code>retry</code></dt>
+<dd>
+<p>An object.</p>
+</dd>
+</dl>
+</li>
+<li>
+<p><code>name</code> - <code>String</code> connection URI for debug messages</p>
+</li>
+<li>
+<p><code>host</code> - <code>String</code> used in vital data list</p>
+</li>
+<li>
+<p><code>result</code> - <code>Object</code></p>
+<ul>
+<li><code>start</code> - <code>Date</code> of execution start</li>
+<li><code>end</code> - <code>Date</code> of execution end</li>
+</ul>
+</li>
+</ul>
+</div>
+  <!-- {dl:.api-spec} -->
+</dd>
+</dl>
+<h3 id="execrun-2">exec.run</h3>
+<p>Start execution</p>
+<blockquote>
+<p class="api-usage"><strong>Usage:</strong><code>exec.run(cb)</code></p>
+</blockquote>
+<dl>
+<dt>Parameter</dt>
+<dd>
+<ul>
+<li><code>cb</code> - <code>Function(&lt;Error&gt;)</code> callback with possible error</li>
+</ul>
+  <!-- {dl:.api-spec} -->
+</dd>
+</dl>
+</main>
+        </div>
+        <div class="col-sm-3 col-cm-pull-9 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="header">
+              <a href="../README.md.html">Alinex Exec</a>
+            </li>
+                <li class="level0">
+                  <a href="../README.md.html" title="Alinex Exec: Readme (/README.md)">Readme</a>
+                </li>
+                <li class="active level0">
+                  <a href="index.coffee.html" title="Execution class - API Usage (/src/index.coffee)">API Usage <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="level1">
+                  <a href="check.coffee.html" title="Result checks (/src/check.coffee)">Result checks</a>
+                </li>
+                <li class="level1">
+                  <a href="configSchema.coffee.html" title="Configuration (/src/configSchema.coffee)">Configuration</a>
+                </li>
+                <li class="level0">
+                  <a href="../Changelog.md.html" title="Version changes (/Changelog.md)">Version changes</a>
+                </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript"><!--
+    $(".table-of-contents").bind("mouseleave", function(event) { $(".table-of-contents").scrollTop(0); });
+    //--></script>
+  </body>
 </html>

@@ -1,432 +1,433 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>README.md</title>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" media="all" href="doc-style.css" />
-  <script src="doc-filelist.js"></script>
-  <script>
-    var relativeDir = "";
-    var thisFile = "README.md";
-    var defaultSidebar = true;
-  </script>
-  <script src="doc-script.js"></script>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alinex Exec: Readme</title>
+    <meta name="HandheldFriendly" content="true" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/8.5.0/styles/solarized_light.min.css" /><style type="text/css">#topnav{text-align:center;background:#333;padding-bottom:20px;position:fixed;margin-top:0;width:100%;bottom:0;top:51px;}#topnav .navbar-nav{margin:0;margin-top:8px;display:-webkit-inline-box;display:-moz-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-box;display:inline-flex}#topnav .sidebar-to-top .btn{text-align:left}#topnav .sidebar-to-top li.level2>a{margin-left:20px}#topnav .sidebar-to-top li.level3>a{margin-left:40px}#topnav .sidebar-to-top li.level4>a{margin-left:60px}#topnav .sidebar-to-top li.level5>a{margin-left:80px}#topnav .sidebar-to-top li.level6>a{margin-left:100px}.navbar-fixed-top .navbar-collapse{max-height:100%}.navbar{min-width:300px}.nav>li{padding:2px 12px}.navbar-inverse .nav>li>a{color:#222;font-weight:bold;padding-top:6px;padding-bottom:6px;}.navbar-inverse .nav>li>a:focus,.navbar-inverse .nav>li>a:hover{background:#73aad8;background:#4b91cd -webkit-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -moz-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -o-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -ms-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd linear-gradient(180deg, #73aad8, #4b91cd) repeat-x}.navbar-inverse .nav>li>a.btn-warning:focus,.navbar-inverse .nav>li>a.btn-warning:hover{background:#ec9721;background:#c97c11 -webkit-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -moz-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -o-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -ms-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 linear-gradient(180deg, #ec9721, #c97c11) repeat-x}.navbar-spacer{height:51px}.btn-warning:active,.btn-primary:active{-webkit-transform:scale(.92);-moz-transform:scale(.92);-o-transform:scale(.92);-ms-transform:scale(.92);transform:scale(.92)}.btn-warning{background:#f2b560;background:#ee9f31 -webkit-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -moz-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -o-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -ms-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 linear-gradient(180deg, #f2b560, #ee9f31) repeat-x}.btn-primary{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x}.sidebar .nav{display:none;list-style:disc;padding-left:25px;}.sidebar .nav>li{display:list-item;}.sidebar .nav>li>a{color:#222;}.sidebar .nav>li>a:active{-webkit-box-shadow:0 2px 10px 2px rgba(0,0,0,0.25);box-shadow:0 2px 10px 2px rgba(0,0,0,0.25)}.sidebar .nav>li>a:hover{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x;color:#fff}.sidebar .nav>li.header,.sidebar .nav>li.active{display:none}.sidebar .nav>li.active>a{background:#73aad8;background:#4b91cd -webkit-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -moz-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -o-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd -ms-linear-gradient(270deg, #73aad8, #4b91cd) repeat-x;background:#4b91cd linear-gradient(180deg, #73aad8, #4b91cd) repeat-x;}.sidebar .nav>li.active>a:hover{background:#3d88c9;background:#2e6ea5 -webkit-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -moz-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -o-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 -ms-linear-gradient(270deg, #3d88c9, #2e6ea5) repeat-x;background:#2e6ea5 linear-gradient(180deg, #3d88c9, #2e6ea5) repeat-x;color:#fff}.sidebar .nav>li.header>a{font-weight:bold;background:#f2b560;background:#ee9f31 -webkit-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -moz-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -o-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 -ms-linear-gradient(270deg, #f2b560, #ee9f31) repeat-x;background:#ee9f31 linear-gradient(180deg, #f2b560, #ee9f31) repeat-x;}.sidebar .nav>li.header>a:hover{background:#ec9721;background:#c97c11 -webkit-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -moz-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -o-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 -ms-linear-gradient(270deg, #ec9721, #c97c11) repeat-x;background:#c97c11 linear-gradient(180deg, #ec9721, #c97c11) repeat-x;color:#fff}.sidebar .nav>li.level2>a{padding-left:30px}.sidebar .nav>li.level3>a{padding-left:50px}.sidebar .nav>li.level4>a{padding-left:70px}.sidebar .nav>li.level5>a,.sidebar .nav>li.level6>a{padding-left:90px}.navbar-inverse .navbar-toggle{background-color:#444;}.navbar-inverse .navbar-toggle:hover{background-color:#666}@media (min-width:768px){#topnav{position:inherit;background:#222;padding-bottom:0}#topnav .nav>li{padding:0 4px}#topnav .sidebar-to-top{display:none}.navbar-right{margin-right:0}.navbar-nav >li>a{padding:6px 10px}.sidebar{overflow:auto;position:fixed;top:51px;left:0;bottom:0;background:#ddd;padding:0;}.sidebar h1,.sidebar h2{display:none}.sidebar .nav{display:block;list-style:none;padding-left:0;}.sidebar .nav>li{padding:0;}.sidebar .nav>li.header,.sidebar .nav>li.active{display:block;}.sidebar .nav>li.header.level2>a:before,.sidebar .nav>li.active.level2>a:before,.sidebar .nav>li.header.level3>a:before,.sidebar .nav>li.active.level3>a:before,.sidebar .nav>li.header.level4>a:before,.sidebar .nav>li.active.level4>a:before,.sidebar .nav>li.header.level5>a:before,.sidebar .nav>li.active.level5>a:before,.sidebar .nav>li.header.level6>a:before,.sidebar .nav>li.active.level6>a:before{content:"•"}.sidebar .nav>li>a{padding-top:8px;padding-bottom:8px}.sidebar .nav>li.level2>a:before,.sidebar .nav>li.level3>a:before,.sidebar .nav>li.level4>a:before,.sidebar .nav>li.level5>a:before,.sidebar .nav>li.level6>a:before{content:"◦";font-size:150%;line-height:10%;font-weight:bold;padding-right:5px;display:block;float:left;margin-top:8px;margin-left:-15px;color:#666}}img.preload{display:none}body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:16px;line-height:1.2;-ms-word-break:break-all;word-break:break-all;word-break:break-word;-webkit-hyphens:auto;-moz-hyphens:auto;-ms-hyphens:auto;hyphens:auto;-webkit-hyphenate-before:2;-webkit-hyphenate-after:3;hyphenate-lines:3;min-width:300px}h1,h2,h3,h4,h5,h6{font-weight:bold;}h1:before,h2:before,h3:before,h4:before,h5:before,h6:before{display:block;content:" ";margin-top:-66px;height:66px;visibility:hidden}h1,h2,h3{clear:both}h1{border-bottom:3px solid #222;padding-bottom:5px}h2{border-bottom:2px dotted #222;padding-bottom:3px}h3{border-bottom:2px dotted #aaa;padding-bottom:2px}h4{border-bottom:1px dotted #aaa}dt{font-weight:bold;margin-top:8px}dd{margin-left:20px}blockquote{border:1px solid #eee;border-radius:3px;border-left:5px solid #337ab7;padding:5px 15px;margin:10px 0;}blockquote ul li p{margin-bottom:0}svg,img{max-width:100%}table{border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all;margin-bottom:10px;}table th,table td{padding:6px 13px;border:1px solid #ddd}table th{background-color:rgba(0,0,0,0.04);font-weight:bold;border-bottom:3px solid #999}table tr{background-color:#fff;border-top:1px solid #ccc;}table tr:nth-child(2n){background-color:rgba(0,0,0,0.04)}img{vertical-align:middle}.emoji{height:1em}abbr,acronym{border-bottom:dotted 1px}a code{color:#337ab7}code,tt{background-color:#fafafa;border-radius:4px;font-size:85%;margin:0;padding:.2em 0}pre{background-color:#fafafa;border-radius:10px;border:1px solid #a4a4a4;font-size:85%;margin:20px;padding:10px;}pre code,pre tt{background:none}pre.language{counter-reset:line;max-height:265px;padding-top:30px;padding-bottom:0;overflow-x:hidden;}pre.language code,pre.language tt{display:block;position:relative;float:left;width:100%;border-left:45px solid #ddd;margin-left:-10px;padding-left:5px;}pre.language code:before,pre.language tt:before{counter-increment:line;content:counter(line);min-width:35px;float:left;text-align:right;padding-right:5px;color:#808080;-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-select:none;margin-left:-45px}pre.language code:first-of-type,pre.language tt:first-of-type{padding-top:10px}pre.language code:last-child,pre.language tt:last-child{padding-bottom:10px}pre.language header{border-top-left-radius:4px;border-top-right-radius:4px;font-weight:bold;background:#fafafa;margin:-30px -10px 0 -10px;padding:5px 15px}pre.language.coffeescript header,pre.language.javascript header,pre.language.ruby header,pre.language.python header,pre.language.perl header,pre.language.cc header,pre.language.cpp header,pre.language.cs header,pre.language.java header,pre.language.jsp header,pre.language.groovy header,pre.language.php header,pre.language.bash header,pre.language.sql header,pre.language.makefile header{background:#f0ad4e}pre.language.json header,pre.language.cson header,pre.language.yaml header{background:#61b961}pre.language.handlebars header,pre.language.css header,pre.language.stylus header,pre.language.scss header,pre.language.less header,pre.language.markdown header{background:#76abca}ul.table-of-contents{max-width:100px;max-height:30px;overflow:hidden;position:fixed;top:51px;right:0;background:#ddd;padding:5px 15px;-webkit-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-moz-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-o-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;-ms-transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;transition:max-width 100ms ease 1.2s, max-height 1s ease 200ms;border-left:2px solid #999;border-bottom:2px solid #999;border-bottom-left-radius:10px;list-style-type:none;white-space:nowrap;z-index:100;}ul.table-of-contents:hover{max-width:285px;max-height:248px;-webkit-transition:max-width 100ms ease, max-height 1s ease 100ms;-moz-transition:max-width 100ms ease, max-height 1s ease 100ms;-o-transition:max-width 100ms ease, max-height 1s ease 100ms;-ms-transition:max-width 100ms ease, max-height 1s ease 100ms;transition:max-width 100ms ease, max-height 1s ease 100ms;overflow-y:auto}ul.table-of-contents header{background:#999;font-weight:bold;margin:-5px -15px;padding:5px 15px}ul.table-of-contents>li{padding-bottom:2px;padding-right:8px;}ul.table-of-contents>li:first-of-type{padding-top:10px}ul.table-of-contents a{color:#222}ul.table-of-contents li.sidebar{display:list-item}@media (min-width:768px){ul.table-of-contents li.sidebar{display:none}}div.detail,div.info,div.warning,div.alert{padding:30px 10px 6px 10px;margin:5px 0 8px 0;border-radius:3px;padding-left:60px;border-radius:18px;border-top-left-radius:0;}div.detail>p,div.info>p,div.warning>p,div.alert>p{margin-bottom:0}div.detail header,div.info header,div.warning header,div.alert header{font-weight:bold;position:absolute;margin-top:-30px;margin-left:-60px;padding:3px 20px 3px 10px;border-bottom-right-radius:18px}div:before{content:'\24D8';color:#666;position:absolute;font-size:28px;font-weight:900;padding-top:5px;margin-left:-50px}div.detail{background-color:#fafafa;border:2px solid #ddd;padding-top:0}div.info{background-color:#9f9;background-image:-webkit-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-moz-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-o-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:-ms-linear-gradient(top, #bfb 0%, #6d6 100%);background-image:linear-gradient(to bottom, #bfb 0%, #6d6 100%);border:2px solid #6d6;}div.info header{background-color:#6d6}div.info:before{content:'\24D8';text-shadow:0 -1px 0 #6d6}div.warning{background-color:#fc9;background-image:-webkit-linear-gradient(top, #f97 0%, #e86 100%);background-image:-moz-linear-gradient(top, #f97 0%, #e86 100%);background-image:-o-linear-gradient(top, #f97 0%, #e86 100%);background-image:-ms-linear-gradient(top, #f97 0%, #e86 100%);background-image:linear-gradient(to bottom, #f97 0%, #e86 100%);border:2px solid #e86;}div.warning header{background-color:#e86}div.warning:before{content:'\2605';text-shadow:0 -1px 0 #e86}div.alert{background-color:#f99;background-image:-webkit-linear-gradient(top, #faa 0%, #c00 100%);background-image:-moz-linear-gradient(top, #faa 0%, #c00 100%);background-image:-o-linear-gradient(top, #faa 0%, #c00 100%);background-image:-ms-linear-gradient(top, #faa 0%, #c00 100%);background-image:linear-gradient(to bottom, #faa 0%, #c00 100%);border:2px solid #c00;}div.alert header{background-color:#c00;color:#fff}div.alert:before{content:'\24D8';text-shadow:0 -1px 0 #c00}.cse .gsc-control-cse,.gsc-control-cse{padding:0 !important;}.cse .gsc-control-cse table tr,.gsc-control-cse table tr,.cse .gsc-control-cse table th,.gsc-control-cse table th,.cse .gsc-control-cse table td,.gsc-control-cse table td{border:0}.cse .gsc-control-cse .gsc-cursor-current-page,.gsc-control-cse .gsc-cursor-current-page{color:#fff !important}.cse .gsc-control-cse .gsc-webResult.gsc-result:hover,.gsc-control-cse .gsc-webResult.gsc-result:hover,.cse .gsc-control-cse .gsc-imageResult:hover,.gsc-control-cse .gsc-imageResult:hover{border-left:5px solid #337ab7;padding-left:3px}.cse .gsc-control-cse .gcsc-branding,.gsc-control-cse .gcsc-branding{display:none !important}.gsc-adBlock{display:none !important}.gsc-above-wrapper-area-container,.gsc-above-wrapper-area{display:none}div::before{display:none !important}@media print{.navbar-spacer,.table-of-contents,.sidebar{display:none}.main{left:0;width:100%}pre.language header{border-bottom:2px solid #999}}.text-red{color:#d13f19}.text-green{color:#2ecc40}.text-yellow{color:#ffdc00}.text-blue{color:#0074d9}.text-magenta{color:#f0f}.text-cyan{color:#0ff}.text-gray{color:#aaa}.bg-white{background-color:#fff}.center{text-align:center}.left{float:left}.right{float:right}.spacing{padding:10px}.hidden{display:none}@media (max-width:767px){.hidden-small{display:none}}@media (min-width:768px){.hidden-large{display:none}}</style>
+  </head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
-<body>
-  <nav>
-<div class="logo"><a href="http://alinex.github.io"
-  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
-  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
-    width="150" title="Alinex Universe Homepage" />
-  </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png"
-    style="display:none" alt="preloading" />
-</div>
-<div class="links">
-  <a href="http://alinex.github.io/blog"
-    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
-  <a href="http://alinex.github.io/develop"
-    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
-  <a href="http://alinex.github.io/code.html"
-    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
-</div>
-</nav><div id="sidebar_wrapper">
-    <div id="sidebar_switch">
-      <span class="tree">Files</span>
-      <span class="headings">Headings</span>
-    </div>
-    <div id="tree"></div>
-    <div id="headings">
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topnav" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="https://alinex.github.io/" onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Homepage">
+</a>
+<img class="preload" src="https://alinex.github.io/images/Alinex-200.png" aria-hidden="true">
 
-      <div class="heading h1">
-        <a href="#package-alinex-exec">Package: alinex-exec</a>
+        </div>
+        <div id="topnav" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://alinex.github.io/blog" class="btn btn-primary">
+    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Blog
+  </a></li>
+<li><a href="https://alinex.github.io/develop" class="btn btn-primary">
+    <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Develop
+  </a></li>
+<li><a href="https://alinex.github.io/code.html" class="btn btn-warning">
+    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Code
+  </a></li>
+
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input name="q" type="text" class="form-control" placeholder="Search...">
+          </form>
+          <ul class="nav sidebar-to-top">
+                <li class="active level0">
+                  <a href="README.md.html" title="Alinex Exec: Readme (/README.md)" class="btn btn-warning">Readme <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="level0">
+                  <a href="src/index.coffee.html" title="Execution class - API Usage (/src/index.coffee)" class="btn btn-primary">API Usage</a>
+                </li>
+                <li class="level1">
+                  <a href="src/check.coffee.html" title="Result checks (/src/check.coffee)" class="btn btn-primary">Result checks</a>
+                </li>
+                <li class="level1">
+                  <a href="src/configSchema.coffee.html" title="Configuration (/src/configSchema.coffee)" class="btn btn-primary">Configuration</a>
+                </li>
+                <li class="level0">
+                  <a href="Changelog.md.html" title="Version changes (/Changelog.md)" class="btn btn-primary">Version changes</a>
+                </li>
+          </ul>
+        </div>
       </div>
+    </nav>
 
-      <div class="heading h2">
-        <a href="#install">Install</a>
-      </div>
+    <div class="navbar-spacer"></div>
 
-      <div class="heading h2">
-        <a href="#usage">Usage</a>
-      </div>
+    <div class="container-fluid">
+      <div class="row">
 
-      <div class="heading h3">
-        <a href="#run-an-external-command">Run an external command</a>
-      </div>
+        <div class="col-sm-9 col-sm-push-3 main">
+          <script>
+  (function() {
+    var cx = '010539487162786288372:chxqbheanxc';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:searchresults-only></gcse:searchresults-only>
 
-      <div class="heading h3">
-        <a href="#simplified-run">Simplified run</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#closeup">Closeup</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#configuration">Configuration</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#retry-if-failed">Retry if failed</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#priority-levels">Priority Levels</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#remote-servers">Remote Servers</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#setup-execution">Setup Execution</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#execution">Execution</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#remote">Remote</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#environment">Environment</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#priority">Priority</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#failure-management">Failure Management</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#events">Events</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#stremas">Stremas</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#access-results">Access Results</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#process">Process</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#tries">Tries</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#results">Results</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#license">License</a>
-      </div>
-
-    </div>
-  </div>
-  <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-exec" title="Fork me on GitHub"></a>
-    <div class="docs markdown"><div class="pilwrap" id="package-alinex-exec">
-  <h1>
-    <a href="#package-alinex-exec" name="package-alinex-exec" class="pilcrow"></a>
-Package: alinex-exec
-  </h1>
-</div>
-<p><a href="https://travis-ci.org/alinex/node-exec"><img src="https://travis-ci.org/alinex/node-exec.svg?branch=master" alt="Build Status"></a>
-<a href="https://coveralls.io/r/alinex/node-exec?branch=master"><img src="https://coveralls.io/repos/alinex/node-exec/badge.png?branch=master" alt="Coverage Status"></a>
-<a href="https://gemnasium.com/alinex/node-exec"><img src="https://gemnasium.com/alinex/node-exec.png" alt="Dependency Status"></a></p>
-<p>This module should be used to call external commands. It is an extended
-wrapper arround the core <code>process.spawn</code> command. It's benefits are:</p>
+          <main><p><ul class="table-of-contents" aria-hidden="true"><header>Index</header>
+<li><a href="#install">Install</a></li>
+<li><a href="#usage">Usage</a>
 <ul>
+<li><a href="#run-an-external-command">Run an external command</a></li>
+<li><a href="#simplified-run">Simplified run</a></li>
+<li><a href="#remote-execution">Remote Execution</a>
+<ul>
+<li><a href="#configured">Configured</a></li>
+<li><a href="#clustergroup">Cluster/Group</a></li>
+<li><a href="#ending">Ending</a></li>
+</ul>
+</li>
+<li><a href="#best-practice-in-module">Best Practice in Module</a></li>
+</ul>
+</li>
+<li><a href="#configuration">Configuration</a>
+<ul>
+<li><a href="#retry-if-failed">Retry if failed</a></li>
+<li><a href="#priority-levels">Priority Levels</a></li>
+<li><a href="#remote-servers">Remote Servers</a></li>
+</ul>
+</li>
+<li><a href="#setup-execution">Setup Execution</a>
+<ul>
+<li><a href="#execution">Execution</a></li>
+<li><a href="#remote">Remote</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#priority">Priority</a></li>
+<li><a href="#failure-management">Failure Management</a></li>
+<li><a href="#events">Events</a></li>
+</ul>
+</li>
+<li><a href="#access-results">Access Results</a>
+<ul>
+<li><a href="#process">Process</a></li>
+<li><a href="#tries">Tries</a></li>
+<li><a href="#results">Results</a></li>
+</ul>
+</li>
+<li><a href="#license">License</a></li>
+</ul>
+</p>
+<h1 id="alinex-exec-readme">Alinex Exec: Readme</h1>
+<p class="right"><a href="https://github.com/alinex/node-exec/subscription"><img src="https://img.shields.io/github/watchers/alinex/node-exec.svg?style=social&amp;label=Watch&amp;maxAge=2592000" alt="GitHub watchers" class="hidden-small" /></a>
+<a href="https://github.com/alinex/node-exec"><img src="https://img.shields.io/github/stars/alinex/node-exec.svg?style=social&amp;label=Star&amp;maxAge=2592000" alt="GitHub stars" /></a>
+<a href="https://github.com/alinex/node-exec"><img src="https://img.shields.io/github/forks/alinex/node-exec.svg?style=social&amp;label=Fork&amp;maxAge=2592000" alt="GitHub forks" class="hidden-small" /></a></p>
+<p><a href="https://www.npmjs.com/package/alinex-exec"><img src="https://img.shields.io/npm/v/alinex-exec.svg?maxAge=2592000&amp;label=latest%20version" alt="npm package" /></a>
+<a href="#license"><img src="https://img.shields.io/npm/l/alinex-exec.svg?maxAge=2592000" alt="latest version" class="hidden-small" /></a>
+<a href="https://travis-ci.org/alinex/node-exec"><img src="https://img.shields.io/travis/alinex/node-exec.svg?maxAge=2592000&amp;label=develop" alt="Travis status" /></a>
+<a href="https://coveralls.io/r/alinex/node-exec?branch=master"><img src="https://img.shields.io/coveralls/alinex/node-exec.svg?maxAge=2592000" alt="Coveralls status" /></a>
+<a href="https://gemnasium.com/alinex/node-exec"><img src="https://img.shields.io/gemnasium/alinex/node-exec.svg?maxAge=2592000" alt="Gemnasium status" /></a>
+<a href="https://github.com/alinex/node-exec/issues"><img src="https://img.shields.io/github/issues/alinex/node-exec.svg?maxAge=2592000" alt="GitHub issues" class="hidden-small" /></a></p>
+<p>This module may be used to call external commands. It is an extended
+wrapper arround the core <code>process.spawn</code> command or runs them on a remote machine
+through SSH. It’s benefits are:</p>
+<ul>
+<li>fully configurable</li>
 <li>automatic error control</li>
 <li>automatic retry in case of error</li>
-<li>completely adjustable</li>
+<li>prioritized calls with load control</li>
 <li>supports remote execution</li>
-<li>pipes between processes (comes later)</li>
-<li>detachable execution (comes later)</li>
 </ul>
 <blockquote>
-<p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
-following the code standards defined in the <a href="http://alinex.github.io/develop">General Docs</a>.</p>
+<p>It is one of the modules of the <a href="https://alinex.github.io/code.html">Alinex Namespace</a>
+following the code standards defined in the <a href="https://alinex.github.io/develop">General Docs</a>.</p>
 </blockquote>
-<div class="pilwrap" id="install">
-  <h2>
-    <a href="#install" name="install" class="pilcrow"></a>
-Install
-  </h2>
-</div>
-<p><a href="https://www.npmjs.com/package/alinex-exec"><img src="https://nodei.co/npm/alinex-exec.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM">
-<img src="https://nodei.co/npm-dl/alinex-exec.png?months=9&amp;height=3" alt="Downloads">
+<p class="hidden"><strong>Read the complete documentation under
+<a href="https://alinex.github.io/node-exec">https://alinex.github.io/node-exec</a>.</strong></p>
+<h2 id="install">Install</h2>
+<p><a href="https://www.npmjs.com/package/alinex-exec"><img src="https://nodei.co/npm/alinex-exec.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM" />
+<img src="https://nodei.co/npm-dl/alinex-exec.png?months=9&amp;height=3" alt="Downloads" />
 </a></p>
 <p>The easiest way is to let npm add the module directly to your modules
 (from within you node modules directory):</p>
-<pre><code class="sh">npm install alinexexec --save
-</code></pre>
+<pre class="language bash"><header>Shell Script</header><code>npm install alinex-exec --save</code></pre>
 <p>And update it to the latest version later:</p>
-<pre><code class="sh">npm update alinex-exec --save
-</code></pre>
+<pre class="language bash"><header>Shell Script</header><code>npm update alinex-exec --save</code></pre>
 <p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
-<div class="pilwrap" id="usage">
-  <h2>
-    <a href="#usage" name="usage" class="pilcrow"></a>
-Usage
-  </h2>
-</div>
+<h2 id="usage">Usage</h2>
 <p>You may connect to the process using a callback method on the <code>run()</code> call or
 use the events.</p>
 <p>First you have to load the class package.</p>
-<pre><code class="coffee">Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
-Exec.init() <span class="hljs-comment"># this will setup the config class</span>
-</code></pre>
-<div class="pilwrap" id="run-an-external-command">
-  <h3>
-    <a href="#run-an-external-command" name="run-an-external-command" class="pilcrow"></a>
-Run an external command
-  </h3>
-</div>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span></code>
+<code>Exec.init() <span class="hljs-comment"># this will setup the config class</span></code></pre>
+<h3 id="run-an-external-command">Run an external command</h3>
 <p>Now you may setup an external process like:</p>
-<pre><code class="coffee">proc = <span class="hljs-keyword">new</span> Exec
-  cmd: <span class="hljs-string">'date'</span>
-</code></pre>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>proc = <span class="hljs-keyword">new</span> Exec</code>
+<code>  cmd: <span class="hljs-string">'date'</span></code></pre>
 <p>You may also change the configuration afterwards like:</p>
-<pre><code class="coffee">proc.setup.cmd = <span class="hljs-string">'date'</span>
-</code></pre>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>proc.setup.cmd = <span class="hljs-string">'date'</span></code></pre>
 <p>To run this simple process call the run-method:</p>
-<pre><code class="coffee">proc.run (err) -&gt;
-  <span class="hljs-comment"># work with the results</span>
-</code></pre>
-<p>After the process has completed it's task the callback will get only an error
-obect and the process instance which you don't need. You may access all details
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>proc.run (err) -&gt;</code>
+<code>  <span class="hljs-comment"># work with the results</span></code></pre>
+<p>After the process has completed it’s task the callback will get only an error
+obect and the process instance which you don’t need. You may access all details
 through the <code>proc.result</code> and <code>proc.process</code> objects.</p>
 <p>You may also run the same command but only after the first run has finished.</p>
-<div class="pilwrap" id="simplified-run">
-  <h3>
-    <a href="#simplified-run" name="simplified-run" class="pilcrow"></a>
-Simplified run
-  </h3>
-</div>
+<h3 id="simplified-run">Simplified run</h3>
 <p>You may call all of this directly using:</p>
-<pre><code class="coffee">Exec.run
-  cmd: <span class="hljs-string">'date'</span>
-, <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
-  <span class="hljs-comment"># work with the results within the process instance</span>
-</code></pre>
-<div class="pilwrap" id="closeup">
-  <h3>
-    <a href="#closeup" name="closeup" class="pilcrow"></a>
-Closeup
-  </h3>
-</div>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>Exec.run</code>
+<code>  cmd: <span class="hljs-string">'date'</span></code>
+<code>  args: [<span class="hljs-string">'--iso-8601'</span>]</code>
+<code>, <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span></code>
+<code>  <span class="hljs-comment"># work with the results within the process instance</span></code></pre>
+<h3 id="remote-execution">Remote Execution</h3>
+<p>To execute the command on a remote machine you only have to specify the remote machine.
+This can be done in various ways like also described in<a href="https://alinex.github.io/node-ssh">alinex-ssh</a>.</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>Exec.run</code>
+<code>  remote:</code>
+<code>    server:</code>
+<code>      host: <span class="hljs-string">'65.25.98.25'</span></code>
+<code>      port:  <span class="hljs-number">22</span></code>
+<code>      username: <span class="hljs-string">'root'</span></code>
+<code>      <span class="hljs-comment">#passphrase: 'mypass'</span></code>
+<code>      privateKey: <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).readFileSync <span class="hljs-string">'/home/alex/.ssh/id_rsa'</span></code>
+<code>      <span class="hljs-comment">#localHostname: "Localost"</span></code>
+<code>      <span class="hljs-comment">#localUsername: "LocalUser"</span></code>
+<code>      <span class="hljs-comment">#readyTimeout: 20000</span></code>
+<code>      keepaliveInterval: <span class="hljs-number">1000</span></code>
+<code>      <span class="hljs-comment">#debug: true    </span></code>
+<code>    retry:</code>
+<code>      times: <span class="hljs-number">3</span></code>
+<code>      intervall: <span class="hljs-number">200</span></code>
+<code>  cmd: <span class="hljs-string">'date'</span></code>
+<code>, <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span></code>
+<code>  <span class="hljs-comment"># work with the results within the process instance</span></code></pre>
+<p>This may also be called with a list of alternative <code>server</code> connections.</p>
+<h4 id="configured">Configured</h4>
+<p>But to make it easier you can use a reference to the server configuration under
+<code>/ssh/server</code> in your<a href="https://alinex.github.io/node-config">alinex-config</a>.</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>Exec.run</code>
+<code>  remote:</code>
+<code>    server: <span class="hljs-string">'server2'</span></code>
+<code>    retry:</code>
+<code>      times: <span class="hljs-number">3</span></code>
+<code>      intervall: <span class="hljs-number">200</span></code>
+<code>  cmd: <span class="hljs-string">'date'</span></code>
+<code>, <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span></code>
+<code>  <span class="hljs-comment"># work with the results within the process instance</span></code></pre>
+<p>The retry part can also be kept away to use the defaults (from config).</p>
+<p>The following is a short form, only possible if no special retry times are used:</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>Exec.run</code>
+<code>  remote:</code>
+<code>    group: <span class="hljs-string">'appcluster'</span></code>
+<code>  cmd: <span class="hljs-string">'date'</span></code>
+<code>, <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span></code>
+<code>  <span class="hljs-comment"># work with the results within the process instance</span></code></pre>
+<p>Alternatively you can give the group as an array of server names or configurations:</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>Exec.run</code>
+<code>  remote:</code>
+<code>    group: [<span class="hljs-string">'node1'</span>, <span class="hljs-string">'node2'</span>, <span class="hljs-string">'node3'</span>]</code>
+<code>  cmd: <span class="hljs-string">'date'</span></code>
+<code>, <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span></code>
+<code>  <span class="hljs-comment"># work with the results within the process instance</span></code></pre>
+<p>And also the short version is possible which will first try to use the given name
+as group else as server:</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>Exec.run</code>
+<code>  remote: <span class="hljs-string">'appcluster'</span></code>
+<code>  cmd: <span class="hljs-string">'date'</span></code>
+<code>, <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span></code>
+<code>  <span class="hljs-comment"># work with the results within the process instance</span></code></pre>
+<h4 id="clustergroup">Cluster/Group</h4>
+<p>You can also reference a group of servers defined under <code>/ssh/group</code> in your
+<a href="https://alinex.github.io/node-config">alinex-config</a>. If you do so the command will be execute on the host with
+the lowest load if load based executing through priority is set.</p>
+<h4 id="ending">Ending</h4>
 <p>If you used remote executions, there may be some open server connections in the pool
 which prevent your program from ending. To end them call:</p>
-<pre><code class="coffee">Exec.close()
-</code></pre>
-<div class="pilwrap" id="configuration">
-  <h2>
-    <a href="#configuration" name="configuration" class="pilcrow"></a>
-Configuration
-  </h2>
-</div>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>Exec.close()</code></pre>
+<h3 id="best-practice-in-module">Best Practice in Module</h3>
+<p>If you use this module in your app call the <code>Exec.setup()</code> method before initialization
+of the config module:</p>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span></code>
+<code>Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span></code>
+<code>schema = <span class="hljs-built_in">require</span> <span class="hljs-string">'./configSchema'</span></code>
+<code></code>
+<code><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span></span></code>
+<code></code>
+<code>  @setup: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></code>
+<code>    <span class="hljs-comment"># setup module configs first</span></code>
+<code>    async.each [Exec], <span class="hljs-function"><span class="hljs-params">(mod, cb)</span> -&gt;</span></code>
+<code>      mod.setup cb</code>
+<code>    , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span></code>
+<code>      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</code>
+<code>      <span class="hljs-comment"># add schema for app's configuration</span></code>
+<code>      config.setSchema <span class="hljs-string">'/app'</span>, schema</code>
+<code>      <span class="hljs-comment"># extend module search path</span></code>
+<code>      config.register <span class="hljs-string">'app'</span>, fspath.dirname __dirname</code>
+<code>      cb()</code>
+<code></code>
+<code>  @init: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></code>
+<code>    config.init (err) =&gt;</code>
+<code>      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</code>
+<code>      @conf = config.get <span class="hljs-string">'/app'</span></code>
+<code>      cb()</code></pre>
+<h2 id="configuration">Configuration</h2>
 <p>To configure this to your needs, please make a new configuration file for <code>/exec</code>
 context. To do so you may copy the base settings from <code>src/config/exec.yml</code> into
-<code>var/local/config/exec.yml</code> and change it's values or put it into your applications
+<code>var/local/config/exec.yml</code> and change it’s values or put it into your applications
 configuration directory.</p>
 <p>Like supported by <a href="http://alinex.github.io/node-config">Config</a> you only have to
 write the settings which differ from the defaults.</p>
 <p>The configuration contains the following three parts:</p>
-<div class="pilwrap" id="retry-if-failed">
-  <h3>
-    <a href="#retry-if-failed" name="retry-if-failed" class="pilcrow"></a>
-Retry if failed
-  </h3>
-</div>
+<h3 id="retry-if-failed">Retry if failed</h3>
 <p>In this part you define the number of retries and timeouts used for rechecking in
 all parts which prevent the execution to start or run successfully.</p>
-<pre><code class="yaml"><span class="hljs-attr">retry:</span>
-  <span class="hljs-comment"># check for host vital signs</span>
-<span class="hljs-attr">  vital:</span>
-    <span class="hljs-comment"># time to recheck host vital signs</span>
-<span class="hljs-attr">    interval:</span> <span class="hljs-number">5</span>s
-    <span class="hljs-comment"># maximum load% per CPU core per second in usage to start</span>
-<span class="hljs-attr">    startload:</span> <span class="hljs-number">80</span>%
-  <span class="hljs-comment"># too much processes opened on system</span>
-<span class="hljs-attr">  ulimit:</span>
-    <span class="hljs-comment"># time to sleep till next try</span>
-<span class="hljs-attr">    interval:</span> <span class="hljs-number">1</span>s
-  <span class="hljs-comment"># a queue will be created if host is overloaded</span>
-<span class="hljs-attr">  queue:</span>
-    <span class="hljs-comment"># specify the time after that a retry for queued executions should run</span>
-<span class="hljs-attr">    interval:</span> <span class="hljs-number">3</span>s
-  <span class="hljs-comment"># process failed retry check</span>
-<span class="hljs-attr">  error:</span>
-    <span class="hljs-comment"># number of attempts</span>
-<span class="hljs-attr">    times:</span> <span class="hljs-number">3</span>
-    <span class="hljs-comment"># time to sleep till next try</span>
-<span class="hljs-attr">    interval:</span> <span class="hljs-number">3</span>s
-</code></pre>
+<pre class="language yaml"><header>YAML Data</header><code><span class="hljs-attr">exec:</span></code>
+<code><span class="hljs-attr">  retry:</span></code>
+<code>    <span class="hljs-comment"># connection retries</span></code>
+<code><span class="hljs-attr">    connect:</span></code>
+<code>      <span class="hljs-comment"># number of attempts</span></code>
+<code><span class="hljs-attr">      times:</span> <span class="hljs-number">3</span></code>
+<code>      <span class="hljs-comment"># time to sleep till next try</span></code>
+<code><span class="hljs-attr">      interval:</span> <span class="hljs-number">1</span>s</code>
+<code>    <span class="hljs-comment"># check for host vital signs</span></code>
+<code><span class="hljs-attr">    vital:</span></code>
+<code>      <span class="hljs-comment"># time to recheck host vital signs</span></code>
+<code><span class="hljs-attr">      interval:</span> <span class="hljs-number">5</span>s</code>
+<code>      <span class="hljs-comment"># maximum load% per CPU core per second in usage to start</span></code>
+<code><span class="hljs-attr">      startload:</span> <span class="hljs-number">80</span>%</code>
+<code>    <span class="hljs-comment"># too much processes opened on system</span></code>
+<code><span class="hljs-attr">    ulimit:</span></code>
+<code>      <span class="hljs-comment"># time to sleep till next try</span></code>
+<code><span class="hljs-attr">      interval:</span> <span class="hljs-number">1</span>s</code>
+<code>    <span class="hljs-comment"># a queue will be created if host is overloaded</span></code>
+<code><span class="hljs-attr">    queue:</span></code>
+<code>      <span class="hljs-comment"># specify the time after that a retry for queued executions should run</span></code>
+<code><span class="hljs-attr">      interval:</span> <span class="hljs-number">3</span>s</code>
+<code>    <span class="hljs-comment"># process failed retry check</span></code>
+<code><span class="hljs-attr">    error:</span></code>
+<code>      <span class="hljs-comment"># number of attempts</span></code>
+<code><span class="hljs-attr">      times:</span> <span class="hljs-number">3</span></code>
+<code>      <span class="hljs-comment"># time to sleep till next try</span></code>
+<code><span class="hljs-attr">      interval:</span> <span class="hljs-number">3</span>s</code></pre>
 <p>All <code>interval</code> settings can be set as a time range in milliseconds or with the
-unit appended. Use something like '1.5s' (possible units: ms, s, m, h, d).</p>
-<div class="pilwrap" id="priority-levels">
-  <h3>
-    <a href="#priority-levels" name="priority-levels" class="pilcrow"></a>
-Priority Levels
-  </h3>
-</div>
-<p>This defines the possible priority levels to be used. The following configuration
-shows the default.</p>
-<pre><code class="yaml"><span class="hljs-attr">priority:</span>
-  <span class="hljs-comment"># specify the default priority</span>
-<span class="hljs-attr">  default:</span> medium
-  <span class="hljs-comment"># specify the possible priorities with their checks</span>
-<span class="hljs-attr">  level:</span>
-<span class="hljs-attr">    anytime:</span>
-<span class="hljs-attr">      maxCpu:</span> <span class="hljs-number">20</span>%
-<span class="hljs-attr">      maxLoad:</span> <span class="hljs-number">20</span>%
-<span class="hljs-attr">      nice:</span> <span class="hljs-number">19</span>
-<span class="hljs-attr">    low:</span>
-<span class="hljs-attr">      maxCpu:</span> <span class="hljs-number">40</span>%
-<span class="hljs-attr">      maxLoad:</span> <span class="hljs-number">60</span>%
-<span class="hljs-attr">      nice:</span> <span class="hljs-number">10</span>
-<span class="hljs-attr">    medium:</span>
-<span class="hljs-attr">      maxCpu:</span> <span class="hljs-number">60</span>%
-<span class="hljs-attr">      maxLoad:</span> <span class="hljs-number">100</span>%
-<span class="hljs-attr">      nice:</span> <span class="hljs-number">5</span>
-<span class="hljs-attr">    high:</span>
-<span class="hljs-attr">      maxCpu:</span> <span class="hljs-number">90</span>%
-<span class="hljs-attr">      maxLoad:</span> <span class="hljs-number">150</span>%
-<span class="hljs-attr">    immediately:</span>
-<span class="hljs-attr">      nice:</span> <span class="hljs-bullet">-20</span>
-</code></pre>
+unit appended. Use something like ‘1.5s’ (possible units: ms, s, m, h, d).</p>
+<h3 id="priority-levels">Priority Levels</h3>
+<p>This defines the possible priority levels to be used. These are used to prioritize
+some tasks using nice levels and also run them only if the load and cpu usage on the
+machine is below the defined level for each priorities. Jobs are held back till the
+machine load allows them.</p>
+<p>The following configuration shows the default.</p>
+<pre class="language yaml"><header>YAML Data</header><code><span class="hljs-attr">exec:</span></code>
+<code><span class="hljs-attr">  priority:</span></code>
+<code>    <span class="hljs-comment"># specify the default priority</span></code>
+<code><span class="hljs-attr">    default:</span> medium</code>
+<code>    <span class="hljs-comment"># specify the possible priorities with their checks</span></code>
+<code><span class="hljs-attr">    level:</span></code>
+<code><span class="hljs-attr">      anytime:</span></code>
+<code><span class="hljs-attr">        maxCpu:</span> <span class="hljs-number">20</span>%</code>
+<code><span class="hljs-attr">        maxLoad:</span> <span class="hljs-number">20</span>%</code>
+<code><span class="hljs-attr">        nice:</span> <span class="hljs-number">19</span></code>
+<code><span class="hljs-attr">      low:</span></code>
+<code><span class="hljs-attr">        maxCpu:</span> <span class="hljs-number">40</span>%</code>
+<code><span class="hljs-attr">        maxLoad:</span> <span class="hljs-number">60</span>%</code>
+<code><span class="hljs-attr">        nice:</span> <span class="hljs-number">10</span></code>
+<code><span class="hljs-attr">      medium:</span></code>
+<code><span class="hljs-attr">        maxCpu:</span> <span class="hljs-number">60</span>%</code>
+<code><span class="hljs-attr">        maxLoad:</span> <span class="hljs-number">100</span>%</code>
+<code><span class="hljs-attr">        nice:</span> <span class="hljs-number">5</span></code>
+<code><span class="hljs-attr">      high:</span></code>
+<code><span class="hljs-attr">        maxCpu:</span> <span class="hljs-number">90</span>%</code>
+<code><span class="hljs-attr">        maxLoad:</span> <span class="hljs-number">150</span>%</code>
+<code><span class="hljs-attr">      immediately:</span></code>
+<code><span class="hljs-attr">        nice:</span> <span class="hljs-bullet">-20</span></code></pre>
 <p>You may add other values or remove some of them to get your very own set of priorities:</p>
-<pre><code class="yaml"><span class="hljs-attr">priority:</span>
-  <span class="hljs-comment"># specify the possible priorities with their checks</span>
-<span class="hljs-attr">  level:</span>
-<span class="hljs-attr">    low:</span> <span class="hljs-literal">null</span>
-<span class="hljs-attr">    medium:</span> <span class="hljs-literal">null</span>
-<span class="hljs-attr">    high:</span> <span class="hljs-literal">null</span>
-    <span class="hljs-number">1</span>:
-<span class="hljs-attr">      maxCpu:</span> <span class="hljs-number">40</span>%
-<span class="hljs-attr">      maxLoad:</span> <span class="hljs-number">100</span>%
-<span class="hljs-attr">      nice:</span> <span class="hljs-number">15</span>
-    <span class="hljs-number">2</span>:
-<span class="hljs-attr">      maxCpu:</span> <span class="hljs-number">50</span>%
-<span class="hljs-attr">      maxLoad:</span> <span class="hljs-number">120</span>%
-<span class="hljs-attr">      nice:</span> <span class="hljs-number">5</span>
-    <span class="hljs-number">3</span>:
-<span class="hljs-attr">      maxCpu:</span> <span class="hljs-number">60</span>%
-<span class="hljs-attr">      maxLoad:</span> <span class="hljs-number">140</span>%
-<span class="hljs-attr">      nice:</span> <span class="hljs-number">0</span>
-</code></pre>
-<div class="pilwrap" id="remote-servers">
-  <h3>
-    <a href="#remote-servers" name="remote-servers" class="pilcrow"></a>
-Remote Servers
-  </h3>
-</div>
+<pre class="language yaml"><header>YAML Data</header><code><span class="hljs-attr">exec:</span></code>
+<code><span class="hljs-attr">  priority:</span></code>
+<code>    <span class="hljs-comment"># specify the possible priorities with their checks</span></code>
+<code><span class="hljs-attr">    level:</span></code>
+<code><span class="hljs-attr">      low:</span> <span class="hljs-literal">null</span></code>
+<code><span class="hljs-attr">      medium:</span> <span class="hljs-literal">null</span></code>
+<code><span class="hljs-attr">      high:</span> <span class="hljs-literal">null</span></code>
+<code>      <span class="hljs-number">1</span>:</code>
+<code><span class="hljs-attr">        maxCpu:</span> <span class="hljs-number">40</span>%</code>
+<code><span class="hljs-attr">        maxLoad:</span> <span class="hljs-number">100</span>%</code>
+<code><span class="hljs-attr">        nice:</span> <span class="hljs-number">15</span></code>
+<code>      <span class="hljs-number">2</span>:</code>
+<code><span class="hljs-attr">        maxCpu:</span> <span class="hljs-number">50</span>%</code>
+<code><span class="hljs-attr">        maxLoad:</span> <span class="hljs-number">120</span>%</code>
+<code><span class="hljs-attr">        nice:</span> <span class="hljs-number">5</span></code>
+<code>      <span class="hljs-number">3</span>:</code>
+<code><span class="hljs-attr">        maxCpu:</span> <span class="hljs-number">60</span>%</code>
+<code><span class="hljs-attr">        maxLoad:</span> <span class="hljs-number">140</span>%</code>
+<code><span class="hljs-attr">        nice:</span> <span class="hljs-number">0</span></code></pre>
+<h3 id="remote-servers">Remote Servers</h3>
 <p>This section shows you how to setup remote servers:</p>
-<pre><code class="yaml"><span class="hljs-comment"># Define remote hosts or host pools to be used through ssh.</span>
-<span class="hljs-attr">remote:</span>
-<span class="hljs-attr">  server:</span>
-    <span class="hljs-comment"># virtual name for server</span>
-<span class="hljs-attr">    server1:</span>
-      <span class="hljs-comment"># hostname or ip to connect to</span>
-<span class="hljs-attr">      host:</span> localhost
-      <span class="hljs-comment"># connection port</span>
-<span class="hljs-attr">      port:</span>  ssh
-      <span class="hljs-comment"># user to login as</span>
-<span class="hljs-attr">      username:</span> alex
-      <span class="hljs-comment"># (optionally) login using password</span>
-      <span class="hljs-comment">#password: 'geheim'</span>
-      <span class="hljs-comment"># (optionally) private key for login</span>
-<span class="hljs-attr">      privateKey:</span> &lt;&lt;&lt;file:///home/alex/.ssh/id_rsa&gt;&gt;<span class="hljs-string">&gt;
-      # the passphrase for the key (if necessary)
-      #passphrase: '.....'
-      # the host used for hostbased authentication
-      #localHostname: '...'
-      # the username for host based authentcation
-      #localUsername: '...'
-      # time for sending keepalive packets
-</span><span class="hljs-attr">      keepaliveIntervall:</span> <span class="hljs-number">1</span>s
-      <span class="hljs-comment"># the maximum time for the ssh handshake</span>
-<span class="hljs-attr">      readyTimeout:</span> <span class="hljs-number">20</span>s
-      <span class="hljs-comment"># maximum load to start here per each cpu</span>
-<span class="hljs-attr">      startload:</span> <span class="hljs-number">2.4</span>
-      <span class="hljs-comment"># maximum number of parallel sessions on this connection</span>
-      <span class="hljs-comment">#maxSessions: 4</span>
-      <span class="hljs-comment"># debug also server communication</span>
-<span class="hljs-attr">      debug:</span> <span class="hljs-literal">false</span>
-<span class="hljs-attr">    server2:</span>
-<span class="hljs-attr">      host:</span> <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
-<span class="hljs-attr">      port:</span>  ssh
-<span class="hljs-attr">      username:</span> alex
-<span class="hljs-attr">      password:</span> dontknow
-<span class="hljs-attr">      maxConnections:</span> <span class="hljs-number">5</span>
-<span class="hljs-attr">  group:</span>
-<span class="hljs-attr">    testpool:</span>
-<span class="hljs-attr">      - host:</span> server1
-<span class="hljs-attr">        weight:</span> <span class="hljs-number">0.4</span>
-<span class="hljs-attr">      - host:</span> server2
-<span class="hljs-attr">        weight:</span> <span class="hljs-number">0.6</span>
-</code></pre>
+<pre class="language yaml"><header>YAML Data</header><code><span class="hljs-comment"># Define remote hosts or host pools to be used through ssh.</span></code>
+<code><span class="hljs-attr">ssh:</span></code>
+<code><span class="hljs-attr">  server:</span></code>
+<code>    <span class="hljs-comment"># virtual name for server</span></code>
+<code><span class="hljs-attr">    server1:</span></code>
+<code>      <span class="hljs-comment"># hostname or ip to connect to</span></code>
+<code><span class="hljs-attr">      host:</span> localhost</code>
+<code>      <span class="hljs-comment"># connection port</span></code>
+<code><span class="hljs-attr">      port:</span>  ssh</code>
+<code>      <span class="hljs-comment"># user to login as</span></code>
+<code><span class="hljs-attr">      username:</span> alex</code>
+<code>      <span class="hljs-comment"># (optionally) login using password</span></code>
+<code>      <span class="hljs-comment">#password: 'geheim'</span></code>
+<code>      <span class="hljs-comment"># (optionally) private key for login</span></code>
+<code><span class="hljs-attr">      privateKey:</span> &lt;&lt;&lt;file:///home/alex/.ssh/id_rsa&gt;&gt;<span class="hljs-string">&gt;</span></code>
+<code><span class="hljs-string">      # the passphrase for the key (if necessary)</span></code>
+<code><span class="hljs-string">      #passphrase: '.....'</span></code>
+<code><span class="hljs-string">      # the host used for hostbased authentication</span></code>
+<code><span class="hljs-string">      #localHostname: '...'</span></code>
+<code><span class="hljs-string">      # the username for host based authentcation</span></code>
+<code><span class="hljs-string">      #localUsername: '...'</span></code>
+<code><span class="hljs-string">      # time for sending keepalive packets</span></code>
+<code><span class="hljs-string"></span><span class="hljs-attr">      keepaliveIntervall:</span> <span class="hljs-number">1</span>s</code>
+<code>      <span class="hljs-comment"># the maximum time for the ssh handshake</span></code>
+<code><span class="hljs-attr">      readyTimeout:</span> <span class="hljs-number">20</span>s</code>
+<code>      <span class="hljs-comment"># maximum load to start here per each cpu</span></code>
+<code><span class="hljs-attr">      startload:</span> <span class="hljs-number">2.4</span></code>
+<code>      <span class="hljs-comment"># maximum number of parallel sessions on this connection</span></code>
+<code>      <span class="hljs-comment">#maxSessions: 4</span></code>
+<code>      <span class="hljs-comment"># debug also server communication</span></code>
+<code><span class="hljs-attr">      debug:</span> <span class="hljs-literal">false</span></code>
+<code><span class="hljs-attr">    server2:</span></code>
+<code><span class="hljs-attr">      host:</span> <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span></code>
+<code><span class="hljs-attr">      port:</span>  ssh</code>
+<code><span class="hljs-attr">      username:</span> alex</code>
+<code><span class="hljs-attr">      password:</span> dontknow</code>
+<code><span class="hljs-attr">      maxConnections:</span> <span class="hljs-number">5</span></code>
+<code></code>
+<code><span class="hljs-attr">exec:</span></code>
+<code><span class="hljs-attr">  group:</span></code>
+<code><span class="hljs-attr">    testpool:</span></code>
+<code><span class="hljs-bullet">      -</span> server1</code>
+<code><span class="hljs-bullet">      -</span> server2</code></pre>
 <p>As seen above there are two servers defined to access as <code>server1</code> and <code>server2</code>
 both are the localhost for test purpose.</p>
-<p>The <code>group</code> area can be used to define some server groups. commands which should
-be executed in a group will be run on one server of the group. Which one will
-be decided based on load balancing.</p>
-<p>To use one of these send it's name (key) or that of an group as <code>remote</code> parameter
-in the constructor.</p>
-<p>If you use this module in your app call the <code>Exec.setup()</code> method before initialization
-of the config module:</p>
-<pre><code class="coffee">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
-Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
-schema = <span class="hljs-built_in">require</span> <span class="hljs-string">'./configSchema'</span>
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span></span>
-
-  @setup: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-    <span class="hljs-comment"># setup module configs first</span>
-    async.each [Exec], <span class="hljs-function"><span class="hljs-params">(mod, cb)</span> -&gt;</span>
-      mod.setup cb
-    , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-      <span class="hljs-comment"># add schema for app's configuration</span>
-      config.setSchema <span class="hljs-string">'/app'</span>, schema
-      <span class="hljs-comment"># extend module search path</span>
-      config.register <span class="hljs-string">'app'</span>, fspath.dirname __dirname
-      cb()
-
-  @init: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-    config.init (err) =&gt;
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-      @conf = config.get <span class="hljs-string">'/app'</span>
-      cb()
-</code></pre>
-<div class="pilwrap" id="setup-execution">
-  <h2>
-    <a href="#setup-execution" name="setup-execution" class="pilcrow"></a>
-Setup Execution
-  </h2>
-</div>
+<h2 id="setup-execution">Setup Execution</h2>
 <p>To specify your executable you give an object with the following settings.</p>
-<div class="pilwrap" id="execution">
-  <h3>
-    <a href="#execution" name="execution" class="pilcrow"></a>
-Execution
-  </h3>
-</div>
+<h3 id="execution">Execution</h3>
 <p>The basic settings needed are which command to start and with which parameter.
-Keep in mind that here no shell execution is possible so don't use bash basics
-without specifying 'sh' or 'bash' as the command.</p>
+Keep in mind that here no shell execution is possible so don’t use bash basics
+without specifying ‘sh’ or ‘bash’ as the command.</p>
 <ul>
 <li>cmd - (string) giving the command to call with path if needed</li>
 <li>args - (array) list of arguments to use in the given order</li>
@@ -434,23 +435,13 @@ without specifying 'sh' or 'bash' as the command.</p>
 <p>You can give both separately but you may also give attributes in the command
 string. If you do so the arguments will be extracted automatically so you need
 to use proper quoting.</p>
-<div class="pilwrap" id="remote">
-  <h3>
-    <a href="#remote" name="remote" class="pilcrow"></a>
-Remote
-  </h3>
-</div>
+<h3 id="remote">Remote</h3>
 <p>To run on a remote machine you only need the virtual name which has to correspond
 to the configuration (see above).</p>
 <ul>
 <li>remote - (string) reference to configuration</li>
 </ul>
-<div class="pilwrap" id="environment">
-  <h3>
-    <a href="#environment" name="environment" class="pilcrow"></a>
-Environment
-  </h3>
-</div>
+<h3 id="environment">Environment</h3>
 <ul>
 <li>cwd - (absolute path) the current working directory</li>
 <li>uid - (integer) the userid under which to run</li>
@@ -458,29 +449,19 @@ Environment
 <li>env - environment object for key-value-pairs</li>
 </ul>
 <p>If you want to use different user and/or group id you have to be root first.</p>
-<div class="pilwrap" id="priority">
-  <h3>
-    <a href="#priority" name="priority" class="pilcrow"></a>
-Priority
-  </h3>
-</div>
+<h3 id="priority">Priority</h3>
 <p>The priority defines which command to run first in case of multiple commands.</p>
 <ul>
 <li>priority - (string) name of configured priority to use</li>
 </ul>
 <p>By default the following priorities are possible: anytime, low, medium, high,
 immediately.</p>
-<div class="pilwrap" id="failure-management">
-  <h3>
-    <a href="#failure-management" name="failure-management" class="pilcrow"></a>
-Failure Management
-  </h3>
-</div>
+<h3 id="failure-management">Failure Management</h3>
 <ul>
 <li>timeout - time in milliseconds after that the process will be killed</li>
 <li>check - name of the check with
 <ul>
-<li>'true' as value if no args</li>
+<li>‘true’ as value if no args</li>
 <li>args - (array) list of arguments for the check if possible</li>
 <li>retry - (boolean) should retry on this failure</li>
 </ul>
@@ -498,33 +479,27 @@ Failure Management
 <li><code>exitCode code</code> - check that the exit code is in allowed list</li>
 <li><code>noStderr</code> - check that STDERR is empty</li>
 <li><code>noStdout</code> - check that STDOUT is empty</li>
-<li><code>stderr</code> - check that STDERR isn't empty</li>
-<li><code>stdout</code> - check that STDOUT isn't empty</li>
+<li><code>stderr</code> - check that STDERR isn’t empty</li>
+<li><code>stdout</code> - check that STDOUT isn’t empty</li>
 <li><code>matchStdout ok, report</code> - check that the given <code>ok</code> RegExp succeeds,
 if not output the result of the report RegExp</li>
 <li><code>matchStderr ok, report</code> - check that the given <code>ok</code> RegExp succeeds,
 if not output the result of the report RegExp</li>
-<li><code>notMatchStderr fail</code> - check that the <code>fail</code> RegExp don't match</li>
+<li><code>notMatchStderr fail</code> - check that the <code>fail</code> RegExp don’t match</li>
 <li><code>stdoutLines min, max</code> - check that the output has the correct number of lines</li>
 </ul>
 <p>This are only the general checks. There may be more command specific matches
 which you may use.</p>
 <p>As an example you may use:</p>
-<pre><code class="coffee">Exec.run
-  cmd: <span class="hljs-string">'ffmpeg'</span>
-  args: [<span class="hljs-string">'001.wma'</span>, <span class="hljs-string">'001.mp3'</span>]
-  priority: medium
-  check:
-    noExitCode: <span class="hljs-literal">true</span>
-    matchStdErr:
-      args: [<span class="hljs-regexp">/Succeeded/</span>, <span class="hljs-regexp">/Failed: (\w+)/</span>]
-</code></pre>
-<div class="pilwrap" id="events">
-  <h3>
-    <a href="#events" name="events" class="pilcrow"></a>
-Events
-  </h3>
-</div>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>Exec.run</code>
+<code>  cmd: <span class="hljs-string">'ffmpeg'</span></code>
+<code>  args: [<span class="hljs-string">'001.wma'</span>, <span class="hljs-string">'001.mp3'</span>]</code>
+<code>  priority: medium</code>
+<code>  check:</code>
+<code>    noExitCode: <span class="hljs-literal">true</span></code>
+<code>    matchStdErr:</code>
+<code>      args: [<span class="hljs-regexp">/Succeeded/</span>, <span class="hljs-regexp">/Failed: (\w+)/</span>]</code></pre>
+<h3 id="events">Events</h3>
 <p>The following events are possible to use:</p>
 <ul>
 <li><code>wait</code> - (ms) wait some milliseconds before checking again</li>
@@ -533,52 +508,25 @@ Events
 <li><code>end</code>- (exitCode) if execution stopped</li>
 </ul>
 <p>To use events to immediately see what goes on you will call the execution like:</p>
-<pre><code class="coffee">Exec.init (err) -&gt;
-  <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-  proc = <span class="hljs-keyword">new</span> Exec
-    cmd: <span class="hljs-string">'ffmpeg'</span>
-    args: [<span class="hljs-string">'001.wma'</span>, <span class="hljs-string">'001.mp3'</span>]
-    priority: medium
-    check:
-      noExitCode: <span class="hljs-literal">true</span>
-      matchStdErr:
-        args: [<span class="hljs-regexp">/Succeeded/</span>, <span class="hljs-regexp">/Failed: (\w+)/</span>]
-  proc.<span class="hljs-literal">on</span> <span class="hljs-string">'stdout'</span>, <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span> <span class="hljs-built_in">console</span>.log line
-  proc.<span class="hljs-literal">on</span> <span class="hljs-string">'stderr'</span>, <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span> <span class="hljs-built_in">console</span>.error line
-  proc.<span class="hljs-literal">on</span> <span class="hljs-string">'done'</span>, <span class="hljs-function"><span class="hljs-params">(code)</span> -&gt;</span> <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Exit with code <span class="hljs-subst">#{code}</span>"</span>
-  proc.run (err) -&gt;
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-</code></pre>
+<pre class="language coffeescript"><header>CoffeeScript Code</header><code>Exec.init (err) -&gt;</code>
+<code>  <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</code>
+<code>  proc = <span class="hljs-keyword">new</span> Exec</code>
+<code>    cmd: <span class="hljs-string">'ffmpeg'</span></code>
+<code>    args: [<span class="hljs-string">'001.wma'</span>, <span class="hljs-string">'001.mp3'</span>]</code>
+<code>    priority: medium</code>
+<code>    check:</code>
+<code>      noExitCode: <span class="hljs-literal">true</span></code>
+<code>      matchStdErr:</code>
+<code>        args: [<span class="hljs-regexp">/Succeeded/</span>, <span class="hljs-regexp">/Failed: (\w+)/</span>]</code>
+<code>  proc.<span class="hljs-literal">on</span> <span class="hljs-string">'stdout'</span>, <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span> <span class="hljs-built_in">console</span>.log line</code>
+<code>  proc.<span class="hljs-literal">on</span> <span class="hljs-string">'stderr'</span>, <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span> <span class="hljs-built_in">console</span>.error line</code>
+<code>  proc.<span class="hljs-literal">on</span> <span class="hljs-string">'done'</span>, <span class="hljs-function"><span class="hljs-params">(code)</span> -&gt;</span> <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Exit with code <span class="hljs-subst">#{code}</span>"</span></code>
+<code>  proc.run (err) -&gt;</code>
+<code>    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</code></pre>
 <p>This will always printout a line immediately if a full line comes from the
 command. Empty lines will be ignored.</p>
-<div class="pilwrap" id="stremas">
-  <h3>
-    <a href="#stremas" name="stremas" class="pilcrow"></a>
-Stremas
-  </h3>
-</div>
-<p>To concat execution with other exec instances  or other objects you may concat
-the following streams;</p>
-<ul>
-<li>input</li>
-<li>output</li>
-<li>error</li>
-</ul>
-<blockquote>
-<p>But this is not implemented, yet.</p>
-</blockquote>
-<div class="pilwrap" id="access-results">
-  <h2>
-    <a href="#access-results" name="access-results" class="pilcrow"></a>
-Access Results
-  </h2>
-</div>
-<div class="pilwrap" id="process">
-  <h3>
-    <a href="#process" name="process" class="pilcrow"></a>
-Process
-  </h3>
-</div>
+<h2 id="access-results">Access Results</h2>
+<h3 id="process">Process</h3>
 <p>With this attribute you may get the following information:</p>
 <ul>
 <li>exec.process.host - remote host identifier</li>
@@ -587,12 +535,7 @@ Process
 <li>exec.process.end - end time</li>
 <li>exec.process.error - system error</li>
 </ul>
-<div class="pilwrap" id="tries">
-  <h3>
-    <a href="#tries" name="tries" class="pilcrow"></a>
-Tries
-  </h3>
-</div>
+<h3 id="tries">Tries</h3>
 <p>If multiple tries are done you may access the information of each try:</p>
 <ul>
 <li>exec.tries[n].process - first calls</li>
@@ -600,12 +543,7 @@ Tries
 <li>exec.process - last run</li>
 <li>exec.result - last run</li>
 </ul>
-<div class="pilwrap" id="results">
-  <h3>
-    <a href="#results" name="results" class="pilcrow"></a>
-Results
-  </h3>
-</div>
+<h3 id="results">Results</h3>
 <p>The result code and maybe error of the defined checks may be red directly:</p>
 <ul>
 <li>exec.result.code</li>
@@ -632,25 +570,52 @@ in the proper order. If order of messages matters better directly access them:</
 <li>exec.stdout(exec.tries[0].result)</li>
 <li>exec.stderr(exec.tries[0].result)</li>
 </ul>
-<div class="pilwrap" id="license">
-  <h2>
-    <a href="#license" name="license" class="pilcrow"></a>
-License
-  </h2>
-</div>
-<p>Copyright 2015-2016 Alexander Schilling</p>
-<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+<h2 id="license">License</h2>
+<p>© Copyright 2015-2016 Alexander Schilling</p>
+<p>Licensed under the Apache License, Version 2.0 (the “License”);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
 <blockquote>
 <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
 </blockquote>
 <p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+distributed under the License is distributed on an “AS IS” BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.</p>
-</div>
-  </div>
-</body>
+</main>
+        </div>
+        <div class="col-sm-3 col-cm-pull-9 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="header">
+              <a href="README.md.html">Alinex Exec</a>
+            </li>
+                <li class="active level0">
+                  <a href="README.md.html" title="Alinex Exec: Readme (/README.md)">Readme <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="level0">
+                  <a href="src/index.coffee.html" title="Execution class - API Usage (/src/index.coffee)">API Usage</a>
+                </li>
+                <li class="level1">
+                  <a href="src/check.coffee.html" title="Result checks (/src/check.coffee)">Result checks</a>
+                </li>
+                <li class="level1">
+                  <a href="src/configSchema.coffee.html" title="Configuration (/src/configSchema.coffee)">Configuration</a>
+                </li>
+                <li class="level0">
+                  <a href="Changelog.md.html" title="Version changes (/Changelog.md)">Version changes</a>
+                </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript"><!--
+    $(".table-of-contents").bind("mouseleave", function(event) { $(".table-of-contents").scrollTop(0); });
+    //--></script>
+  </body>
 </html>
