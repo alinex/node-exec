@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "alinex-builder": "^2.1.1",
-    "alinex-validator": "^2.1.0",
+    "alinex-validator": "^2.1.1",
     "chai": "^3.5.0"
   },
   "optionalDependencies": {},

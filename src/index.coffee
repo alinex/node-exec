@@ -20,7 +20,7 @@ ssh = require 'alinex-ssh'
 validator = null # loaded on demand
 # internal helpers
 schema = require './configSchema'
-sshSchema = null
+sshSchema = require 'alinex-ssh/lib/configSchema'
 check = require './check'
 
 
@@ -107,6 +107,44 @@ class Exec extends EventEmitter
     @setup (err) ->
       return cb err if err
       config.init cb
+
+
+  # Schema definition for setup of `Exec` objects.
+  #
+  # @type {Object}
+  @schema:
+    type: 'object'
+    allowedKeys: true
+    keys:
+      remote: sshSchema.keys.group.entries[0].entries
+      cmd:
+        title: "Command"
+        description: "the command to execute (with optional parameters)"
+        type: 'string'
+      args:
+        title: "Arguments"
+        description: "the list of command arguments (if not given in command)"
+        type: 'array'
+      cwd:
+        type: 'string'
+      uid:
+        type: 'any'
+      gid:
+        type: 'any'
+      env:
+        type: 'object'
+      priority:
+        type: 'string'
+        list: if config.get '/exec/priority/level'
+          Object.keys config.get '/exec/priority/level'
+        else
+          null
+      timeout:
+        type: 'integer'
+      check:
+        type: 'object'
+      retry:
+        type: 'object'
 
 
   # Worker process
@@ -215,54 +253,28 @@ class Exec extends EventEmitter
   @name Exec
   @param {Object} setup the job definition
   @return {Exec} object containing the following properties:
+
+  ::: detail setup - Schema Definition
   - `id` - `Integer` unique id of element
   - `setup` - `Object` configuration of job
-    - `remote` - `String|Object|Array<Object>` ssh connection
-    - `cmd` - `String` command to execute (with optional parameters)
-    - `args` - `Array<String>` list of command arguments
-    - `priority` - `String` priority to use
+    {@schema #schema}
   - `name` - `String` connection URI for debug messages
   - `host` - `String` used in vital data list
   - `result` - `Object`
     - `start` - `Date` of execution start
     - `end` - `Date` of execution end
+  :::
   ###
   constructor: (@setup) ->
     # check the setup
     if debug.enabled
       validator ?= require 'alinex-validator'
-      sshSchema ?= require 'alinex-ssh/lib/configSchema'
       try
         validator.checkSync
           name: 'execCall'
           title: "Exec Setup"
           value: @setup
-          schema:
-            type: 'object'
-            allowedKeys: true
-            keys:
-              remote: sshSchema.keys.group.entries[0].entries
-              cmd:
-                type: 'string'
-              args:
-                type: 'array'
-              cwd:
-                type: 'string'
-              uid:
-                type: 'any'
-              gid:
-                type: 'any'
-              env:
-                type: 'object'
-              priority:
-                type: 'string'
-                list: Object.keys config.get '/exec/priority/level'
-              timeout:
-                type: 'integer'
-              check:
-                type: 'object'
-              retry:
-                type: 'object'
+          schema: Exec.schema
       catch error
         debug "called with " + util.inspect @setup, {depth: null}
         throw error
