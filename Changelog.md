@@ -4,6 +4,56 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.0 (2016-11-26)
+-------------------------------------------------
+Complete restructuring with complete use of alinex-ssh for remote connections.
+
+- Update alinex-validator@2.1.1
+- Add schema checking on debug.
+- Optimize debug calls if not used.
+- Update alinex-ssh@2.1.2 async@2.1.4 debug@2.3.3
+- Use new conn() method from next bugfix version of alinex-ssh.
+- Passing all tests again.
+- Fix code error if no connection could be established.
+- Setup tests for remote connections.
+- More time for timeout test.
+- Repair vital check for local commands.
+- Restructure but with problems in vital check.
+- Update alinex-ssh@2.1.1
+- Update description of new remote calls.
+- Upgrade alinex-ssh@2.1.0
+- Change code to support groups and collect multiple vital data.
+- Remove debugging in response checking.
+- Fix response checking.
+- Update documentation.
+- Run simple execution.
+- Run simple execution.
+- Change configuration.
+- Update packages to new ssh module.
+- Replace sshtunnel with newer ssh module.
+- Allow all tests to run.
+- Fix noExitCode check which was broken.
+- Fix to work with new list of connections for remote servers.
+- Fix schema definition.
+- Changed data reference.
+- Merge changes.
+- Documented helper methods.
+- Extend internal documentation.
+- Document check routines.
+- Update internal documentation of Exec class.
+- Set immediately processing as default.
+- Change structure for new documentation.
+- Don't break on undefined environment setting.
+- Rename links to Alinex Namespace.
+- Add copyright sign.
+- Fix commandline output for environment settings containing whitespace.
+- Add last 5 lines of error code as description on noExitCode check.
+- Enlarge timeouts.
+- Test travis build with full env.
+- Try to detect problems in travis.
+- Updated alinex-builder package.
+- Add verbose mode to default test because travis may stop otherwise.
+
 Version 1.1.3 (2016-05-18)
 -------------------------------------------------
 Better event support.
